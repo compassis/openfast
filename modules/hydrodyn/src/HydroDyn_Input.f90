@@ -17,6 +17,9 @@
 ! limitations under the License.
 !    
 !**********************************************************************************************************************************
+
+#define SeaFEM_active   
+    
 MODULE HydroDyn_Input
 
       ! This MODULE stores variables used for input.
@@ -900,6 +903,19 @@ SUBROUTINE HydroDynInput_GetInput( InitInp, ErrStat, ErrMsg )
          CALL CleanUp()
          RETURN
       END IF
+      
+#ifdef SeaFEM_active
+      
+      ! HasSeaFEM - Flag indicating if HydroDyn is using the usual solver or SeaFEM.
+
+   CALL ReadVar ( UnIn, FileName, InitInp%HasSeaFEM, 'HasSeaFEM', 'Using SeaFEM', ErrStat2, ErrMsg2, UnEchoLocal )
+      CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDynInput_GetInput' )
+      IF (ErrStat >= AbortErrLev) THEN
+         CALL CleanUp()
+         RETURN
+      END IF
+
+#endif      
 
       ! ExctnMod  - Wave Excitation model {0: None, 1: DFT, 2: state-space} (switch)
       ! [STATE-SPACE REQUIRES *.ssexctn INPUT FILE]
