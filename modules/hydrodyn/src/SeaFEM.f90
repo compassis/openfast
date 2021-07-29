@@ -52,6 +52,119 @@ MODULE SeaFEM
         TYPE(SeaFEM_InitOutputType),      INTENT(  OUT)  :: InitOut     ! Output for initialization routine
         INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
         CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
+        
+        ! local variables
+         
+        INTEGER(IntKi)                                    :: NumOuts                           
+        INTEGER(IntKi)                                    :: ErrStat2                            ! local error status
+        CHARACTER(1024)                                   :: ErrMsg2                             ! local error message
+      
+        ! Initialize variables
+
+        ErrStat = ErrID_None
+        ErrMsg  = ""
+        NumOuts = 2
+        
+        ! Initialize the NWTC Subroutine Library
+
+        CALL NWTC_Init( )
+        
+        ! Display the module information
+
+        CALL DispNVD( SeaFEM_Ver )
+
+        ! Call SeaFEM to obtain initial values (Time, Gravity and TMax)
+      
+        ! Define parameters here:
+
+        p%DT  = Interval
+        
+        ! Define initial system states here:
+
+        x%DummyContState           = 0
+        xd%DummyDiscState          = 0
+        z%DummyConstrState         = 0
+        OtherState%T               = 0.0
+        OtherState%perDOF          = 0
+        OtherState%Out_Flag        = 1
+
+        ! Define initial guess for the system inputs here:
+
+        ! Define system output initializations (set up mesh) here:
+      
+        ! Create the input and output meshes associated with lumped load at the WAMIT reference point (WRP)
+      
+        CALL MeshCreate( BlankMesh         = u%PRPMesh         &  
+                        ,IOS               = COMPONENT_INPUT   &
+                        ,Nnodes            = 1                 &
+                        ,ErrStat           = ErrStat2          &
+                        ,ErrMess           = ErrMsg2           &
+                        ,TranslationDisp   = .TRUE.            &
+                        ,Orientation       = .TRUE.            &
+                        ,TranslationVel    = .TRUE.            &
+                        ,RotationVel       = .TRUE.            &
+                        ,TranslationAcc    = .TRUE.            &
+                        ,RotationAcc       = .TRUE.)
+        
+        ! Create the node on the mesh
+         
+        CALL MeshPositionNode ( u%PRPMesh                          &
+                              , 1                                  &
+                              , (/0.0_ReKi, 0.0_ReKi, 0.0_ReKi/)   &  
+                              , ErrStat2                           &
+                              , ErrMsg2                            )
+      
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
+         
+         ! Create the mesh element
+         
+         CALL MeshConstructElement ( u%PRPMesh           &
+                                  , ELEMENT_POINT        &                         
+                                  , ErrStat2             &
+                                  , ErrMsg2              &
+                                  , 1                    )
+         
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
+         
+         CALL MeshCommit ( u%PRPMesh        &
+                         , ErrStat2         &
+                         , ErrMsg2          )
+   
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
+         
+         CALL MeshCopy (   SrcMesh      = u%PRPMesh              &
+                          ,DestMesh     = y%PRPMesh              &
+                          ,CtrlCode     = MESH_NEWCOPY           &
+                          ,IOS          = COMPONENT_OUTPUT       &
+                          ,ErrStat      = ErrStat2               &
+                          ,ErrMess      = ErrMsg2                &
+                          ,Force        = .TRUE.                 &
+                          ,Moment       = .TRUE.                 )
+     
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init:y%Mesh')
+         IF ( ErrStat >= AbortErrLev ) THEN
+            CALL CleanUp()
+            RETURN
+         END IF  
+         
+         u%PRPMesh%RemapFlag  = .TRUE.
+         y%PRPMesh%RemapFlag  = .TRUE.
+         
+        ALLOCATE( y%WriteOutput(NumOuts), STAT = ErrStat )
+        IF ( ErrStat/= 0 ) THEN
+            ErrStat = ErrID_Fatal
+            ErrMsg  = 'Error allocating output header and units arrays in SeaFEM_Init'
+            RETURN
+        END IF
+        
+        y%DummyOutput = 0
+        y%WriteOutput = 0
+        
+        CONTAINS
+
+        SUBROUTINE CleanUp()
+      
+        END SUBROUTINE CleanUp      
       
    END SUBROUTINE SeaFEM_Init
    
