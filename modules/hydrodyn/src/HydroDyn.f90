@@ -23,6 +23,9 @@
 ! limitations under the License.
 !    
 !**********************************************************************************************************************************
+
+#define SeaFEM_active
+    
 MODULE HydroDyn
 
    USE HydroDyn_Types   
@@ -294,6 +297,10 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
       TYPE(FIT_InitOutputType)               :: FIT_InitOut                       ! Initialization Outputs from the FIT module initialization
 #endif
 
+#ifdef SeaFEM_active
+      TYPE(SeaFEM_ConstraintStateType)       :: SeaFEM_z           ! Constraint states
+#endif 
+
       Real(ReKi)                             :: Np      
       Real(ReKi)                             :: dftreal
       Real(ReKi)                             :: dftimag 
@@ -376,7 +383,11 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
                  
       InitLocal%DT  = Interval
       
-      
+#ifdef SeaFEM_active      
+      IF (InitLocal%HasSeaFEM .eqv. .FALSE.) THEN
+          ! SeaFEM Is not used and therefore Hydrodyn works as it should normally do.
+#endif
+
          ! Verify all the necessary initialization data. Do this at the HydroDynInput module-level 
          !   because the HydroDynInput module is also responsible for parsing all this 
          !   initialization data from a file
@@ -1499,6 +1510,8 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
          END IF
          
       END IF
+      
+END IF      
 
 !==========================================
       
@@ -1520,6 +1533,19 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
                RETURN
             END IF
       END IF
+      
+#ifdef SeaFEM_active
+      IF (InitLocal%HasSeaFEM .eqv. .TRUE.) THEN
+          p%SeaFEM%TMax=InitInp%TMax
+          p%SeaFEM%Iterations=InitInp%Iterations
+         CALL SeaFEM_Init(InitLocal%SeaFEM, u%SeaFEM, p%SeaFEM, x%SeaFEM, xd%SeaFEM, z%SeaFEM, OtherState%SeaFEM, y%SeaFEM, Interval, InitOut%SeaFEM, ErrStat2, ErrMsg2 )
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'HydroDyn_Init')
+         IF ( ErrStat >= AbortErrLev ) THEN
+            CALL CleanUp()
+            RETURN
+         END IF
+      END IF
+#endif
       
    ! Create the input mesh associated with kinematics of the platform reference point       
       CALL MeshCreate( BlankMesh        = u%PRPMesh         &
