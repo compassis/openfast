@@ -184,12 +184,12 @@ MODULE SeaFEM
 
    END SUBROUTINE SeaFEM_End
    
-   SUBROUTINE SeaFEM_UpdateStates( Time, n, Inputs, InputTimes, p, x, xd, z, OtherState, ErrStat, ErrMsg )
+   SUBROUTINE SeaFEM_UpdateStates( t, n, Inputs, InputTimes, p, x, xd, z, OtherState, ErrStat, ErrMsg )
         ! Loose coupling routine for solving constraint states, integrating continuous states, and updating discrete states.
         ! Continuous, constraint, and discrete states are updated to values at t + Interval.
         !..................................................................................................................................
    
-              REAL(DbKi),                        INTENT(IN   ) :: Time            ! Current simulation time in seconds
+              REAL(DbKi),                        INTENT(IN   ) :: t            ! Current simulation time in seconds
               INTEGER(IntKi),                    INTENT(IN   ) :: n               ! Current step of the simulation: t = n*Interval
               TYPE(SeaFEM_InputType),            INTENT(IN   ) :: Inputs(:)       ! Inputs at InputTimes
               REAL(DbKi),                        INTENT(IN   ) :: InputTimes(:)   ! Times in seconds associated with Inputs
@@ -203,6 +203,58 @@ MODULE SeaFEM
               TYPE(SeaFEM_OtherStateType),       INTENT(INOUT) :: OtherState      ! Other/optimization states
               INTEGER(IntKi),                    INTENT(  OUT) :: ErrStat         ! Error status of the operation
               CHARACTER(*),                      INTENT(  OUT) :: ErrMsg          ! Error message if ErrStat /= ErrID_None
+              
+              ! Local variables
+
+              TYPE(SeaFEM_ContinuousStateType)                 :: dxdt            ! Continuous state derivatives at t
+              TYPE(SeaFEM_DiscreteStateType)                   :: xd_t            ! Discrete states at t (copy)
+              TYPE(SeaFEM_ConstraintStateType)                 :: z_Residual      ! Residual of the constraint state functions (Z)
+              TYPE(SeaFEM_InputType)                           :: u               ! Instantaneous inputs
+              INTEGER(IntKi)                                    :: ErrStat2        ! Error status of the operation (secondary error)
+              CHARACTER(LEN(ErrMsg))                            :: ErrMsg2         ! Error message if ErrStat2 /= ErrID_None
+              
+              ! Initialize variables
+
+              ErrStat   = ErrID_None           ! no error has occurred
+              ErrMsg    = ""
+              
+              ! Get first time derivatives of continuous states (dxdt):
+
+              CALL SeaFEM_CalcContStateDeriv( t, u, p, x, xd, z, OtherState, dxdt, ErrStat, ErrMsg )
+              IF ( ErrStat >= AbortErrLev ) THEN
+                 CALL SeaFEM_DestroyContState( dxdt, ErrStat2, ErrMsg2)
+                 RETURN
+              END IF
+              
+              ! Update discrete states:
+              ! Note that xd [discrete state] is changed in SeaFEM_UpdateDiscState() so xd will now contain values at t+Interval
+              ! We'll first make a copy that contains xd at time t, which will be used in computing the constraint states
+              
+              CALL SeaFEM_CopyDiscState( xd, xd_t, MESH_NEWCOPY, ErrStat, ErrMsg )
+
+              CALL SeaFEM_UpdateDiscState( t, n, u, p, x, xd, z, OtherState, ErrStat, ErrMsg )
+              IF ( ErrStat >= AbortErrLev ) THEN
+                 CALL SeaFEM_DestroyConstrState( Z_Residual, ErrStat2, ErrMsg2)
+                 CALL SeaFEM_DestroyContState(   dxdt,       ErrStat2, ErrMsg2)
+                 CALL SeaFEM_DestroyDiscState(   xd_t,       ErrStat2, ErrMsg2) 
+                 RETURN
+              END IF
+              
+              ! Solve for the constraint states (z) here:
+              
+              CALL SeaFEM_CalcConstrStateResidual( t, u, p, x, xd_t, z, OtherState, Z_Residual, ErrStat, ErrMsg )
+              IF ( ErrStat >= AbortErrLev ) THEN
+                 CALL SeaFEM_DestroyConstrState( Z_Residual, ErrStat2, ErrMsg2)
+                 CALL SeaFEM_DestroyContState(   dxdt,       ErrStat2, ErrMsg2)
+                 CALL SeaFEM_DestroyDiscState(   xd_t,       ErrStat2, ErrMsg2) 
+                 RETURN
+              END IF
+              
+              ! Destroy local variables before returning
+         
+              CALL SeaFEM_DestroyConstrState( Z_Residual, ErrStat2, ErrMsg2)
+              CALL SeaFEM_DestroyContState(   dxdt,       ErrStat2, ErrMsg2)
+              CALL SeaFEM_DestroyDiscState(   xd_t,       ErrStat2, ErrMsg2) 
        
    END SUBROUTINE SeaFEM_UpdateStates
    
@@ -240,6 +292,15 @@ MODULE SeaFEM
                                                                               !     the input values described above
               INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
               CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
+              
+              ! Initialize ErrStat
+
+              ErrStat = ErrID_None
+              ErrMsg  = ""
+
+              ! Solve for the residual of the constraint state functions here:
+
+              Z_residual%DummyConstrState = 0
 
    END SUBROUTINE SeaFEM_CalcConstrStateResidual
    
@@ -257,6 +318,15 @@ MODULE SeaFEM
               TYPE(SeaFEM_ContinuousStateType), INTENT(  OUT)  :: dxdt        ! Continuous state derivatives at t
               INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
               CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
+              
+              ! Initialize ErrStat
+
+              ErrStat = ErrID_None
+              ErrMsg  = ""
+              
+              ! Compute the first time derivatives of the continuous states here:
+
+              dxdt%DummyContState = 0
 
    END SUBROUTINE SeaFEM_CalcContStateDeriv
    
@@ -275,6 +345,15 @@ MODULE SeaFEM
               TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
               INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
               CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
+              
+             ! Initialize ErrStat
+
+             ErrStat = ErrID_None
+             ErrMsg  = ""
+
+             ! Update discrete states here:
+
+             xd%DummyDiscState = 0.0  
 
    END SUBROUTINE SeaFEM_UpdateDiscState
    
