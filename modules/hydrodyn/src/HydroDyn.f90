@@ -34,6 +34,7 @@ MODULE HydroDyn
    USE HydroDyn_Output
    USE Current
    USE Waves2
+   USE SeaFEM
 #ifdef USE_FIT
    USE FIT_MODULES
    USE FIT_Types
