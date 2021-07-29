@@ -196,6 +196,7 @@ GOTO checkError
 :WAMIT
 :WAMIT2
 :Morison
+:SeaFEM
 
 SET CURR_LOC=%HD_Loc%
 SET Output_Loc=%CURR_LOC%
