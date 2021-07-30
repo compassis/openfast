@@ -20,7 +20,9 @@
 ! limitations under the License.
 !
 !**********************************************************************************************************************************
-PROGRAM FAST
+MODULE FAST
+    CONTAINS
+    SUBROUTINE FASTPROG(inputfile,inlen) BIND(C,name="FASTPROG")
 ! This program models 2- or 3-bladed turbines of a standard configuration.
 !
 ! noted compilation switches:
@@ -34,7 +36,7 @@ PROGRAM FAST
 USE FAST_Subs   ! all of the ModuleName and ModuleName_types modules are inherited from FAST_Subs
                        
 IMPLICIT  NONE
-   
+   !DEC$ ATTRIBUTES DLLEXPORT :: FASTPROG   
    ! Local parameters:
 REAL(DbKi),             PARAMETER     :: t_initial = 0.0_DbKi                    ! Initial time
 INTEGER(IntKi),         PARAMETER     :: NumTurbines = 1                         ! Note that CalcSteady linearization analysis and WrVTK_Modes should be performed with only 1 turbine
@@ -48,9 +50,10 @@ INTEGER(IntKi)                        :: ErrStat                                
 CHARACTER(ErrMsgLen)                  :: ErrMsg                                  ! Error message
 
    ! data for restart:
-CHARACTER(1000)                       :: InputFile                               ! String to hold the intput file name
+CHARACTER(kind=C_CHAR), DIMENSION(inlen)     :: InputFile                               ! String to hold the intput file name
+INTEGER(C_INT)                        :: inlen                                   ! Lenght of inputfile
 CHARACTER(1024)                       :: CheckpointRoot                          ! Rootname of the checkpoint file
-CHARACTER(20)                         :: FlagArg                                 ! flag argument from command line
+!CHARACTER(20)                         :: FlagArg                                 ! flag argument from command line
 INTEGER(IntKi)                        :: Restart_step                            ! step to start on (for restart) 
 
 
@@ -62,25 +65,25 @@ INTEGER(IntKi)                        :: Restart_step                           
    InputFile = ""
    CheckpointRoot = ""
 
-   CALL CheckArgs( InputFile, Flag=FlagArg, Arg2=CheckpointRoot )
-
-   IF ( TRIM(FlagArg) == 'RESTART' ) THEN ! Restart from checkpoint file
-      CALL FAST_RestoreFromCheckpoint_Tary(t_initial, Restart_step, Turbine, CheckpointRoot, ErrStat, ErrMsg  )
-         CALL CheckError( ErrStat, ErrMsg, 'during restore from checkpoint'  )
-         
-   ELSE IF ( TRIM(FlagArg) == 'VTKLIN' ) THEN ! Read checkpoint file to output linearization analysis, but don't continue time-marching
-      CALL FAST_RestoreForVTKModeShape_Tary(t_initial, Turbine, CheckpointRoot, ErrStat, ErrMsg  )
-         CALL CheckError( ErrStat, ErrMsg, 'during restore from checkpoint for mode shapes'  )
-
-      ! Note that this works only when NumTurbines==1 (we don't have files for each of the turbines...)
-      Restart_step = Turbine(1)%p_FAST%n_TMax_m1 + 1
-      CALL ExitThisProgram_T( Turbine(1), ErrID_None, .true., SkipRunTimeMsg = .TRUE. )
-      
-   ELSEIF ( LEN( TRIM(FlagArg) ) > 0 ) THEN ! Any other flag, end normally
-      CALL NormStop()
-
-
-   ELSE
+   !CALL CheckArgs( InputFile, Flag=FlagArg, Arg2=CheckpointRoot )
+   !
+   !IF ( TRIM(FlagArg) == 'RESTART' ) THEN ! Restart from checkpoint file
+   !   CALL FAST_RestoreFromCheckpoint_Tary(t_initial, Restart_step, Turbine, CheckpointRoot, ErrStat, ErrMsg  )
+   !      CALL CheckError( ErrStat, ErrMsg, 'during restore from checkpoint'  )
+   !      
+   !ELSE IF ( TRIM(FlagArg) == 'VTKLIN' ) THEN ! Read checkpoint file to output linearization analysis, but don't continue time-marching
+   !   CALL FAST_RestoreForVTKModeShape_Tary(t_initial, Turbine, CheckpointRoot, ErrStat, ErrMsg  )
+   !      CALL CheckError( ErrStat, ErrMsg, 'during restore from checkpoint for mode shapes'  )
+   !
+   !   ! Note that this works only when NumTurbines==1 (we don't have files for each of the turbines...)
+   !   Restart_step = Turbine(1)%p_FAST%n_TMax_m1 + 1
+   !   CALL ExitThisProgram_T( Turbine(1), ErrID_None, .true., SkipRunTimeMsg = .TRUE. )
+   !   
+   !ELSEIF ( LEN( TRIM(FlagArg) ) > 0 ) THEN ! Any other flag, end normally
+   !   CALL NormStop()
+   !
+   !
+   !ELSE
       Restart_step = 0
       
       DO i_turb = 1,NumTurbines
@@ -111,7 +114,7 @@ INTEGER(IntKi)                        :: Restart_step                           
          
          
       END DO
-   END IF
+!   END IF
    
 
       
@@ -205,5 +208,6 @@ CONTAINS
 
    END SUBROUTINE CheckError   
    !...............................................................................................................................
-END PROGRAM FAST
+    END SUBROUTINE FASTPROG
+END MODULE FAST
 !=======================================================================
