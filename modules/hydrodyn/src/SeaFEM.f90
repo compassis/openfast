@@ -6,6 +6,18 @@ MODULE SeaFEM
    
    IMPLICIT NONE
    
+   !DEC$ ATTRIBUTES C, EXTERN, DLLIMPORT :: Fast_waves_global
+   !TYPE(C_PTR) :: Fast_waves_global 
+   TYPE(C_FUNPTR) :: proc
+   PROCEDURE(EXCHANGE_FAST_DATA), pointer :: EXCHANGE_DATA
+   PROCEDURE(RUNNING_FAST_UPDATE), pointer :: UPDATE_SEAFEM
+   PROCEDURE(END_SF_TIMELOOP), pointer :: END_TIMELOOP
+   INTEGER(C_INTPTR_T) :: module_handle
+   TYPE(C_PTR) :: linux_handle=C_NULL_PTR
+   TYPE(C_FUNPTR) :: funptr
+   INTEGER, PARAMETER, PUBLIC :: RTLD_LAZY=1, RTLD_NOW=2, RTLD_GLOBAL=256, RTLD_LOCAL=0
+   CHARACTER(C_CHAR), DIMENSION(1), SAVE, TARGET, PRIVATE :: dummy_string="?"
+   
    PRIVATE
 
    TYPE(ProgDesc), PARAMETER            :: SeaFEM_Ver = ProgDesc( 'SeaFEM', 'v1.00.00', '01-July-2021' )
@@ -26,7 +38,111 @@ MODULE SeaFEM
    
    PUBLIC :: SeaFEM_UpdateDiscState                ! Tight coupling routine for updating discrete states
    
-   CONTAINS
+   PUBLIC :: EXCHANGE_FAST_DATA
+    
+   PUBLIC :: RUNNING_FAST_UPDATE
+   
+   !PUBLIC :: DLOpen, DLSym
+   
+   ABSTRACT INTERFACE
+        SUBROUTINE EXCHANGE_FAST_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,flag) BIND(C)
+        USE ISO_C_BINDING
+        IMPLICIT NONE
+        REAL(C_FLOAT), INTENT(OUT), DIMENSION(*) :: q,qdot,qdotdot
+        REAL(C_FLOAT), INTENT(IN), DIMENSION(*)  :: SeaFEM_Return_Forces
+        INTEGER(C_INT), INTENT(OUT)              :: flag
+        END SUBROUTINE EXCHANGE_FAST_DATA
+    END INTERFACE
+    
+    ABSTRACT INTERFACE
+        SUBROUTINE RUNNING_FAST_UPDATE() BIND(C)
+        USE ISO_C_BINDING
+        IMPLICIT NONE
+        END SUBROUTINE RUNNING_FAST_UPDATE
+    END INTERFACE
+    
+    ABSTRACT INTERFACE
+        SUBROUTINE END_SF_TIMELOOP() BIND(C)
+        USE ISO_C_BINDING
+        IMPLICIT NONE
+        END SUBROUTINE END_SF_TIMELOOP
+    END INTERFACE
+    
+    INTERFACE 
+        FUNCTION LoadLibrary(lpFileName) BIND(C,NAME='LoadLibraryA')
+            USE, INTRINSIC :: ISO_C_BINDING, ONLY: C_INTPTR_T, C_CHAR
+            IMPLICIT NONE 
+            CHARACTER(KIND=C_CHAR) :: lpFileName(*) 
+            !GCC$ ATTRIBUTES STDCALL :: LoadLibrary 
+            !DEC$ ATTRIBUTES STDCALL :: LoadLibrary
+            INTEGER(C_INTPTR_T) :: LoadLibrary 
+        END FUNCTION LoadLibrary 
+
+        FUNCTION GetProcAddress(hModule, lpProcName)  & BIND(C, NAME='GetProcAddress')
+            USE, INTRINSIC :: ISO_C_BINDING, ONLY:  & 
+                C_FUNPTR, C_INTPTR_T, C_CHAR
+            IMPLICIT NONE
+            !GCC$ ATTRIBUTES STDCALL :: GetProcAddress
+            !DEC$ ATTRIBUTES STDCALL :: GetProcAddress
+            TYPE(C_FUNPTR) :: GetProcAddress
+            INTEGER(C_INTPTR_T), VALUE :: hModule
+            CHARACTER(KIND=C_CHAR) :: lpProcName(*)
+         END FUNCTION GetProcAddress  
+         
+         FUNCTION GetModuleHandle(lpModuleName)  & BIND(C, NAME='GetModuleHandle')
+            USE, INTRINSIC :: ISO_C_BINDING, ONLY:  & 
+                C_FUNPTR, C_CHAR
+            IMPLICIT NONE
+            !GCC$ ATTRIBUTES STDCALL :: GetModuleHandle
+            !DEC$ ATTRIBUTES STDCALL :: GetModuleHandle
+            TYPE(C_FUNPTR) :: GetModuleHandle
+            CHARACTER(KIND=C_CHAR) :: lpModuleName(*)
+         END FUNCTION GetModuleHandle 
+    END INTERFACE
+    
+   !INTERFACE ! All we need is interfaces for the prototypes in <dlfcn.h>
+   !   FUNCTION DLOpen(file,mode) RESULT(handle) BIND(C,NAME="dlopen")
+   !      USE ISO_C_BINDING
+   !      CHARACTER(C_CHAR), DIMENSION(*), INTENT(IN) :: file
+   !      INTEGER(C_INT), VALUE :: mode
+   !      TYPE(C_PTR) :: handle
+   !   END FUNCTION
+   !   
+   !   FUNCTION DLSym(handle,name) RESULT(funptr) BIND(C,NAME="dlsym")
+   !      USE ISO_C_BINDING
+   !      TYPE(C_PTR), VALUE :: handle
+   !      CHARACTER(C_CHAR), DIMENSION(*), INTENT(IN) :: name
+   !      TYPE(C_FUNPTR) :: funptr ! A function pointer
+   !   END FUNCTION
+   !
+   !   FUNCTION DLError() RESULT(error) BIND(C,NAME="dlerror")
+   !      USE ISO_C_BINDING
+   !      TYPE(C_PTR) :: error
+   !   END FUNCTION         
+   !END INTERFACE
+   
+    CONTAINS
+    
+    FUNCTION C_F_STRING(CPTR) RESULT(FPTR)
+      ! Convert a null-terminated C string into a Fortran character array pointer
+      TYPE(C_PTR), INTENT(IN) :: CPTR ! The C address
+      CHARACTER(KIND=C_CHAR), DIMENSION(:), POINTER :: FPTR
+      
+      INTERFACE ! strlen is a standard C function from <string.h>
+         FUNCTION strlen(string) RESULT(len) BIND(C,NAME="strlen")
+            USE ISO_C_BINDING
+            TYPE(C_PTR), VALUE :: string ! A C pointer
+         END FUNCTION
+      END INTERFACE   
+      
+      IF(C_ASSOCIATED(CPTR)) THEN
+         CALL C_F_POINTER(FPTR=FPTR, CPTR=CPTR, SHAPE=[strlen(CPTR)])
+      ELSE
+         ! To avoid segfaults, associate FPTR with a dummy target:
+         FPTR=>dummy_string
+      END IF
+            
+   END FUNCTION
     
    SUBROUTINE SeaFEM_Init( InitInp, u, p, x, xd, z, OtherState, y, Interval, InitOut, ErrStat, ErrMsg )
         ! This routine is called at the start of the simulation to perform initialization steps.
