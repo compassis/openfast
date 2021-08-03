@@ -20,9 +20,9 @@
 ! limitations under the License.
 !
 !**********************************************************************************************************************************
-MODULE FAST
+MODULE PROGRAMFAST
     CONTAINS
-    SUBROUTINE FASTPROG(inputfile,inlen) BIND(C,name="FASTPROG")
+    SUBROUTINE FAST(inputfile,inlen) BIND(C,name="FAST")
 ! This program models 2- or 3-bladed turbines of a standard configuration.
 !
 ! noted compilation switches:
@@ -34,9 +34,10 @@ MODULE FAST
 
 
 USE FAST_Subs   ! all of the ModuleName and ModuleName_types modules are inherited from FAST_Subs
-                       
+USE ISO_C_BINDING
+
 IMPLICIT  NONE
-   !DEC$ ATTRIBUTES DLLEXPORT :: FASTPROG   
+   !DEC$ ATTRIBUTES DLLEXPORT :: FAST   
    ! Local parameters:
 REAL(DbKi),             PARAMETER     :: t_initial = 0.0_DbKi                    ! Initial time
 INTEGER(IntKi),         PARAMETER     :: NumTurbines = 1                         ! Note that CalcSteady linearization analysis and WrVTK_Modes should be performed with only 1 turbine
@@ -50,11 +51,13 @@ INTEGER(IntKi)                        :: ErrStat                                
 CHARACTER(ErrMsgLen)                  :: ErrMsg                                  ! Error message
 
    ! data for restart:
-CHARACTER(kind=C_CHAR), DIMENSION(inlen)     :: InputFile                               ! String to hold the intput file name
 INTEGER(C_INT)                        :: inlen                                   ! Lenght of inputfile
 CHARACTER(1024)                       :: CheckpointRoot                          ! Rootname of the checkpoint file
-!CHARACTER(20)                         :: FlagArg                                 ! flag argument from command line
+CHARACTER(20)                         :: FlagArg                                 ! flag argument from command line
 INTEGER(IntKi)                        :: Restart_step                            ! step to start on (for restart) 
+INTEGER(IntKi)                        :: i                                       ! iterator
+CHARACTER(kind=C_CHAR), DIMENSION(inlen)   :: inputfile                          ! Posible inputfile from SeaFEM
+CHARACTER(inlen)                      :: finfile                                 ! FAST standard character input
 
 
       !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -62,11 +65,11 @@ INTEGER(IntKi)                        :: Restart_step                           
       !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    CALL NWTC_Init() ! open console for writing
    ProgName = 'OpenFAST'
-   InputFile = ""
+  ! InputFile = ""
    CheckpointRoot = ""
 
-   !CALL CheckArgs( InputFile, Flag=FlagArg, Arg2=CheckpointRoot )
-   !
+!   CALL CheckArgs( InputFile, Flag=FlagArg, Arg2=CheckpointRoot )
+   
    !IF ( TRIM(FlagArg) == 'RESTART' ) THEN ! Restart from checkpoint file
    !   CALL FAST_RestoreFromCheckpoint_Tary(t_initial, Restart_step, Turbine, CheckpointRoot, ErrStat, ErrMsg  )
    !      CALL CheckError( ErrStat, ErrMsg, 'during restore from checkpoint'  )
@@ -84,14 +87,18 @@ INTEGER(IntKi)                        :: Restart_step                           
    !
    !
    !ELSE
-      Restart_step = 0
+      Restart_step = 0    
       
       DO i_turb = 1,NumTurbines
          !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
          ! initialization
          !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         
-         CALL FAST_InitializeAll_T( t_initial, i_turb, Turbine(i_turb), ErrStat, ErrMsg )     ! bjj: we need to get the input files for each turbine (not necessarily the same one)
+          
+        DO i=1,inlen
+                finfile(i:i)=inputfile(i)
+        END DO          
+          
+         CALL FAST_InitializeAll_T( t_initial, i_turb, Turbine(i_turb), ErrStat, ErrMsg, finfile )     ! bjj: we need to get the input files for each turbine (not necessarily the same one)
          CALL CheckError( ErrStat, ErrMsg, 'during module initialization' )
                         
       !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -114,7 +121,7 @@ INTEGER(IntKi)                        :: Restart_step                           
          
          
       END DO
-!   END IF
+   !END IF
    
 
       
@@ -208,6 +215,6 @@ CONTAINS
 
    END SUBROUTINE CheckError   
    !...............................................................................................................................
-    END SUBROUTINE FASTPROG
-END MODULE FAST
+    END SUBROUTINE FAST
+END MODULE PROGRAMFAST
 !=======================================================================

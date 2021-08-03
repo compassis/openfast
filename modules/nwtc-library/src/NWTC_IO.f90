@@ -2867,7 +2867,7 @@ END SUBROUTINE CheckR16Var
       CALL WrScr   ( NewLine//' Program terminated normally.' )
    END IF
    CALL WrScr    ( '' )
-   CALL ProgExit ( 0 )
+!   CALL ProgExit ( 0 )
 
 
    END SUBROUTINE NormStop
