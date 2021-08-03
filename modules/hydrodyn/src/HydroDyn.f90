@@ -1711,6 +1711,13 @@ END IF
       IF ( y%Morison%Mesh%Committed ) THEN 
          CALL MeshMapCreate( y%Morison%Mesh, m%AllHdroOrigin, m%HD_MeshMap%M_P_2_PRP_P,  ErrStat2, ErrMsg2  );CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName)
       ENDIF
+
+#ifdef SeaFEM_active
+      IF(InitLocal%HasSeaFEM .eqv. .FALSE.) THEN
+        !  CALL MeshMapCreate( y%Morison%LumpedMesh,  m%AllHdroOrigin, m%HD_MeshMap%M_P_2_PRP_P,  ErrStat2, ErrMsg2  );CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'HydroDyn_Init')
+        !  CALL MeshMapCreate( y%Morison%DistribMesh, m%AllHdroOrigin, m%HD_MeshMap%M_P_2_PRP_P,  ErrStat2, ErrMsg2  );CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'HydroDyn_Init')
+      END IF
+#endif
       
       IF ( ErrStat >= AbortErrLev ) THEN
          CALL CleanUp()

@@ -20,6 +20,9 @@
 ! limitations under the License.
 !**********************************************************************************************************************************
 !> This module contains the routines used by FAST to solve input-output equations and to advance states.
+
+#define SeaFEM_active 
+    
 MODULE FAST_Solver
 
    USE NWTC_Library
@@ -1699,6 +1702,17 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
     
    ErrStat = ErrID_None
    ErrMsg  = ""
+   
+#ifdef SeaFEM_active  
+   
+   !Variable used for SeaFEM to point that the Jacobian is being computed. Used to update the velocities and positions.
+   !BORJA: Se informa a SeaFEM si el Jacobiano se usa o no
+   IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+        OtherSt_HD%SeaFEM%calcJacobian=calcJacobian
+        OtherSt_HD%SeaFEM%flag_SeaFEM=0
+   END IF
+   
+#endif
 
    ! note this routine should be called only
    ! IF ( p_FAST%CompHydro == Module_HD .AND. p_FAST%CompSub == Module_None .and. p_FAST%CompElast /= Module_BD ) 
@@ -1778,6 +1792,12 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
             END IF         
          
          IF ( calcJacobian ) THEN
+             
+#ifdef SeaFEM_active             
+             IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+                OtherSt_HD%SeaFEM%flag_SeaFEM=1
+             END IF
+#endif
             
             !...............................
             ! Get ElastoDyn's contribution:
@@ -1818,7 +1838,14 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                u_perturb = u            
                CALL Perturb_u( i, u_perturb, y_ED_perturb=y_ED_perturb, perturb=ThisPerturb ) ! perturb u and y_ED by ThisPerturb [routine sets ThisPerturb]
                CALL Transfer_PlatformMotion_to_HD( y_ED_perturb%PlatformPtMesh, u_HD_perturb, MeshMapData, ErrStat2, ErrMsg2 ) ! get u_HD_perturb
-                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )                                   
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )   
+                  
+#ifdef SeaFEM_active                  
+               !Indicate to SeaFEM what degree of freedom is being perturbed.
+               IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+                    OtherSt_HD%SeaFEM%perDOF=i-6
+               END IF  
+#endif
                   
                ! calculate outputs with perturbed inputs:
                CALL HydroDyn_CalcOutput( this_time, u_HD_perturb, p_HD, x_HD, xd_HD, z_HD, OtherSt_HD, y_HD_perturb, m_HD, ErrStat2, ErrMsg2 )
