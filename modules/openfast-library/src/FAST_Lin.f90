@@ -913,12 +913,12 @@ SUBROUTINE FAST_Linearize_OP(t_global, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD,
    !.....................
    if ( p_FAST%CompHydro  == Module_HD ) then 
          ! get the jacobians
-      call HD_JacobianPInput( t_global, HD%Input(1), HD%p, HD%x(STATE_CURR), HD%xd(STATE_CURR), HD%z(STATE_CURR), HD%OtherSt(STATE_CURR), &
-                                 HD%y, HD%m, ErrStat2, ErrMsg2, dYdu=y_FAST%Lin%Modules(Module_HD)%Instance(1)%D, dXdu=y_FAST%Lin%Modules(Module_HD)%Instance(1)%B )
+      !call HD_JacobianPInput( t_global, HD%Input(1), HD%p, HD%x(STATE_CURR), HD%xd(STATE_CURR), HD%z(STATE_CURR), HD%OtherSt(STATE_CURR), &
+      !                           HD%y, HD%m, ErrStat2, ErrMsg2, dYdu=y_FAST%Lin%Modules(Module_HD)%Instance(1)%D, dXdu=y_FAST%Lin%Modules(Module_HD)%Instance(1)%B )
          call SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName)
       
-      call HD_JacobianPContState( t_global, HD%Input(1), HD%p, HD%x(STATE_CURR), HD%xd(STATE_CURR), HD%z(STATE_CURR), HD%OtherSt(STATE_CURR), &
-                                     HD%y, HD%m, ErrStat2, ErrMsg2, dYdx=y_FAST%Lin%Modules(Module_HD)%Instance(1)%C, dXdx=y_FAST%Lin%Modules(Module_HD)%Instance(1)%A )
+      !call HD_JacobianPContState( t_global, HD%Input(1), HD%p, HD%x(STATE_CURR), HD%xd(STATE_CURR), HD%z(STATE_CURR), HD%OtherSt(STATE_CURR), &
+      !                               HD%y, HD%m, ErrStat2, ErrMsg2, dYdx=y_FAST%Lin%Modules(Module_HD)%Instance(1)%C, dXdx=y_FAST%Lin%Modules(Module_HD)%Instance(1)%A )
          call SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName)
    
          ! get the operating point
