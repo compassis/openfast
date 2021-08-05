@@ -861,6 +861,13 @@ SUBROUTINE FAST_InitializeAll( t_initial, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, 
          ! if wave field needs an offset, modify these values (added at request of SOWFA developers):
       Init%InData_HD%PtfmLocationX = p_FAST%TurbinePos(1)
       Init%InData_HD%PtfmLocationY = p_FAST%TurbinePos(2)
+      
+#ifdef SeaFEM_active
+      
+      ! SeaFEM: Insert the number of iterations to perform so as to get a clue when to close the files.
+      InitInData_HD%Iterations=p_FAST%NumCrctn
+      
+#endif
 
       CALL HydroDyn_Init( Init%InData_HD, HD%Input(1), HD%p,  HD%x(STATE_CURR), HD%xd(STATE_CURR), HD%z(STATE_CURR), &
                           HD%OtherSt(STATE_CURR), HD%y, HD%m, p_FAST%dt_module( MODULE_HD ), Init%OutData_HD, ErrStat2, ErrMsg2 )

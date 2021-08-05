@@ -1990,7 +1990,7 @@ CONTAINS
                   
    end if
            
-   u_perturb(n) = u_perturb(n) + perturb
+   u_perturb(n) = u_perturb(n) + perturb*1.0e-0  !perturbacion
    
         
    END SUBROUTINE Perturb_u
