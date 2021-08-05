@@ -14,7 +14,6 @@ MODULE SeaFEM
    PROCEDURE(END_SF_TIMELOOP), pointer :: END_TIMELOOP
    INTEGER(C_INTPTR_T) :: module_handle
    TYPE(C_PTR) :: linux_handle=C_NULL_PTR
-   TYPE(C_FUNPTR) :: funptr
    INTEGER, PARAMETER, PUBLIC :: RTLD_LAZY=1, RTLD_NOW=2, RTLD_GLOBAL=256, RTLD_LOCAL=0
    CHARACTER(C_CHAR), DIMENSION(1), SAVE, TARGET, PRIVATE :: dummy_string="?"
    
@@ -42,7 +41,7 @@ MODULE SeaFEM
     
    PUBLIC :: RUNNING_FAST_UPDATE
    
-   !PUBLIC :: DLOpen, DLSym
+   PUBLIC :: DLOpen, DLSym
    
    ABSTRACT INTERFACE
         SUBROUTINE EXCHANGE_FAST_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,flag) BIND(C)
@@ -78,7 +77,7 @@ MODULE SeaFEM
             INTEGER(C_INTPTR_T) :: LoadLibrary 
         END FUNCTION LoadLibrary 
 
-        FUNCTION GetProcAddress(hModule, lpProcName)  & BIND(C, NAME='GetProcAddress')
+        FUNCTION GetProcAddress(hModule, lpProcName) BIND(C, NAME='GetProcAddress')
             USE, INTRINSIC :: ISO_C_BINDING, ONLY:  & 
                 C_FUNPTR, C_INTPTR_T, C_CHAR
             IMPLICIT NONE
@@ -89,7 +88,7 @@ MODULE SeaFEM
             CHARACTER(KIND=C_CHAR) :: lpProcName(*)
          END FUNCTION GetProcAddress  
          
-         FUNCTION GetModuleHandle(lpModuleName)  & BIND(C, NAME='GetModuleHandle')
+         FUNCTION GetModuleHandle(lpModuleName) BIND(C, NAME='GetModuleHandle')
             USE, INTRINSIC :: ISO_C_BINDING, ONLY:  & 
                 C_FUNPTR, C_CHAR
             IMPLICIT NONE
@@ -100,26 +99,26 @@ MODULE SeaFEM
          END FUNCTION GetModuleHandle 
     END INTERFACE
     
-   !INTERFACE ! All we need is interfaces for the prototypes in <dlfcn.h>
-   !   FUNCTION DLOpen(file,mode) RESULT(handle) BIND(C,NAME="dlopen")
-   !      USE ISO_C_BINDING
-   !      CHARACTER(C_CHAR), DIMENSION(*), INTENT(IN) :: file
-   !      INTEGER(C_INT), VALUE :: mode
-   !      TYPE(C_PTR) :: handle
-   !   END FUNCTION
-   !   
-   !   FUNCTION DLSym(handle,name) RESULT(funptr) BIND(C,NAME="dlsym")
-   !      USE ISO_C_BINDING
-   !      TYPE(C_PTR), VALUE :: handle
-   !      CHARACTER(C_CHAR), DIMENSION(*), INTENT(IN) :: name
-   !      TYPE(C_FUNPTR) :: funptr ! A function pointer
-   !   END FUNCTION
-   !
-   !   FUNCTION DLError() RESULT(error) BIND(C,NAME="dlerror")
-   !      USE ISO_C_BINDING
-   !      TYPE(C_PTR) :: error
-   !   END FUNCTION         
-   !END INTERFACE
+   INTERFACE ! All we need is interfaces for the prototypes in <dlfcn.h>
+      FUNCTION DLOpen(file,mode) RESULT(handle) BIND(C,NAME="dlopen")
+         USE ISO_C_BINDING
+         CHARACTER(C_CHAR), DIMENSION(*), INTENT(IN) :: file
+         INTEGER(C_INT), VALUE :: mode
+         TYPE(C_PTR) :: handle
+      END FUNCTION
+      
+      FUNCTION DLSym(handle,name) RESULT(funptr) BIND(C,NAME="dlsym")
+         USE ISO_C_BINDING
+         TYPE(C_PTR), VALUE :: handle
+         CHARACTER(C_CHAR), DIMENSION(*), INTENT(IN) :: name
+         TYPE(C_FUNPTR) :: funptr ! A function pointer
+      END FUNCTION
+   
+      FUNCTION DLError() RESULT(error) BIND(C,NAME="dlerror")
+         USE ISO_C_BINDING
+         TYPE(C_PTR) :: error
+      END FUNCTION         
+   END INTERFACE
    
     CONTAINS
     
@@ -180,6 +179,40 @@ MODULE SeaFEM
         ErrStat = ErrID_None
         ErrMsg  = ""
         NumOuts = 2
+        
+#ifdef _WIN32 
+      module_handle=LoadLibrary(C_NULL_CHAR)
+      proc=GetProcAddress(module_handle,"Exchange_Fast_Data"C)
+      CALL C_F_PROCPOINTER(proc,EXCHANGE_DATA)
+      proc=GetProcAddress(module_handle,"Running_Fast_Update"C)
+      CALL C_F_PROCPOINTER(proc,UPDATE_SEAFEM)
+      proc=GetProcAddress(module_handle,"End_Fast_Coupling"C)
+      CALL C_F_PROCPOINTER(proc,END_TIMELOOP)
+#else
+      linux_handle=DLOpen(C_NULL_CHAR,IOR(RTLD_NOW, RTLD_GLOBAL))
+      IF(.NOT.C_ASSOCIATED(linux_handle)) THEN
+        WRITE(*,*) "Error in dlopen: ", C_F_STRING(DLError())
+        STOP
+      END IF
+      proc=DLSym(linux_handle,"Exchange_Fast_Data"//C_NULL_CHAR)
+      IF(.NOT.C_ASSOCIATED(funptr)) THEN
+        WRITE(*,*) "Error in dlsym (Exchange_Fast_Data): ", C_F_STRING(DLError())
+        STOP
+      END IF
+      CALL C_F_PROCPOINTER(proc,EXCHANGE_DATA)
+      proc=DLSym(linux_handle,"Running_Fast_Update"//C_NULL_CHAR)
+      IF(.NOT.C_ASSOCIATED(funptr)) THEN
+        WRITE(*,*) "Error in dlsym (Running_Fast_Update): ", C_F_STRING(DLError())
+        STOP
+      END IF
+      CALL C_F_PROCPOINTER(proc,UPDATE_SEAFEM)
+      proc=DLSym(linux_handle,"End_Fast_Coupling"//C_NULL_CHAR)
+      IF(.NOT.C_ASSOCIATED(funptr)) THEN
+        WRITE(*,*) "Error in dlsym (End_Fast_Coupling): ", C_F_STRING(DLError())
+        STOP
+      END IF
+      CALL C_F_PROCPOINTER(proc,END_TIMELOOP)
+#endif
         
         ! Initialize the NWTC Subroutine Library
 
@@ -297,6 +330,41 @@ MODULE SeaFEM
               TYPE(SeaFEM_OutputType),          INTENT(INOUT)  :: y           ! System outputs
               INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
               CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
+              
+             ! Initialize ErrStat
+
+              ErrStat = ErrID_None
+              ErrMsg  = ""
+
+
+             ! Place any last minute operations or calculations here:
+
+
+             ! Close files here:
+
+
+
+             ! Destroy the input data:
+
+          CALL SeaFEM_DestroyInput( u, ErrStat, ErrMsg )
+
+
+             ! Destroy the parameter data:
+
+          CALL SeaFEM_DestroyParam( p, ErrStat, ErrMsg )
+
+
+             ! Destroy the state data:
+
+          CALL SeaFEM_DestroyContState(   x,           ErrStat, ErrMsg )
+          CALL SeaFEM_DestroyDiscState(   xd,          ErrStat, ErrMsg )
+          CALL SeaFEM_DestroyConstrState( z,           ErrStat, ErrMsg )
+          CALL SeaFEM_DestroyOtherState(  OtherState,  ErrStat, ErrMsg )
+
+
+             ! Destroy the output data:
+
+          CALL SeaFEM_DestroyOutput( y, ErrStat, ErrMsg )              
 
    END SUBROUTINE SeaFEM_End
    
@@ -398,22 +466,22 @@ MODULE SeaFEM
               REAL(ReKi)                           :: rotdisp(3)                              ! small angle rotational displacements
               REAL(ReKi)                           :: SeaFEM_Return_Forces(6)
               INTEGER(IntKi)                       :: I
+              INTEGER(IntKi)                       :: iBody, indxStart, indxEnd  ! Counters
               
               ! Initialize ErrStat
-
+   
               ErrStat = ErrID_None
               ErrMsg  = ""
               
-              ! Determine the rotational angles from the direction-cosine matrix
-              rotdisp = GetSmllRotAngs ( u%PRPMesh%Orientation(:,:,1), ErrStat2, ErrMsg2 )
-              CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )   
-              ! CALL SeaFEM routines here:
-              
-              !BORJA: Aqu\ED se obtienen los movimientos, velocidades y aceleraciones desde los datos de mesh.
-              !q         = reshape((/u%PRPMesh%TranslationDisp(:,1),rotdisp(:)/),(/6/))
-              qdot      = reshape((/u%PRPMesh%TranslationVel(:,1),u%PRPMesh%RotationVel(:,1)/),(/6/))
-              qdotsq    = abs(qdot)*qdot
-              qdotdot   = reshape((/u%PRPMesh%TranslationAcc(:,1),u%PRPMesh%RotationAcc(:,1)/),(/6/))
+                   ! Determine the rotational angles from the direction-cosine matrix
+                rotdisp = GetSmllRotAngs ( u%PRPMesh%Orientation(:,:,1), ErrStat2, ErrMsg2 )
+                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )                  
+
+                !BORJA: Aqu\ED se obtienen los movimientos, velocidades y aceleraciones desde los datos de mesh.
+                q      = reshape((/real(u%PRPMesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
+                qdot   = reshape((/u%PRPMesh%TranslationVel(:,1),u%PRPMesh%RotationVel(:,1)/),(/6/))
+                qdotsq   = abs(qdot)*qdot
+                qdotdot   = reshape((/u%PRPMesh%TranslationAcc(:,1),u%PRPMesh%RotationAcc(:,1)/),(/6/))   
               
               IF(OtherState%calcJacobian .AND. OtherState%perDOF.NE.0) THEN
                   ! Jacobian is being calculated but the velocities and positions are not being updated...

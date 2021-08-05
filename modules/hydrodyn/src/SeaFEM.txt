@@ -26,7 +26,6 @@ typedef   ^                            ^                             ReKi       
 typedef   ^                            ^                             DbKi                     TMax                            -          -          -         "Supplied by Driver:  The total simulation time"    "(sec)"
 
 
-
 # ..... States ....................................................................................................................
 # Define continuous (differentiable) states here:
 typedef    ^              ContinuousStateType ReKi     DummyContState - - -  "Remove this variable if you have continuous states" -
@@ -53,7 +52,6 @@ typedef  ^                OtherStateType    INTEGER   flag_SeaFEM - - - "Flag th
 typedef  ^               ParameterType       DbKi     DT - - - "Current timestep of the simulation" seconds
 typedef  ^               ParameterType       DbKi   TMax - - - "Supplied by Driver:  The total simulation time"    seconds
 typedef  ^               ParameterType    INTEGER   Iterations - - - "Total Number of iterations (corrections) that fast runs"    -
-
 
 # ..... Inputs ....................................................................................................................
 # Define inputs that are contained on the mesh here:
