@@ -226,4 +226,5 @@ typedef   ^                            OutputType                   Waves2_Outpu
 typedef   ^                            ^                            Morison_OutputType        Morison                         -          -          -         "Morison module outputs"  -
 typedef   ^                            ^                            SeaFEM_OutputType         SeaFEM                          -          -          -         "SeaFEM module outputs"  -
 typedef   ^                            OutputType                   MeshType                  WAMITMesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
+typedef   ^                            OutputType                   MeshType                  PRPMesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
 typedef   ^                            ^                            ReKi                      WriteOutput                    {:}         -          -         "Outputs to be written to the output file(s)"  -

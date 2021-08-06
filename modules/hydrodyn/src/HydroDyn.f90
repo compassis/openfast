@@ -2251,9 +2251,30 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
       
 #ifdef SeaFEM_active
       
+      !IF (InitLocal%HasSeaFEM .eqv. .TRUE.) THEN
+      !   
+      !END IF
+
       ! BORJA: Aqu\ED se hace el intercambio de informaci\F3n con el m\F3dulo de SeaFEM.
          
       IF ( u%SeaFEM%PRPMesh%Committed ) THEN  ! Make sure we are using WAMIT / there is a valid mesh
+          
+          rotdisp = GetSmllRotAngs ( u%PRPMesh%Orientation(:,:,1), ErrStat2, ErrMsg2 )
+             CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )                  
+
+          q         = reshape((/real(u%PRPMesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
+          qdot      = reshape((/u%PRPMesh%TranslationVel(:,1),u%PRPMesh%RotationVel(:,1)/),(/6/))
+          qdotsq    = abs(qdot)*qdot
+          qdotdot   = reshape((/u%PRPMesh%TranslationAcc(:,1),u%PRPMesh%RotationAcc(:,1)/),(/6/))
+      
+      
+             ! Compute the load contirbution from user-supplied added stiffness and damping
+         
+          m%F_PtfmAdd = p%AddF0(:,1) - matmul(p%AddCLin(:,:,1), q) - matmul(p%AddBLin(:,:,1), qdot) - matmul(p%AddBQuad(:,:,1), qdotsq)
+      
+             ! Attach to the output point mesh
+          y%PRPMesh%Force (:,1) = m%F_PtfmAdd(1:3)
+          y%PRPMesh%Moment(:,1) = m%F_PtfmAdd(4:6)      
          
          ! Copy the inputs from the HD mesh into the WAMIT mesh
          CALL MeshCopy( u%PRPMesh, u%SeaFEM%PRPMesh, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )   
@@ -2266,8 +2287,8 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )           
          ! Add WAMIT forces to the HydroDyn output mesh
          !WRITE(*,*) y%PRPMesh%Force (:,1), y%PRPMesh%Moment(:,1)
-         !y%PRPMesh%Force (:,1) = y%SeaFEM%PRPMesh%Force (:,1)
-         !y%PRPMesh%Moment(:,1) = y%SeaFEM%PRPMesh%Moment(:,1)
+         y%PRPMesh%Force (:,1) = y%SeaFEM%PRPMesh%Force (:,1)
+         y%PRPMesh%Moment(:,1) = y%SeaFEM%PRPMesh%Moment(:,1)
          !OtherState%F_Hydro = CalcLoadsAtWRP( y, u, OtherState%y_mapped, OtherState%AllHdroOrigin_position, OtherState%MrsnLumpedMesh_position, OtherState%MrsnDistribMesh_position, OtherState%HD_MeshMap, ErrStat2, ErrMsg2 )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )    
       ELSE
