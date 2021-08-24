@@ -2282,14 +2282,14 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
          IF ( ErrStat >= AbortErrLev ) RETURN
          
          ! BORJA: Esto es lo importante. Se llama a la funci\F3n de SeaFEM (definida en SeaFEM.f90).
-         !CALL SeaFEM_CalcOutput( Time, u%SeaFEM, p%SeaFEM, x%SeaFEM, xd%SeaFEM, SeaFEM_z, OtherState%SeaFEM, y%SeaFEM, m%SeaFEM, ErrStat2, ErrMsg2 )
-         !CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )           
-         !! Add WAMIT forces to the HydroDyn output mesh
-         !!WRITE(*,*) y%PRPMesh%Force (:,1), y%PRPMesh%Moment(:,1)
-         !y%Mesh%Force (:,1) = y%SeaFEM%Mesh%Force (:,1)
-         !y%Mesh%Moment(:,1) = y%SeaFEM%Mesh%Moment(:,1)
-         !OtherState%F_Hydro = CalcLoadsAtWRP( y, u, OtherState%AllHdroOrigin, u%Mesh, OtherState%MrsnMesh_position, OtherState%HD_MeshMap, ErrStat2, ErrMsg2 )
-         !CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )    
+         CALL SeaFEM_CalcOutput( Time, u%SeaFEM, p%SeaFEM, x%SeaFEM, xd%SeaFEM, SeaFEM_z, OtherState%SeaFEM, y%SeaFEM, m%SeaFEM, ErrStat2, ErrMsg2 )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )           
+         ! Add WAMIT forces to the HydroDyn output mesh
+         !WRITE(*,*) y%PRPMesh%Force (:,1), y%PRPMesh%Moment(:,1)
+         y%Mesh%Force (:,1) = y%SeaFEM%Mesh%Force (:,1)
+         y%Mesh%Moment(:,1) = y%SeaFEM%Mesh%Moment(:,1)
+         OtherState%F_Hydro = CalcLoadsAtWRP( y, u, OtherState%AllHdroOrigin, u%Mesh, OtherState%MrsnMesh_position, OtherState%HD_MeshMap, ErrStat2, ErrMsg2 )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )    
       ELSE
           
 #endif        
