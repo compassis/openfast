@@ -29,7 +29,7 @@ MODULE SeaFEM
    
    PUBLIC :: SeaFEM_UpdateStates                   ! Loose coupling routine for solving for constraint states, integrating continuous states, and updating discrete states
    
-  ! PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs   
+   PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs   
    
    PUBLIC :: SeaFEM_CalcConstrStateResidual        ! Tight coupling routine for returning the constraint state residual
    
