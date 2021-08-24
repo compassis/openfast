@@ -63,6 +63,7 @@ USE SS_Excitation_Types
 USE WAMIT_Types
 USE WAMIT2_Types
 USE Morison_Types
+USE SeaFEM_Types
 USE HydroDyn_Types
 USE IceFloe_Types
 USE OpenFOAM_Types

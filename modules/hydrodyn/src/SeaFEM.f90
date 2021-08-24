@@ -29,7 +29,7 @@ MODULE SeaFEM
    
    PUBLIC :: SeaFEM_UpdateStates                   ! Loose coupling routine for solving for constraint states, integrating continuous states, and updating discrete states
    
-   PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs   
+  ! PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs   
    
    PUBLIC :: SeaFEM_CalcConstrStateResidual        ! Tight coupling routine for returning the constraint state residual
    
@@ -143,7 +143,7 @@ MODULE SeaFEM
             
    END FUNCTION
     
-   SUBROUTINE SeaFEM_Init( InitInp, u, p, x, xd, z, OtherState, y, Interval, InitOut, ErrStat, ErrMsg )
+   SUBROUTINE SeaFEM_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOut, ErrStat, ErrMsg )
         ! This routine is called at the start of the simulation to perform initialization steps.
         ! The parameters are set here and not changed during the simulation.
         ! The initial states and initial guess for the input are defined.
@@ -158,6 +158,7 @@ MODULE SeaFEM
         TYPE(SeaFEM_OtherStateType),      INTENT(  OUT)  :: OtherState  ! Initial other/optimization states
         TYPE(SeaFEM_OutputType),          INTENT(  OUT)  :: y           ! Initial system outputs (outputs are not calculated;
                                                                         !   only the output mesh is initialized)
+        TYPE(SeaFEM_MiscVarType),         INTENT(  OUT)  :: m           !< Initial misc/optimization variables 
         REAL(DbKi),                       INTENT(INOUT)  :: Interval    ! Coupling interval in seconds: the rate that
                                                                         !   (1) SeaFEM_UpdateStates() is called in loose coupling &
                                                                         !   (2) SeaFEM_UpdateDiscState() is called in tight coupling.
@@ -243,7 +244,7 @@ MODULE SeaFEM
       
         ! Create the input and output meshes associated with lumped load at the WAMIT reference point (WRP)
       
-        CALL MeshCreate( BlankMesh         = u%PRPMesh         &  
+        CALL MeshCreate( BlankMesh         = u%Mesh         &  
                         ,IOS               = COMPONENT_INPUT   &
                         ,Nnodes            = 1                 &
                         ,ErrStat           = ErrStat2          &
@@ -257,7 +258,7 @@ MODULE SeaFEM
         
         ! Create the node on the mesh
          
-        CALL MeshPositionNode ( u%PRPMesh                          &
+        CALL MeshPositionNode ( u%Mesh                          &
                               , 1                                  &
                               , (/0.0_ReKi, 0.0_ReKi, 0.0_ReKi/)   &  
                               , ErrStat2                           &
@@ -267,7 +268,7 @@ MODULE SeaFEM
          
          ! Create the mesh element
          
-         CALL MeshConstructElement ( u%PRPMesh           &
+         CALL MeshConstructElement ( u%Mesh           &
                                   , ELEMENT_POINT        &                         
                                   , ErrStat2             &
                                   , ErrMsg2              &
@@ -275,14 +276,14 @@ MODULE SeaFEM
          
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
          
-         CALL MeshCommit ( u%PRPMesh        &
+         CALL MeshCommit ( u%Mesh        &
                          , ErrStat2         &
                          , ErrMsg2          )
    
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
          
-         CALL MeshCopy (   SrcMesh      = u%PRPMesh              &
-                          ,DestMesh     = y%PRPMesh              &
+         CALL MeshCopy (   SrcMesh      = u%Mesh              &
+                          ,DestMesh     = y%Mesh              &
                           ,CtrlCode     = MESH_NEWCOPY           &
                           ,IOS          = COMPONENT_OUTPUT       &
                           ,ErrStat      = ErrStat2               &
@@ -296,8 +297,8 @@ MODULE SeaFEM
             RETURN
          END IF  
          
-         u%PRPMesh%RemapFlag  = .TRUE.
-         y%PRPMesh%RemapFlag  = .TRUE.
+         u%Mesh%RemapFlag  = .TRUE.
+         y%Mesh%RemapFlag  = .TRUE.
          
         ALLOCATE( y%WriteOutput(NumOuts), STAT = ErrStat )
         IF ( ErrStat/= 0 ) THEN
@@ -317,7 +318,7 @@ MODULE SeaFEM
       
    END SUBROUTINE SeaFEM_Init
    
-   SUBROUTINE SeaFEM_End( u, p, x, xd, z, OtherState, y, ErrStat, ErrMsg )
+   SUBROUTINE SeaFEM_End( u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg )
         ! This routine is called at the end of the simulation.
         !..................................................................................................................................
 
@@ -328,6 +329,7 @@ MODULE SeaFEM
               TYPE(SeaFEM_ConstraintStateType), INTENT(INOUT)  :: z           ! Constraint states
               TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
               TYPE(SeaFEM_OutputType),          INTENT(INOUT)  :: y           ! System outputs
+              TYPE(SeaFEM_MiscVarType),         INTENT(INOUT)  :: m           !< Initial misc/optimization variables    
               INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
               CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
               
@@ -336,23 +338,17 @@ MODULE SeaFEM
               ErrStat = ErrID_None
               ErrMsg  = ""
 
-
              ! Place any last minute operations or calculations here:
 
-
              ! Close files here:
-
-
 
              ! Destroy the input data:
 
           CALL SeaFEM_DestroyInput( u, ErrStat, ErrMsg )
 
-
              ! Destroy the parameter data:
 
           CALL SeaFEM_DestroyParam( p, ErrStat, ErrMsg )
-
 
              ! Destroy the state data:
 
@@ -360,7 +356,10 @@ MODULE SeaFEM
           CALL SeaFEM_DestroyDiscState(   xd,          ErrStat, ErrMsg )
           CALL SeaFEM_DestroyConstrState( z,           ErrStat, ErrMsg )
           CALL SeaFEM_DestroyOtherState(  OtherState,  ErrStat, ErrMsg )
-
+          
+             ! Destroy misc variables:
+      
+          CALL SeaFEM_DestroyMisc( m, ErrStat, ErrMsg )
 
              ! Destroy the output data:
 
@@ -368,7 +367,7 @@ MODULE SeaFEM
 
    END SUBROUTINE SeaFEM_End
    
-   SUBROUTINE SeaFEM_UpdateStates( t, n, Inputs, InputTimes, p, x, xd, z, OtherState, ErrStat, ErrMsg )
+   SUBROUTINE SeaFEM_UpdateStates( t, n, Inputs, InputTimes, p, x, xd, z, OtherState, m, ErrStat, ErrMsg )
         ! Loose coupling routine for solving constraint states, integrating continuous states, and updating discrete states.
         ! Continuous, constraint, and discrete states are updated to values at t + Interval.
         !..................................................................................................................................
@@ -385,6 +384,7 @@ MODULE SeaFEM
               TYPE(SeaFEM_ConstraintStateType),  INTENT(INOUT) :: z               ! Input: Constraint states at t;
                                                                                   ! Output: Constraint states at t + Interval
               TYPE(SeaFEM_OtherStateType),       INTENT(INOUT) :: OtherState      ! Other/optimization states
+              TYPE(SeaFEM_MiscVarType),          INTENT(INOUT) :: m               !< Initial misc/optimization variables  
               INTEGER(IntKi),                    INTENT(  OUT) :: ErrStat         ! Error status of the operation
               CHARACTER(*),                      INTENT(  OUT) :: ErrMsg          ! Error message if ErrStat /= ErrID_None
               
@@ -394,8 +394,8 @@ MODULE SeaFEM
               TYPE(SeaFEM_DiscreteStateType)                   :: xd_t            ! Discrete states at t (copy)
               TYPE(SeaFEM_ConstraintStateType)                 :: z_Residual      ! Residual of the constraint state functions (Z)
               TYPE(SeaFEM_InputType)                           :: u               ! Instantaneous inputs
-              INTEGER(IntKi)                                    :: ErrStat2        ! Error status of the operation (secondary error)
-              CHARACTER(LEN(ErrMsg))                            :: ErrMsg2         ! Error message if ErrStat2 /= ErrID_None
+              INTEGER(IntKi)                                   :: ErrStat2        ! Error status of the operation (secondary error)
+              CHARACTER(LEN(ErrMsg))                           :: ErrMsg2         ! Error message if ErrStat2 /= ErrID_None
               
               ! Initialize variables
 
@@ -404,7 +404,7 @@ MODULE SeaFEM
               
               ! Get first time derivatives of continuous states (dxdt):
 
-              CALL SeaFEM_CalcContStateDeriv( t, u, p, x, xd, z, OtherState, dxdt, ErrStat, ErrMsg )
+              CALL SeaFEM_CalcContStateDeriv( t, u, p, x, xd, z, OtherState, m, dxdt, ErrStat, ErrMsg )
               IF ( ErrStat >= AbortErrLev ) THEN
                  CALL SeaFEM_DestroyContState( dxdt, ErrStat2, ErrMsg2)
                  RETURN
@@ -416,7 +416,7 @@ MODULE SeaFEM
               
               CALL SeaFEM_CopyDiscState( xd, xd_t, MESH_NEWCOPY, ErrStat, ErrMsg )
 
-              CALL SeaFEM_UpdateDiscState( t, n, u, p, x, xd, z, OtherState, ErrStat, ErrMsg )
+              CALL SeaFEM_UpdateDiscState( t, n, u, p, x, xd, z, OtherState, m, ErrStat, ErrMsg )
               IF ( ErrStat >= AbortErrLev ) THEN
                  CALL SeaFEM_DestroyConstrState( Z_Residual, ErrStat2, ErrMsg2)
                  CALL SeaFEM_DestroyContState(   dxdt,       ErrStat2, ErrMsg2)
@@ -426,7 +426,7 @@ MODULE SeaFEM
               
               ! Solve for the constraint states (z) here:
               
-              CALL SeaFEM_CalcConstrStateResidual( t, u, p, x, xd_t, z, OtherState, Z_Residual, ErrStat, ErrMsg )
+              CALL SeaFEM_CalcConstrStateResidual( t, u, p, x, xd_t, z, OtherState, m, Z_Residual, ErrStat, ErrMsg )
               IF ( ErrStat >= AbortErrLev ) THEN
                  CALL SeaFEM_DestroyConstrState( Z_Residual, ErrStat2, ErrMsg2)
                  CALL SeaFEM_DestroyContState(   dxdt,       ErrStat2, ErrMsg2)
@@ -442,91 +442,81 @@ MODULE SeaFEM
        
    END SUBROUTINE SeaFEM_UpdateStates
    
-   SUBROUTINE SeaFEM_CalcOutput( t, u, p, x, xd, z, OtherState, y, ErrStat, ErrMsg )
-        ! Routine for computing outputs, used in both loose and tight coupling.
-        !..................................................................................................................................
-        use, intrinsic :: iso_c_binding
+   !SUBROUTINE SeaFEM_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg)
+   !     ! Routine for computing outputs, used in both loose and tight coupling.
+   !     !..................................................................................................................................
+   !     use, intrinsic :: iso_c_binding
+   !
+   !           REAL(DbKi),                       INTENT(IN   )  :: t           ! Current simulation time in seconds
+   !           TYPE(SeaFEM_InputType),           INTENT(IN   )  :: u           ! Inputs at t
+   !           TYPE(SeaFEM_ParameterType),       INTENT(IN   )  :: p           ! Parameters
+   !           TYPE(SeaFEM_ContinuousStateType), INTENT(IN   )  :: x           ! Continuous states at t
+   !           TYPE(SeaFEM_DiscreteStateType),   INTENT(IN   )  :: xd          ! Discrete states at t
+   !           TYPE(SeaFEM_ConstraintStateType), INTENT(IN   )  :: z           ! Constraint states at t
+   !           TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
+   !           TYPE(SeaFEM_OutputType),          INTENT(INOUT)  :: y           ! Outputs computed at t (Input only so that mesh con-
+   !                                                                           !   nectivity information does not have to be recalculated)
+   !           TYPE(SeaFEM_MiscVarType),         INTENT(INOUT)  :: m           ! Other/optimization states
+   !           INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
+   !           CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
+   !           INTEGER(IntKi)                                   :: ErrStat2        ! Error status of the operation (secondary error)
+   !           CHARACTER(LEN(ErrMsg))                           :: ErrMsg2         ! Error message if ErrStat2 /= ErrID_None
+   !           !!REAL(ReKi)  :: kk = 9.81
+   !           
+   !           REAL(ReKi)                           :: q(6), qdot(6), qdotsq(6), qdotdot(6)
+   !           REAL(ReKi)                           :: rotdisp(3)                              ! small angle rotational displacements
+   !           REAL(ReKi)                           :: SeaFEM_Return_Forces(6)
+   !           INTEGER(IntKi)                       :: I
+   !           INTEGER(IntKi)                       :: iBody, indxStart, indxEnd  ! Counters
+   !           
+   !           !! Initialize ErrStat
+   !           !
+   !           !ErrStat = ErrID_None
+   !           !ErrMsg  = ""
+   !           !
+   !           !     ! Determine the rotational angles from the direction-cosine matrix
+   !           !  rotdisp = GetSmllRotAngs ( u%Mesh%Orientation(:,:,1), ErrStat2, ErrMsg2 )
+   !           !     CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )                  
+   !           !
+   !           !  !BORJA: Aqu\ED se obtienen los movimientos, velocidades y aceleraciones desde los datos de mesh.
+   !           !  q      = reshape((/real(u%Mesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
+   !           !  qdot   = reshape((/u%Mesh%TranslationVel(:,1),u%Mesh%RotationVel(:,1)/),(/6/))
+   !           !  qdotsq   = abs(qdot)*qdot
+   !           !  qdotdot   = reshape((/u%Mesh%TranslationAcc(:,1),u%Mesh%RotationAcc(:,1)/),(/6/)) 
+   !           !
+   !           !IF(OtherState%calcJacobian .AND. OtherState%perDOF.NE.0) THEN
+   !           !    ! Jacobian is being calculated but the velocities and positions are not being updated...
+   !           !    !Perturbation of acceleration is set to constant as 1.0 for the moment!! JCC: CHANGE THIS!!
+   !           !    !q(OtherState%perDOF)=q(OtherState%perDOF)+p%DT*p%DT/4*1.0e-0  !perturbacion
+   !           !    !qdot(OtherState%perDOF)=qdot(OtherState%perDOF)+p%DT/2*1.0e-0 !perturbacion
+   !           !END IF
+   !           !IF(OtherState%perDOF.EQ.6)THEN
+   !           !    OtherState%perDOF=0
+   !           !END IF
+   !           !
+   !           !IF(OtherState%T==t)THEN
+   !           !    !WRITE(*,*) "Simulation time = ",t
+   !           !ELSE
+   !           !    CALL UPDATE_SEAFEM() ! BORJA: Update seafem
+   !           !    !WRITE(*,*) "Simulation time = ",t
+   !           !    OtherState%T=t
+   !           !END IF
+   !           !
+   !           !!BORJA: Aqu\ED se intercambia la informaci\F3n directamente con el ejecutable SeaFEM. Mandamos Movimientos y recibimos fuerzas.
+   !           !CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,m%flag_SeaFEM)
+   !           !
+   !           !IF (t>=p%TMax) THEN
+   !           !    IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
+   !           !        CALL END_TIMELOOP()
+   !           !    ELSE
+   !           !        OtherState%Out_flag=OtherState%Out_Flag+1
+   !           !    END IF
+   !           !END IF
+   !           !                
+   !
+   !END SUBROUTINE SeaFEM_CalcOutput
    
-              REAL(DbKi),                       INTENT(IN   )  :: t           ! Current simulation time in seconds
-              TYPE(SeaFEM_InputType),           INTENT(IN   )  :: u           ! Inputs at t
-              TYPE(SeaFEM_ParameterType),       INTENT(IN   )  :: p           ! Parameters
-              TYPE(SeaFEM_ContinuousStateType), INTENT(IN   )  :: x           ! Continuous states at t
-              TYPE(SeaFEM_DiscreteStateType),   INTENT(IN   )  :: xd          ! Discrete states at t
-              TYPE(SeaFEM_ConstraintStateType), INTENT(IN   )  :: z           ! Constraint states at t
-              TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
-              TYPE(SeaFEM_OutputType),          INTENT(INOUT)  :: y           ! Outputs computed at t (Input only so that mesh con-
-                                                                              !   nectivity information does not have to be recalculated)
-              INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
-              CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
-   
-              INTEGER(IntKi)                                   :: ErrStat2        ! Error status of the operation (secondary error)
-              CHARACTER(LEN(ErrMsg))                           :: ErrMsg2         ! Error message if ErrStat2 /= ErrID_None
-              
-              REAL(ReKi)                           :: q(6), qdot(6), qdotsq(6), qdotdot(6)
-              REAL(ReKi)                           :: rotdisp(3)                              ! small angle rotational displacements
-              REAL(ReKi)                           :: SeaFEM_Return_Forces(6)
-              INTEGER(IntKi)                       :: I
-              INTEGER(IntKi)                       :: iBody, indxStart, indxEnd  ! Counters
-              
-              ! Initialize ErrStat
-   
-              ErrStat = ErrID_None
-              ErrMsg  = ""
-              
-                   ! Determine the rotational angles from the direction-cosine matrix
-                rotdisp = GetSmllRotAngs ( u%PRPMesh%Orientation(:,:,1), ErrStat2, ErrMsg2 )
-                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )                  
-
-                !BORJA: Aqu\ED se obtienen los movimientos, velocidades y aceleraciones desde los datos de mesh.
-                q      = reshape((/real(u%PRPMesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
-                qdot   = reshape((/u%PRPMesh%TranslationVel(:,1),u%PRPMesh%RotationVel(:,1)/),(/6/))
-                qdotsq   = abs(qdot)*qdot
-                qdotdot   = reshape((/u%PRPMesh%TranslationAcc(:,1),u%PRPMesh%RotationAcc(:,1)/),(/6/))   
-              
-              IF(OtherState%calcJacobian .AND. OtherState%perDOF.NE.0) THEN
-                  ! Jacobian is being calculated but the velocities and positions are not being updated...
-                  !Perturbation of acceleration is set to constant as 1.0 for the moment!! JCC: CHANGE THIS!!
-                  !q(OtherState%perDOF)=q(OtherState%perDOF)+p%DT*p%DT/4*1.0e-0  !perturbacion
-                  !qdot(OtherState%perDOF)=qdot(OtherState%perDOF)+p%DT/2*1.0e-0 !perturbacion
-              END IF
-              IF(OtherState%perDOF.EQ.6)THEN
-                  OtherState%perDOF=0
-              END IF
-              
-              IF(OtherState%T==t)THEN
-                  !WRITE(*,*) "Simulation time = ",t
-              ELSE
-                  CALL UPDATE_SEAFEM() ! BORJA: Update seafem
-                  !WRITE(*,*) "Simulation time = ",t
-                  OtherState%T=t
-              END IF
-      
-              !BORJA: Aqu\ED se intercambia la informaci\F3n directamente con el ejecutable SeaFEM. Mandamos Movimientos y recibimos fuerzas.
-              CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,OtherState%flag_SeaFEM)
-      
-              IF (t>=p%TMax) THEN
-                  IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
-                      CALL END_TIMELOOP()
-                  ELSE
-                      OtherState%Out_flag=OtherState%Out_Flag+1
-                  END IF
-              END IF
-              
-              DO I=1,3
-                 y%PRPMesh%Force(I,1)=SeaFEM_Return_Forces(I)
-                ! WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
-              END DO
-              DO I=1,3
-                 y%PRPMesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
-                ! WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
-              END DO
-              
-              ! Compute outputs here:
-              y%DummyOutput    = 2.0_ReKi
-   
-   END SUBROUTINE SeaFEM_CalcOutput
-   
-   SUBROUTINE SeaFEM_CalcConstrStateResidual( Time, u, p, x, xd, z, OtherState, Z_residual, ErrStat, ErrMsg )
+   SUBROUTINE SeaFEM_CalcConstrStateResidual( Time, u, p, x, xd, z, OtherState, m, Z_residual, ErrStat, ErrMsg )
         ! Tight coupling routine for solving for the residual of the constraint state functions
         !..................................................................................................................................
 
@@ -537,6 +527,7 @@ MODULE SeaFEM
               TYPE(SeaFEM_DiscreteStateType),   INTENT(IN   )  :: xd          ! Discrete states at t
               TYPE(SeaFEM_ConstraintStateType), INTENT(IN   )  :: z           ! Constraint states at t (possibly a guess)
               TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
+              TYPE(SeaFEM_MiscVarType),         INTENT(INOUT)  :: m           !< Initial misc/optimization variables 
               TYPE(SeaFEM_ConstraintStateType), INTENT(  OUT)  :: Z_residual  ! Residual of the constraint state functions using
                                                                               !     the input values described above
               INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
@@ -553,7 +544,7 @@ MODULE SeaFEM
 
    END SUBROUTINE SeaFEM_CalcConstrStateResidual
    
-   SUBROUTINE SeaFEM_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, dxdt, ErrStat, ErrMsg )
+   SUBROUTINE SeaFEM_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, ErrStat, ErrMsg )
         ! Tight coupling routine for computing derivatives of continuous states
         !..................................................................................................................................
 
@@ -564,6 +555,7 @@ MODULE SeaFEM
               TYPE(SeaFEM_DiscreteStateType),   INTENT(IN   )  :: xd          ! Discrete states at t
               TYPE(SeaFEM_ConstraintStateType), INTENT(IN   )  :: z           ! Constraint states at t
               TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
+              TYPE(SeaFEM_MiscVarType),         INTENT(INOUT)  :: m           !< Initial misc/optimization variables 
               TYPE(SeaFEM_ContinuousStateType), INTENT(  OUT)  :: dxdt        ! Continuous state derivatives at t
               INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
               CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
@@ -579,7 +571,7 @@ MODULE SeaFEM
 
    END SUBROUTINE SeaFEM_CalcContStateDeriv
    
-   SUBROUTINE SeaFEM_UpdateDiscState( Time, n, u, p, x, xd, z, OtherState, ErrStat, ErrMsg )
+   SUBROUTINE SeaFEM_UpdateDiscState( Time, n, u, p, x, xd, z, OtherState, m, ErrStat, ErrMsg )
         ! Tight coupling routine for updating discrete states
         !..................................................................................................................................
 
@@ -592,6 +584,7 @@ MODULE SeaFEM
                                                                               !   Output: Discrete states at t + Interval
               TYPE(SeaFEM_ConstraintStateType), INTENT(IN   )  :: z           ! Constraint states at t
               TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
+              TYPE(SeaFEM_MiscVarType),         INTENT(INOUT)  :: m           !< Initial misc/optimization variables 
               INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
               CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
               

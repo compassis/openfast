@@ -143,6 +143,10 @@ typedef   ^                            OtherStateType                WAMIT2_Othe
 typedef   ^                            OtherStateType                Waves2_OtherStateType    Waves2                          -          -          -         "OtherState information from the Waves2 module"   -
 typedef   ^                            ^                             Morison_OtherStateType   Morison                         -          -          -         "OtherState information from the Morison module"   -
 typedef   ^                            ^                             SeaFEM_OtherStateType    SeaFEM                          -          -          -         "OtherState information from the SeaFEM module"   -
+typedef   ^                            ^                             MeshType                 MrsnMesh_position               -          -          -         "A motions mesh which has all translational displacements set to zero.  Used in the transfer of hydrodynamic loads from the various HD-related meshes to the AllHdroOrigin mesh" -
+typedef   ^                            ^                             HD_ModuleMapType         HD_MeshMap                      -          -          -
+typedef   ^                            ^                             ReKi                     F_Hydro                         {6}        -          -         "The total hydrodynamic forces and moments integrated about the (0,0,0) platform reference point"   -
+typedef   ^                            ^                             MeshType                 AllHdroOrigin                   -          -          -         "An intermediate mesh used to transfer hydrodynamic loads from the various HD-related meshes to the AllHdroOrigin mesh" -
 
 # ..... Misc/Optimization variables.................................................................................................
 # Define any data that are used only for efficiency purposes (these variables are not associated with time):
@@ -160,6 +164,7 @@ typedef   ^                            ^                             WAMIT_MiscV
 typedef   ^                            ^                             WAMIT2_MiscVarType       WAMIT2                          {:}        -          -         "misc var information from the WAMIT2 module"   -
 typedef   ^                            ^                             Waves2_MiscVarType       Waves2                          -          -          -         "misc var information from the Waves2 module"   -
 typedef   ^                            ^                             Morison_MiscVarType      Morison                         -          -          -         "misc var information from the Morison module"   -
+typedef   ^                            ^                             SeaFEM_MiscVarType       SeaFEM                          -          -          -         "misc var information from the Morison module"   -
 typedef   ^                            ^                             WAMIT_InputType          u_WAMIT                        {:}         -          -         "WAMIT module inputs" -
 typedef   ^                            ^                             WAMIT2_InputType         u_WAMIT2                       {:}         -          -         "WAMIT2 module inputs" -
 typedef   ^                            ^                             Waves2_InputType         u_Waves2                        -          -          -         "Waves2 module inputs" -
@@ -215,6 +220,7 @@ typedef	 ^	                           ^                             Integer	    
 typedef   ^                            InputType                     Morison_InputType        Morison                         -          -          -         "Morison module inputs" -
 typedef   ^                            InputType                     MeshType                 WAMITMesh                       -          -          -         "Motions at the WAMIT reference point(s) in the inertial frame" -
 typedef   ^                            InputType                     MeshType                 PRPMesh                         -          -          -         "Motions at the Platform reference point in the inertial frame" -
+typedef   ^                            InputType                     MeshType                 Mesh                         -          -          -         "Motions at the Platform reference point in the inertial frame" -
 typedef   ^                            InputType                     SeaFEM_InputType         SeaFEM                          -          -          -         "SeaFEM module inputs" -
 #
 #
@@ -227,4 +233,5 @@ typedef   ^                            ^                            Morison_Outp
 typedef   ^                            ^                            SeaFEM_OutputType         SeaFEM                          -          -          -         "SeaFEM module outputs"  -
 typedef   ^                            OutputType                   MeshType                  WAMITMesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
 typedef   ^                            OutputType                   MeshType                  PRPMesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
+typedef   ^                            OutputType                   MeshType                  Mesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
 typedef   ^                            ^                            ReKi                      WriteOutput                    {:}         -          -         "Outputs to be written to the output file(s)"  -

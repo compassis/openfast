@@ -1707,7 +1707,7 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
    
    !Variable used for SeaFEM to point that the Jacobian is being computed. Used to update the velocities and positions.
    !BORJA: Se informa a SeaFEM si el Jacobiano se usa o no
-   IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+   IF ( u_HD%SeaFEM%Mesh%Committed ) THEN
         OtherSt_HD%SeaFEM%calcJacobian=calcJacobian
         OtherSt_HD%SeaFEM%flag_SeaFEM=0
    END IF
@@ -1794,7 +1794,7 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
          IF ( calcJacobian ) THEN
              
 #ifdef SeaFEM_active             
-             IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+             IF ( u_HD%SeaFEM%Mesh%Committed ) THEN
                 OtherSt_HD%SeaFEM%flag_SeaFEM=1
              END IF
 #endif
@@ -1842,7 +1842,7 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                   
 #ifdef SeaFEM_active                  
                !Indicate to SeaFEM what degree of freedom is being perturbed.
-               IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+               IF ( u_HD%SeaFEM%Mesh%Committed ) THEN
                     OtherSt_HD%SeaFEM%perDOF=i-6
                END IF  
 #endif
