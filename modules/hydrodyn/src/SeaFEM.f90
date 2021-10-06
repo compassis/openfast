@@ -495,32 +495,32 @@ MODULE SeaFEM
               END IF
               
               IF(OtherState%T==t)THEN
-                  !WRITE(*,*) "Simulation time = ",t
+                  WRITE(*,*) "Simulation time = ",t
               ELSE
                   CALL UPDATE_SEAFEM() ! BORJA: Update seafem
-                  !WRITE(*,*) "Simulation time = ",t
+                  WRITE(*,*) "Simulation time = ",t
                   OtherState%T=t
               END IF
               
               !BORJA: Aqu\ED se intercambia la informaci\F3n directamente con el ejecutable SeaFEM. Mandamos Movimientos y recibimos fuerzas.
-              CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,m%flag_SeaFEM)
-              
-              IF (t>=p%TMax) THEN
-                  IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
-                      CALL END_TIMELOOP()
-                  ELSE
-                      OtherState%Out_flag=OtherState%Out_Flag+1
-                  END IF
-              END IF
-              
-              DO I=1,3
-                 y%Mesh%Force(I,1)=SeaFEM_Return_Forces(I)
-                 !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
-              END DO
-              DO I=1,3
-                 y%Mesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
-                 !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
-              END DO
+              !CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,m%flag_SeaFEM)
+              !
+              !IF (t>=p%TMax) THEN
+              !    IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
+              !        CALL END_TIMELOOP()
+              !    ELSE
+              !        OtherState%Out_flag=OtherState%Out_Flag+1
+              !    END IF
+              !END IF
+              !
+              !DO I=1,3
+              !   y%Mesh%Force(I,1)=SeaFEM_Return_Forces(I)
+              !   !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
+              !END DO
+              !DO I=1,3
+              !   y%Mesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
+              !   !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
+              !END DO
       
                  ! Compute outputs here:
               y%DummyOutput    = 2.0_ReKi                
