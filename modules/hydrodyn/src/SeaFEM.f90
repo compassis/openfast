@@ -503,16 +503,16 @@ MODULE SeaFEM
               END IF
               
               !BORJA: Aqu\ED se intercambia la informaci\F3n directamente con el ejecutable SeaFEM. Mandamos Movimientos y recibimos fuerzas.
-              !CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,m%flag_SeaFEM)
-              !
-              !IF (t>=p%TMax) THEN
-              !    IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
-              !        CALL END_TIMELOOP()
-              !    ELSE
-              !        OtherState%Out_flag=OtherState%Out_Flag+1
-              !    END IF
-              !END IF
-              !
+!              CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,m%flag_SeaFEM)
+              
+              IF (t>=p%TMax) THEN
+                  IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
+                      CALL END_TIMELOOP()
+                  ELSE
+                      OtherState%Out_flag=OtherState%Out_Flag+1
+                  END IF
+              END IF
+              
               !DO I=1,3
               !   y%Mesh%Force(I,1)=SeaFEM_Return_Forces(I)
               !   !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)

@@ -19,6 +19,9 @@
 ! See the License for the specific language governing permissions and
 ! limitations under the License.
 !**********************************************************************************************************************************
+
+#define SeaFEM_active
+    
 MODULE FAST_Subs
 
    USE FAST_Solver
@@ -865,7 +868,7 @@ SUBROUTINE FAST_InitializeAll( t_initial, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, 
 #ifdef SeaFEM_active
       
       ! SeaFEM: Insert the number of iterations to perform so as to get a clue when to close the files.
-      InitInData_HD%Iterations=p_FAST%NumCrctn
+      Init%InData_HD%Iterations=p_FAST%NumCrctn
       
 #endif
 

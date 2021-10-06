@@ -1,7 +1,7 @@
 
 FAST Summary File
 
-Predictions were generated on 06-Oct-2021 at 15:05:26 using OpenFAST, compiled as a 64-bit application using single precision at commit v3.0.0-23-g16fe632d-dirty
+Predictions were generated on 06-Oct-2021 at 16:52:03 using OpenFAST, compiled as a 64-bit application using single precision at commit v3.0.0-23-g16fe632d-dirty
   compiled with
     NWTC Subroutine Library
     ElastoDyn
@@ -25,7 +25,7 @@ Modeling a floating offshore turbine
 Description from the FAST input file: 
   FAST Certification Test #24: NREL 5.0 MW Baseline Wind Turbine with OC3 Hywind Configuration, foor use in offshore analysis
 
-Interpolation order for input/output time histories: 1 (linear)
+Interpolation order for input/output time histories: 2 (quadratic)
 Number of correction iterations:  5
 Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     12
 
