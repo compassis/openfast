@@ -1,0 +1,264 @@
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: C:/PROGRA~1/Compass/RAMSER~1.0BE/PROBLE~1/COMPAS~1.GID/exec/tcl
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.157335 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 944.444 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 944.444 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 2Mbytes
+ -->	Maximum error inverting LS matrix = 1.81899e-12
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.157335, iterations=8, max_fs=-3.23817
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	ERROR FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1155:
+ -->	Error loading FAST_DLL
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: C:/Program Files/Compass/RamSeries16.0.0beta x64/problemtypes/compassfem.gid/exec/tcl
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: C:/Program Files/Compass/RamSeries16.0.0beta x64/problemtypes/compassfem.gid/exec/tcl
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.157335 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 944.444 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 944.444 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 2Mbytes
+ -->	Maximum error inverting LS matrix = 1.81899e-12
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.157335 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 944.444 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 944.444 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 2Mbytes
+ -->	Maximum error inverting LS matrix = 1.81899e-12
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.157335, iterations=8, max_fs=-3.23817
+ -->	Fast_convergence     0
+	ERROR FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_first_order.cpp" AT LINE NUMBER 316:
+ -->	NaN values when computing independent term b in Ax=b. Reduce stability factor or time step
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.157335 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 944.444 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 944.444 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 2Mbytes
+ -->	Maximum error inverting LS matrix = 1.81899e-12
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.157335, iterations=8, max_fs=-3.23817
+ -->	Fast_convergence     0

@@ -1,0 +1,6 @@
+
+
+ ERROR DETECTED IN SOURCE FILE "\repositories\tdynmph\seafem\wavesdomain_first_order.cpp" AT LINE NUMBER 316:
+
+
+ -->	NaN values when computing independent term b in Ax=b. Reduce stability factor or time step

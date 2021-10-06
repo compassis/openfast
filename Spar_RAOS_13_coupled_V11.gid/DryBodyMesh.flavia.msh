@@ -1,0 +1,6 @@
+MESH    dimension 3    ElemType Triangle Nnode 3
+Coordinates
+end coordinates
+
+Elements
+end elements
