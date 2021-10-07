@@ -71,7 +71,7 @@ IMPLICIT NONE
 ! =======================
 ! =========  SeaFEM_MiscVarType  =======
   TYPE, PUBLIC :: SeaFEM_MiscVarType
-    TYPE(MeshType)  :: Mesh      !< An intermediate mesh used to transfer hydrodynamic loads from the various HD-related meshes to the AllHdroOrigin mesh [-]
+    TYPE(MeshType)  :: PRPMesh      !< An intermediate mesh used to transfer hydrodynamic loads from the various HD-related meshes to the AllHdroOrigin mesh [-]
     INTEGER(IntKi)  :: flag_SeaFEM      !< Flag that informs to seaFEM if we are in the predictor, the perturbations or the corrector [-]
   END TYPE SeaFEM_MiscVarType
 ! =======================
@@ -84,14 +84,14 @@ IMPLICIT NONE
 ! =======================
 ! =========  SeaFEM_InputType  =======
   TYPE, PUBLIC :: SeaFEM_InputType
-    TYPE(MeshType)  :: Mesh      !< Displacements at the SeaFEM Reference Point in the inertial frame [-]
+    TYPE(MeshType)  :: PRPMesh      !< Displacements at the SeaFEM Reference Point in the inertial frame [-]
   END TYPE SeaFEM_InputType
 ! =======================
 ! =========  SeaFEM_OutputType  =======
   TYPE, PUBLIC :: SeaFEM_OutputType
     REAL(ReKi)  :: DummyOutput      !< Remove this variable if you have output data [-]
     REAL(ReKi) , DIMENSION(:), ALLOCATABLE  :: WriteOutput      !< Example of data to be written to an output file [s,-]
-    TYPE(MeshType)  :: Mesh      !< Displacements at the SeaFEM Reference Point in the inertial frame [-]
+    TYPE(MeshType)  :: PRPMesh      !< Displacements at the SeaFEM Reference Point in the inertial frame [-]
   END TYPE SeaFEM_OutputType
 ! =======================
 CONTAINS
@@ -901,7 +901,7 @@ CONTAINS
 ! 
    ErrStat = ErrID_None
    ErrMsg  = ""
-      CALL MeshCopy( SrcMiscData%Mesh, DstMiscData%Mesh, CtrlCode, ErrStat2, ErrMsg2 )
+      CALL MeshCopy( SrcMiscData%PRPMesh, DstMiscData%PRPMesh, CtrlCode, ErrStat2, ErrMsg2 )
          CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
          IF (ErrStat>=AbortErrLev) RETURN
     DstMiscData%flag_SeaFEM = SrcMiscData%flag_SeaFEM
@@ -916,7 +916,7 @@ CONTAINS
 ! 
   ErrStat = ErrID_None
   ErrMsg  = ""
-  CALL MeshDestroy( MiscData%Mesh, ErrStat, ErrMsg )
+  CALL MeshDestroy( MiscData%PRPMesh, ErrStat, ErrMsg )
  END SUBROUTINE SeaFEM_DestroyMisc
 
  SUBROUTINE SeaFEM_PackMisc( ReKiBuf, DbKiBuf, IntKiBuf, Indata, ErrStat, ErrMsg, SizeOnly )
@@ -955,20 +955,20 @@ CONTAINS
   Db_BufSz  = 0
   Int_BufSz  = 0
    ! Allocate buffers for subtypes, if any (we'll get sizes from these) 
-      Int_BufSz   = Int_BufSz + 3  ! Mesh: size of buffers for each call to pack subtype
-      CALL MeshPack( InData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, .TRUE. ) ! Mesh 
+      Int_BufSz   = Int_BufSz + 3  ! PRPMesh: size of buffers for each call to pack subtype
+      CALL MeshPack( InData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, .TRUE. ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
-      IF(ALLOCATED(Re_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Re_Buf)) THEN ! PRPMesh
          Re_BufSz  = Re_BufSz  + SIZE( Re_Buf  )
          DEALLOCATE(Re_Buf)
       END IF
-      IF(ALLOCATED(Db_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Db_Buf)) THEN ! PRPMesh
          Db_BufSz  = Db_BufSz  + SIZE( Db_Buf  )
          DEALLOCATE(Db_Buf)
       END IF
-      IF(ALLOCATED(Int_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Int_Buf)) THEN ! PRPMesh
          Int_BufSz = Int_BufSz + SIZE( Int_Buf )
          DEALLOCATE(Int_Buf)
       END IF
@@ -1000,7 +1000,7 @@ CONTAINS
   Db_Xferred  = 1
   Int_Xferred = 1
 
-      CALL MeshPack( InData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, OnlySize ) ! Mesh 
+      CALL MeshPack( InData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, OnlySize ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
@@ -1091,7 +1091,7 @@ CONTAINS
         Int_Buf = IntKiBuf( Int_Xferred:Int_Xferred+Buf_size-1 )
         Int_Xferred = Int_Xferred + Buf_size
       END IF
-      CALL MeshUnpack( OutData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2 ) ! Mesh 
+      CALL MeshUnpack( OutData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2 ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
@@ -1253,7 +1253,7 @@ CONTAINS
 ! 
    ErrStat = ErrID_None
    ErrMsg  = ""
-      CALL MeshCopy( SrcInputData%Mesh, DstInputData%Mesh, CtrlCode, ErrStat2, ErrMsg2 )
+      CALL MeshCopy( SrcInputData%PRPMesh, DstInputData%PRPMesh, CtrlCode, ErrStat2, ErrMsg2 )
          CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
          IF (ErrStat>=AbortErrLev) RETURN
  END SUBROUTINE SeaFEM_CopyInput
@@ -1267,7 +1267,7 @@ CONTAINS
 ! 
   ErrStat = ErrID_None
   ErrMsg  = ""
-  CALL MeshDestroy( InputData%Mesh, ErrStat, ErrMsg )
+  CALL MeshDestroy( InputData%PRPMesh, ErrStat, ErrMsg )
  END SUBROUTINE SeaFEM_DestroyInput
 
  SUBROUTINE SeaFEM_PackInput( ReKiBuf, DbKiBuf, IntKiBuf, Indata, ErrStat, ErrMsg, SizeOnly )
@@ -1306,20 +1306,20 @@ CONTAINS
   Db_BufSz  = 0
   Int_BufSz  = 0
    ! Allocate buffers for subtypes, if any (we'll get sizes from these) 
-      Int_BufSz   = Int_BufSz + 3  ! Mesh: size of buffers for each call to pack subtype
-      CALL MeshPack( InData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, .TRUE. ) ! Mesh 
+      Int_BufSz   = Int_BufSz + 3  ! PRPMesh: size of buffers for each call to pack subtype
+      CALL MeshPack( InData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, .TRUE. ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
-      IF(ALLOCATED(Re_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Re_Buf)) THEN ! PRPMesh
          Re_BufSz  = Re_BufSz  + SIZE( Re_Buf  )
          DEALLOCATE(Re_Buf)
       END IF
-      IF(ALLOCATED(Db_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Db_Buf)) THEN ! PRPMesh
          Db_BufSz  = Db_BufSz  + SIZE( Db_Buf  )
          DEALLOCATE(Db_Buf)
       END IF
-      IF(ALLOCATED(Int_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Int_Buf)) THEN ! PRPMesh
          Int_BufSz = Int_BufSz + SIZE( Int_Buf )
          DEALLOCATE(Int_Buf)
       END IF
@@ -1350,7 +1350,7 @@ CONTAINS
   Db_Xferred  = 1
   Int_Xferred = 1
 
-      CALL MeshPack( InData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, OnlySize ) ! Mesh 
+      CALL MeshPack( InData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, OnlySize ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
@@ -1439,7 +1439,7 @@ CONTAINS
         Int_Buf = IntKiBuf( Int_Xferred:Int_Xferred+Buf_size-1 )
         Int_Xferred = Int_Xferred + Buf_size
       END IF
-      CALL MeshUnpack( OutData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2 ) ! Mesh 
+      CALL MeshUnpack( OutData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2 ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
@@ -1476,7 +1476,7 @@ IF (ALLOCATED(SrcOutputData%WriteOutput)) THEN
   END IF
     DstOutputData%WriteOutput = SrcOutputData%WriteOutput
 ENDIF
-      CALL MeshCopy( SrcOutputData%Mesh, DstOutputData%Mesh, CtrlCode, ErrStat2, ErrMsg2 )
+      CALL MeshCopy( SrcOutputData%PRPMesh, DstOutputData%PRPMesh, CtrlCode, ErrStat2, ErrMsg2 )
          CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
          IF (ErrStat>=AbortErrLev) RETURN
  END SUBROUTINE SeaFEM_CopyOutput
@@ -1493,7 +1493,7 @@ ENDIF
 IF (ALLOCATED(OutputData%WriteOutput)) THEN
   DEALLOCATE(OutputData%WriteOutput)
 ENDIF
-  CALL MeshDestroy( OutputData%Mesh, ErrStat, ErrMsg )
+  CALL MeshDestroy( OutputData%PRPMesh, ErrStat, ErrMsg )
  END SUBROUTINE SeaFEM_DestroyOutput
 
  SUBROUTINE SeaFEM_PackOutput( ReKiBuf, DbKiBuf, IntKiBuf, Indata, ErrStat, ErrMsg, SizeOnly )
@@ -1538,20 +1538,20 @@ ENDIF
       Re_BufSz   = Re_BufSz   + SIZE(InData%WriteOutput)  ! WriteOutput
   END IF
    ! Allocate buffers for subtypes, if any (we'll get sizes from these) 
-      Int_BufSz   = Int_BufSz + 3  ! Mesh: size of buffers for each call to pack subtype
-      CALL MeshPack( InData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, .TRUE. ) ! Mesh 
+      Int_BufSz   = Int_BufSz + 3  ! PRPMesh: size of buffers for each call to pack subtype
+      CALL MeshPack( InData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, .TRUE. ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
-      IF(ALLOCATED(Re_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Re_Buf)) THEN ! PRPMesh
          Re_BufSz  = Re_BufSz  + SIZE( Re_Buf  )
          DEALLOCATE(Re_Buf)
       END IF
-      IF(ALLOCATED(Db_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Db_Buf)) THEN ! PRPMesh
          Db_BufSz  = Db_BufSz  + SIZE( Db_Buf  )
          DEALLOCATE(Db_Buf)
       END IF
-      IF(ALLOCATED(Int_Buf)) THEN ! Mesh
+      IF(ALLOCATED(Int_Buf)) THEN ! PRPMesh
          Int_BufSz = Int_BufSz + SIZE( Int_Buf )
          DEALLOCATE(Int_Buf)
       END IF
@@ -1599,7 +1599,7 @@ ENDIF
         Re_Xferred = Re_Xferred + 1
       END DO
   END IF
-      CALL MeshPack( InData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, OnlySize ) ! Mesh 
+      CALL MeshPack( InData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, OnlySize ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
@@ -1709,7 +1709,7 @@ ENDIF
         Int_Buf = IntKiBuf( Int_Xferred:Int_Xferred+Buf_size-1 )
         Int_Xferred = Int_Xferred + Buf_size
       END IF
-      CALL MeshUnpack( OutData%Mesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2 ) ! Mesh 
+      CALL MeshUnpack( OutData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2 ) ! PRPMesh 
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
         IF (ErrStat >= AbortErrLev) RETURN
 
@@ -1811,7 +1811,7 @@ ENDIF
    END IF
 
    ScaleFactor = t_out / t(2)
-      CALL MeshExtrapInterp1(u1%Mesh, u2%Mesh, tin, u_out%Mesh, tin_out, ErrStat2, ErrMsg2 )
+      CALL MeshExtrapInterp1(u1%PRPMesh, u2%PRPMesh, tin, u_out%PRPMesh, tin_out, ErrStat2, ErrMsg2 )
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg,RoutineName)
  END SUBROUTINE SeaFEM_Input_ExtrapInterp1
 
@@ -1868,7 +1868,7 @@ ENDIF
    END IF
 
    ScaleFactor = t_out / (t(2) * t(3) * (t(2) - t(3)))
-      CALL MeshExtrapInterp2(u1%Mesh, u2%Mesh, u3%Mesh, tin, u_out%Mesh, tin_out, ErrStat2, ErrMsg2 )
+      CALL MeshExtrapInterp2(u1%PRPMesh, u2%PRPMesh, u3%PRPMesh, tin, u_out%PRPMesh, tin_out, ErrStat2, ErrMsg2 )
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg,RoutineName)
  END SUBROUTINE SeaFEM_Input_ExtrapInterp2
 
@@ -1975,7 +1975,7 @@ IF (ALLOCATED(y_out%WriteOutput) .AND. ALLOCATED(y1%WriteOutput)) THEN
     y_out%WriteOutput(i1) = y1%WriteOutput(i1) + b * ScaleFactor
   END DO
 END IF ! check if allocated
-      CALL MeshExtrapInterp1(y1%Mesh, y2%Mesh, tin, y_out%Mesh, tin_out, ErrStat2, ErrMsg2 )
+      CALL MeshExtrapInterp1(y1%PRPMesh, y2%PRPMesh, tin, y_out%PRPMesh, tin_out, ErrStat2, ErrMsg2 )
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg,RoutineName)
  END SUBROUTINE SeaFEM_Output_ExtrapInterp1
 
@@ -2044,7 +2044,7 @@ IF (ALLOCATED(y_out%WriteOutput) .AND. ALLOCATED(y1%WriteOutput)) THEN
     y_out%WriteOutput(i1) = y1%WriteOutput(i1) + b  + c * t_out
   END DO
 END IF ! check if allocated
-      CALL MeshExtrapInterp2(y1%Mesh, y2%Mesh, y3%Mesh, tin, y_out%Mesh, tin_out, ErrStat2, ErrMsg2 )
+      CALL MeshExtrapInterp2(y1%PRPMesh, y2%PRPMesh, y3%PRPMesh, tin, y_out%PRPMesh, tin_out, ErrStat2, ErrMsg2 )
         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg,RoutineName)
  END SUBROUTINE SeaFEM_Output_ExtrapInterp2
 

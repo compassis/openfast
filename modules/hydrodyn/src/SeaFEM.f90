@@ -244,7 +244,7 @@ MODULE SeaFEM
       
         ! Create the input and output meshes associated with lumped load at the WAMIT reference point (WRP)
       
-        CALL MeshCreate( BlankMesh         = u%Mesh         &  
+        CALL MeshCreate( BlankMesh         = u%PRPMesh         &  
                         ,IOS               = COMPONENT_INPUT   &
                         ,Nnodes            = 1                 &
                         ,ErrStat           = ErrStat2          &
@@ -258,7 +258,7 @@ MODULE SeaFEM
         
         ! Create the node on the mesh
          
-        CALL MeshPositionNode ( u%Mesh                          &
+        CALL MeshPositionNode ( u%PRPMesh                          &
                               , 1                                  &
                               , (/0.0_ReKi, 0.0_ReKi, 0.0_ReKi/)   &  
                               , ErrStat2                           &
@@ -268,7 +268,7 @@ MODULE SeaFEM
          
          ! Create the mesh element
          
-         CALL MeshConstructElement ( u%Mesh           &
+         CALL MeshConstructElement ( u%PRPMesh           &
                                   , ELEMENT_POINT        &                         
                                   , ErrStat2             &
                                   , ErrMsg2              &
@@ -276,14 +276,14 @@ MODULE SeaFEM
          
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
          
-         CALL MeshCommit ( u%Mesh        &
+         CALL MeshCommit ( u%PRPMesh        &
                          , ErrStat2         &
                          , ErrMsg2          )
    
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
          
-         CALL MeshCopy (   SrcMesh      = u%Mesh              &
-                          ,DestMesh     = y%Mesh              &
+         CALL MeshCopy (   SrcMesh      = u%PRPMesh              &
+                          ,DestMesh     = y%PRPMesh              &
                           ,CtrlCode     = MESH_NEWCOPY           &
                           ,IOS          = COMPONENT_OUTPUT       &
                           ,ErrStat      = ErrStat2               &
@@ -297,8 +297,8 @@ MODULE SeaFEM
             RETURN
          END IF  
          
-         u%Mesh%RemapFlag  = .TRUE.
-         y%Mesh%RemapFlag  = .TRUE.
+         u%PRPMesh%RemapFlag  = .TRUE.
+         y%PRPMesh%RemapFlag  = .TRUE.
          
         ALLOCATE( y%WriteOutput(NumOuts), STAT = ErrStat )
         IF ( ErrStat/= 0 ) THEN
@@ -475,14 +475,14 @@ MODULE SeaFEM
               ErrMsg  = ""
               
                    ! Determine the rotational angles from the direction-cosine matrix
-                rotdisp = GetSmllRotAngs ( u%Mesh%Orientation(:,:,1), ErrStat2, ErrMsg2 )
+                rotdisp = GetSmllRotAngs ( u%PRPMesh%Orientation(:,:,1), ErrStat2, ErrMsg2 )
                    CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )                  
               
                 !BORJA: Aqu\ED se obtienen los movimientos, velocidades y aceleraciones desde los datos de mesh.
-                q      = reshape((/real(u%Mesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
-                qdot   = reshape((/u%Mesh%TranslationVel(:,1),u%Mesh%RotationVel(:,1)/),(/6/))
+                q      = reshape((/real(u%PRPMesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
+                qdot   = reshape((/u%PRPMesh%TranslationVel(:,1),u%PRPMesh%RotationVel(:,1)/),(/6/))
                 qdotsq   = abs(qdot)*qdot
-                qdotdot   = reshape((/u%Mesh%TranslationAcc(:,1),u%Mesh%RotationAcc(:,1)/),(/6/)) 
+                qdotdot   = reshape((/u%PRPMesh%TranslationAcc(:,1),u%PRPMesh%RotationAcc(:,1)/),(/6/)) 
               
               IF(OtherState%calcJacobian .AND. OtherState%perDOF.NE.0) THEN
                   ! Jacobian is being calculated but the velocities and positions are not being updated...
@@ -503,7 +503,7 @@ MODULE SeaFEM
               END IF
               
               !BORJA: Aqu\ED se intercambia la informaci\F3n directamente con el ejecutable SeaFEM. Mandamos Movimientos y recibimos fuerzas.
-!              CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,m%flag_SeaFEM)
+              CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,OtherState%flag_SeaFEM)
               
               IF (t>=p%TMax) THEN
                   IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
@@ -514,11 +514,11 @@ MODULE SeaFEM
               END IF
               
               !DO I=1,3
-              !   y%Mesh%Force(I,1)=SeaFEM_Return_Forces(I)
+              !   y%PRPMesh%Force(I,1)=SeaFEM_Return_Forces(I)
               !   !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
               !END DO
               !DO I=1,3
-              !   y%Mesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
+              !   y%PRPMesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
               !   !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
               !END DO
       

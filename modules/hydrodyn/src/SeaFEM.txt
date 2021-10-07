@@ -48,8 +48,8 @@ typedef  ^                OtherStateType    INTEGER   flag_SeaFEM - - - "Flag th
 # ..... Misc/Optimization variables.................................................................................................
 # Define any data that are used only for efficiency purposes (these variables are not associated with time):
 #   e.g. indices for searching in an array, large arrays that are local variables in any routine called multiple times, etc.
-#typedef   ^                            MiscVarType                   MeshType                 PRPMesh                  -          -          -         "An intermediate mesh used to transfer hydrodynamic loads from the various HD-related meshes to the AllHdroOrigin mesh" -
-typedef   ^                            MiscVarType                   MeshType                 Mesh                  -          -          -         "An intermediate mesh used to transfer hydrodynamic loads from the various HD-related meshes to the AllHdroOrigin mesh" -
+typedef   ^                            MiscVarType                   MeshType                 PRPMesh                  -          -          -         "An intermediate mesh used to transfer hydrodynamic loads from the various HD-related meshes to the AllHdroOrigin mesh" -
+#typedef   ^                            MiscVarType                   MeshType                 Mesh                  -          -          -         "An intermediate mesh used to transfer hydrodynamic loads from the various HD-related meshes to the AllHdroOrigin mesh" -
 typedef  ^                             MiscVarType                   INTEGER                  flag_SeaFEM - - - "Flag that informs to seaFEM if we are in the predictor, the perturbations or the corrector"    -
 
 # ..... Parameters ................................................................................................................
@@ -61,8 +61,8 @@ typedef  ^               ParameterType    INTEGER   Iterations - - - "Total Numb
 
 # ..... Inputs ....................................................................................................................
 # Define inputs that are contained on the mesh here:
-#typedef   ^               InputType          MeshType  PRPMesh - - -     "Displacements at the SeaFEM Reference Point in the inertial frame" -
-typedef   ^               InputType          MeshType  Mesh - - -     "Displacements at the SeaFEM Reference Point in the inertial frame" -
+typedef   ^               InputType          MeshType  PRPMesh - - -     "Displacements at the SeaFEM Reference Point in the inertial frame" -
+#typedef   ^               InputType          MeshType  Mesh - - -     "Displacements at the SeaFEM Reference Point in the inertial frame" -
 
 # ..... Outputs ...................................................................................................................
 # Define outputs that are contained on the mesh here:
@@ -70,5 +70,5 @@ typedef   ^               InputType          MeshType  Mesh - - -     "Displacem
 # Define outputs that are not on this mesh here:
 typedef   ^               OutputType          ReKi     DummyOutput  -  - -   "Remove this variable if you have output data" -
 typedef   ^                 ^                 ReKi     WriteOutput {:} - -   "Example of data to be written to an output file" "s,-"
-#typedef   ^                 ^             MeshType            PRPMesh  -  - -   "Displacements at the SeaFEM Reference Point in the inertial frame" -
-typedef   ^                 ^             MeshType            Mesh  -  - -   "Displacements at the SeaFEM Reference Point in the inertial frame" -
+typedef   ^                 ^             MeshType            PRPMesh  -  - -   "Displacements at the SeaFEM Reference Point in the inertial frame" -
+#typedef   ^                 ^             MeshType            Mesh  -  - -   "Displacements at the SeaFEM Reference Point in the inertial frame" -

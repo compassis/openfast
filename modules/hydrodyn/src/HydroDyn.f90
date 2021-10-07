@@ -2257,10 +2257,10 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
 
       ! BORJA: Aqu\ED se hace el intercambio de informaci\F3n con el m\F3dulo de SeaFEM.
          
-      IF ( u%SeaFEM%Mesh%Committed ) THEN  ! Make sure we are using WAMIT / there is a valid mesh  
+      IF ( u%SeaFEM%PRPMesh%Committed ) THEN  ! Make sure we are using WAMIT / there is a valid mesh  
          
          ! Copy the inputs from the HD mesh into the SeaFEM mesh
-         CALL MeshCopy( u%Mesh, u%SeaFEM%Mesh, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )   
+         CALL MeshCopy( u%PRPMesh, u%SeaFEM%PRPMesh, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )   
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )                  
          IF ( ErrStat >= AbortErrLev ) RETURN
          
@@ -2269,9 +2269,9 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )           
          ! Add WAMIT forces to the HydroDyn output mesh
          !WRITE(*,*) y%PRPMesh%Force (:,1), y%PRPMesh%Moment(:,1)
-         !y%Mesh%Force (:,1) = y%SeaFEM%Mesh%Force (:,1)
-         !y%Mesh%Moment(:,1) = y%SeaFEM%Mesh%Moment(:,1)
-         OtherState%F_Hydro = CalcLoadsAtWRP( y, u, OtherState%AllHdroOrigin, u%Mesh, OtherState%MrsnMesh_position, OtherState%HD_MeshMap, ErrStat2, ErrMsg2 )
+         !y%PRPMesh%Force (:,1) = y%SeaFEM%PRPMesh%Force (:,1)
+         !y%PRPMesh%Moment(:,1) = y%SeaFEM%PRPMesh%Moment(:,1)
+         OtherState%F_Hydro = CalcLoadsAtWRP( y, u, OtherState%AllHdroOrigin, u%PRPMesh, OtherState%MrsnMesh_position, OtherState%HD_MeshMap, ErrStat2, ErrMsg2 )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )    
       ELSE
           

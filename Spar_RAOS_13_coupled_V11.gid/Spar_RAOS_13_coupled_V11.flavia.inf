@@ -6226,3 +6226,2680 @@ This probably means that Tcl wasn't installed properly.
  -->	time[s]=2.98, iterations=0, max_fs=-0.05
  -->	time[s]=2.99, iterations=0, max_fs=0.05
  -->	time[s]=3, iterations=0, max_fs=0.05
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633532841717
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	time[s]=0.01, iterations=0, max_fs=0.000307791
+ -->	time[s]=0.02, iterations=0, max_fs=0.00122359
+ -->	time[s]=0.03, iterations=0, max_fs=0.00272484
+ -->	time[s]=0.04, iterations=0, max_fs=0.00477458
+ -->	time[s]=0.05, iterations=0, max_fs=0.00732233
+ -->	time[s]=0.06, iterations=0, max_fs=0.0103054
+ -->	time[s]=0.07, iterations=0, max_fs=0.0136502
+ -->	time[s]=0.08, iterations=0, max_fs=0.0172746
+ -->	time[s]=0.09, iterations=0, max_fs=0.0210891
+ -->	time[s]=0.1, iterations=0, max_fs=0.025
+ -->	time[s]=0.11, iterations=0, max_fs=0.0289109
+ -->	time[s]=0.12, iterations=0, max_fs=0.0327254
+ -->	time[s]=0.13, iterations=0, max_fs=0.0363498
+ -->	time[s]=0.14, iterations=0, max_fs=0.0396946
+ -->	time[s]=0.15, iterations=0, max_fs=0.0426777
+ -->	time[s]=0.16, iterations=0, max_fs=0.0452254
+ -->	time[s]=0.17, iterations=0, max_fs=0.0472752
+ -->	time[s]=0.18, iterations=0, max_fs=0.0487764
+ -->	time[s]=0.19, iterations=0, max_fs=0.0496922
+ -->	time[s]=0.2, iterations=0, max_fs=0.05
+ -->	time[s]=0.21, iterations=0, max_fs=0.05
+ -->	time[s]=0.22, iterations=0, max_fs=0.05
+ -->	time[s]=0.23, iterations=0, max_fs=0.05
+ -->	time[s]=0.24, iterations=0, max_fs=0.05
+ -->	time[s]=0.25, iterations=0, max_fs=0.05
+ -->	time[s]=0.26, iterations=0, max_fs=0.05
+ -->	time[s]=0.27, iterations=0, max_fs=0.05
+ -->	time[s]=0.28, iterations=0, max_fs=0.05
+ -->	time[s]=0.29, iterations=0, max_fs=0.05
+ -->	time[s]=0.3, iterations=0, max_fs=0.05
+ -->	time[s]=0.31, iterations=0, max_fs=0.05
+ -->	time[s]=0.32, iterations=0, max_fs=0.05
+ -->	time[s]=0.33, iterations=0, max_fs=0.05
+ -->	time[s]=0.34, iterations=0, max_fs=-0.05
+ -->	time[s]=0.35, iterations=0, max_fs=0.05
+ -->	time[s]=0.36, iterations=0, max_fs=0.05
+ -->	time[s]=0.37, iterations=0, max_fs=0.05
+ -->	time[s]=0.38, iterations=0, max_fs=0.05
+ -->	time[s]=0.39, iterations=0, max_fs=0.05
+ -->	time[s]=0.4, iterations=0, max_fs=0.05
+ -->	time[s]=0.41, iterations=0, max_fs=0.05
+ -->	time[s]=0.42, iterations=0, max_fs=0.05
+ -->	time[s]=0.43, iterations=0, max_fs=0.05
+ -->	time[s]=0.44, iterations=0, max_fs=0.05
+ -->	time[s]=0.45, iterations=0, max_fs=0.05
+ -->	time[s]=0.46, iterations=0, max_fs=0.05
+ -->	time[s]=0.47, iterations=0, max_fs=0.05
+ -->	time[s]=0.48, iterations=0, max_fs=0.05
+ -->	time[s]=0.49, iterations=0, max_fs=0.05
+ -->	time[s]=0.5, iterations=0, max_fs=0.05
+ -->	time[s]=0.51, iterations=0, max_fs=0.05
+ -->	time[s]=0.52, iterations=0, max_fs=0.05
+ -->	time[s]=0.53, iterations=0, max_fs=-0.05
+ -->	time[s]=0.54, iterations=0, max_fs=0.05
+ -->	time[s]=0.55, iterations=0, max_fs=0.05
+ -->	time[s]=0.56, iterations=0, max_fs=0.05
+ -->	time[s]=0.57, iterations=0, max_fs=0.05
+ -->	time[s]=0.58, iterations=0, max_fs=0.05
+ -->	time[s]=0.59, iterations=0, max_fs=0.05
+ -->	time[s]=0.6, iterations=0, max_fs=0.05
+ -->	time[s]=0.61, iterations=0, max_fs=0.05
+ -->	time[s]=0.62, iterations=0, max_fs=0.05
+ -->	time[s]=0.63, iterations=0, max_fs=0.05
+ -->	time[s]=0.64, iterations=0, max_fs=0.05
+ -->	time[s]=0.65, iterations=0, max_fs=0.05
+ -->	time[s]=0.66, iterations=0, max_fs=0.05
+ -->	time[s]=0.67, iterations=0, max_fs=0.05
+ -->	time[s]=0.68, iterations=0, max_fs=0.05
+ -->	time[s]=0.69, iterations=0, max_fs=0.05
+ -->	time[s]=0.7, iterations=0, max_fs=0.05
+ -->	time[s]=0.71, iterations=0, max_fs=0.05
+ -->	time[s]=0.72, iterations=0, max_fs=0.05
+ -->	time[s]=0.73, iterations=0, max_fs=-0.05
+ -->	time[s]=0.74, iterations=0, max_fs=-0.05
+ -->	time[s]=0.75, iterations=0, max_fs=0.05
+ -->	time[s]=0.76, iterations=0, max_fs=0.05
+ -->	time[s]=0.77, iterations=0, max_fs=0.05
+ -->	time[s]=0.78, iterations=0, max_fs=0.05
+ -->	time[s]=0.79, iterations=0, max_fs=0.05
+ -->	time[s]=0.8, iterations=0, max_fs=0.05
+ -->	time[s]=0.81, iterations=0, max_fs=0.05
+ -->	time[s]=0.82, iterations=0, max_fs=0.05
+ -->	time[s]=0.83, iterations=0, max_fs=0.05
+ -->	time[s]=0.84, iterations=0, max_fs=0.05
+ -->	time[s]=0.85, iterations=0, max_fs=0.05
+ -->	time[s]=0.86, iterations=0, max_fs=0.05
+ -->	time[s]=0.87, iterations=0, max_fs=0.05
+ -->	time[s]=0.88, iterations=0, max_fs=0.05
+ -->	time[s]=0.89, iterations=0, max_fs=0.05
+ -->	time[s]=0.9, iterations=0, max_fs=0.05
+ -->	time[s]=0.91, iterations=0, max_fs=0.05
+ -->	time[s]=0.92, iterations=0, max_fs=0.05
+ -->	time[s]=0.93, iterations=0, max_fs=-0.05
+ -->	time[s]=0.94, iterations=0, max_fs=0.05
+ -->	time[s]=0.95, iterations=0, max_fs=-0.05
+ -->	time[s]=0.96, iterations=0, max_fs=0.05
+ -->	time[s]=0.97, iterations=0, max_fs=0.05
+ -->	time[s]=0.98, iterations=0, max_fs=0.05
+ -->	time[s]=0.99, iterations=0, max_fs=0.05
+ -->	time[s]=1, iterations=0, max_fs=-0.05
+ -->	time[s]=1.01, iterations=0, max_fs=0.05
+ -->	time[s]=1.02, iterations=0, max_fs=0.05
+ -->	time[s]=1.03, iterations=0, max_fs=-0.05
+ -->	time[s]=1.04, iterations=0, max_fs=0.05
+ -->	time[s]=1.05, iterations=0, max_fs=-0.05
+ -->	time[s]=1.06, iterations=0, max_fs=0.05
+ -->	time[s]=1.07, iterations=0, max_fs=-0.05
+ -->	time[s]=1.08, iterations=0, max_fs=0.05
+ -->	time[s]=1.09, iterations=0, max_fs=-0.05
+ -->	time[s]=1.1, iterations=0, max_fs=0.05
+ -->	time[s]=1.11, iterations=0, max_fs=0.05
+ -->	time[s]=1.12, iterations=0, max_fs=0.05
+ -->	time[s]=1.13, iterations=0, max_fs=-0.05
+ -->	time[s]=1.14, iterations=0, max_fs=0.05
+ -->	time[s]=1.15, iterations=0, max_fs=0.05
+ -->	time[s]=1.16, iterations=0, max_fs=0.05
+ -->	time[s]=1.17, iterations=0, max_fs=0.05
+ -->	time[s]=1.18, iterations=0, max_fs=-0.05
+ -->	time[s]=1.19, iterations=0, max_fs=0.05
+ -->	time[s]=1.2, iterations=0, max_fs=0.05
+ -->	time[s]=1.21, iterations=0, max_fs=0.05
+ -->	time[s]=1.22, iterations=0, max_fs=0.05
+ -->	time[s]=1.23, iterations=0, max_fs=-0.05
+ -->	time[s]=1.24, iterations=0, max_fs=0.05
+ -->	time[s]=1.25, iterations=0, max_fs=0.05
+ -->	time[s]=1.26, iterations=0, max_fs=-0.05
+ -->	time[s]=1.27, iterations=0, max_fs=0.05
+ -->	time[s]=1.28, iterations=0, max_fs=0.05
+ -->	time[s]=1.29, iterations=0, max_fs=0.05
+ -->	time[s]=1.3, iterations=0, max_fs=0.05
+ -->	time[s]=1.31, iterations=0, max_fs=-0.05
+ -->	time[s]=1.32, iterations=0, max_fs=0.05
+ -->	time[s]=1.33, iterations=0, max_fs=0.05
+ -->	time[s]=1.34, iterations=0, max_fs=-0.05
+ -->	time[s]=1.35, iterations=0, max_fs=0.05
+ -->	time[s]=1.36, iterations=0, max_fs=-0.05
+ -->	time[s]=1.37, iterations=0, max_fs=-0.05
+ -->	time[s]=1.38, iterations=0, max_fs=0.05
+ -->	time[s]=1.39, iterations=0, max_fs=0.05
+ -->	time[s]=1.4, iterations=0, max_fs=0.05
+ -->	time[s]=1.41, iterations=0, max_fs=0.05
+ -->	time[s]=1.42, iterations=0, max_fs=0.05
+ -->	time[s]=1.43, iterations=0, max_fs=-0.05
+ -->	time[s]=1.44, iterations=0, max_fs=0.05
+ -->	time[s]=1.45, iterations=0, max_fs=-0.05
+ -->	time[s]=1.46, iterations=0, max_fs=0.05
+ -->	time[s]=1.47, iterations=0, max_fs=0.05
+ -->	time[s]=1.48, iterations=0, max_fs=0.05
+ -->	time[s]=1.49, iterations=0, max_fs=0.05
+ -->	time[s]=1.5, iterations=0, max_fs=0.05
+ -->	time[s]=1.51, iterations=0, max_fs=-0.05
+ -->	time[s]=1.52, iterations=0, max_fs=-0.05
+ -->	time[s]=1.53, iterations=0, max_fs=-0.05
+ -->	time[s]=1.54, iterations=0, max_fs=0.05
+ -->	time[s]=1.55, iterations=0, max_fs=-0.05
+ -->	time[s]=1.56, iterations=0, max_fs=0.05
+ -->	time[s]=1.57, iterations=0, max_fs=0.05
+ -->	time[s]=1.58, iterations=0, max_fs=0.05
+ -->	time[s]=1.59, iterations=0, max_fs=0.05
+ -->	time[s]=1.6, iterations=0, max_fs=-0.05
+ -->	time[s]=1.61, iterations=0, max_fs=0.05
+ -->	time[s]=1.62, iterations=0, max_fs=-0.05
+ -->	time[s]=1.63, iterations=0, max_fs=-0.05
+ -->	time[s]=1.64, iterations=0, max_fs=0.05
+ -->	time[s]=1.65, iterations=0, max_fs=0.05
+ -->	time[s]=1.66, iterations=0, max_fs=-0.05
+ -->	time[s]=1.67, iterations=0, max_fs=0.05
+ -->	time[s]=1.68, iterations=0, max_fs=-0.05
+ -->	time[s]=1.69, iterations=0, max_fs=0.05
+ -->	time[s]=1.7, iterations=0, max_fs=0.05
+ -->	time[s]=1.71, iterations=0, max_fs=0.0499999
+ -->	time[s]=1.72, iterations=0, max_fs=0.05
+ -->	time[s]=1.73, iterations=0, max_fs=0.05
+ -->	time[s]=1.74, iterations=0, max_fs=-0.0499999
+ -->	time[s]=1.75, iterations=0, max_fs=-0.05
+ -->	time[s]=1.76, iterations=0, max_fs=0.05
+ -->	time[s]=1.77, iterations=0, max_fs=0.05
+ -->	time[s]=1.78, iterations=0, max_fs=-0.05
+ -->	time[s]=1.79, iterations=0, max_fs=-0.05
+ -->	time[s]=1.8, iterations=0, max_fs=0.05
+ -->	time[s]=1.81, iterations=0, max_fs=-0.05
+ -->	time[s]=1.82, iterations=0, max_fs=0.05
+ -->	time[s]=1.83, iterations=0, max_fs=-0.0499999
+ -->	time[s]=1.84, iterations=0, max_fs=0.05
+ -->	time[s]=1.85, iterations=0, max_fs=-0.05
+ -->	time[s]=1.86, iterations=0, max_fs=-0.05
+ -->	time[s]=1.87, iterations=0, max_fs=0.05
+ -->	time[s]=1.88, iterations=0, max_fs=-0.05
+ -->	time[s]=1.89, iterations=0, max_fs=0.05
+ -->	time[s]=1.9, iterations=0, max_fs=0.05
+ -->	time[s]=1.91, iterations=0, max_fs=0.05
+ -->	time[s]=1.92, iterations=0, max_fs=0.05
+ -->	time[s]=1.93, iterations=0, max_fs=-0.05
+ -->	time[s]=1.94, iterations=0, max_fs=0.05
+ -->	time[s]=1.95, iterations=0, max_fs=0.05
+ -->	time[s]=1.96, iterations=0, max_fs=-0.05
+ -->	time[s]=1.97, iterations=0, max_fs=-0.05
+ -->	time[s]=1.98, iterations=0, max_fs=-0.05
+ -->	time[s]=1.99, iterations=0, max_fs=0.05
+ -->	time[s]=2, iterations=0, max_fs=0.05
+ -->	time[s]=2.01, iterations=0, max_fs=0.05
+ -->	time[s]=2.02, iterations=0, max_fs=0.05
+ -->	time[s]=2.03, iterations=0, max_fs=0.05
+ -->	time[s]=2.04, iterations=0, max_fs=-0.05
+ -->	time[s]=2.05, iterations=0, max_fs=0.05
+ -->	time[s]=2.06, iterations=0, max_fs=-0.05
+ -->	time[s]=2.07, iterations=0, max_fs=-0.05
+ -->	time[s]=2.08, iterations=0, max_fs=-0.05
+ -->	time[s]=2.09, iterations=0, max_fs=0.05
+ -->	time[s]=2.1, iterations=0, max_fs=0.05
+ -->	time[s]=2.11, iterations=0, max_fs=-0.05
+ -->	time[s]=2.12, iterations=0, max_fs=0.05
+ -->	time[s]=2.13, iterations=0, max_fs=0.05
+ -->	time[s]=2.14, iterations=0, max_fs=-0.05
+ -->	time[s]=2.15, iterations=0, max_fs=0.05
+ -->	time[s]=2.16, iterations=0, max_fs=-0.05
+ -->	time[s]=2.17, iterations=0, max_fs=0.05
+ -->	time[s]=2.18, iterations=0, max_fs=-0.05
+ -->	time[s]=2.19, iterations=0, max_fs=0.05
+ -->	time[s]=2.2, iterations=0, max_fs=0.05
+ -->	time[s]=2.21, iterations=0, max_fs=0.05
+ -->	time[s]=2.22, iterations=0, max_fs=0.05
+ -->	time[s]=2.23, iterations=0, max_fs=0.05
+ -->	time[s]=2.24, iterations=0, max_fs=-0.05
+ -->	time[s]=2.25, iterations=0, max_fs=0.05
+ -->	time[s]=2.26, iterations=0, max_fs=-0.05
+ -->	time[s]=2.27, iterations=0, max_fs=-0.05
+ -->	time[s]=2.28, iterations=0, max_fs=0.05
+ -->	time[s]=2.29, iterations=0, max_fs=0.05
+ -->	time[s]=2.3, iterations=0, max_fs=-0.05
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633533248264
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000307791
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.00122359
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272484
+ -->	Fast_convergence     0
+ -->	time[s]=0.04, iterations=12, max_fs=0.00477458
+ -->	Fast_convergence     0
+ -->	time[s]=0.05, iterations=12, max_fs=0.00732233
+ -->	Fast_convergence     0
+ -->	time[s]=0.06, iterations=12, max_fs=0.0103054
+ -->	Fast_convergence     0
+ -->	time[s]=0.07, iterations=12, max_fs=0.0136502
+ -->	Fast_convergence     0
+ -->	time[s]=0.08, iterations=12, max_fs=0.0172746
+ -->	Fast_convergence     0
+ -->	time[s]=0.09, iterations=12, max_fs=0.0210891
+ -->	Fast_convergence     0
+ -->	time[s]=0.1, iterations=12, max_fs=0.025
+ -->	Fast_convergence     0
+ -->	time[s]=0.11, iterations=12, max_fs=0.0289109
+ -->	Fast_convergence     0
+ -->	time[s]=0.12, iterations=12, max_fs=0.0327254
+ -->	Fast_convergence     0
+ -->	time[s]=0.13, iterations=12, max_fs=0.0363498
+ -->	Fast_convergence     0
+ -->	time[s]=0.14, iterations=12, max_fs=0.0396946
+ -->	Fast_convergence     0
+ -->	time[s]=0.15, iterations=12, max_fs=0.0426777
+ -->	Fast_convergence     0
+ -->	time[s]=0.16, iterations=12, max_fs=0.0452254
+ -->	Fast_convergence     0
+ -->	time[s]=0.17, iterations=12, max_fs=0.0472752
+ -->	Fast_convergence     0
+ -->	time[s]=0.18, iterations=12, max_fs=0.0487764
+ -->	Fast_convergence     0
+ -->	time[s]=0.19, iterations=12, max_fs=0.0496922
+ -->	Fast_convergence     0
+ -->	time[s]=0.2, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.21, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.22, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.23, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.24, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.25, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.26, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.27, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.28, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.29, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.3, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.31, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.32, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.33, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.34, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.35, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.36, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.37, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.38, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.39, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.4, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.41, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.42, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.43, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.44, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.45, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.46, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.47, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.48, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.49, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.5, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.51, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.52, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.53, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.54, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.55, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.56, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.57, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.58, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.59, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.6, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.61, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.62, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.63, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.64, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.65, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.66, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.67, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.68, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.69, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.7, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.71, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.72, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.73, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.74, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.75, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.76, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.77, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.78, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.79, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.8, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.81, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.82, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.83, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.84, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.85, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.86, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.87, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.88, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.89, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.9, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.91, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.92, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.93, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.94, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.95, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.96, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.97, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.98, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=0.99, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.01, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.02, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.03, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.04, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.05, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.06, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.07, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.08, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.09, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.1, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.11, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.12, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.13, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.14, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.15, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.16, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.17, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.18, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.19, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.2, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.21, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.22, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.23, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.24, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.25, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.26, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.27, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.28, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.29, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.3, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.31, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.32, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.33, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.34, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.35, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.36, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.37, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.38, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.39, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.4, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.41, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.42, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.43, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.44, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.45, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.46, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.47, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.48, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.49, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.5, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.51, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.52, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.53, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.54, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.55, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.56, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.57, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.58, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.59, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.6, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.61, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.62, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.63, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.64, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.65, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.66, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.67, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.68, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.69, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.7, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.71, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=1.72, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.73, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.74, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=1.75, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.76, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.77, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.78, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.79, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.8, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.81, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.82, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.83, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=1.84, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.85, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.86, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.87, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.88, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.89, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.9, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.91, iterations=48, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.92, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.93, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.94, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.95, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.96, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.97, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.98, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=1.99, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.01, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.02, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.03, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.04, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.05, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.06, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.07, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.08, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.09, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.1, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.11, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.12, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.13, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.14, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.15, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.16, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.17, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.18, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.19, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.2, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.21, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.22, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.23, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.24, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.25, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.26, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.27, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.28, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.29, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.3, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.31, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.32, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.33, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=2.34, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.35, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.36, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.37, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=2.38, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.39, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.4, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.41, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     0
+ -->	time[s]=2.42, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=2.43, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.44, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.45, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.46, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.47, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.48, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.49, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.5, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.51, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.52, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.53, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.54, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.55, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.56, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.57, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.58, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.59, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.6, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.61, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.62, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     0
+ -->	time[s]=2.63, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.64, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.65, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.66, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.67, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.68, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.69, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.7, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.71, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.72, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.73, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.74, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.75, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=2.76, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.77, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.78, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.79, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.8, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.81, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.82, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.83, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.84, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.85, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.86, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.87, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.88, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.89, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.9, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.91, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=2.92, iterations=12, max_fs=0.0499996
+ -->	Fast_convergence     0
+ -->	time[s]=2.93, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=2.94, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.95, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.96, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     0
+ -->	time[s]=2.97, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.98, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0
+ -->	time[s]=2.99, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0
+ -->	time[s]=3, iterations=12, max_fs=0.05
+ -->	Fast finished
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\common\error.cpp" AT LINE NUMBER 570:
+ -->	Not all memory allocated has been deallocated.
+	(Verify that each "new" instruction has a "delete" instruction)
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633533479414
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633533654942
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633533717569
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.0012239
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272486
+ -->	Fast_convergence     0
+ -->	time[s]=0.04, iterations=12, max_fs=0.0047746
+ -->	Fast_convergence     0
+ -->	time[s]=0.05, iterations=12, max_fs=0.00732244
+ -->	Fast_convergence     0
+ -->	time[s]=0.06, iterations=12, max_fs=0.0103059
+ -->	Fast_convergence     0
+ -->	time[s]=0.07, iterations=12, max_fs=0.0149885
+ -->	Fast_convergence     0
+ -->	time[s]=0.08, iterations=12, max_fs=0.0435818
+ -->	Fast_convergence     0
+ -->	time[s]=0.09, iterations=12, max_fs=-0.237103
+ -->	Fast_convergence     0
+ -->	time[s]=0.1, iterations=12, max_fs=2.43203
+ -->	Fast_convergence     0
+ -->	time[s]=0.11, iterations=12, max_fs=-22.7107
+ -->	Fast_convergence     0
+ -->	time[s]=0.12, iterations=12, max_fs=215.656
+ -->	Fast_convergence     0
+ -->	time[s]=0.13, iterations=12, max_fs=-2052.73
+ -->	Fast_convergence     0
+ -->	time[s]=0.14, iterations=12, max_fs=19605.9
+ -->	Fast_convergence     0
+ -->	time[s]=0.15, iterations=12, max_fs=-187773
+ -->	Fast_convergence     0
+ -->	time[s]=0.16, iterations=12, max_fs=1.80263e+06
+ -->	Fast_convergence     0
+ -->	time[s]=0.17, iterations=12, max_fs=-1.73409e+07
+ -->	Fast_convergence     0
+ -->	time[s]=0.18, iterations=12, max_fs=1.67115e+08
+ -->	Fast_convergence     0
+ -->	time[s]=0.19, iterations=12, max_fs=-1.61302e+09
+ -->	Fast_convergence     0
+ -->	time[s]=0.2, iterations=12, max_fs=1.55909e+10
+ -->	Fast_convergence     0
+ -->	time[s]=0.21, iterations=12, max_fs=-1.50883e+11
+ -->	Fast_convergence     0
+ -->	time[s]=0.22, iterations=12, max_fs=1.46181e+12
+ -->	Fast_convergence     0
+ -->	time[s]=0.23, iterations=12, max_fs=-1.41766e+13
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633533808975
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.0012239
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272486
+ -->	Fast_convergence     0
+ -->	time[s]=0.04, iterations=12, max_fs=0.0047746
+ -->	Fast_convergence     0
+ -->	time[s]=0.05, iterations=12, max_fs=0.00732244
+ -->	Fast_convergence     0
+ -->	time[s]=0.06, iterations=12, max_fs=0.0103059
+ -->	Fast_convergence     0
+ -->	time[s]=0.07, iterations=12, max_fs=0.0149885
+ -->	Fast_convergence     0
+ -->	time[s]=0.08, iterations=12, max_fs=0.0435818
+ -->	Fast_convergence     0
+ -->	time[s]=0.09, iterations=12, max_fs=-0.237103
+ -->	Fast_convergence     0
+ -->	time[s]=0.1, iterations=12, max_fs=2.43203
+ -->	Fast_convergence     0
+ -->	time[s]=0.11, iterations=12, max_fs=-22.7107
+ -->	Fast_convergence     0
+ -->	time[s]=0.12, iterations=12, max_fs=215.656
+ -->	Fast_convergence     0
+ -->	time[s]=0.13, iterations=12, max_fs=-2052.73
+ -->	Fast_convergence     0
+ -->	time[s]=0.14, iterations=12, max_fs=19605.9
+ -->	Fast_convergence     0
+ -->	time[s]=0.15, iterations=12, max_fs=-187773
+ -->	Fast_convergence     0
+ -->	time[s]=0.16, iterations=12, max_fs=1.80263e+06
+ -->	Fast_convergence     0
+ -->	time[s]=0.17, iterations=12, max_fs=-1.73409e+07
+ -->	Fast_convergence     0
+ -->	time[s]=0.18, iterations=12, max_fs=1.67115e+08
+ -->	Fast_convergence     0
+ -->	time[s]=0.19, iterations=12, max_fs=-1.61302e+09
+ -->	Fast_convergence     0
+ -->	time[s]=0.2, iterations=12, max_fs=1.55909e+10
+ -->	Fast_convergence     0
+ -->	time[s]=0.21, iterations=12, max_fs=-1.50883e+11
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633534576031
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633534924073
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633535024052
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633535205137
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633535380096
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633535874374
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633535895051
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.0012239
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272486
+ -->	Fast_convergence     0
+ -->	time[s]=0.04, iterations=12, max_fs=0.0047746
+ -->	Fast_convergence     0
+ -->	time[s]=0.05, iterations=12, max_fs=0.00732244
+ -->	Fast_convergence     0
+ -->	time[s]=0.06, iterations=12, max_fs=0.0103059
+ -->	Fast_convergence     0
+ -->	time[s]=0.07, iterations=12, max_fs=0.0149885
+ -->	Fast_convergence     0
+ -->	time[s]=0.08, iterations=12, max_fs=0.0435818
+ -->	Fast_convergence     0
+ -->	time[s]=0.09, iterations=12, max_fs=-0.237103
+ -->	Fast_convergence     0
+ -->	time[s]=0.1, iterations=12, max_fs=2.43203
+ -->	Fast_convergence     0
+ -->	time[s]=0.11, iterations=12, max_fs=-22.7107
+ -->	Fast_convergence     0
+ -->	time[s]=0.12, iterations=12, max_fs=215.656
+ -->	Fast_convergence     0
+ -->	time[s]=0.13, iterations=12, max_fs=-2052.73
+ -->	Fast_convergence     0
+ -->	time[s]=0.14, iterations=12, max_fs=19605.9
+ -->	Fast_convergence     0
+ -->	time[s]=0.15, iterations=12, max_fs=-187773
+ -->	Fast_convergence     0
+ -->	time[s]=0.16, iterations=12, max_fs=1.80263e+06
+ -->	Fast_convergence     0
+ -->	time[s]=0.17, iterations=12, max_fs=-1.73409e+07
+ -->	Fast_convergence     0
+ -->	time[s]=0.18, iterations=12, max_fs=1.67115e+08
+ -->	Fast_convergence     0
+ -->	time[s]=0.19, iterations=12, max_fs=-1.61302e+09
+ -->	Fast_convergence     0
+ -->	time[s]=0.2, iterations=12, max_fs=1.55909e+10
+ -->	Fast_convergence     0
+ -->	time[s]=0.21, iterations=12, max_fs=-1.50883e+11
+ -->	Fast_convergence     0
+ -->	time[s]=0.22, iterations=12, max_fs=1.46181e+12
+ -->	Fast_convergence     0
+ -->	time[s]=0.23, iterations=12, max_fs=-1.41766e+13
+ -->	Fast_convergence     0
+ -->	time[s]=0.24, iterations=12, max_fs=1.37609e+14
+ -->	Fast_convergence     0
+ -->	time[s]=0.25, iterations=12, max_fs=-1.33683e+15
+ -->	Fast_convergence     0
+ -->	time[s]=0.26, iterations=12, max_fs=1.29965e+16
+ -->	Fast_convergence     0
+ -->	time[s]=0.27, iterations=12, max_fs=-1.26437e+17
+ -->	Fast_convergence     0
+ -->	time[s]=0.28, iterations=12, max_fs=1.23081e+18
+ -->	Fast_convergence     0
+ -->	time[s]=0.29, iterations=12, max_fs=-1.19882e+19
+ -->	Fast_convergence     0
+ -->	time[s]=0.3, iterations=12, max_fs=1.16828e+20
+ -->	Fast_convergence     0
+ -->	time[s]=0.31, iterations=12, max_fs=-1.13907e+21
+ -->	Fast_convergence     0
+ -->	time[s]=0.32, iterations=12, max_fs=1.1111e+22
+ -->	Fast_convergence     0
+ -->	time[s]=0.33, iterations=12, max_fs=-1.08426e+23
+ -->	Fast_convergence     0
+ -->	time[s]=0.34, iterations=12, max_fs=1.05848e+24
+ -->	Fast_convergence     0
+ -->	time[s]=0.35, iterations=12, max_fs=-1.0337e+25
+ -->	Fast_convergence     0
+ -->	time[s]=0.36, iterations=12, max_fs=1.00983e+26
+ -->	Fast_convergence     0
+ -->	time[s]=0.37, iterations=12, max_fs=-9.86828e+26
+ -->	Fast_convergence     0
+ -->	time[s]=0.38, iterations=12, max_fs=9.64637e+27
+ -->	Fast_convergence     0
+ -->	time[s]=0.39, iterations=12, max_fs=-9.43209e+28
+ -->	Fast_convergence     0
+ -->	time[s]=0.4, iterations=12, max_fs=9.22499e+29
+ -->	Fast_convergence     0
+ -->	time[s]=0.41, iterations=12, max_fs=-9.02467e+30
+ -->	Fast_convergence     0
+ -->	time[s]=0.42, iterations=12, max_fs=8.83076e+31
+ -->	Fast_convergence     0
+ -->	time[s]=0.43, iterations=12, max_fs=-8.64293e+32
+ -->	Fast_convergence     0
+ -->	time[s]=0.44, iterations=12, max_fs=8.46086e+33
+ -->	Fast_convergence     0
+ -->	time[s]=0.45, iterations=12, max_fs=-8.28426e+34
+ -->	Fast_convergence     0
+ -->	time[s]=0.46, iterations=12, max_fs=8.11288e+35
+ -->	Fast_convergence     0
+ -->	time[s]=0.47, iterations=12, max_fs=-7.94646e+36
+ -->	Fast_convergence     0
+ -->	time[s]=0.48, iterations=12, max_fs=7.78477e+37
+ -->	Fast_convergence     0
+ -->	time[s]=0.49, iterations=12, max_fs=-7.6276e+38
+ -->	Fast_convergence     0
+ -->	time[s]=0.5, iterations=12, max_fs=7.47476e+39
+ -->	Fast_convergence     0
+ -->	time[s]=0.51, iterations=12, max_fs=-7.32606e+40
+ -->	Fast_convergence     0
+ -->	time[s]=0.52, iterations=12, max_fs=7.18132e+41
+ -->	Fast_convergence     0
+ -->	time[s]=0.53, iterations=12, max_fs=-7.04039e+42
+ -->	Fast_convergence     0
+ -->	time[s]=0.54, iterations=12, max_fs=6.90312e+43
+ -->	Fast_convergence     0
+ -->	time[s]=0.55, iterations=12, max_fs=-6.76935e+44
+ -->	Fast_convergence     0
+ -->	time[s]=0.56, iterations=12, max_fs=6.63896e+45
+ -->	Fast_convergence     0
+ -->	time[s]=0.57, iterations=12, max_fs=-6.51182e+46
+ -->	Fast_convergence     0
+ -->	time[s]=0.58, iterations=12, max_fs=6.38781e+47
+ -->	Fast_convergence     0
+ -->	time[s]=0.59, iterations=12, max_fs=-6.26682e+48
+ -->	Fast_convergence     0
+ -->	time[s]=0.6, iterations=12, max_fs=6.14874e+49
+ -->	Fast_convergence     0
+ -->	time[s]=0.61, iterations=12, max_fs=-6.03347e+50
+ -->	Fast_convergence     0
+ -->	time[s]=0.62, iterations=12, max_fs=5.92092e+51
+ -->	Fast_convergence     0
+ -->	time[s]=0.63, iterations=12, max_fs=-5.81099e+52
+ -->	Fast_convergence     0
+ -->	time[s]=0.64, iterations=12, max_fs=5.7036e+53
+ -->	Fast_convergence     0
+ -->	time[s]=0.65, iterations=12, max_fs=-5.59866e+54
+ -->	Fast_convergence     0
+ -->	time[s]=0.66, iterations=12, max_fs=5.49611e+55
+ -->	Fast_convergence     0
+ -->	time[s]=0.67, iterations=12, max_fs=-5.39586e+56
+ -->	Fast_convergence     0
+ -->	time[s]=0.68, iterations=12, max_fs=5.29784e+57
+ -->	Fast_convergence     0
+ -->	time[s]=0.69, iterations=12, max_fs=-5.20199e+58
+ -->	Fast_convergence     0
+ -->	time[s]=0.7, iterations=12, max_fs=5.10824e+59
+ -->	Fast_convergence     0
+ -->	time[s]=0.71, iterations=12, max_fs=-5.01653e+60
+ -->	Fast_convergence     0
+ -->	time[s]=0.72, iterations=12, max_fs=4.9268e+61
+ -->	Fast_convergence     0
+ -->	time[s]=0.73, iterations=12, max_fs=-4.839e+62
+ -->	Fast_convergence     0
+ -->	time[s]=0.74, iterations=12, max_fs=4.75306e+63
+ -->	Fast_convergence     0
+ -->	time[s]=0.75, iterations=12, max_fs=-4.66894e+64
+ -->	Fast_convergence     0
+ -->	time[s]=0.76, iterations=12, max_fs=4.58658e+65
+ -->	Fast_convergence     0
+ -->	time[s]=0.77, iterations=12, max_fs=-4.50594e+66
+ -->	Fast_convergence     0
+ -->	time[s]=0.78, iterations=12, max_fs=4.42698e+67
+ -->	Fast_convergence     0
+ -->	time[s]=0.79, iterations=12, max_fs=-4.34964e+68
+ -->	Fast_convergence     0
+ -->	time[s]=0.8, iterations=12, max_fs=4.27389e+69
+ -->	Fast_convergence     0
+ -->	time[s]=0.81, iterations=12, max_fs=-4.19968e+70
+ -->	Fast_convergence     0
+ -->	time[s]=0.82, iterations=12, max_fs=4.12698e+71
+ -->	Fast_convergence     0
+ -->	time[s]=0.83, iterations=12, max_fs=-4.05574e+72
+ -->	Fast_convergence     0
+ -->	time[s]=0.84, iterations=12, max_fs=3.98592e+73
+ -->	Fast_convergence     0
+ -->	time[s]=0.85, iterations=12, max_fs=-3.91751e+74
+ -->	Fast_convergence     0
+ -->	time[s]=0.86, iterations=12, max_fs=3.85044e+75
+ -->	Fast_convergence     0
+ -->	time[s]=0.87, iterations=12, max_fs=-3.78471e+76
+ -->	Fast_convergence     0
+ -->	time[s]=0.88, iterations=12, max_fs=3.72026e+77
+ -->	Fast_convergence     0
+ -->	time[s]=0.89, iterations=12, max_fs=-3.65708e+78
+ -->	Fast_convergence     0
+ -->	time[s]=0.9, iterations=12, max_fs=3.59513e+79
+ -->	Fast_convergence     0
+ -->	time[s]=0.91, iterations=12, max_fs=-3.53438e+80
+ -->	Fast_convergence     0
+ -->	time[s]=0.92, iterations=12, max_fs=3.4748e+81
+ -->	Fast_convergence     0
+ -->	time[s]=0.93, iterations=12, max_fs=-3.41637e+82
+ -->	Fast_convergence     0
+ -->	time[s]=0.94, iterations=12, max_fs=3.35906e+83
+ -->	Fast_convergence     0
+ -->	time[s]=0.95, iterations=12, max_fs=-3.30284e+84
+ -->	Fast_convergence     0
+ -->	time[s]=0.96, iterations=12, max_fs=3.24769e+85
+ -->	Fast_convergence     0
+ -->	time[s]=0.97, iterations=12, max_fs=-3.19358e+86
+ -->	Fast_convergence     0
+ -->	time[s]=0.98, iterations=12, max_fs=3.1405e+87
+ -->	Fast_convergence     0
+ -->	time[s]=0.99, iterations=12, max_fs=-3.08841e+88
+ -->	Fast_convergence     0
+ -->	time[s]=1, iterations=12, max_fs=3.0373e+89
+ -->	Fast_convergence     0
+ -->	time[s]=1.01, iterations=12, max_fs=-2.98714e+90
+ -->	Fast_convergence     0
+ -->	time[s]=1.02, iterations=12, max_fs=2.93792e+91
+ -->	Fast_convergence     0
+ -->	time[s]=1.03, iterations=12, max_fs=-2.88961e+92
+ -->	Fast_convergence     0
+ -->	time[s]=1.04, iterations=12, max_fs=2.84219e+93
+ -->	Fast_convergence     0
+ -->	time[s]=1.05, iterations=12, max_fs=-2.79564e+94
+ -->	Fast_convergence     0
+ -->	time[s]=1.06, iterations=12, max_fs=2.74995e+95
+ -->	Fast_convergence     0
+ -->	time[s]=1.07, iterations=12, max_fs=-2.7051e+96
+ -->	Fast_convergence     0
+ -->	time[s]=1.08, iterations=12, max_fs=2.66107e+97
+ -->	Fast_convergence     0
+ -->	time[s]=1.09, iterations=12, max_fs=-2.61783e+98
+ -->	Fast_convergence     0
+ -->	time[s]=1.1, iterations=12, max_fs=2.57538e+99
+ -->	Fast_convergence     0
+ -->	time[s]=1.11, iterations=12, max_fs=-2.5337e+100
+ -->	Fast_convergence     0
+ -->	time[s]=1.12, iterations=12, max_fs=2.49278e+101
+ -->	Fast_convergence     0
+ -->	time[s]=1.13, iterations=12, max_fs=-2.45258e+102
+ -->	Fast_convergence     0
+ -->	time[s]=1.14, iterations=12, max_fs=2.41311e+103
+ -->	Fast_convergence     0
+ -->	time[s]=1.15, iterations=12, max_fs=-2.37435e+104
+ -->	Fast_convergence     0
+ -->	time[s]=1.16, iterations=12, max_fs=2.33628e+105
+ -->	Fast_convergence     0
+ -->	time[s]=1.17, iterations=12, max_fs=-2.29888e+106
+ -->	Fast_convergence     0
+ -->	time[s]=1.18, iterations=12, max_fs=2.26215e+107
+ -->	Fast_convergence     0
+ -->	time[s]=1.19, iterations=12, max_fs=-2.22607e+108
+ -->	Fast_convergence     0
+ -->	time[s]=1.2, iterations=12, max_fs=2.19063e+109
+ -->	Fast_convergence     0
+ -->	time[s]=1.21, iterations=12, max_fs=-2.15582e+110
+ -->	Fast_convergence     0
+ -->	time[s]=1.22, iterations=12, max_fs=2.12161e+111
+ -->	Fast_convergence     0
+ -->	time[s]=1.23, iterations=12, max_fs=-2.08801e+112
+ -->	Fast_convergence     0
+ -->	time[s]=1.24, iterations=12, max_fs=2.05499e+113
+ -->	Fast_convergence     0
+ -->	time[s]=1.25, iterations=12, max_fs=-2.02255e+114
+ -->	Fast_convergence     0
+ -->	time[s]=1.26, iterations=12, max_fs=1.99068e+115
+ -->	Fast_convergence     0
+ -->	time[s]=1.27, iterations=12, max_fs=-1.95936e+116
+ -->	Fast_convergence     0
+ -->	time[s]=1.28, iterations=12, max_fs=1.92858e+117
+ -->	Fast_convergence     0
+ -->	time[s]=1.29, iterations=12, max_fs=-1.89834e+118
+ -->	Fast_convergence     0
+ -->	time[s]=1.3, iterations=12, max_fs=1.86862e+119
+ -->	Fast_convergence     0
+ -->	time[s]=1.31, iterations=12, max_fs=-1.83941e+120
+ -->	Fast_convergence     0
+ -->	time[s]=1.32, iterations=12, max_fs=1.81071e+121
+ -->	Fast_convergence     0
+ -->	time[s]=1.33, iterations=12, max_fs=-1.78249e+122
+ -->	Fast_convergence     0
+ -->	time[s]=1.34, iterations=12, max_fs=1.75476e+123
+ -->	Fast_convergence     0
+ -->	time[s]=1.35, iterations=12, max_fs=-1.72751e+124
+ -->	Fast_convergence     0
+ -->	time[s]=1.36, iterations=12, max_fs=1.70072e+125
+ -->	Fast_convergence     0
+ -->	time[s]=1.37, iterations=12, max_fs=-1.67438e+126
+ -->	Fast_convergence     0
+ -->	time[s]=1.38, iterations=12, max_fs=1.6485e+127
+ -->	Fast_convergence     0
+ -->	time[s]=1.39, iterations=12, max_fs=-1.62305e+128
+ -->	Fast_convergence     0
+ -->	time[s]=1.4, iterations=12, max_fs=1.59803e+129
+ -->	Fast_convergence     0
+ -->	time[s]=1.41, iterations=12, max_fs=-1.57344e+130
+ -->	Fast_convergence     0
+ -->	time[s]=1.42, iterations=12, max_fs=1.54926e+131
+ -->	Fast_convergence     0
+ -->	time[s]=1.43, iterations=12, max_fs=-1.52549e+132
+ -->	Fast_convergence     0
+ -->	time[s]=1.44, iterations=12, max_fs=1.50212e+133
+ -->	Fast_convergence     0
+ -->	time[s]=1.45, iterations=12, max_fs=-1.47914e+134
+ -->	Fast_convergence     0
+ -->	time[s]=1.46, iterations=12, max_fs=1.45654e+135
+ -->	Fast_convergence     0
+ -->	time[s]=1.47, iterations=12, max_fs=-1.43433e+136
+ -->	Fast_convergence     0
+ -->	time[s]=1.48, iterations=12, max_fs=1.41248e+137
+ -->	Fast_convergence     0
+ -->	time[s]=1.49, iterations=12, max_fs=-1.391e+138
+ -->	Fast_convergence     0
+ -->	time[s]=1.5, iterations=12, max_fs=1.36987e+139
+ -->	Fast_convergence     0
+ -->	time[s]=1.51, iterations=12, max_fs=-1.3491e+140
+ -->	Fast_convergence     0
+ -->	time[s]=1.52, iterations=12, max_fs=1.32867e+141
+ -->	Fast_convergence     0
+ -->	time[s]=1.53, iterations=12, max_fs=-1.30858e+142
+ -->	Fast_convergence     0
+ -->	time[s]=1.54, iterations=12, max_fs=1.28882e+143
+ -->	Fast_convergence     0
+ -->	time[s]=1.55, iterations=12, max_fs=-1.26938e+144
+ -->	Fast_convergence     0
+ -->	time[s]=1.56, iterations=12, max_fs=1.25027e+145
+ -->	Fast_convergence     0
+ -->	time[s]=1.57, iterations=12, max_fs=-1.23147e+146
+ -->	Fast_convergence     0
+ -->	time[s]=1.58, iterations=12, max_fs=1.21297e+147
+ -->	Fast_convergence     0
+ -->	time[s]=1.59, iterations=12, max_fs=-1.19479e+148
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633536000955
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.0012239
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272486
+ -->	Fast_convergence     0
+ -->	time[s]=0.04, iterations=12, max_fs=0.0047746
+ -->	Fast_convergence     0
+ -->	time[s]=0.05, iterations=12, max_fs=0.00732244
+ -->	Fast_convergence     0
+ -->	time[s]=0.06, iterations=12, max_fs=0.0103059
+ -->	Fast_convergence     0
+ -->	time[s]=0.07, iterations=12, max_fs=0.0149885
+ -->	Fast_convergence     0
+ -->	time[s]=0.08, iterations=12, max_fs=0.0435818
+ -->	Fast_convergence     0
+ -->	time[s]=0.09, iterations=12, max_fs=-0.237103
+ -->	Fast_convergence     0
+ -->	time[s]=0.1, iterations=12, max_fs=2.43203
+ -->	Fast_convergence     0
+ -->	time[s]=0.11, iterations=12, max_fs=-22.7107
+ -->	Fast_convergence     0
+ -->	time[s]=0.12, iterations=12, max_fs=215.656
+ -->	Fast_convergence     0
+ -->	time[s]=0.13, iterations=12, max_fs=-2052.73
+ -->	Fast_convergence     0
+ -->	time[s]=0.14, iterations=12, max_fs=19605.9
+ -->	Fast_convergence     0
+ -->	time[s]=0.15, iterations=12, max_fs=-187773
+ -->	Fast_convergence     0
+ -->	time[s]=0.16, iterations=12, max_fs=1.80263e+06
+ -->	Fast_convergence     0
+ -->	time[s]=0.17, iterations=12, max_fs=-1.73409e+07
+ -->	Fast_convergence     0
+ -->	time[s]=0.18, iterations=12, max_fs=1.67115e+08
+ -->	Fast_convergence     0
+ -->	time[s]=0.19, iterations=12, max_fs=-1.61302e+09
+ -->	Fast_convergence     0
+ -->	time[s]=0.2, iterations=12, max_fs=1.55909e+10
+ -->	Fast_convergence     0
+ -->	time[s]=0.21, iterations=12, max_fs=-1.50883e+11
+ -->	Fast_convergence     0
+ -->	time[s]=0.22, iterations=12, max_fs=1.46181e+12
+ -->	Fast_convergence     0
+ -->	time[s]=0.23, iterations=12, max_fs=-1.41766e+13
+ -->	Fast_convergence     0
+ -->	time[s]=0.24, iterations=12, max_fs=1.37609e+14
+ -->	Fast_convergence     0
+ -->	time[s]=0.25, iterations=12, max_fs=-1.33683e+15
+ -->	Fast_convergence     0
+ -->	time[s]=0.26, iterations=12, max_fs=1.29965e+16
+ -->	Fast_convergence     0
+ -->	time[s]=0.27, iterations=12, max_fs=-1.26437e+17
+ -->	Fast_convergence     0
+ -->	time[s]=0.28, iterations=12, max_fs=1.23081e+18
+ -->	Fast_convergence     0
+ -->	time[s]=0.29, iterations=12, max_fs=-1.19882e+19
+ -->	Fast_convergence     0
+ -->	time[s]=0.3, iterations=12, max_fs=1.16828e+20
+ -->	Fast_convergence     0
+ -->	time[s]=0.31, iterations=12, max_fs=-1.13907e+21
+ -->	Fast_convergence     0
+ -->	time[s]=0.32, iterations=12, max_fs=1.1111e+22
+ -->	Fast_convergence     0
+ -->	time[s]=0.33, iterations=12, max_fs=-1.08426e+23
+ -->	Fast_convergence     0
+ -->	time[s]=0.34, iterations=12, max_fs=1.05848e+24
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633536523131
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.0012239
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272486
+ -->	Fast_convergence     0
+ -->	time[s]=0.04, iterations=12, max_fs=0.0047746
+ -->	Fast_convergence     0
+ -->	time[s]=0.05, iterations=12, max_fs=0.00732244
+ -->	Fast_convergence     0
+ -->	time[s]=0.06, iterations=12, max_fs=0.0103059
+ -->	Fast_convergence     0
+ -->	time[s]=0.07, iterations=12, max_fs=0.0149885
+ -->	Fast_convergence     0
+ -->	time[s]=0.08, iterations=12, max_fs=0.0435818
+ -->	Fast_convergence     0
+ -->	time[s]=0.09, iterations=12, max_fs=-0.237103
+ -->	Fast_convergence     0
+ -->	time[s]=0.1, iterations=12, max_fs=2.43203
+ -->	Fast_convergence     0
+ -->	time[s]=0.11, iterations=12, max_fs=-22.7107
+ -->	Fast_convergence     0
+ -->	time[s]=0.12, iterations=12, max_fs=215.656
+ -->	Fast_convergence     0
+ -->	time[s]=0.13, iterations=12, max_fs=-2052.73
+ -->	Fast_convergence     0
+ -->	time[s]=0.14, iterations=12, max_fs=19605.9
+ -->	Fast_convergence     0
+ -->	time[s]=0.15, iterations=12, max_fs=-187773
+ -->	Fast_convergence     0
+ -->	time[s]=0.16, iterations=12, max_fs=1.80263e+06
+ -->	Fast_convergence     0
+ -->	time[s]=0.17, iterations=12, max_fs=-1.73409e+07
+ -->	Fast_convergence     0
+ -->	time[s]=0.18, iterations=12, max_fs=1.67115e+08
+ -->	Fast_convergence     0
+ -->	time[s]=0.19, iterations=12, max_fs=-1.61302e+09
+ -->	Fast_convergence     0
+ -->	time[s]=0.2, iterations=12, max_fs=1.55909e+10
+ -->	Fast_convergence     0
+ -->	time[s]=0.21, iterations=12, max_fs=-1.50883e+11
+ -->	Fast_convergence     0
+ -->	time[s]=0.22, iterations=12, max_fs=1.46181e+12
+ -->	Fast_convergence     0
+ -->	time[s]=0.23, iterations=12, max_fs=-1.41766e+13
+ -->	Fast_convergence     0
+ -->	time[s]=0.24, iterations=12, max_fs=1.37609e+14
+ -->	Fast_convergence     0
+ -->	time[s]=0.25, iterations=12, max_fs=-1.33683e+15
+ -->	Fast_convergence     0
+ -->	time[s]=0.26, iterations=12, max_fs=1.29965e+16
+ -->	Fast_convergence     0
+ -->	time[s]=0.27, iterations=12, max_fs=-1.26437e+17
+ -->	Fast_convergence     0
+ -->	time[s]=0.28, iterations=12, max_fs=1.23081e+18
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633599176477
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.0012239
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272486
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633599247805
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633600291669
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633600855453
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.0012239
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272486
+ -->	Fast_convergence     0
+ -->	time[s]=0.04, iterations=12, max_fs=0.0047746
+ -->	Fast_convergence     0
+ -->	time[s]=0.05, iterations=12, max_fs=0.00732244
+ -->	Fast_convergence     0
+ -->	time[s]=0.06, iterations=12, max_fs=0.0103059
+ -->	Fast_convergence     0
+ -->	time[s]=0.07, iterations=12, max_fs=0.0149885
+ -->	Fast_convergence     0
+ -->	time[s]=0.08, iterations=12, max_fs=0.0435818
+ -->	Fast_convergence     0
+ -->	time[s]=0.09, iterations=12, max_fs=-0.237103
+ -->	Fast_convergence     0
+ -->	time[s]=0.1, iterations=12, max_fs=2.43203
+ -->	Fast_convergence     0
+ -->	time[s]=0.11, iterations=12, max_fs=-22.7107
+ -->	Fast_convergence     0
+ -->	time[s]=0.12, iterations=12, max_fs=215.656
+ -->	Fast_convergence     0
+ -->	time[s]=0.13, iterations=12, max_fs=-2052.73
+ -->	Fast_convergence     0
+ -->	time[s]=0.14, iterations=12, max_fs=19605.9
+ -->	Fast_convergence     0
+ -->	time[s]=0.15, iterations=12, max_fs=-187773
+ -->	Fast_convergence     0
+ -->	time[s]=0.16, iterations=12, max_fs=1.80263e+06
+ -->	Fast_convergence     0
+ -->	time[s]=0.17, iterations=12, max_fs=-1.73409e+07
+ -->	Fast_convergence     0
+ -->	time[s]=0.18, iterations=12, max_fs=1.67115e+08
+ -->	Fast_convergence     0
+ -->	time[s]=0.19, iterations=12, max_fs=-1.61302e+09
+ -->	Fast_convergence     0
+ -->	time[s]=0.2, iterations=12, max_fs=1.55909e+10
+ -->	Fast_convergence     0
+ -->	time[s]=0.21, iterations=12, max_fs=-1.50883e+11
+ -->	Fast_convergence     0
+ -->	time[s]=0.22, iterations=12, max_fs=1.46181e+12
+ -->	Fast_convergence     0
+ -->	time[s]=0.23, iterations=12, max_fs=-1.41766e+13
+ -->	Fast_convergence     0
+ -->	time[s]=0.24, iterations=12, max_fs=1.37609e+14
+ -->	Fast_convergence     0
+ -->	time[s]=0.25, iterations=12, max_fs=-1.33683e+15
+ -->	Fast_convergence     0
+ -->	time[s]=0.26, iterations=12, max_fs=1.29965e+16
+ -->	Fast_convergence     0
+ -->	time[s]=0.27, iterations=12, max_fs=-1.26437e+17
+ -->	Fast_convergence     0
+ -->	time[s]=0.28, iterations=12, max_fs=1.23081e+18
+ -->	Fast_convergence     0
+ -->	time[s]=0.29, iterations=12, max_fs=-1.19882e+19
+ -->	Fast_convergence     0
+ -->	time[s]=0.3, iterations=12, max_fs=1.16828e+20
+ -->	Fast_convergence     0
+ -->	time[s]=0.31, iterations=12, max_fs=-1.13907e+21
+ -->	Fast_convergence     0
+ -->	time[s]=0.32, iterations=12, max_fs=1.1111e+22
+ -->	Fast_convergence     0
+ -->	time[s]=0.33, iterations=12, max_fs=-1.08426e+23
+ -->	Fast_convergence     0
+ -->	time[s]=0.34, iterations=12, max_fs=1.05848e+24
+ -->	Fast_convergence     0
+ -->	time[s]=0.35, iterations=12, max_fs=-1.0337e+25
+ -->	Fast_convergence     0
+ -->	time[s]=0.36, iterations=12, max_fs=1.00983e+26
+ -->	Fast_convergence     0
+ -->	time[s]=0.37, iterations=12, max_fs=-9.86828e+26
+ -->	Fast_convergence     0
+ -->	time[s]=0.38, iterations=12, max_fs=9.64637e+27
+ -->	Fast_convergence     0
+ -->	time[s]=0.39, iterations=12, max_fs=-9.43209e+28
+ -->	Fast_convergence     0
+ -->	time[s]=0.4, iterations=12, max_fs=9.22499e+29
+ -->	Fast_convergence     0
+ -->	time[s]=0.41, iterations=12, max_fs=-9.02467e+30
+ -->	Fast_convergence     0
+ -->	time[s]=0.42, iterations=12, max_fs=8.83076e+31
+ -->	Fast_convergence     0
+ -->	time[s]=0.43, iterations=12, max_fs=-8.64293e+32
+ -->	Fast_convergence     0
+ -->	time[s]=0.44, iterations=12, max_fs=8.46086e+33
+ -->	Fast_convergence     0
+ -->	time[s]=0.45, iterations=12, max_fs=-8.28426e+34
+ -->	Fast_convergence     0
+ -->	time[s]=0.46, iterations=12, max_fs=8.11288e+35
+ -->	Fast_convergence     0
+ -->	time[s]=0.47, iterations=12, max_fs=-7.94646e+36
+ -->	Fast_convergence     0
+ -->	time[s]=0.48, iterations=12, max_fs=7.78477e+37
+ -->	Fast_convergence     0
+ -->	time[s]=0.49, iterations=12, max_fs=-7.6276e+38
+ -->	Fast_convergence     0
+ -->	time[s]=0.5, iterations=12, max_fs=7.47476e+39
+ -->	Fast_convergence     0
+ -->	time[s]=0.51, iterations=12, max_fs=-7.32606e+40
+ -->	Fast_convergence     0
+ -->	time[s]=0.52, iterations=12, max_fs=7.18132e+41
+ -->	Fast_convergence     0
+ -->	time[s]=0.53, iterations=12, max_fs=-7.04039e+42
+ -->	Fast_convergence     0
+ -->	time[s]=0.54, iterations=12, max_fs=6.90312e+43
+ -->	Fast_convergence     0
+ -->	time[s]=0.55, iterations=12, max_fs=-6.76935e+44
+ -->	Fast_convergence     0
+ -->	time[s]=0.56, iterations=12, max_fs=6.63896e+45
+ -->	Fast_convergence     0
+ -->	time[s]=0.57, iterations=12, max_fs=-6.51182e+46
+ -->	Fast_convergence     0
+ -->	time[s]=0.58, iterations=12, max_fs=6.38781e+47
+ -->	Fast_convergence     0
+ -->	time[s]=0.59, iterations=12, max_fs=-6.26682e+48
+ -->	Fast_convergence     0
+ -->	time[s]=0.6, iterations=12, max_fs=6.14874e+49
+ -->	Fast_convergence     0
+ -->	time[s]=0.61, iterations=12, max_fs=-6.03347e+50
+ -->	Fast_convergence     0
+ -->	time[s]=0.62, iterations=12, max_fs=5.92092e+51
+ -->	Fast_convergence     0
+ -->	time[s]=0.63, iterations=12, max_fs=-5.81099e+52
+ -->	Fast_convergence     0
+ -->	time[s]=0.64, iterations=12, max_fs=5.7036e+53
+ -->	Fast_convergence     0
+ -->	time[s]=0.65, iterations=12, max_fs=-5.59866e+54
+ -->	Fast_convergence     0
+ -->	time[s]=0.66, iterations=12, max_fs=5.49611e+55
+ -->	Fast_convergence     0
+ -->	time[s]=0.67, iterations=12, max_fs=-5.39586e+56
+ -->	Fast_convergence     0
+ -->	time[s]=0.68, iterations=12, max_fs=5.29784e+57
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633601358438
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633602648745
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633603063758
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633603237956
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633604054971
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633604291775
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633604580393
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633604862589
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633604969779
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633605500671
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633605737569
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633606474494
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000308273
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1633620970888
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000309368
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.00122629
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00272572
+ -->	Fast_convergence     0
+ -->	time[s]=0.04, iterations=12, max_fs=0.004783
+ -->	Fast_convergence     0
+ -->	time[s]=0.05, iterations=12, max_fs=0.00732935
+ -->	Fast_convergence     0
+ -->	time[s]=0.06, iterations=12, max_fs=0.0103173
+ -->	Fast_convergence     0
+ -->	time[s]=0.07, iterations=12, max_fs=0.0136665
+ -->	Fast_convergence     0
+ -->	time[s]=0.08, iterations=12, max_fs=0.0172958
+ -->	Fast_convergence     0
+ -->	time[s]=0.09, iterations=12, max_fs=0.0211158
+ -->	Fast_convergence     0
+ -->	time[s]=0.1, iterations=12, max_fs=0.0250325
+ -->	Fast_convergence     0
+ -->	time[s]=0.11, iterations=12, max_fs=0.0289495
+ -->	Fast_convergence     0
+ -->	time[s]=0.12, iterations=12, max_fs=0.0327705
+ -->	Fast_convergence     0
+ -->	time[s]=0.13, iterations=12, max_fs=0.0364015
+ -->	Fast_convergence     0
+ -->	time[s]=0.14, iterations=12, max_fs=0.039753
+ -->	Fast_convergence     0
+ -->	time[s]=0.15, iterations=12, max_fs=0.0427427
+ -->	Fast_convergence     0
+ -->	time[s]=0.16, iterations=12, max_fs=0.045297
+ -->	Fast_convergence     0
+ -->	time[s]=0.17, iterations=12, max_fs=0.0473532
+ -->	Fast_convergence     0
+ -->	time[s]=0.18, iterations=12, max_fs=0.0488608
+ -->	Fast_convergence     0
+ -->	time[s]=0.19, iterations=12, max_fs=0.0497828
+ -->	Fast_convergence     0
+ -->	time[s]=0.2, iterations=12, max_fs=0.0500967
+ -->	Fast_convergence     0
+ -->	time[s]=0.21, iterations=12, max_fs=0.0501027
+ -->	Fast_convergence     0
+ -->	time[s]=0.22, iterations=12, max_fs=0.0501083
+ -->	Fast_convergence     0
+ -->	time[s]=0.23, iterations=12, max_fs=0.0501138
+ -->	Fast_convergence     0
+ -->	time[s]=0.24, iterations=12, max_fs=0.0501188
+ -->	Fast_convergence     0
+ -->	time[s]=0.25, iterations=12, max_fs=0.0501268
+ -->	Fast_convergence     0
+ -->	time[s]=0.26, iterations=12, max_fs=0.0501385
+ -->	Fast_convergence     0
+ -->	time[s]=0.27, iterations=12, max_fs=0.05015
+ -->	Fast_convergence     0
+ -->	time[s]=0.28, iterations=12, max_fs=0.0501612
+ -->	Fast_convergence     0
+ -->	time[s]=0.29, iterations=12, max_fs=0.0501722
+ -->	Fast_convergence     0
