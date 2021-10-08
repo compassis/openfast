@@ -244,9 +244,9 @@ MODULE SeaFEM
       
         ! Create the input and output meshes associated with lumped load at the WAMIT reference point (WRP)
       
-        CALL MeshCreate( BlankMesh         = u%PRPMesh         &  
+         call MeshCreate( BlankMesh        = u%PRPMesh            &
                         ,IOS               = COMPONENT_INPUT   &
-                        ,Nnodes            = 1                 &
+                        ,Nnodes            = 1           &
                         ,ErrStat           = ErrStat2          &
                         ,ErrMess           = ErrMsg2           &
                         ,TranslationDisp   = .TRUE.            &
@@ -255,60 +255,58 @@ MODULE SeaFEM
                         ,RotationVel       = .TRUE.            &
                         ,TranslationAcc    = .TRUE.            &
                         ,RotationAcc       = .TRUE.)
-        
-        ! Create the node on the mesh
          
-        CALL MeshPositionNode ( u%PRPMesh                          &
-                              , 1                                  &
-                              , (/0.0_ReKi, 0.0_ReKi, 0.0_ReKi/)   &  
-                              , ErrStat2                           &
-                              , ErrMsg2                            )
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'WAMIT_Init')
+            IF ( ErrStat >= AbortErrLev ) THEN
+               CALL Cleanup()
+               RETURN
+            END IF
+         
+            ! Create the node on the mesh
+  
+         CALL MeshPositionNode (u%PRPMesh                                &
+                                 , 1                              &
+                                 , (/0.0_ReKi, 0.0_ReKi, 0.0_ReKi/)    &  
+                                 , ErrStat2                           &
+                                 , ErrMsg2                            )
       
-         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
-         
-         ! Create the mesh element
-         
-         CALL MeshConstructElement ( u%PRPMesh           &
-                                  , ELEMENT_POINT        &                         
-                                  , ErrStat2             &
-                                  , ErrMsg2              &
-                                  , 1                    )
-         
-         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
-         
-         CALL MeshCommit ( u%PRPMesh        &
-                         , ErrStat2         &
-                         , ErrMsg2          )
-   
-         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
-         
-         CALL MeshCopy (   SrcMesh      = u%PRPMesh              &
-                          ,DestMesh     = y%PRPMesh              &
-                          ,CtrlCode     = MESH_NEWCOPY           &
-                          ,IOS          = COMPONENT_OUTPUT       &
-                          ,ErrStat      = ErrStat2               &
-                          ,ErrMess      = ErrMsg2                &
-                          ,Force        = .TRUE.                 &
-                          ,Moment       = .TRUE.                 )
-     
-         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init:y%Mesh')
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'WAMIT_Init')
+
+      
+            ! Create the mesh element
+         CALL MeshConstructElement (  u%PRPMesh              &
+                                     , ELEMENT_POINT      &                         
+                                     , ErrStat2           &
+                                     , ErrMsg2            &
+                                     , 1              &
+                                                 )
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'WAMIT_Init')
+
+      CALL MeshCommit ( u%PRPMesh              &
+                        , ErrStat2            &
+                        , ErrMsg2             )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'WAMIT_Init')
          IF ( ErrStat >= AbortErrLev ) THEN
-            CALL CleanUp()
+            CALL Cleanup()
             RETURN
-         END IF  
-         
-         u%PRPMesh%RemapFlag  = .TRUE.
-         y%PRPMesh%RemapFlag  = .TRUE.
-         
-        ALLOCATE( y%WriteOutput(NumOuts), STAT = ErrStat )
-        IF ( ErrStat/= 0 ) THEN
-            ErrStat = ErrID_Fatal
-            ErrMsg  = 'Error allocating output header and units arrays in SeaFEM_Init'
-            RETURN
-        END IF
+         END IF      
+
+        call MeshCopy ( SrcMesh   = u%PRPMesh           &
+                       ,DestMesh  = y%PRPMesh           &
+                       ,CtrlCode  = MESH_SIBLING     &
+                       ,IOS       = COMPONENT_OUTPUT &
+                       ,ErrStat   = ErrStat2         &
+                       ,ErrMess   = ErrMsg2          &
+                       ,Force     = .TRUE.           &
+                       ,Moment    = .TRUE.           )
         
-        y%DummyOutput = 0
-        y%WriteOutput = 0
+      CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'WAMIT_Init')
+         IF ( ErrStat >= AbortErrLev ) THEN
+            CALL Cleanup()
+            RETURN
+         END IF    
+      u%PRPMesh%RemapFlag  = .TRUE.
+      y%PRPMesh%RemapFlag  = .TRUE.
         
         CONTAINS
 
@@ -461,13 +459,11 @@ MODULE SeaFEM
               CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
               INTEGER(IntKi)                                   :: ErrStat2        ! Error status of the operation (secondary error)
               CHARACTER(LEN(ErrMsg))                           :: ErrMsg2         ! Error message if ErrStat2 /= ErrID_None
-              !!REAL(ReKi)  :: kk = 9.81
               
               REAL(ReKi)                           :: q(6), qdot(6), qdotsq(6), qdotdot(6)
               REAL(ReKi)                           :: rotdisp(3)                              ! small angle rotational displacements
               REAL(ReKi)                           :: SeaFEM_Return_Forces(6)
               INTEGER(IntKi)                       :: I
-              INTEGER(IntKi)                       :: iBody, indxStart, indxEnd  ! Counters
               
               ! Initialize ErrStat
               
@@ -495,10 +491,10 @@ MODULE SeaFEM
               END IF
               
               IF(OtherState%T==t)THEN
-                  WRITE(*,*) "Simulation time = ",t
+                 ! WRITE(*,*) "Simulation time = ",t
               ELSE
                   CALL UPDATE_SEAFEM() ! BORJA: Update seafem
-                  WRITE(*,*) "Simulation time = ",t
+                 ! WRITE(*,*) "Simulation time = ",t
                   OtherState%T=t
               END IF
               
@@ -513,14 +509,14 @@ MODULE SeaFEM
                   END IF
               END IF
               
-              !DO I=1,3
-              !   y%PRPMesh%Force(I,1)=SeaFEM_Return_Forces(I)
-              !   !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
-              !END DO
-              !DO I=1,3
-              !   y%PRPMesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
-              !   !WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
-              !END DO
+              DO I=1,3
+                 y%PRPMesh%Force(I,1)=SeaFEM_Return_Forces(I)
+             !    WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
+              END DO
+              DO I=1,3
+                y%PRPMesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
+            !     WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
+              END DO
       
                  ! Compute outputs here:
               y%DummyOutput    = 2.0_ReKi                

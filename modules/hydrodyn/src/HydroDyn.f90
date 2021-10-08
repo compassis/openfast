@@ -2268,9 +2268,9 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
          CALL SeaFEM_CalcOutput( Time, u%SeaFEM, p%SeaFEM, x%SeaFEM, xd%SeaFEM, SeaFEM_z, OtherState%SeaFEM, y%SeaFEM, m%SeaFEM, ErrStat2, ErrMsg2 )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )           
          ! Add WAMIT forces to the HydroDyn output mesh
-         !WRITE(*,*) y%PRPMesh%Force (:,1), y%PRPMesh%Moment(:,1)
-         !y%PRPMesh%Force (:,1) = y%SeaFEM%PRPMesh%Force (:,1)
-         !y%PRPMesh%Moment(:,1) = y%SeaFEM%PRPMesh%Moment(:,1)
+         y%Mesh%Force (:,1) = y%SeaFEM%PRPMesh%Force (:,1)
+         y%Mesh%Moment(:,1) = y%SeaFEM%PRPMesh%Moment(:,1)
+         WRITE(*,*) y%Mesh%Force (:,1), y%Mesh%Moment(:,1)
          OtherState%F_Hydro = CalcLoadsAtWRP( y, u, OtherState%AllHdroOrigin, u%PRPMesh, OtherState%MrsnMesh_position, OtherState%HD_MeshMap, ErrStat2, ErrMsg2 )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )    
       ELSE
