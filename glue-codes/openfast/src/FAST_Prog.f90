@@ -108,6 +108,7 @@ CHARACTER(inlen)                      :: finfile                                
          !...............................................................................................................................
          ! Initialization: (calculate outputs based on states at t=t_initial as well as guesses of inputs and constraint states)
          !...............................................................................................................................     
+         
          CALL FAST_Solution0_T( Turbine(i_turb), ErrStat, ErrMsg )
          CALL CheckError( ErrStat, ErrMsg, 'during simulation initialization'  )
       

@@ -573,6 +573,8 @@ typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_HD_W_P	-	-	-	"Map ElastoDyn Plat
 typedef	^	FAST_ModuleMapType	MeshMapType	HD_W_P_2_ED_P	-	-	-	"Map HydroDyn WAMIT Point from y%WAMITMesh to ElastoDyn PlatformPtMesh"
 typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_HD_M_P	-	-	-	"Map ElastoDyn PlatformPtMesh to HydroDyn Morison Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	HD_M_P_2_ED_P	-	-	-	"Map HydroDyn Morison Point to ElastoDyn PlatformPtMesh"
+typedef	^	FAST_ModuleMapType	MeshMapType	HD_S_P_2_ED_P	-	-	-	"Map HydroDyn SeaFEM Point to ElastoDyn PlatformPtMesh"
+typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_HD_S_P	-	-	-	"Map ElastoDyn PlatformPtMesh to HydroDyn SeaFEM Point"
 # ED <-> Mooring (MAP, FEAM, MoorDyn, OrcaFlex)
 typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_Mooring_P	-	-	-	"Map ElastoDyn PlatformPtMesh to MAP/FEAM/MoorDyn/OrcaFlex point mesh"
 typedef	^	FAST_ModuleMapType	MeshMapType	Mooring_P_2_ED_P	-	-	-	"Map FEAM/MAP/MoorDyn/OrcaFlex point mesh to ElastoDyn PlatformPtMesh"
@@ -585,8 +587,11 @@ typedef	^	FAST_ModuleMapType	MeshMapType	SD_TP_2_ED_P	-	-	-	"Map SubDyn transiti
 # SD <-> HD
 typedef	^	FAST_ModuleMapType	MeshMapType	SD_P_2_HD_M_P	-	-	-	"Map SubDyn y2Mesh Point to HydroDyn Morison Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	HD_M_P_2_SD_P	-	-	-	"Map HydroDyn Morison Point to SubDyn y2Mesh Point"
+typedef	^	FAST_ModuleMapType	MeshMapType	SD_P_2_HD_S_P	-	-	-	"Map SubDyn y2Mesh Point to HydroDyn SeaFEM Point"
+typedef	^	FAST_ModuleMapType	MeshMapType	HD_S_P_2_SD_P	-	-	-	"Map HydroDyn SeaFEM Point to SubDyn y2Mesh Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	SD_P_2_HD_W_P	-	-	-	"Map SubDyn y2Mesh Point to HydroDyn WAMIT Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	HD_W_P_2_SD_P	-	-	-	"Map HydroDyn WAMIT Point to SubDyn y2Mesh Point"
+typedef	^	FAST_ModuleMapType	MeshMapType	SD_P_2_HD_PRP_P	-	-	-	"Map SubDyn y2Mesh Point to SeaFEM WAMIT Point"
 # ED/BD <-> SrvD/StC
 typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_SrvD_P_N	{:}	-	-	"Map ElastoDyn Nacelle point mesh to ServoDyn/NStC point mesh"
 typedef	^	FAST_ModuleMapType	MeshMapType	SrvD_P_2_ED_P_N	{:}	-	-	"Map ServoDyn  nacelle point mesh to ElastoDyn     point mesh on the nacelle"
@@ -635,6 +640,7 @@ typedef	^	FAST_ModuleMapType	MeshType	u_SD_LMesh_2	-	-	-	"copy of SD input mesh 
 #typedef	^	FAST_ModuleMapType	MeshType	u_HD_M_LumpedMesh	-	-	-	"copy of HD input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_HD_M_Mesh	-	-	-	"copy of HD morison input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_HD_W_Mesh	-	-	-	"copy of HD wamit input mesh"
+typedef	^	FAST_ModuleMapType	MeshType	u_HD_S_Mesh	-	-	-	"copy of HD seafem input mesh"
 #typedef	^	FAST_ModuleMapType	MeshType	u_HD_PRP_Mesh	-	-	-	"copy of HD PRP input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_ED_HubPtLoad	-	-	-	"copy of  ED input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_ED_HubPtLoad_2	-	-	-	"copy of  ED input mesh"

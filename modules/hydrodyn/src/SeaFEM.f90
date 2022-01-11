@@ -479,6 +479,10 @@ MODULE SeaFEM
                 qdot   = reshape((/u%PRPMesh%TranslationVel(:,1),u%PRPMesh%RotationVel(:,1)/),(/6/))
                 qdotsq   = abs(qdot)*qdot
                 qdotdot   = reshape((/u%PRPMesh%TranslationAcc(:,1),u%PRPMesh%RotationAcc(:,1)/),(/6/)) 
+                
+!write(*,*) 'DisplacementsV3', q
+!write(*,*) 'VelocitiesV3', qdot
+!write(*,*) 'AccelerationsV3', qdotdot
               
               IF(OtherState%calcJacobian .AND. OtherState%perDOF.NE.0) THEN
                   ! Jacobian is being calculated but the velocities and positions are not being updated...
@@ -511,12 +515,15 @@ MODULE SeaFEM
               
               DO I=1,3
                  y%PRPMesh%Force(I,1)=SeaFEM_Return_Forces(I)
-             !    WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
+    !             WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
               END DO
               DO I=1,3
                 y%PRPMesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
-            !     WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
+    !             WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
               END DO
+              
+! write(*,*) 'Print1', y%PRPMesh%Force           
+    
       
                  ! Compute outputs here:
               y%DummyOutput    = 2.0_ReKi                

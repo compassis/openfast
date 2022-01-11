@@ -97,12 +97,15 @@ typedef   ^                            ^                             CHARACTER(L
 typedef   ^                            ^                             CHARACTER(LinChanLen)    LinNames_u                      {:}        -        -         "Names of the inputs used in linearization"	-
 typedef   ^                            InitOutputType                INTEGER                  DerivOrder_x                    {:}        -        -         "Integer that tells FAST/MBC3 the maximum derivative order of continuous states used in linearization"	-
 typedef   ^                            ^                             LOGICAL                  IsLoad_u                        {:}        -        -         "Flag that tells FAST if the inputs used in linearization are loads (for preconditioning matrix)" -
+typedef   ^                            InitOutputType                MeshType                 Mesh
+typedef   ^                            InitOutputType                MeshType                 PRPMesh
 
 
 # ..... HD_ModuleMapType ....................................................................................................................
 typedef   ^                            HD_ModuleMapType              MeshMapType              uW_P_2_PRP_P                     -         -        -         "Mesh mapping data: WAMIT body kinematics to PRP node at (0,0,0)" -
 typedef   ^                            HD_ModuleMapType              MeshMapType              W_P_2_PRP_P                      -         -        -         "Mesh mapping data: WAMIT loads to PRP node at (0,0,0)" -
 typedef   ^                            HD_ModuleMapType              MeshMapType              M_P_2_PRP_P                      -         -        -         "Mesh mapping data: lumped Morison loads to PRP node at (0,0,0)" -
+typedef   ^                            HD_ModuleMapType              MeshMapType              S_P_2_PRP_P                      -         -        -         "Mesh mapping data: lumped SeaFEM loads to PRP node at (0,0,0)" -
 
 #
 #
@@ -232,6 +235,7 @@ typedef   ^                            OutputType                   Waves2_Outpu
 typedef   ^                            ^                            Morison_OutputType        Morison                         -          -          -         "Morison module outputs"  -
 typedef   ^                            ^                            SeaFEM_OutputType         SeaFEM                          -          -          -         "SeaFEM module outputs"  -
 typedef   ^                            OutputType                   MeshType                  WAMITMesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
+typedef   ^                            OutputType                   MeshType                  AllHdroOrigin                   -          -          -         "All HD-related loads integrated to the origin, (0,0,0) in the inertial frame" -
 typedef   ^                            OutputType                   MeshType                  PRPMesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
 typedef   ^                            OutputType                   MeshType                  Mesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
 typedef   ^                            ^                            ReKi                      WriteOutput                    {:}         -          -         "Outputs to be written to the output file(s)"  -

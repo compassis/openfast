@@ -2031,6 +2031,25 @@ SUBROUTINE Linear_ED_InputSolve_du( p_FAST, y_FAST, u_ED, y_ED, y_AD, u_AD, BD, 
             end if
             
          end if
+         
+#ifdef SeaFEM_active
+         if ( HD%y%%SeaFEM%PRPMesh%Committed  ) then ! meshes for floating
+            
+               ! Transfer HD load outputs to ED PlatformPtMesh input:
+               ! we're mapping loads, so we also need the sibling meshes' displacements:
+            HD_Start = Indx_u_HD_SeaFEM_Start(HD%Input(1), y_FAST)
+            
+            call Linearize_Point_to_Point( HD%y%SeaFEM%PRPMesh, u_ED%PlatformPtMesh, MeshMapData%HD_S_P_2_ED_P, ErrStat2, ErrMsg2, HD%Input(1)%SeaFEM%PRPMesh, y_ED%PlatformPtMesh) !HD%Input(1)%WAMITMesh and y_ED%PlatformPtMesh contain the displaced positions for load calculations
+               call SetErrStat(ErrStat2,ErrMsg2, ErrStat, ErrMsg, RoutineName)
+               
+               ! HD is source in the mapping, so we want M_{uSm}
+            if (allocated(MeshMapData%HD_S_P_2_ED_P%dM%m_us )) then
+               call SetBlockMatrix( dUdu, MeshMapData%HD_S_P_2_ED_P%dM%m_us, ED_Start_mt, HD_Start )
+            end if
+            
+         end if
+#endif
+         
       end if
    
       !..........
@@ -2146,10 +2165,6 @@ SUBROUTINE Linear_SD_InputSolve_du( p_FAST, y_FAST, u_SD, y_SD, y_ED, HD, MAPp, 
             if (allocated(MeshMapData%HD_M_P_2_SD_P%dM%m_us )) then
                call SetBlockMatrix( dUdu, MeshMapData%HD_M_P_2_SD_P%dM%m_us, SD_Start, HD_Start )
             end if
-            
-        
-            
-            
          end if      
          if ( HD%y%WAMITMesh%Committed  ) then ! meshes for floating
              
@@ -2165,7 +2180,24 @@ SUBROUTINE Linear_SD_InputSolve_du( p_FAST, y_FAST, u_SD, y_SD, y_ED, HD, MAPp, 
                call SetBlockMatrix( dUdu, MeshMapData%HD_W_P_2_SD_P%dM%m_us, SD_Start, HD_Start )
             end if
             
-           
+#ifdef SeaFEM_active
+         if ( HD%y%SeaFEM%PRPMesh%Committed  ) then ! meshes for floating
+             
+            ! dU^{SD}/du^{HD}  
+            
+               ! we're mapping loads, so we also need the sibling meshes' displacements:
+            HD_Start = Indx_u_HD_SeaFEM_Start(HD%Input(1), y_FAST)
+            
+            call Linearize_Point_to_Point( HD%y%SeaFEM%PRPMesh, u_SD%LMesh, MeshMapData%HD_S_P_2_SD_P, ErrStat2, ErrMsg2, HD%Input(1)%SeaFEM%PRPMesh, y_SD%Y2Mesh) !HD%Input(1)%Mesh and y_ED%PlatformPtMesh contain the displaced positions for load calculations
+               call SetErrStat(ErrStat2,ErrMsg2, ErrStat, ErrMsg, RoutineName)
+               
+               ! HD is source in the mapping, so we want M_{uSm}
+            if (allocated(MeshMapData%HD_S_P_2_SD_P%dM%m_us )) then
+               call SetBlockMatrix( dUdu, MeshMapData%HD_S_P_2_SD_P%dM%m_us, SD_Start, HD_Start )
+            end if
+         end if     
+#endif            
+            
          end if
    end if
    
@@ -2271,6 +2303,22 @@ SUBROUTINE Linear_SD_InputSolve_dy( p_FAST, y_FAST, u_SD, y_SD, y_ED, HD, MAPp, 
          call SumBlockMatrix( dUdy, MeshMapData%HD_W_P_2_SD_P%dM%m_uD, SD_Start, SD_Out_Start )
 ! maybe this should be SumBlockMatrix with future changes to linearized modules???            
       end if
+#ifdef SeaFEM_active
+      if ( HD%y%SeaFEM%PRPMesh%Committed  ) then ! meshes for floating
+         !!! ! This linearization was done in forming dUdu (see Linear_ED_InputSolve_du()), so we don't need to re-calculate these matrices 
+         !!! ! while forming dUdy, too.
+         ! call Linearize_Point_to_Point( HD%y%Morison, u_ED%PlatformPtMesh, MeshMapData%HD_M_P_2_ED_P, ErrStat2, ErrMsg2, HD%Input(1)%Morison, y_ED%PlatformPtMesh) !HD%Input(1)%Morison and y_ED%PlatformPtMesh contain the displaced positions for load calculations
+         HD_Out_Start = Indx_y_HD_SeaFEM_Start(HD%y, y_FAST)
+         SD_Start     = Indx_u_SD_LMesh_Start(u_SD, y_FAST) ! start of u_SD%LMesh%Force field
+         call Assemble_dUdy_Loads(HD%y%SeaFEM%PRPMesh, u_SD%LMesh, MeshMapData%HD_S_P_2_SD_P, SD_Start, HD_Out_Start, dUdy)
+         
+            ! SD translation displacement-to-SD moment transfer (dU^{SD}/dy^{SD}):
+         SD_Start = Indx_u_SD_LMesh_Start(u_SD, y_FAST) + u_SD%LMesh%NNodes*3   ! start of u_SD%LMesh%Moment field (skip the SD forces) 
+         call SetBlockMatrix( dUdy, MeshMapData%HD_S_P_2_SD_P%dM%m_uD, SD_Start, SD_Out_Start )
+! maybe this should be SumBlockMatrix with future changes to linearized modules???            
+      end if  
+#endif      
+      
    end if
    
    !..........
@@ -2705,7 +2753,21 @@ SUBROUTINE Linear_ED_InputSolve_dy( p_FAST, y_FAST, u_ED, y_ED, y_AD, u_AD, BD, 
                call SumBlockMatrix( dUdy, MeshMapData%HD_W_P_2_ED_P%dM%m_uD, ED_Start, ED_Out_Start )
        
             end if
-
+#ifdef SeaFEM_active
+            if ( HD%y%SeaFEM%PRPMesh%Committed  ) then ! meshes for floating
+               !!! ! This linearization was done in forming dUdu (see Linear_ED_InputSolve_du()), so we don't need to re-calculate these matrices 
+               !!! ! while forming dUdy, too.
+               ! call Linearize_Point_to_Point( HD%y%Morison, u_ED%PlatformPtMesh, MeshMapData%HD_M_P_2_ED_P, ErrStat2, ErrMsg2, HD%Input(1)%Morison, y_ED%PlatformPtMesh) !HD%Input(1)%Morison and y_ED%PlatformPtMesh contain the displaced positions for load calculations
+               HD_Out_Start = Indx_y_HD_SeaFEM_Start(HD%y, y_FAST)
+               ED_Start     = Indx_u_ED_Platform_Start(u_ED, y_FAST) ! start of u_ED%PlatformPtMesh%Force field
+               call Assemble_dUdy_Loads(HD%y%SeaFEM%PRPMesh, u_ED%PlatformPtMesh, MeshMapData%HD_S_P_2_ED_P, ED_Start, HD_Out_Start, dUdy)
+         
+                  ! ED translation displacement-to-ED moment transfer (dU^{ED}/dy^{ED}):
+               ED_Start = Indx_u_ED_Platform_Start(u_ED, y_FAST) + u_ED%PlatformPtMesh%NNodes*3   ! start of u_ED%PlatformPtMesh%Moment field (skip the ED forces) 
+               call SumBlockMatrix( dUdy, MeshMapData%HD_S_P_2_ED_P%dM%m_uD, ED_Start, ED_Out_Start )
+              
+            end if      
+#endif
             
       end if
    
@@ -3150,6 +3212,33 @@ SUBROUTINE Linear_HD_InputSolve_du( p_FAST, y_FAST, u_HD, y_ED, y_SD, MeshMapDat
             end if
          end if 
          
+#ifdef SeaFEM_active
+         !===================================================   
+         !  y_ED%PlatformPtMesh and u_HD%SeaFEM%PRPMesh
+         !===================================================    
+      
+            ! Transfer ED motions to HD motion input (HD inputs depend on previously calculated HD inputs from ED):
+         if ( u_HD%SeaFEM%PRPMesh%Committed ) then
+            call Linearize_Point_to_Point( y_ED%PlatformPtMesh, u_HD%SeaFEM%PRPMesh, MeshMapData%ED_P_2_HD_S_P, ErrStat2, ErrMsg2 )
+               call SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName)
+         
+            ! HD is destination in the mapping, so we want M_{tv_uD} and M_{ta_uD}
+            
+            HD_Start_td = Indx_u_HD_SeaFEM_Start(u_HD, y_FAST)
+            HD_Start_tr = HD_Start_td + u_HD%SeaFEM%PRPMesh%NNodes * 6 ! skip 2 fields (TranslationDisp and Orientation) with 3 components before translational velocity field      
+         
+               ! translational velocity:
+            if (allocated(MeshMapData%ED_P_2_HD_PRP_P%dM%tv_uD )) then             
+               call SetBlockMatrix( dUdu, MeshMapData%ED_P_2_HD_S_P%dM%tv_ud, HD_Start_tr, HD_Start_td )
+            end if
+         
+               ! translational acceleration:
+            HD_Start_tr = HD_Start_tr + u_HD%SeaFEM%PRPMesh%NNodes * 6 ! skip 2 fields ( TranslationVel and RotationVel)
+            if (allocated(MeshMapData%ED_P_2_HD_PRP_P%dM%ta_uD )) then            
+               call SetBlockMatrix( dUdu, MeshMapData%ED_P_2_HD_S_P%dM%ta_ud, HD_Start_tr, HD_Start_td )
+            end if
+         end if
+#endif         
          
       else if ( p_FAST%CompSub == Module_SD ) then
          
@@ -3201,7 +3290,32 @@ SUBROUTINE Linear_HD_InputSolve_du( p_FAST, y_FAST, u_HD, y_ED, y_SD, MeshMapDat
                call SetBlockMatrix( dUdu, MeshMapData%ED_P_2_HD_W_P%dM%ta_ud, HD_Start_tr, HD_Start_td )
             end if 
          end if
-      
+
+#ifdef SeaFEM_active
+         if ( u_HD%SeaFEM%PRPMesh%Committed ) then
+            ! Transfer ED motions to HD motion input (HD inputs depend on previously calculated HD inputs from ED):
+         
+            call Linearize_Point_to_Point( y_SD%Y2Mesh, u_HD%SeaFEM%PRPMesh, MeshMapData%SD_P_2_HD_S_P, ErrStat2, ErrMsg2 )
+               call SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName)
+         
+            ! HD is destination in the mapping, so we want M_{tv_uD} and M_{ta_uD}
+            
+            HD_Start_td = Indx_u_HD_SeaFEM_Start(u_HD, y_FAST)  
+            HD_Start_tr = HD_Start_td + u_HD%SeaFEM%PRPMesh%NNodes * 6 ! skip 2 fields (TranslationDisp and Orientation) with 3 components before translational velocity field      
+         
+               ! translational velocity:
+            if (allocated(MeshMapData%SD_P_2_HD_S_P%dM%tv_uD )) then             
+               call SetBlockMatrix( dUdu, MeshMapData%SD_P_2_HD_S_P%dM%tv_ud, HD_Start_tr, HD_Start_td )
+            end if
+         
+               ! translational acceleration:
+            HD_Start_tr = HD_Start_tr + u_HD%SeaFEM%PRPMesh%NNodes * 6 ! skip 2 fields ( TranslationVel and RotationVel)
+            if (allocated(MeshMapData%SD_P_2_HD_S_P%dM%ta_uD )) then            
+               call SetBlockMatrix( dUdu, MeshMapData%SD_P_2_HD_S_P%dM%ta_ud, HD_Start_tr, HD_Start_td )
+            end if
+         end if
+#endif
+
       end if
       
    end if
@@ -3271,6 +3385,21 @@ SUBROUTINE Linear_HD_InputSolve_dy( p_FAST, y_FAST, u_HD, y_ED, y_SD, MeshMapDat
          call Assemble_dUdy_Motions(y_ED%PlatformPtMesh, u_HD%WAMITMesh, MeshMapData%ED_P_2_HD_W_P, HD_Start, ED_Out_Start, dUdy, .false.)
       END IF
       
+#ifdef SeaFEM_active
+         !...................................
+         ! SeaFEM Mesh
+         !...................................
+      IF (u_HD%SeaFEM%PRPMesh%Committed) THEN
+            
+         !!! ! This linearization was done in forming dUdu (see Linear_HD_InputSolve_du()), so we don't need to re-calculate these matrices 
+         !!! ! while forming dUdy, too.
+         !!!call Linearize_Point_to_Line2( y_ED%PlatformPtMesh, u_HD%Morison%Mesh, MeshMapData%ED_P_2_HD_M_P, ErrStat2, ErrMsg2 )
+      
+         HD_Start     = Indx_u_HD_SeaFEM_Start(u_HD, y_FAST)  ! start of u_HD%Morison%Mesh%TranslationDisp field
+         call Assemble_dUdy_Motions(y_ED%PlatformPtMesh, u_HD%SeaFEM%PRPMesh, MeshMapData%ED_P_2_HD_S_P, HD_Start, ED_Out_Start, dUdy, .false.)
+      END IF
+#endif
+      
    else if ( p_FAST%CompSub == Module_SD ) then
       ! dU^{HD}/dy^{SD}
       SD_Out_Start = Indx_y_SD_Y2Mesh_Start(y_SD, y_FAST)   ! start of y_SD%Y2Mesh%TranslationDisp field
@@ -3299,7 +3428,21 @@ SUBROUTINE Linear_HD_InputSolve_dy( p_FAST, y_FAST, u_HD, y_ED, y_SD, MeshMapDat
          HD_Start     = Indx_u_HD_WAMIT_Start(u_HD, y_FAST)  ! start of u_HD%Mesh%TranslationDisp field
          call Assemble_dUdy_Motions(y_SD%Y2Mesh, u_HD%WAMITMesh, MeshMapData%SD_P_2_HD_W_P, HD_Start, SD_Out_Start, dUdy, .false.)
       END IF
-   
+#ifdef SeaFEM_active
+         !...................................
+         ! SeaFEM Mesh
+         !...................................
+      IF (u_HD%SeaFEM%PRPMesh%Committed) THEN
+            
+         !!! ! This linearization was done in forming dUdu (see Linear_HD_InputSolve_du()), so we don't need to re-calculate these matrices 
+         !!! ! while forming dUdy, too.
+         !!!call Linearize_Point_to_Line2( y_SD%Y2Mesh, u_HD%Morison%Mesh, MeshMapData%SD_P_2_HD_M_P, ErrStat2, ErrMsg2 )
+      
+         HD_Start     = Indx_u_HD_SeaFEM_Start(u_HD, y_FAST)  ! start of u_HD%Morison%Mesh%TranslationDisp field              
+         call Assemble_dUdy_Motions(y_SD%Y2Mesh, u_HD%SeaFEM%PRPMesh, MeshMapData%SD_P_2_HD_S_P, HD_Start, SD_Out_Start, dUdy, .false.)
+      END IF
+#endif
+      
    end if
    
    

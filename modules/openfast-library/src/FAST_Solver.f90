@@ -1192,11 +1192,12 @@ SUBROUTINE SrvD_SetExternalInputs( p_FAST, m_FAST, u_SrvD )
 END SUBROUTINE SrvD_SetExternalInputs
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine transfers the SD outputs into inputs required for HD
-SUBROUTINE Transfer_SD_to_HD( y_SD, u_HD_W_Mesh, u_HD_M_Mesh, MeshMapData, ErrStat, ErrMsg )
+SUBROUTINE Transfer_SD_to_HD( y_SD, u_HD_W_Mesh, u_HD_M_Mesh, u_HD_S_Mesh, MeshMapData, ErrStat, ErrMsg )
 !..................................................................................................................................
    TYPE(SD_OutputType),         INTENT(IN   ) :: y_SD                         !< The outputs of the structural dynamics module
    TYPE(MeshType),              INTENT(INOUT) :: u_HD_W_Mesh                  !< HydroDyn input mesh (separated here so that we can use temp meshes in ED_SD_HD_InputSolve)
    TYPE(MeshType),              INTENT(INOUT) :: u_HD_M_Mesh                  !< HydroDyn input mesh (separated here so that we can use temp meshes in ED_SD_HD_InputSolve)
+   TYPE(MeshType),              INTENT(INOUT) :: u_HD_S_Mesh                  !< HydroDyn input mesh (separated here so that we can use temp meshes in ED_SD_HD_InputSolve)
    TYPE(FAST_ModuleMapType),    INTENT(INOUT) :: MeshMapData                  !< data for mapping meshes
 
    INTEGER(IntKi),              INTENT(  OUT) :: ErrStat                      !< Error status of the operation
@@ -1273,7 +1274,15 @@ SUBROUTINE Transfer_PlatformMotion_to_HD( PlatformMotion, u_HD, MeshMapData, Err
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg, RoutineName//' (u_HD%Morison%Mesh)' )
          
    END IF
-   
+#ifdef SeaFEM_active   
+   IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN 
+
+      ! These are the motions for the lumped point loads associated viscous drag on the WAMIT body and/or filled/flooded lumped forces of the WAMIT body
+      CALL Transfer_Point_to_Point( PlatformMotion, u_HD%SeaFEM%PRPMesh, MeshMapData%ED_P_2_HD_S_P, ErrStat2, ErrMsg2 )
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg, RoutineName//' (u_HD%SeaFEM%PRPMesh)' )
+         
+   END IF
+#endif   
 END SUBROUTINE Transfer_PlatformMotion_to_HD
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine transfers the ED outputs into inputs required for HD, SD, ExtPtfm, BD, MAP, and/or FEAM
@@ -1525,7 +1534,7 @@ END SUBROUTINE Transfer_ED_to_BD_tmp
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine transfers the HD outputs into inputs required for ED. Note that this *adds* to the values already in 
 !! u_SD_LMesh (so initialize it before calling this routine).
-SUBROUTINE Transfer_HD_to_SD( u_mapped, u_SD_LMesh, u_mapped_positions, y_HD, u_HD_W_Mesh, u_HD_M_Mesh, MeshMapData, ErrStat, ErrMsg )
+SUBROUTINE Transfer_HD_to_SD( u_mapped, u_SD_LMesh, u_mapped_positions, y_HD, u_HD_W_Mesh, u_HD_M_Mesh, u_HD_S_Mesh, MeshMapData, ErrStat, ErrMsg )
 !..................................................................................................................................
    TYPE(MeshType),                 INTENT(INOUT)  :: u_mapped                 !< temporary copy of SD mesh (an argument to avoid another temporary mesh copy)
    TYPE(MeshType),                 INTENT(INOUT)  :: u_SD_LMesh               !< SD Inputs on LMesh at t (separate so we can call from FullOpt1_InputOutputSolve with temp meshes)
@@ -1533,6 +1542,8 @@ SUBROUTINE Transfer_HD_to_SD( u_mapped, u_SD_LMesh, u_mapped_positions, y_HD, u_
    TYPE(HydroDyn_OutputType),      INTENT(IN   )  :: y_HD                     !< HydroDyn outputs
    TYPE(MeshType),                 INTENT(IN   )  :: u_HD_W_Mesh              !< HydroDyn WAMIT input mesh (separate so we can call from FullOpt1_InputOutputSolve with temp meshes)
    TYPE(MeshType),                 INTENT(IN   )  :: u_HD_M_Mesh              !< HydroDyn Morison input mesh (separate so we can call from FullOpt1_InputOutputSolve with temp meshes)
+   TYPE(MeshType),                 INTENT(IN   )  :: u_HD_S_Mesh              !< HydroDyn SeaFEM input mesh (separate so we can call from FullOpt1_InputOutputSolve with temp meshes)
+
    
    TYPE(FAST_ModuleMapType),       INTENT(INOUT)  :: MeshMapData              !< Data for mapping between modules
    INTEGER(IntKi),                 INTENT(  OUT)  :: ErrStat                  !< Error status
@@ -1593,6 +1604,30 @@ SUBROUTINE Transfer_HD_to_SD( u_mapped, u_SD_LMesh, u_mapped_positions, y_HD, u_
                   
       END IF
       
+#ifdef SeaFEM_active
+      IF ( y_HD%SeaFEM%PRPMesh%Committed ) THEN      
+         ! we're mapping loads, so we also need the sibling meshes' displacements:
+         CALL Transfer_Point_to_Point( y_HD%SeaFEM%PRPMesh, u_mapped, MeshMapData%HD_S_P_2_SD_P, ErrStat2, ErrMsg2, u_HD_S_Mesh, u_mapped_positions )   
+            CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
+            IF (ErrStat >= AbortErrLev) RETURN
+         
+         u_SD_LMesh%Force  = u_SD_LMesh%Force  + u_mapped%Force
+         u_SD_LMesh%Moment = u_SD_LMesh%Moment + u_mapped%Moment     
+         
+#ifdef DEBUG_MESH_TRANSFER              
+         CALL WrScr('********************************************************')
+         CALL WrScr('****   SD to HD point-to-point (SEAFEM)           *****')
+         CALL WrScr('********************************************************')
+         CALL WriteMappingTransferToFile(u_mapped, u_mapped_positions, u_HD_S_Mesh, y_HD%SeaFEM%PRPMesh,&
+               MeshMapData%SD_P_2_HD_S_P, MeshMapData%HD_S_P_2_SD_P, &
+               'SD_y2_HD_SP_Meshes_t'//TRIM(Num2LStr(0))//'.bin' )
+         !print *
+         !pause
+         
+#endif         
+                  
+      END IF
+#endif      
 
 END SUBROUTINE Transfer_HD_to_SD
 !----------------------------------------------------------------------------------------------------------------------------------
@@ -1703,6 +1738,9 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
    ErrStat = ErrID_None
    ErrMsg  = ""
    
+!   write(*,*) 'Forcesv3' , y_HD%PRPMESH%FORCE
+!   write(*,*) 'PLATFORMPTMESH%FORCE%InsideInitial', u_ED%PLATFORMPTMESH%FORCE
+   
 #ifdef SeaFEM_active  
    
    !Variable used for SeaFEM to point that the Jacobian is being computed. Used to update the velocities and positions.
@@ -1716,7 +1754,7 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
 
    ! note this routine should be called only
    ! IF ( p_FAST%CompHydro == Module_HD .AND. p_FAST%CompSub == Module_None .and. p_FAST%CompElast /= Module_BD ) 
-                           
+
       !----------------------------------------------------------------------------------------------------
       ! Some more record keeping stuff:
       !---------------------------------------------------------------------------------------------------- 
@@ -1736,49 +1774,46 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
          CALL HydroDyn_CopyOutput( y_HD, y_HD_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )
             CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
       END IF
-         
+             
       IF (ErrStat >= AbortErrLev) THEN
          CALL CleanUp()
          RETURN
       END IF
-      
+   
       !----------------------------------------------------------------------------------------------------
       ! set up u vector, using local initial guesses:
-      !----------------------------------------------------------------------------------------------------                      
-      
+      !----------------------------------------------------------------------------------------------------                            
          ! make hydrodyn inputs consistant with elastodyn outputs 
          ! (do this because we're using outputs in the u vector):
          CALL Transfer_PlatformMotion_to_HD(y_ED_input%PlatformPtMesh,  u_HD, MeshMapData, ErrStat2, ErrMsg2 ) ! get u_HD from y_ED_input
             CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
-            
-      
+       
          u( 1: 3) = u_ED%PlatformPtMesh%Force(:,1) / p_FAST%UJacSclFact
          u( 4: 6) = u_ED%PlatformPtMesh%Moment(:,1) / p_FAST%UJacSclFact  
          u( 7: 9) = y_ED_input%PlatformPtMesh%TranslationAcc(:,1)
          u(10:12) = y_ED_input%PlatformPtMesh%RotationAcc(:,1)
             
       K = 0
-      
-      DO
-         
+        
+      DO          
+    
          !-------------------------------------------------------------------------------------------------
          ! Calculate outputs at this_time, based on inputs at this_time
          !-------------------------------------------------------------------------------------------------
-         
+   
          CALL ED_CalcOutput( this_time, u_ED, p_ED, x_ED, xd_ED, z_ED, OtherSt_ED, y_ED, m_ED, ErrStat2, ErrMsg2 )
-            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
-                                 
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )    
+        
          CALL HydroDyn_CalcOutput( this_time, u_HD, p_HD, x_HD, xd_HD, z_HD, OtherSt_HD, y_HD, m_HD, ErrStat2, ErrMsg2 )
-            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )      
- !write(*,*) 'y_HD%Morison%Mesh%Force', y_HD%Morison%Mesh%Force 
- !write(*,*) 'y_HD%Morison%Mesh%Moment', y_HD%Morison%Mesh%Moment
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )        
+           
+
          IF (ErrStat >= AbortErrLev) THEN
             CALL CleanUp()
             RETURN
          END IF
-      
-         IF ( K >= p_FAST%KMax ) EXIT
-         
+     
+         IF ( K >= p_FAST%KMax ) EXIT        
                                                             
          !-------------------------------------------------------------------------------------------------
          ! Calculate Jacobian: partial U/partial u:
@@ -1789,8 +1824,8 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
             IF (ErrStat >= AbortErrLev) THEN
                CALL CleanUp()
                RETURN
-            END IF         
-         
+            END IF     
+       
          IF ( calcJacobian ) THEN
              
 #ifdef SeaFEM_active             
@@ -1802,10 +1837,9 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
             !...............................
             ! Get ElastoDyn's contribution:
             !...............................
-            DO i=1,6 !call ED_CalcOutput
-                  
+            DO i=1,6 !call ED_CalcOutput                     
                CALL ED_CopyInput(  u_ED, u_ED_perturb, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )
-                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )            
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )               
                u_perturb = u            
                CALL Perturb_u( i, u_perturb, u_ED_perturb=u_ED_perturb, perturb=ThisPerturb ) ! perturb u and u_ED by ThisPerturb [routine sets ThisPerturb]
                   
@@ -1821,8 +1855,7 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                   CALL CleanUp()
                   RETURN
                END IF         
-                  
-                  
+                                      
                MeshMapData%Jacobian_Opt1(:,i) = (Fn_U_perturb - Fn_U_Resid) / ThisPerturb
                   
             END DO ! ElastoDyn contribution ( columns 1-6 )
@@ -1861,7 +1894,7 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                MeshMapData%Jacobian_Opt1(:,i) = (Fn_U_perturb - Fn_U_Resid) / ThisPerturb
                                                                   
             END DO ! HydroDyn contribution ( columns 7-12 )
-
+ 
 #ifdef OUTPUT_ADDEDMASS  
    UnAM = -1
    CALL GetNewUnit( UnAM, ErrStat, ErrMsg )
@@ -1904,8 +1937,7 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
       
    CALL WrMatrix(MeshMapData%Jacobian_Opt1,UnJac, p_FAST%OutFmt)
    CLOSE( UnJac )      
-#endif   
-            
+#endif            
             
                ! Get the LU decomposition of this matrix using a LAPACK routine: 
                ! The result is of the form MeshMapDat%Jacobian_Opt1 = P * L * U 
@@ -1941,11 +1973,11 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                   CALL CleanUp()
                   RETURN 
                END IF
-      
+  
          !-------------------------------------------------------------------------------------------------
          ! check for error, update inputs (u_ED and u_HD), and iterate again
          !-------------------------------------------------------------------------------------------------
-                  
+           
 !         IF ( DOT_PRODUCT(u_delta, u_delta) <= TOL_Squared ) EXIT
          
          u = u + u_delta
@@ -1960,9 +1992,8 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
          
          K = K + 1
          
-      END DO ! K
-            
-   
+      END DO ! K            
+ 
       CALL CleanUp()
       
 CONTAINS                                 
@@ -2106,7 +2137,21 @@ CONTAINS
 
          MeshMapData%u_ED_PlatformPtMesh%Force  = MeshMapData%u_ED_PlatformPtMesh%Force  + MeshMapData%u_ED_PlatformPtMesh_2%Force
          MeshMapData%u_ED_PlatformPtMesh%Moment = MeshMapData%u_ED_PlatformPtMesh%Moment + MeshMapData%u_ED_PlatformPtMesh_2%Moment
-      end if       
+      end if     
+#ifdef SeaFEM_active      
+        if ( y_HD2%SeaFEM%PRPMesh%Committed ) then
+         !   ! Need to transfer motions first
+         CALL Transfer_Point_to_Point( PlatformMotions, MeshMapData%u_HD_S_Mesh, MeshMapData%ED_P_2_HD_S_P, ErrStat2, ErrMsg2) 
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+     
+            ! we're mapping loads, so we also need the sibling meshes' displacements:
+         CALL Transfer_Point_to_Point( y_HD2%AllHdroOrigin, MeshMapData%u_ED_PlatformPtMesh, MeshMapData%HD_S_P_2_ED_P, ErrStat2, ErrMsg2, MeshMapData%u_HD_S_Mesh, PlatformMotions) !u_HD and u_mapped_positions contain the displaced positions for load calculations
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+      
+         MeshMapData%u_ED_PlatformPtMesh%Force  = MeshMapData%u_ED_PlatformPtMesh%Force  + MeshMapData%u_ED_PlatformPtMesh_2%Force
+         MeshMapData%u_ED_PlatformPtMesh%Moment = MeshMapData%u_ED_PlatformPtMesh%Moment + MeshMapData%u_ED_PlatformPtMesh_2%Moment
+         end if
+#endif
       U_Resid( 1: 3) = u_in( 1: 3) - MeshMapData%u_ED_PlatformPtMesh%Force(:,1) / p_FAST%UJacSclFact
       U_Resid( 4: 6) = u_in( 4: 6) - MeshMapData%u_ED_PlatformPtMesh%Moment(:,1) / p_FAST%UJacSclFact
       
@@ -2136,7 +2181,7 @@ CONTAINS
             IF (ErrStat3 /= ErrID_None) CALL WrScr(RoutineName//'/HydroDyn_DestroyOutput: '//TRIM(ErrMsg3) )                        
       END IF
       
-   
+!write(*,*) 'FINAL' , u_ED%PlatformPtMesh%Force     
       
    END SUBROUTINE CleanUp
    !...............................................................................................................................
@@ -2380,7 +2425,7 @@ SUBROUTINE FullOpt1_InputOutputSolve( this_time, p_FAST, calcJacobian &
       END DO
       
       CALL Create_FullOpt1_UVector(u, u_ED%PlatformPtMesh, u_SD%TPMesh, u_SD%LMesh,  &
-               u_HD%Morison%Mesh, u_HD%WAMITMesh, u_ED%HubPtLoad, MeshMapData%u_BD_RootMotion, u_Orca%PtfmMesh, &
+               u_HD%Morison%Mesh, u_HD%SeaFEM%Mesh, u_HD%WAMITMesh, u_ED%HubPtLoad, MeshMapData%u_BD_RootMotion, u_Orca%PtfmMesh, &
                u_ExtPtfm%PtfmMesh, u_SrvD%SStC, p_FAST )
                   
       K = 0
@@ -2716,6 +2761,19 @@ END IF
       CALL WrFileNR(UnJac, ' HD_W_Mesh_RotationAcc_Z_'//TRIM(Num2LStr(TmpIndx))) 
    END DO 
    
+#ifdef SeaFEM_active
+   DO TmpIndx=1,u_HD%SeaFEM%PRPMesh%NNodes
+      CALL WrFileNR(UnJac, ' HD_S_Mesh_TranslationAcc_X_'//TRIM(Num2LStr(TmpIndx))) 
+      CALL WrFileNR(UnJac, ' HD_S_Mesh_TranslationAcc_Y_'//TRIM(Num2LStr(TmpIndx))) 
+      CALL WrFileNR(UnJac, ' HD_S_Mesh_TranslationAcc_Z_'//TRIM(Num2LStr(TmpIndx))) 
+   END DO   
+   DO TmpIndx=1,u_HD%SeaFEM%PRPMesh%NNodes
+      CALL WrFileNR(UnJac, ' HD_S_Mesh_RotationAcc_X_'//TRIM(Num2LStr(TmpIndx))) 
+      CALL WrFileNR(UnJac, ' HD_S_Mesh_RotationAcc_Y_'//TRIM(Num2LStr(TmpIndx))) 
+      CALL WrFileNR(UnJac, ' HD_S_Mesh_RotationAcc_Z_'//TRIM(Num2LStr(TmpIndx))) 
+   END DO  
+#endif   
+   
    DO nb=1,p_FAST%nBeams
       CALL WrFileNR(UnJac, ' BD_Root'//trim(num2lstr(nb))//'Motion_TranslationAcc_X') 
       CALL WrFileNR(UnJac, ' BD_Root'//trim(num2lstr(nb))//'Motion_TranslationAcc_Y') 
@@ -2834,14 +2892,21 @@ END IF
          IF (MeshMapData%u_HD_W_Mesh%Committed) THEN
              MeshMapData%u_HD_W_Mesh%RotationAcc             = u_HD%WAMITMesh%RotationAcc   
              MeshMapData%u_HD_W_Mesh%TranslationAcc          = u_HD%WAMITMesh%TranslationAcc
+         ENDIF  
+         
+#ifdef SeaFEM_active  
+         IF (MeshMapData%u_HD_S_Mesh%Committed) THEN
+             MeshMapData%u_HD_S_Mesh%RotationAcc     = u_HD%SeaFEM%PRPMesh%RotationAcc
+             MeshMapData%u_HD_S_Mesh%TranslationAcc  = u_HD%SeaFEM%PRPMesh%TranslationAcc  
          ENDIF
+#endif         
 
             ! transfer the output data to inputs
             
          IF ( p_FAST%CompSub == Module_SD ) THEN
                ! Map SD outputs to HD inputs (keeping the accelerations we just calculated)
          
-            CALL Transfer_SD_to_HD( y_SD, u_HD%WAMITMesh, u_HD%Morison%Mesh, MeshMapData, ErrStat2, ErrMsg2 )      
+            CALL Transfer_SD_to_HD( y_SD, u_HD%WAMITMesh, u_HD%Morison%Mesh, u_HD%SeaFEM%PRPMesh, MeshMapData, ErrStat2, ErrMsg2 )      
                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
                
             ! Map ED outputs to HD inputs (keeping the accelerations we just calculated):
@@ -2868,6 +2933,13 @@ END IF
              u_HD%WAMITMesh%RotationAcc                   = MeshMapData%u_HD_W_Mesh%RotationAcc    
              u_HD%WAMITMesh%TranslationAcc                = MeshMapData%u_HD_W_Mesh%TranslationAcc 
          ENDIF
+         
+#ifdef SeaFEM_active  
+         IF (MeshMapData%u_HD_S_Mesh%Committed) THEN
+             u_HD%SeaFEM%PRPMesh%RotationAcc     = MeshMapData%u_HD_S_Mesh%RotationAcc
+             u_HD%SeaFEM%PRPMesh%TranslationAcc  = MeshMapData%u_HD_S_Mesh%TranslationAcc  
+         ENDIF
+#endif
          
          !......
                           
@@ -3061,7 +3133,7 @@ CONTAINS
       !..................
    
                ! SD motions to HD:
-            CALL Transfer_SD_to_HD( y_SD2, MeshMapData%u_HD_W_Mesh, MeshMapData%u_HD_M_Mesh, MeshMapData, ErrStat2, ErrMsg2 )
+            CALL Transfer_SD_to_HD( y_SD2, MeshMapData%u_HD_W_Mesh, MeshMapData%u_HD_M_Mesh, MeshMapData%u_HD_S_Mesh, MeshMapData, ErrStat2, ErrMsg2 )
                CALL SetErrStat(ErrStat2,ErrMsg2, ErrStat, ErrMsg, RoutineName)       
       
                
@@ -3071,7 +3143,7 @@ CONTAINS
          
             ! Loads (outputs) from HD meshes transfered to SD LMesh (zero them out first because they get summed in Transfer_HD_to_SD)
          
-            CALL Transfer_HD_to_SD( MeshMapData%u_SD_LMesh_2, MeshMapData%u_SD_LMesh, y_SD2%Y2Mesh, y_HD2, MeshMapData%u_HD_W_Mesh, MeshMapData%u_HD_M_Mesh, MeshMapData, ErrStat2, ErrMsg2 )
+            CALL Transfer_HD_to_SD( MeshMapData%u_SD_LMesh_2, MeshMapData%u_SD_LMesh, y_SD2%Y2Mesh, y_HD2, MeshMapData%u_HD_W_Mesh, MeshMapData%u_HD_M_Mesh, MeshMapData%u_HD_S_Mesh, MeshMapData, ErrStat2, ErrMsg2 )
                CALL SetErrStat(ErrStat2,ErrMsg2, ErrStat, ErrMsg, RoutineName)               
          
 
@@ -3205,8 +3277,12 @@ CONTAINS
              CALL Transfer_Point_to_Point( PlatformMotions, MeshMapData%u_HD_M_Mesh, MeshMapData%ED_P_2_HD_M_P, ErrStat2, ErrMsg2 )
                 CALL SetErrStat(ErrStat2,ErrMsg2, ErrStat, ErrMsg, RoutineName)
          endif
-                  
-        
+#ifdef SeaFEM_active
+         if (MeshMapData%u_HD_S_Mesh%Committed) then
+             CALL Transfer_Point_to_Point( PlatformMotions, MeshMapData%u_HD_S_Mesh, MeshMapData%ED_P_2_HD_S_P, ErrStat2, ErrMsg2 )
+                CALL SetErrStat(ErrStat2,ErrMsg2, ErrStat, ErrMsg, RoutineName)
+         endif
+#endif
             
       !..................
       ! Get ED loads input (from HD only)
@@ -3227,6 +3303,15 @@ CONTAINS
             MeshMapData%u_ED_PlatformPtMesh%Force  = MeshMapData%u_ED_PlatformPtMesh%Force  + MeshMapData%u_ED_PlatformPtMesh_2%Force
             MeshMapData%u_ED_PlatformPtMesh%Moment = MeshMapData%u_ED_PlatformPtMesh%Moment + MeshMapData%u_ED_PlatformPtMesh_2%Moment
          end if
+#ifdef SeaFEM_inactive         
+        if ( y_HD2%SeaFEM%PRPMesh%Committed ) then  
+            CALL Transfer_Point_to_Point( y_HD2%AllHdroOrigin, MeshMapData%u_ED_PlatformPtMesh_2, MeshMapData%HD_S_P_2_ED_P, ErrStat2, ErrMsg2, MeshMapData%u_HD_S_Mesh, PlatformMotions ) !u_MAP and y_ED contain the displacements needed for moment calculations
+               CALL SetErrStat(ErrStat2,ErrMsg2, ErrStat, ErrMsg, RoutineName)               
+            
+            MeshMapData%u_ED_PlatformPtMesh%Force  = MeshMapData%u_ED_PlatformPtMesh%Force  + MeshMapData%u_ED_PlatformPtMesh_2%Force
+            MeshMapData%u_ED_PlatformPtMesh%Moment = MeshMapData%u_ED_PlatformPtMesh%Moment + MeshMapData%u_ED_PlatformPtMesh_2%Moment
+         end if
+#endif                 
          
       ELSE
          
@@ -3316,7 +3401,7 @@ CONTAINS
    !..................                  
          
       CALL Create_FullOpt1_UVector(U_Resid, MeshMapData%u_ED_PlatformPtMesh, MeshMapData%u_SD_TPMesh, MeshMapData%u_SD_LMesh, &
-                                   MeshMapData%u_HD_M_Mesh, MeshMapData%u_HD_W_Mesh, &
+                                   MeshMapData%u_HD_M_Mesh,  MeshMapData%u_HD_S_Mesh, MeshMapData%u_HD_W_Mesh, &
                                    MeshMapData%u_ED_HubPtLoad, MeshMapData%u_BD_RootMotion, MeshMapData%u_Orca_PtfmMesh, &
                                    MeshMapData%u_ExtPtfm_PtfmMesh, u_SrvD%SStC, p_FAST ) 
          
@@ -3377,8 +3462,7 @@ END SUBROUTINE FullOpt1_InputOutputSolve
 !> This routine initializes the array that maps rows/columns of the Jacobian to specific mesh fields.
 !! Do not change the order of this packing without changing subroutine Create_FullOpt1_UVector()!
 SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh, HD_M_Mesh,  &
-                                   HD_WAMIT_Mesh, ED_HubPtLoad, u_BD, Orca_PtfmMesh, ExtPtfm_PtfmMesh, SrvD_u_SStC, ErrStat, ErrMsg)
-
+                                   HD_WAMIT_Mesh, HD_S_Mesh, ED_HubPtLoad, u_BD, Orca_PtfmMesh, ExtPtfm_PtfmMesh, SrvD_u_SStC, ErrStat, ErrMsg)
    TYPE(FAST_ParameterType)          , INTENT(INOUT) :: p_FAST                !< FAST parameters               
    TYPE(FAST_ModuleMapType)          , INTENT(INOUT) :: MeshMapData           !< data that maps meshes together
    
@@ -3389,6 +3473,7 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
    TYPE(MeshType)                    , INTENT(IN   ) :: SD_LMesh              !< SubDyn's LMesh
    TYPE(MeshType)                    , INTENT(IN   ) :: HD_M_Mesh             !< HydroDyn's Morison Lumped Mesh
    TYPE(MeshType)                    , INTENT(IN   ) :: HD_WAMIT_Mesh         !< HydroDyn's WAMIT mesh
+    TYPE(MeshType)                    , INTENT(IN   ) :: HD_S_Mesh             !< HydroDyn's SeaFEM Lumped Mesh
    TYPE(BD_InputType)                , INTENT(IN   ) :: u_BD(:)               !< inputs for each instance of the BeamDyn module (for the RootMotion meshes)
    TYPE(MeshType)                    , INTENT(IN   ) :: Orca_PtfmMesh         !< OrcaFlex interface PtfmMesh
    TYPE(MeshType)                    , INTENT(IN   ) :: ExtPtfm_PtfmMesh      !< ExtPtfm_MCKF interface PtfmMesh
@@ -3609,7 +3694,29 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
          MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
          index = index + 1
       end do !j      
-   end do !i        
+   end do !i     
+   
+#ifdef SeaFEM_active
+   !(Morison%Mesh)
+   do i=1,HD_S_Mesh%NNodes
+      do j=1,3
+         MeshMapData%Jac_u_indx(index,1) =  13 !Module/Mesh/Field: u_HD%SeaFEM%PRPMesh%TranslationAcc = 13
+         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
+         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
+         index = index + 1
+      end do !j      
+   end do !i
+   
+   do i=1,HD_S_Mesh%NNodes
+      do j=1,3
+         MeshMapData%Jac_u_indx(index,1) = 14 !Module/Mesh/Field:  u_HD%SeaFEM%PRPMesh%RotationAcc = 14
+         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
+         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
+         index = index + 1
+      end do !j      
+   end do !i  
+#endif
+   
    
    !...............
    ! BD inputs:
@@ -3692,7 +3799,7 @@ END SUBROUTINE Init_FullOpt1_Jacobian
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine basically packs the relevant parts of the modules' input meshes for use in this InputOutput solve.
 !! Do not change the order of this packing without changing subroutine Init_FullOpt1_Jacobian()!
-SUBROUTINE Create_FullOpt1_UVector(u, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh, HD_M_Mesh, HD_WAMIT_Mesh, &
+SUBROUTINE Create_FullOpt1_UVector(u, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh, HD_M_Mesh, HD_S_Mesh, HD_WAMIT_Mesh, &
                                          ED_HubPtLoad,  BD_RootMotion, Orca_PtfmMesh, ExtPtfm_PtfmMesh, SrvD_u_SStC, p_FAST )
 !..................................................................................................................................
    
@@ -3703,6 +3810,7 @@ SUBROUTINE Create_FullOpt1_UVector(u, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh, HD
    TYPE(MeshType)                    , INTENT(IN   ) :: SD_TPMesh                 !< SubDyn TP mesh
    TYPE(MeshType)                    , INTENT(IN   ) :: SD_LMesh                  !< SubDyn Lmesh
    TYPE(MeshType)                    , INTENT(IN   ) :: HD_M_Mesh                 !< HydroDyn Morison Lumped mesh
+   TYPE(MeshType)                    , INTENT(IN   ) :: HD_S_Mesh                 !< HydroDyn SeaFEM Lumped mesh
    TYPE(MeshType)                    , INTENT(IN   ) :: HD_WAMIT_Mesh             !< HydroDyn WAMIT mesh
    TYPE(MeshType)                    , INTENT(IN   ) :: ED_HubPtLoad              !< ElastoDyn HubPt mesh
    TYPE(MeshType)                    , INTENT(IN   ) :: BD_RootMotion(:)          !< BeamDyn RootMotion meshes
@@ -3801,7 +3909,24 @@ SUBROUTINE Create_FullOpt1_UVector(u, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh, HD
       indx_last  = indx_first + 2 
       u(indx_first:indx_last) = HD_WAMIT_Mesh%RotationAcc(:,i)
       indx_first = indx_last + 1
-   end do   
+   end do  
+   
+#ifdef SeaFEM_active
+   !...............
+   ! HD inputs (SeaFEM%Mesh):
+   !...............
+   do i=1,HD_S_Mesh%NNodes
+      indx_last  = indx_first + 2 
+      u(indx_first:indx_last) = HD_S_Mesh%TranslationAcc(:,i)
+      indx_first = indx_last + 1
+   end do
+      
+   do i=1,HD_S_Mesh%NNodes
+      indx_last  = indx_first + 2 
+      u(indx_first:indx_last) = HD_S_Mesh%RotationAcc(:,i)
+      indx_first = indx_last + 1
+   end do
+#endif
    
    !...............
    ! BD inputs:
@@ -3936,6 +4061,13 @@ SUBROUTINE Add_FullOpt1_u_delta( p_FAST, Jac_u_indx, u_delta, u_ED, u_SD, u_HD, 
          u_ExtPtfm%PtfmMesh%TranslationAcc(   fieldIndx,node) = u_ExtPtfm%PtfmMesh%TranslationAcc(   fieldIndx,node) + u_delta(n)      
       CASE (22) !Module/Mesh/Field: u_ExtPtfm%PtfmMesh%RotationAcc = 22
          u_ExtPtfm%PtfmMesh%RotationAcc(      fieldIndx,node) = u_ExtPtfm%PtfmMesh%RotationAcc(      fieldIndx,node) + u_delta(n)     
+
+#ifdef SeaFEM_active
+      CASE ( 23) !Module/Mesh/Field: u_HD%SeaFEM%PRPMesh%TranslationAcc = 9
+         u_HD%SeaFEM%PRPMesh%TranslationAcc(fieldIndx,node) = u_HD%SeaFEM%PRPMesh%TranslationAcc(fieldIndx,node) + u_delta(n)        
+      CASE (24) !Module/Mesh/Field: u_HD%SeaFEM%PRPMesh%RotationAcc = 10
+         u_HD%SeaFEM%PRPMesh%RotationAcc(   fieldIndx,node) = u_HD%SeaFEM%PRPMesh%RotationAcc(   fieldIndx,node) + u_delta(n)        
+#endif
          
       END SELECT
                                    
@@ -4042,6 +4174,15 @@ SUBROUTINE Perturb_u_FullOpt1( p_FAST, Jac_u_indx, n, u_perturb, u_ED_perturb, u
    CASE (22) !Module/Mesh/Field: u_ExtPtfm%PtfmMesh%RotationAcc = 22
       perturb = GetPerturb( u_ExtPtfm_perturb%PtfmMesh%RotationAcc(fieldIndx , node) )
       u_ExtPtfm_perturb%PtfmMesh%RotationAcc(   fieldIndx,node) = u_ExtPtfm_perturb%PtfmMesh%RotationAcc(   fieldIndx,node) + perturb      
+ 
+#ifdef SeaFEM_active
+   CASE ( 23) !Module/Mesh/Field: u_HD%SeaFEM%PRPMesh%TranslationAcc = 9
+      perturb = GetPerturb( u_HD_perturb%SeaFEM%PRPMesh%TranslationAcc(fieldIndx , node) )
+      u_HD_perturb%SeaFEM%PRPMesh%TranslationAcc(fieldIndx,node) = u_HD_perturb%SeaFEM%PRPMesh%TranslationAcc(fieldIndx,node) + perturb        
+   CASE ( 24) !Module/Mesh/Field: u_HD%SeaFEM%PRPMesh%RotationAcc = 10
+      perturb = GetPerturb( u_HD_perturb%SeaFEM%PRPMesh%RotationAcc(fieldIndx , node) )
+      u_HD_perturb%SeaFEM%PRPMesh%RotationAcc(   fieldIndx,node) = u_HD_perturb%SeaFEM%PRPMesh%RotationAcc(   fieldIndx,node) + perturb       
+#endif
       
    END SELECT
                                    
@@ -4219,6 +4360,13 @@ SUBROUTINE ResetRemapFlags(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, MAPp
           HD%Input(1)%Morison%Mesh%RemapFlag  = .FALSE.
                  HD%y%Morison%Mesh%RemapFlag  = .FALSE.
       END IF
+#ifdef SeaFEM_active
+      IF (HD%Input(1)%SeaFEM%PRPMesh%Committed) THEN
+          HD%Input(1)%SeaFEM%PRPMesh%RemapFlag  = .FALSE.
+                 HD%y%SeaFEM%PRPMesh%RemapFlag  = .FALSE.
+              HD%y%AllHdroOrigin%RemapFlag      = .FALSE.
+      END IF
+#endif
    END IF
 
    ! SubDyn
@@ -4683,6 +4831,15 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, M
             CALL MeshMapCreate( PlatformMotion,  HD%Input(1)%Morison%Mesh, MeshMapData%ED_P_2_HD_M_P, ErrStat2, ErrMsg2 )
                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':ED_P_2_HD_M_P' )                  
          END IF
+         
+#ifdef SeaFEM_active
+         IF ( HD%y%AllHdroOrigin%Committed  ) THEN  
+            CALL MeshMapCreate( HD%y%AllHdroOrigin, PlatformLoads, MeshMapData%HD_S_P_2_ED_P, ErrStat2, ErrMsg2 )
+               CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':HD_S_P_2_ED_P' )
+            CALL MeshMapCreate( PlatformMotion,  HD%Input(1)%PRPMesh, MeshMapData%ED_P_2_HD_S_P, ErrStat2, ErrMsg2 )
+               CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':ED_P_2_HD_S_P' )                
+         END IF
+#endif         
                         
       ELSE ! these get mapped to ElastoDyn AND SubDyn (in ED_SD_HD coupling)  ! offshore with substructure flexibility
    
@@ -4708,8 +4865,19 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, M
                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':HD_W_P_2_SD_P' ) 
             CALL MeshMapCreate( SD%y%y2Mesh,  HD%Input(1)%WAMITMesh, MeshMapData%SD_P_2_HD_W_P, ErrStat2, ErrMsg2 )
                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':SD_P_2_HD_W_P' )
-                  
-         END IF             
+
+#ifdef SeaFEM_active
+            ! HydroDyn Morison point mesh to SubDyn point mesh
+         IF ( HD%y%SeaFEM%PRPMesh%Committed ) THEN
+            
+            CALL MeshMapCreate( HD%y%SeaFEM%PRPMesh, SD%Input(1)%LMesh,  MeshMapData%HD_S_P_2_SD_P, ErrStat2, ErrMsg2 )
+               CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':HD_S_P_2_SD_P' )                  
+            CALL MeshMapCreate( SD%y%y2Mesh,  HD%Input(1)%SeaFEM%PRPMesh, MeshMapData%SD_P_2_HD_S_P, ErrStat2, ErrMsg2 )
+               CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':SD_P_2_HD_S_P' )                                           
+         END IF
+#endif               
+               
+         END IF         
          
       END IF ! HydroDyn-SubDyn
       
@@ -4872,8 +5040,8 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, M
    !............................................................................................................................
    !IF ( p_FAST%TurbineType == Type_Offshore_Fixed ) THEN 
    IF ( p_FAST%CompSub /= Module_None .OR. (p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) .or. p_FAST%CompMooring == Module_Orca) THEN  !.OR. p_FAST%CompHydro == Module_HD ) THEN         
-      CALL Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED%Input(1)%PlatformPtMesh, SD%Input(1)%TPMesh, SD%Input(1)%LMesh, &
-                                    HD%Input(1)%Morison%Mesh, HD%Input(1)%WAMITMesh, &
+     CALL Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED%Input(1)%PlatformPtMesh, SD%Input(1)%TPMesh, SD%Input(1)%LMesh, &
+                                    HD%Input(1)%Morison%Mesh, HD%Input(1)%WAMITMesh, HD%Input(1)%SeaFEM%PRPMesh, &
                                     ED%Input(1)%HubPtLoad, BD%Input(1,:), Orca%Input(1)%PtfmMesh, ExtPtfm%Input(1)%PtfmMesh, SrvD%Input(1)%SStC, ErrStat2, ErrMsg2)
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )                 
    ELSEIF ( p_FAST%CompHydro == Module_HD ) THEN
@@ -4966,7 +5134,12 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, M
             CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':u_HD_W_Mesh' )                 
                   
          CALL MeshCopy ( HD%Input(1)%Morison%Mesh, MeshMapData%u_HD_M_Mesh, MESH_NEWCOPY, ErrStat2, ErrMsg2 )      
-            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':u_HD_M_Mesh' )                         
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':u_HD_M_Mesh' )       
+            
+#ifdef SeaFEM_active            
+         CALL MeshCopy ( HD%Input(1)%SeaFEM%PRPMesh, MeshMapData%u_HD_S_Mesh, MESH_NEWCOPY, ErrStat2, ErrMsg2 )      
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':u_HD_S_Mesh' )   
+#endif
                                     
       END IF
           
@@ -5099,7 +5272,7 @@ SUBROUTINE CalcOutputs_And_SolveForInputs( n_t_global, this_time, this_state, ca
    IF ( p_FAST%CompSub == Module_SD .and. p_FAST%CompHydro == Module_HD ) THEN            
       CALL SD_CalcOutput( this_time, SD%Input(1), SD%p, SD%x(this_state), SD%xd(this_state), SD%z(this_state), SD%OtherSt(this_state), SD%y, SD%m, ErrStat2, ErrMsg2 )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
-      call Transfer_SD_to_HD( SD%y, HD%Input(1)%WAMITMesh, HD%Input(1)%Morison%Mesh, MeshMapData, ErrStat, ErrMsg )
+      call Transfer_SD_to_HD( SD%y, HD%Input(1)%WAMITMesh, HD%Input(1)%Morison%Mesh, HD%Input(1)%SeaFEM%PRPMesh, MeshMapData, ErrStat, ErrMsg )
       
       IF ( p_FAST%CompMooring == Module_MAP ) THEN         
          CALL Transfer_Point_to_Point( SD%y%y2Mesh, MAPp%Input(1)%PtFairDisplacement, MeshMapData%SD_P_2_Mooring_P, ErrStat, ErrMsg )
@@ -5114,6 +5287,7 @@ SUBROUTINE CalcOutputs_And_SolveForInputs( n_t_global, this_time, this_state, ca
    END IF
    
       !> Solve option 1 (rigorous solve on loads/accelerations)
+   
    CALL SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, SrvD, MeshMapData, ErrStat2, ErrMsg2, WriteThisStep)
       CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
 
@@ -5221,7 +5395,7 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
                
    ErrStat = ErrID_None
    ErrMsg  = ""
-   
+!write(*,*) 'EDy1', ED%Y%PLATFORMPTMESH%TRANSLATIONACC     
    ! Because MAP, FEAM, MoorDyn, IceDyn, and IceFloe do not contain acceleration inputs, we do this outside the DO loop in the ED{_SD}_HD_InputOutput solves.       
    IF ( p_FAST%CompMooring == Module_MAP ) THEN
                   
@@ -5292,14 +5466,14 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
                         
                
    ELSEIF ( p_FAST%CompHydro == Module_HD ) THEN  ! No substructure model
-                                                    
+!write(*,*) 'EDy2', ED%Y%PLATFORMPTMESH%TRANSLATIONACC                                                 
       CALL ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                                     , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
                                     , HD%Input(1), HD%p, HD%x(this_state), HD%xd(this_state), HD%z(this_state), HD%OtherSt(this_state), HD%y,  HD%m & 
                                     , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
                                     , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
-         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
-                                                                  
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )                                                                  
+         
    END IF ! HD, BD, and/or SD coupled to ElastoDyn
                          
 !..................

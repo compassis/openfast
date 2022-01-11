@@ -1585,8 +1585,44 @@ END IF
          RETURN
       END IF
       
+#ifdef SeaFEM_active
+      
+      CALL MeshCopy (   SrcMesh      = u%PRPMesh               &
+                     ,DestMesh     = y%PRPMesh                 &
+                     ,CtrlCode     = MESH_SIBLING           &
+                     ,IOS          = COMPONENT_OUTPUT       &
+                     ,ErrStat      = ErrStat2               &
+                     ,ErrMess      = ErrMsg2                &
+                     ,Force        = .TRUE.                 &
+                     ,Moment       = .TRUE.                 )
+     
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'HydroDyn_Init:y%PRPMesh')
+         IF ( ErrStat >= AbortErrLev ) THEN
+            CALL CleanUp()
+            RETURN
+         END IF      
+         
+      y%PRPMesh%RemapFlag  = .TRUE.
+      
+           CALL MeshCopy (   SrcMesh     = y%PRPMesh                 &
+                     ,DestMesh     = y%AllHdroOrigin        &
+                     ,CtrlCode     = MESH_NEWCOPY           &
+                     ,IOS          = COMPONENT_OUTPUT       &
+                     ,ErrStat      = ErrStat2               &
+                     ,ErrMess      = ErrMsg2                &
+                     ,Force        = .TRUE.                 &
+                     ,Moment       = .TRUE.                 )
+     
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'HydroDyn_Init:y%AllHdroOrigin')
+         IF ( ErrStat >= AbortErrLev ) THEN
+            CALL CleanUp()
+            RETURN
+         END IF      
+      y%AllHdroOrigin%RemapFlag  = .TRUE.
+      
+#endif
+      
       u%PRPMesh%RemapFlag  = .TRUE.
-
 
       ! Create the input mesh associated with kinematics of the various WAMIT bodies
       IF (p%PotMod >= 1) THEN
@@ -1711,12 +1747,10 @@ END IF
       IF ( y%Morison%Mesh%Committed ) THEN 
          CALL MeshMapCreate( y%Morison%Mesh, m%AllHdroOrigin, m%HD_MeshMap%M_P_2_PRP_P,  ErrStat2, ErrMsg2  );CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName)
       ENDIF
-
 #ifdef SeaFEM_active
-      IF(InitLocal%HasSeaFEM .eqv. .FALSE.) THEN
-        !  CALL MeshMapCreate( y%Morison%LumpedMesh,  m%AllHdroOrigin, m%HD_MeshMap%M_P_2_PRP_P,  ErrStat2, ErrMsg2  );CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'HydroDyn_Init')
-        !  CALL MeshMapCreate( y%Morison%DistribMesh, m%AllHdroOrigin, m%HD_MeshMap%M_P_2_PRP_P,  ErrStat2, ErrMsg2  );CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'HydroDyn_Init')
-      END IF
+      IF ( y%SeaFEM%PRPMesh%Committed ) THEN 
+         CALL MeshMapCreate( y%SeaFEM%PRPMesh, m%AllHdroOrigin, m%HD_MeshMap%S_P_2_PRP_P,  ErrStat2, ErrMsg2  );CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName)
+      ENDIF
 #endif
       
       IF ( ErrStat >= AbortErrLev ) THEN
@@ -2268,10 +2302,13 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
          CALL SeaFEM_CalcOutput( Time, u%SeaFEM, p%SeaFEM, x%SeaFEM, xd%SeaFEM, SeaFEM_z, OtherState%SeaFEM, y%SeaFEM, m%SeaFEM, ErrStat2, ErrMsg2 )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )           
          ! Add WAMIT forces to the HydroDyn output mesh
-         y%Mesh%Force (:,1) = y%SeaFEM%PRPMesh%Force (:,1)
-         y%Mesh%Moment(:,1) = y%SeaFEM%PRPMesh%Moment(:,1)
-         WRITE(*,*) y%Mesh%Force (:,1), y%Mesh%Moment(:,1)
+         y%PRPMesh%Force (:,1) = y%SeaFEM%PRPMesh%Force (:,1)
+         y%PRPMesh%Moment(:,1) = y%SeaFEM%PRPMesh%Moment(:,1)
+    !     WRITE(*,*) y%PRPMesh%Force (:,1)!, y%PRPMesh%Moment(:,1)
          OtherState%F_Hydro = CalcLoadsAtWRP( y, u, OtherState%AllHdroOrigin, u%PRPMesh, OtherState%MrsnMesh_position, OtherState%HD_MeshMap, ErrStat2, ErrMsg2 )
+         
+       !  write(*,*) 'Print2' , y%Mesh%Force (:,1)
+         
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )    
       ELSE
           
@@ -2462,7 +2499,9 @@ function CalcLoadsAtWRP( y, u, AllHdroOrigin, PRP_Position,  MrsnMesh_Position, 
    integer(IntKi)                                 :: ErrStat2             ! temporary Error status of the operation
    character(ErrMsgLen)                           :: ErrMsg2              ! temporary Error message if ErrStat /= ErrID_None
    
-   CalcLoadsAtWRP = 0.0_ReKi
+  ! CalcLoadsAtWRP = 0.0_ReKi
+   y%AllHdroOrigin%Force = 0.0
+   y%AllHdroOrigin%Moment= 0.0
    
    if ( y%WAMITMesh%Committed  ) then
 
@@ -2487,6 +2526,22 @@ function CalcLoadsAtWRP( y, u, AllHdroOrigin, PRP_Position,  MrsnMesh_Position, 
       CalcLoadsAtWRP(4:6)  = CalcLoadsAtWRP(4:6) + AllHdroOrigin%Moment(:,1)
          
    end if
+   
+#ifdef SeaFEM_active
+   if ( y%SeaFEM%PRPMesh%Committed ) then 
+
+   !   call Transfer_Point_to_Point( y%SeaFEM%PRPMesh, AllHdroOrigin, MeshMapData%S_P_2_PRP_P, ErrStat2, ErrMsg2,  u%SeaFEM%PRPMesh, PRP_Position )
+   !      call SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'CalcLoadsAtWRP')
+   !         if (ErrStat >= AbortErrLev) return
+            
+      y%AllHdroOrigin%Force  =  y%PRPMesh%Force
+      y%AllHdroOrigin%Moment =  y%PRPMesh%Moment
+ 
+      CalcLoadsAtWRP(1:3)  = y%AllHdroOrigin%Force(:,1)
+      CalcLoadsAtWRP(4:6)  = y%AllHdroOrigin%Moment(:,1)
+         
+   end if
+#endif
    
 end function CalcLoadsAtWRP
  
@@ -3108,6 +3163,11 @@ SUBROUTINE HD_Init_Jacobian_y( p, y, InitOut, ErrStat, ErrMsg)
    if ( y%Morison%Mesh%Committed ) then
       p%Jac_ny = p%Jac_ny + y%Morison%Mesh%NNodes * 6        ! 3 Force, Moment, at each node on the morison mesh       
    end if
+#ifdef SeaFEM_active
+   if ( y%SeaFEM%PRPMesh%Committed ) then
+      p%Jac_ny = p%Jac_ny + y%SeaFEM%PRPMesh%NNodes * 6        ! 3 Force, Moment, at each node on the SeaFEM mesh       
+   end if
+#endif
    if ( y%WAMITMesh%Committed ) then
       p%Jac_ny = p%Jac_ny + y%WAMITMesh%NNodes    * 6        ! 3 Force, Moment, at the WAMIT reference Point(s)
    end if
@@ -3132,7 +3192,12 @@ SUBROUTINE HD_Init_Jacobian_y( p, y, InitOut, ErrStat, ErrMsg)
       index_last = index_next
       call PackLoadMesh_Names(y%Morison%Mesh, 'MorisonLoads', InitOut%LinNames_y, index_next)
    end if
-
+#ifdef SeaFEM_active
+   if ( y%SeaFEM%PRPMesh%Committed ) then
+      index_last = index_next
+      call PackLoadMesh_Names(y%SeaFEM%PRPMesh, 'SeaFEMLoads', InitOut%LinNames_y, index_next)
+   end if
+#endif
    if ( y%WAMITMesh%Committed ) then
       index_last = index_next
       call PackLoadMesh_Names(y%WAMITMesh, 'WAMITLoads', InitOut%LinNames_y, index_next)
@@ -3275,6 +3340,11 @@ SUBROUTINE HD_Init_Jacobian( p, u, y, InitOut, ErrStat, ErrMsg)
    if ( u%Morison%Mesh%Committed ) then
       nu = u%Morison%Mesh%NNodes   * 18   ! 3 TranslationDisp, Orientation, TranslationVel, RotationVel, TranslationAcc, and RotationAcc at each node     
    end if
+#ifdef SeaFEM_active
+   if ( u%SeaFEM%PRPMesh%Committed ) then
+      nu = u%SeaFEM%PRPMesh%NNodes   * 18   ! 3 TranslationDisp, Orientation, TranslationVel, RotationVel, TranslationAcc, and RotationAcc at each node     
+   end if
+#endif
    if ( u%WAMITMesh%Committed ) then
       nu = nu + u%WAMITMesh%NNodes * 18   ! 3 TranslationDisp, Orientation, TranslationVel, RotationVel, TranslationAcc, and RotationAcc at each node     
    end if
@@ -3429,6 +3499,19 @@ SUBROUTINE HD_Init_Jacobian( p, u, y, InitOut, ErrStat, ErrMsg)
       call PackMotionMesh_Names(u%Morison%Mesh, 'Morison', InitOut%LinNames_u, index, FieldMask=FieldMask)
    
    end if
+#ifdef SeaFEM_active
+   if ( u%SeaFEM%PRPMesh%Committed ) then
+      FieldMask = .false.
+      FieldMask(MASKID_TRANSLATIONDISP) = .true.
+      FieldMask(MASKID_Orientation) = .true.
+      FieldMask(MASKID_TRANSLATIONVEL) = .true.
+      FieldMask(MASKID_ROTATIONVEL) = .true.
+      FieldMask(MASKID_TRANSLATIONACC) = .true.
+      FieldMask(MASKID_ROTATIONACC) = .true.
+      call PackMotionMesh_Names(u%SeaFEM%PRPMesh, 'SeaFEM', InitOut%LinNames_u, index, FieldMask=FieldMask)
+   
+   end if
+#endif
 
    if ( u%WAMITMesh%Committed ) then
       FieldMask = .false.
@@ -3658,6 +3741,11 @@ SUBROUTINE Compute_dY(p, y_p, y_m, delta, dY)
    if ( y_p%Morison%Mesh%Committed ) then
       call PackLoadMesh_dY(y_p%Morison%Mesh, y_m%Morison%Mesh, dY, indx_first)   
    end if
+#ifdef SeaFEM_active
+   if ( y_p%SeaFEM%PRPMesh%Committed ) then
+      call PackLoadMesh_dY(y_p%SeaFEM%PRPMesh, y_m%SeaFEM%PRPMesh, dY, indx_first)   
+   end if
+#endif
    if ( y_p%WAMITMesh%Committed ) then
       call PackLoadMesh_dY(y_p%WAMITMesh, y_m%WAMITMesh, dY, indx_first)   
    end if
@@ -3721,6 +3809,11 @@ SUBROUTINE HD_GetOP( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg, u_op,
          if ( u%Morison%Mesh%Committed ) then          
             nu = nu + u%Morison%Mesh%NNodes  * 6   ! p%Jac_u_indx has 3 for Orientation, but we need 9 at each node
          end if
+#ifdef SeaFEM_active
+         if ( u%SeaFEM%PRPMesh%Committed ) then          
+            nu = nu + u%SeaFEM%PRPMesh%NNodes  * 6   ! p%Jac_u_indx has 3 for Orientation, but we need 9 at each node
+         end if
+#endif
          if ( u%WAMITMesh%Committed ) then
             nu = nu + u%WAMITMesh%NNodes     * 6   ! p%Jac_u_indx has 3 for Orientation, but we need 9 at each node
          end if
@@ -3746,6 +3839,11 @@ SUBROUTINE HD_GetOP( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg, u_op,
       if ( u%Morison%Mesh%Committed ) then
          call PackMotionMesh(u%Morison%Mesh, u_op, index, FieldMask=Mask)    
       end if
+#ifdef SeaFEM_active
+      if ( u%SeaFEM%PRPMesh%Committed ) then
+         call PackMotionMesh(u%SeaFEM%PRPMesh, u_op, index, FieldMask=Mask)    
+      end if
+#endif
 
       if ( u%WAMITMesh%Committed ) then
          call PackMotionMesh(u%WAMITMesh, u_op, index, FieldMask=Mask)   
@@ -3772,6 +3870,11 @@ SUBROUTINE HD_GetOP( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg, u_op,
       if ( y%Morison%Mesh%Committed ) then
          call PackLoadMesh(y%Morison%Mesh, y_op, index)   
       end if
+#ifdef SeaFEM_active
+      if ( y%SeaFEM%PRPMesh%Committed ) then
+         call PackLoadMesh(y%SeaFEM%PRPMesh, y_op, index)   
+      end if
+#endif
       if ( y%WAMITMesh%Committed ) then
          call PackLoadMesh(y%WAMITMesh, y_op, index)
       end if

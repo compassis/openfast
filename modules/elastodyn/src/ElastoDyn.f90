@@ -562,7 +562,7 @@ SUBROUTINE ED_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg )
          ! Initialize some output values
       ErrStat = ErrID_None
       ErrMsg  = ""
-
+   
       
       ! SEE IF THESE NEED TO BE CALLED (i.e., if UpdateStates was called, these values are already calculated)
    IF ( UpdateValues ) THEN    
@@ -572,8 +572,6 @@ SUBROUTINE ED_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg )
       CALL ED_DestroyContState( dxdt, ErrStat2, ErrMsg2 )  
       IF (ErrStat >= AbortErrLev) RETURN
    END IF      
-
-
    
       !..............................
       ! Outputs for HydroDyn, UsrPtfm and UsrTwr
@@ -660,8 +658,6 @@ SUBROUTINE ED_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg )
 
    ENDDO             ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the platform center of mass (point Y)
 
-
-
    DO K = 1,p%NumBl ! Loop through all blades
 
       FrcS0B  (:          ,K) = m%RtHS%FrcS0Bt  (:,K          )
@@ -734,7 +730,7 @@ SUBROUTINE ED_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg )
       ! Define the output channel specifying the current simulation time:
 
    m%AllOuts(  Time) = REAL( t, ReKi )
-
+   
 
       ! Blade (1-3) Tip Motions:
 
@@ -903,7 +899,7 @@ END IF
    m%AllOuts(YawBrRAxp) =  DOT_PRODUCT( AngAccEB, m%CoordSys%b1 )*R2D
    m%AllOuts(YawBrRAyp) = -DOT_PRODUCT( AngAccEB, m%CoordSys%b3 )*R2D
    m%AllOuts(YawBrRAzp) =  DOT_PRODUCT( AngAccEB, m%CoordSys%b2 )*R2D
-
+   
 
       ! Local Tower Motions:
 
@@ -971,7 +967,6 @@ END IF
    m%AllOuts( PtfmRAzi) = m%QD2T(DOF_Y )*R2D
 
 
-
       ! Blade Root Loads:
 
    DO K=1,p%NumBl
@@ -1035,7 +1030,6 @@ END IF
          m%AllOuts(SpnMLzb(I,K)) = DOT_PRODUCT( MomMGagB, m%CoordSys%n3(K,p%BldGagNd(I),:) )
       END DO ! I
    END DO ! K
-
 
 
       ! Hub and Rotor Loads:
@@ -1115,7 +1109,7 @@ END IF
    !   m%AllOuts(    GenCp) = 0.0
    !
    !ENDIF
-
+   
 
       ! Rotor-Furl Axis Loads:
 
@@ -1316,6 +1310,7 @@ END IF
       y%WriteOutput(I) = p%OutParam(I)%SignM * m%AllOuts( p%OutParam(I)%Indx )
 
    ENDDO             ! I - All selected output channels
+   
 
    IF ( .NOT. p%BD4Blades ) THEN
       y%WriteOutput(p%NumOuts+1:) = 0.0_ReKi
