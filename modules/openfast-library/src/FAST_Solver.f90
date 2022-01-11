@@ -5395,7 +5395,7 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
                
    ErrStat = ErrID_None
    ErrMsg  = ""
-!write(*,*) 'EDy1', ED%Y%PLATFORMPTMESH%TRANSLATIONACC     
+
    ! Because MAP, FEAM, MoorDyn, IceDyn, and IceFloe do not contain acceleration inputs, we do this outside the DO loop in the ED{_SD}_HD_InputOutput solves.       
    IF ( p_FAST%CompMooring == Module_MAP ) THEN
                   
@@ -5466,7 +5466,7 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
                         
                
    ELSEIF ( p_FAST%CompHydro == Module_HD ) THEN  ! No substructure model
-!write(*,*) 'EDy2', ED%Y%PLATFORMPTMESH%TRANSLATIONACC                                                 
+                                               
       CALL ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                                     , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
                                     , HD%Input(1), HD%p, HD%x(this_state), HD%xd(this_state), HD%z(this_state), HD%OtherSt(this_state), HD%y,  HD%m & 

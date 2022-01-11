@@ -28568,3 +28568,1279 @@ This probably means that Tcl wasn't installed properly.
  -->	Fast_convergence     6.5954e-08
  -->	time[s]=3, iterations=12, max_fs=0.05
  -->	Fast finished
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1641912096596
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000309368
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.00124045
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00418816
+ -->	Fast_convergence     0.141601
+ -->	time[s]=0.04, iterations=12, max_fs=0.00504174
+ -->	Fast_convergence     0.183673
+ -->	time[s]=0.05, iterations=12, max_fs=0.00822079
+ -->	Fast_convergence     0.272014
+ -->	time[s]=0.06, iterations=12, max_fs=0.0111001
+ -->	Fast_convergence     0.184484
+ -->	time[s]=0.07, iterations=12, max_fs=0.0144333
+ -->	Fast_convergence     0.152888
+ -->	time[s]=0.08, iterations=12, max_fs=0.0180532
+ -->	Fast_convergence     0.092221
+ -->	time[s]=0.09, iterations=12, max_fs=0.0218793
+ -->	Fast_convergence     0.0679669
+ -->	time[s]=0.1, iterations=12, max_fs=0.0257909
+ -->	Fast_convergence     0.0439506
+ -->	time[s]=0.11, iterations=12, max_fs=0.0297171
+ -->	Fast_convergence     0.0317602
+ -->	time[s]=0.12, iterations=12, max_fs=0.0335318
+ -->	Fast_convergence     0.0219631
+ -->	time[s]=0.13, iterations=12, max_fs=0.0371644
+ -->	Fast_convergence     0.0161754
+ -->	time[s]=0.14, iterations=12, max_fs=0.040506
+ -->	Fast_convergence     0.0117015
+ -->	time[s]=0.15, iterations=12, max_fs=0.0434899
+ -->	Fast_convergence     0.00889863
+ -->	time[s]=0.16, iterations=12, max_fs=0.0460298
+ -->	Fast_convergence     0.00664217
+ -->	time[s]=0.17, iterations=12, max_fs=0.0480737
+ -->	Fast_convergence     0.00522419
+ -->	time[s]=0.18, iterations=12, max_fs=0.0495629
+ -->	Fast_convergence     0.0040112
+ -->	time[s]=0.19, iterations=12, max_fs=0.0504677
+ -->	Fast_convergence     0.00323874
+ -->	time[s]=0.2, iterations=12, max_fs=0.0507604
+ -->	Fast_convergence     0.00257882
+ -->	time[s]=0.21, iterations=12, max_fs=0.0507459
+ -->	Fast_convergence     0.00364106
+ -->	time[s]=0.22, iterations=12, max_fs=0.0507277
+ -->	Fast_convergence     0.00168176
+ -->	time[s]=0.23, iterations=12, max_fs=0.0507108
+ -->	Fast_convergence     0.0010879
+ -->	time[s]=0.24, iterations=12, max_fs=0.0506926
+ -->	Fast_convergence     0.00102283
+ -->	time[s]=0.25, iterations=12, max_fs=0.0506757
+ -->	Fast_convergence     0.000586738
+ -->	time[s]=0.26, iterations=12, max_fs=0.0506591
+ -->	Fast_convergence     0.000768924
+ -->	time[s]=0.27, iterations=12, max_fs=0.050644
+ -->	Fast_convergence     0.000313809
+ -->	time[s]=0.28, iterations=12, max_fs=0.0506348
+ -->	Fast_convergence     0.000580649
+ -->	time[s]=0.29, iterations=12, max_fs=0.0506282
+ -->	Fast_convergence     0.000164423
+ -->	time[s]=0.3, iterations=12, max_fs=0.0506222
+ -->	Fast_convergence     0.00041492
+ -->	time[s]=0.31, iterations=12, max_fs=0.0506168
+ -->	Fast_convergence     0.000106872
+ -->	time[s]=0.32, iterations=12, max_fs=0.0506115
+ -->	Fast_convergence     0.00025687
+ -->	time[s]=0.33, iterations=12, max_fs=0.0506061
+ -->	Fast_convergence     0.000112418
+ -->	time[s]=0.34, iterations=12, max_fs=0.0505999
+ -->	Fast_convergence     0.000108663
+ -->	time[s]=0.35, iterations=12, max_fs=0.0505927
+ -->	Fast_convergence     0.000151222
+ -->	time[s]=0.36, iterations=12, max_fs=0.0505839
+ -->	Fast_convergence     2.34273e-05
+ -->	time[s]=0.37, iterations=12, max_fs=0.0505734
+ -->	Fast_convergence     0.000476044
+ -->	time[s]=0.38, iterations=12, max_fs=0.0505608
+ -->	Fast_convergence     0.000372646
+ -->	time[s]=0.39, iterations=12, max_fs=0.0505467
+ -->	Fast_convergence     0.000721821
+ -->	time[s]=0.4, iterations=12, max_fs=0.0505387
+ -->	Fast_convergence     0.000268386
+ -->	time[s]=0.41, iterations=12, max_fs=0.0505301
+ -->	Fast_convergence     0.000563061
+ -->	time[s]=0.42, iterations=12, max_fs=0.0505209
+ -->	Fast_convergence     0.000122145
+ -->	time[s]=0.43, iterations=12, max_fs=0.0505115
+ -->	Fast_convergence     0.00040779
+ -->	time[s]=0.44, iterations=12, max_fs=0.0505048
+ -->	Fast_convergence     0.000102495
+ -->	time[s]=0.45, iterations=12, max_fs=0.0504996
+ -->	Fast_convergence     0.000307408
+ -->	time[s]=0.46, iterations=12, max_fs=0.0504954
+ -->	Fast_convergence     0.000110127
+ -->	time[s]=0.47, iterations=12, max_fs=0.0504927
+ -->	Fast_convergence     0.000171999
+ -->	time[s]=0.48, iterations=12, max_fs=0.0504918
+ -->	Fast_convergence     0.000136534
+ -->	time[s]=0.49, iterations=12, max_fs=0.0504944
+ -->	Fast_convergence     7.95001e-05
+ -->	time[s]=0.5, iterations=12, max_fs=0.0505102
+ -->	Fast_convergence     0.000371147
+ -->	time[s]=0.51, iterations=12, max_fs=0.0505291
+ -->	Fast_convergence     0.000349156
+ -->	time[s]=0.52, iterations=12, max_fs=0.0505512
+ -->	Fast_convergence     0.000598014
+ -->	time[s]=0.53, iterations=12, max_fs=0.0505763
+ -->	Fast_convergence     0.000267258
+ -->	time[s]=0.54, iterations=12, max_fs=0.0506046
+ -->	Fast_convergence     0.000506049
+ -->	time[s]=0.55, iterations=12, max_fs=0.0506358
+ -->	Fast_convergence     0.000146399
+ -->	time[s]=0.56, iterations=12, max_fs=0.0506696
+ -->	Fast_convergence     0.000402078
+ -->	time[s]=0.57, iterations=12, max_fs=0.0507058
+ -->	Fast_convergence     8.76924e-05
+ -->	time[s]=0.58, iterations=12, max_fs=0.050744
+ -->	Fast_convergence     0.000335915
+ -->	time[s]=0.59, iterations=12, max_fs=0.0507838
+ -->	Fast_convergence     0.000287516
+ -->	time[s]=0.6, iterations=12, max_fs=0.0508249
+ -->	Fast_convergence     0.000328199
+ -->	time[s]=0.61, iterations=12, max_fs=0.0508667
+ -->	Fast_convergence     0.000263375
+ -->	time[s]=0.62, iterations=12, max_fs=0.050909
+ -->	Fast_convergence     0.000192048
+ -->	time[s]=0.63, iterations=12, max_fs=0.0509662
+ -->	Fast_convergence     0.000232632
+ -->	time[s]=0.64, iterations=12, max_fs=0.0510546
+ -->	Fast_convergence     0.000149929
+ -->	time[s]=0.65, iterations=12, max_fs=0.0511461
+ -->	Fast_convergence     0.000255996
+ -->	time[s]=0.66, iterations=12, max_fs=0.0512403
+ -->	Fast_convergence     0.000189386
+ -->	time[s]=0.67, iterations=12, max_fs=0.0513369
+ -->	Fast_convergence     0.000271601
+ -->	time[s]=0.68, iterations=12, max_fs=0.0514358
+ -->	Fast_convergence     0.000206137
+ -->	time[s]=0.69, iterations=12, max_fs=0.0515369
+ -->	Fast_convergence     0.000242838
+ -->	time[s]=0.7, iterations=12, max_fs=0.0516404
+ -->	Fast_convergence     0.00016477
+ -->	time[s]=0.71, iterations=12, max_fs=0.0517463
+ -->	Fast_convergence     0.000156128
+ -->	time[s]=0.72, iterations=12, max_fs=0.0518549
+ -->	Fast_convergence     9.73117e-05
+ -->	time[s]=0.73, iterations=12, max_fs=0.0519666
+ -->	Fast_convergence     0.00027077
+ -->	time[s]=0.74, iterations=12, max_fs=0.0520814
+ -->	Fast_convergence     0.00040871
+ -->	time[s]=0.75, iterations=12, max_fs=0.0521995
+ -->	Fast_convergence     0.000768079
+ -->	time[s]=0.76, iterations=12, max_fs=0.0523213
+ -->	Fast_convergence     0.000238969
+ -->	time[s]=0.77, iterations=12, max_fs=0.0524464
+ -->	Fast_convergence     0.000901191
+ -->	time[s]=0.78, iterations=12, max_fs=0.052575
+ -->	Fast_convergence     0.000198108
+ -->	time[s]=0.79, iterations=12, max_fs=0.0527066
+ -->	Fast_convergence     0.00103654
+ -->	time[s]=0.8, iterations=12, max_fs=0.0528409
+ -->	Fast_convergence     0.000454691
+ -->	time[s]=0.81, iterations=12, max_fs=0.0529772
+ -->	Fast_convergence     0.00109425
+ -->	time[s]=0.82, iterations=12, max_fs=0.0531147
+ -->	Fast_convergence     0.000576564
+ -->	time[s]=0.83, iterations=12, max_fs=0.0532525
+ -->	Fast_convergence     0.0009474
+ -->	time[s]=0.84, iterations=12, max_fs=0.0533895
+ -->	Fast_convergence     0.000465124
+ -->	time[s]=0.85, iterations=12, max_fs=0.0535245
+ -->	Fast_convergence     0.000593208
+ -->	time[s]=0.86, iterations=12, max_fs=0.0536563
+ -->	Fast_convergence     0.000192712
+ -->	time[s]=0.87, iterations=12, max_fs=0.0537836
+ -->	Fast_convergence     0.000178432
+ -->	time[s]=0.88, iterations=12, max_fs=0.0539052
+ -->	Fast_convergence     0.000200105
+ -->	time[s]=0.89, iterations=12, max_fs=0.0540198
+ -->	Fast_convergence     0.000230399
+ -->	time[s]=0.9, iterations=12, max_fs=0.0541264
+ -->	Fast_convergence     0.000463653
+ -->	time[s]=0.91, iterations=12, max_fs=0.054224
+ -->	Fast_convergence     0.000497387
+ -->	time[s]=0.92, iterations=12, max_fs=0.0543118
+ -->	Fast_convergence     0.000640125
+ -->	time[s]=0.93, iterations=12, max_fs=0.0543891
+ -->	Fast_convergence     0.00063822
+ -->	time[s]=0.94, iterations=12, max_fs=0.0544556
+ -->	Fast_convergence     0.000689978
+ -->	time[s]=0.95, iterations=12, max_fs=0.054511
+ -->	Fast_convergence     0.000636944
+ -->	time[s]=0.96, iterations=12, max_fs=0.0546007
+ -->	Fast_convergence     0.000607432
+ -->	time[s]=0.97, iterations=12, max_fs=0.0547087
+ -->	Fast_convergence     0.000505979
+ -->	time[s]=0.98, iterations=12, max_fs=0.0548085
+ -->	Fast_convergence     0.000418277
+ -->	time[s]=0.99, iterations=12, max_fs=0.0549001
+ -->	Fast_convergence     0.000289366
+ -->	time[s]=1, iterations=12, max_fs=0.054984
+ -->	Fast_convergence     0.000178024
+ -->	time[s]=1.01, iterations=12, max_fs=0.0550605
+ -->	Fast_convergence     0.000102924
+ -->	time[s]=1.02, iterations=12, max_fs=0.05513
+ -->	Fast_convergence     9.02905e-05
+ -->	time[s]=1.03, iterations=12, max_fs=0.055193
+ -->	Fast_convergence     9.86135e-05
+ -->	time[s]=1.04, iterations=12, max_fs=0.0552498
+ -->	Fast_convergence     0.000406823
+ -->	time[s]=1.05, iterations=12, max_fs=0.0553007
+ -->	Fast_convergence     0.000483914
+ -->	time[s]=1.06, iterations=12, max_fs=0.0553461
+ -->	Fast_convergence     0.000486501
+ -->	time[s]=1.07, iterations=12, max_fs=0.0553861
+ -->	Fast_convergence     0.000468664
+ -->	time[s]=1.08, iterations=12, max_fs=0.0554207
+ -->	Fast_convergence     0.000385199
+ -->	time[s]=1.09, iterations=12, max_fs=0.05545
+ -->	Fast_convergence     0.000351135
+ -->	time[s]=1.1, iterations=12, max_fs=0.0554791
+ -->	Fast_convergence     0.000275421
+ -->	time[s]=1.11, iterations=12, max_fs=0.0555377
+ -->	Fast_convergence     0.000222956
+ -->	time[s]=1.12, iterations=12, max_fs=0.0555918
+ -->	Fast_convergence     0.000144584
+ -->	time[s]=1.13, iterations=12, max_fs=0.055641
+ -->	Fast_convergence     8.77185e-05
+ -->	time[s]=1.14, iterations=12, max_fs=0.0556849
+ -->	Fast_convergence     0.000148818
+ -->	time[s]=1.15, iterations=12, max_fs=0.0557233
+ -->	Fast_convergence     0.000206403
+ -->	time[s]=1.16, iterations=12, max_fs=0.0557556
+ -->	Fast_convergence     0.000351526
+ -->	time[s]=1.17, iterations=12, max_fs=0.0557816
+ -->	Fast_convergence     0.000175494
+ -->	time[s]=1.18, iterations=12, max_fs=0.0558012
+ -->	Fast_convergence     0.000373878
+ -->	time[s]=1.19, iterations=12, max_fs=0.0558141
+ -->	Fast_convergence     0.000213905
+ -->	time[s]=1.2, iterations=12, max_fs=0.0558203
+ -->	Fast_convergence     0.000372888
+ -->	time[s]=1.21, iterations=12, max_fs=0.0558199
+ -->	Fast_convergence     0.000239574
+ -->	time[s]=1.22, iterations=12, max_fs=0.0558131
+ -->	Fast_convergence     0.000323591
+ -->	time[s]=1.23, iterations=12, max_fs=0.0558
+ -->	Fast_convergence     0.000196769
+ -->	time[s]=1.24, iterations=12, max_fs=0.055781
+ -->	Fast_convergence     0.000216939
+ -->	time[s]=1.25, iterations=12, max_fs=0.0557565
+ -->	Fast_convergence     8.89678e-05
+ -->	time[s]=1.26, iterations=12, max_fs=0.0557268
+ -->	Fast_convergence     0.000111317
+ -->	time[s]=1.27, iterations=12, max_fs=0.0556925
+ -->	Fast_convergence     0.000194661
+ -->	time[s]=1.28, iterations=12, max_fs=0.0556538
+ -->	Fast_convergence     0.000381475
+ -->	time[s]=1.29, iterations=12, max_fs=0.0556112
+ -->	Fast_convergence     0.000112027
+ -->	time[s]=1.3, iterations=12, max_fs=0.0555651
+ -->	Fast_convergence     0.000469837
+ -->	time[s]=1.31, iterations=12, max_fs=0.0555156
+ -->	Fast_convergence     0.000131983
+ -->	time[s]=1.32, iterations=12, max_fs=0.055463
+ -->	Fast_convergence     0.000481746
+ -->	time[s]=1.33, iterations=12, max_fs=0.0554074
+ -->	Fast_convergence     0.000235437
+ -->	time[s]=1.34, iterations=12, max_fs=0.0553486
+ -->	Fast_convergence     0.000441414
+ -->	time[s]=1.35, iterations=12, max_fs=0.0552866
+ -->	Fast_convergence     0.000252801
+ -->	time[s]=1.36, iterations=12, max_fs=0.0552211
+ -->	Fast_convergence     0.000353427
+ -->	time[s]=1.37, iterations=12, max_fs=0.0551519
+ -->	Fast_convergence     0.000196738
+ -->	time[s]=1.38, iterations=12, max_fs=0.0550785
+ -->	Fast_convergence     0.000226122
+ -->	time[s]=1.39, iterations=12, max_fs=0.0550004
+ -->	Fast_convergence     9.419e-05
+ -->	time[s]=1.4, iterations=12, max_fs=0.0549172
+ -->	Fast_convergence     7.0558e-05
+ -->	time[s]=1.41, iterations=12, max_fs=0.0548285
+ -->	Fast_convergence     0.000407961
+ -->	time[s]=1.42, iterations=12, max_fs=0.0547337
+ -->	Fast_convergence     0.000659445
+ -->	time[s]=1.43, iterations=12, max_fs=0.0546323
+ -->	Fast_convergence     0.000461565
+ -->	time[s]=1.44, iterations=12, max_fs=0.0545432
+ -->	Fast_convergence     0.000708397
+ -->	time[s]=1.45, iterations=12, max_fs=0.0544564
+ -->	Fast_convergence     0.000250874
+ -->	time[s]=1.46, iterations=12, max_fs=0.0543616
+ -->	Fast_convergence     0.000670023
+ -->	time[s]=1.47, iterations=12, max_fs=0.0542589
+ -->	Fast_convergence     0.000206836
+ -->	time[s]=1.48, iterations=12, max_fs=0.0541485
+ -->	Fast_convergence     0.000609848
+ -->	time[s]=1.49, iterations=12, max_fs=0.0540305
+ -->	Fast_convergence     0.000217408
+ -->	time[s]=1.5, iterations=12, max_fs=0.0539052
+ -->	Fast_convergence     0.000489798
+ -->	time[s]=1.51, iterations=12, max_fs=0.0537728
+ -->	Fast_convergence     0.000157854
+ -->	time[s]=1.52, iterations=12, max_fs=0.0536338
+ -->	Fast_convergence     0.000295608
+ -->	time[s]=1.53, iterations=12, max_fs=0.0534883
+ -->	Fast_convergence     0.000118942
+ -->	time[s]=1.54, iterations=12, max_fs=0.0533368
+ -->	Fast_convergence     0.000120969
+ -->	time[s]=1.55, iterations=12, max_fs=0.0532138
+ -->	Fast_convergence     0.000304077
+ -->	time[s]=1.56, iterations=12, max_fs=0.0531655
+ -->	Fast_convergence     0.00016659
+ -->	time[s]=1.57, iterations=12, max_fs=0.0531434
+ -->	Fast_convergence     0.000471187
+ -->	time[s]=1.58, iterations=12, max_fs=0.0531168
+ -->	Fast_convergence     0.000377702
+ -->	time[s]=1.59, iterations=12, max_fs=0.0530855
+ -->	Fast_convergence     0.000586249
+ -->	time[s]=1.6, iterations=12, max_fs=0.0530493
+ -->	Fast_convergence     0.000501477
+ -->	time[s]=1.61, iterations=12, max_fs=0.0530083
+ -->	Fast_convergence     0.000610318
+ -->	time[s]=1.62, iterations=12, max_fs=0.052962
+ -->	Fast_convergence     0.000503017
+ -->	time[s]=1.63, iterations=12, max_fs=0.0529104
+ -->	Fast_convergence     0.000517694
+ -->	time[s]=1.64, iterations=12, max_fs=0.0528533
+ -->	Fast_convergence     0.000369812
+ -->	time[s]=1.65, iterations=12, max_fs=0.0527903
+ -->	Fast_convergence     0.000296915
+ -->	time[s]=1.66, iterations=12, max_fs=0.0527213
+ -->	Fast_convergence     0.000117462
+ -->	time[s]=1.67, iterations=12, max_fs=0.0526461
+ -->	Fast_convergence     0.000119248
+ -->	time[s]=1.68, iterations=12, max_fs=0.0525643
+ -->	Fast_convergence     0.00022518
+ -->	time[s]=1.69, iterations=12, max_fs=0.0524759
+ -->	Fast_convergence     0.000425535
+ -->	time[s]=1.7, iterations=12, max_fs=0.0523806
+ -->	Fast_convergence     0.000500369
+ -->	time[s]=1.71, iterations=12, max_fs=0.0522782
+ -->	Fast_convergence     0.000595604
+ -->	time[s]=1.72, iterations=12, max_fs=0.0521687
+ -->	Fast_convergence     0.000593207
+ -->	time[s]=1.73, iterations=12, max_fs=0.0520519
+ -->	Fast_convergence     0.000589869
+ -->	time[s]=1.74, iterations=12, max_fs=0.0519279
+ -->	Fast_convergence     0.000534097
+ -->	time[s]=1.75, iterations=12, max_fs=0.0517965
+ -->	Fast_convergence     0.00048046
+ -->	time[s]=1.76, iterations=12, max_fs=0.0516579
+ -->	Fast_convergence     0.000403773
+ -->	time[s]=1.77, iterations=12, max_fs=0.0515121
+ -->	Fast_convergence     0.000333112
+ -->	time[s]=1.78, iterations=12, max_fs=0.0513593
+ -->	Fast_convergence     0.000254544
+ -->	time[s]=1.79, iterations=12, max_fs=0.0511995
+ -->	Fast_convergence     0.000184465
+ -->	time[s]=1.8, iterations=12, max_fs=0.051033
+ -->	Fast_convergence     0.000114864
+ -->	time[s]=1.81, iterations=12, max_fs=0.0508599
+ -->	Fast_convergence     9.39831e-05
+ -->	time[s]=1.82, iterations=12, max_fs=0.0506805
+ -->	Fast_convergence     0.000231766
+ -->	time[s]=1.83, iterations=12, max_fs=0.0504949
+ -->	Fast_convergence     0.000365524
+ -->	time[s]=1.84, iterations=12, max_fs=0.0503034
+ -->	Fast_convergence     0.000471211
+ -->	time[s]=1.85, iterations=12, max_fs=0.0501062
+ -->	Fast_convergence     0.000244624
+ -->	time[s]=1.86, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000368623
+ -->	time[s]=1.87, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000112156
+ -->	time[s]=1.88, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000268596
+ -->	time[s]=1.89, iterations=12, max_fs=0.05
+ -->	Fast_convergence     9.65146e-05
+ -->	time[s]=1.9, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     0.000371792
+ -->	time[s]=1.91, iterations=48, max_fs=0.0499999
+ -->	Fast_convergence     0.000240285
+ -->	time[s]=1.92, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000131389
+ -->	time[s]=1.93, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.74089e-05
+ -->	time[s]=1.94, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     6.66207e-05
+ -->	time[s]=1.95, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0.0001069
+ -->	time[s]=1.96, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     8.72152e-05
+ -->	time[s]=1.97, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000128201
+ -->	time[s]=1.98, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.59667e-05
+ -->	time[s]=1.99, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0.000136186
+ -->	time[s]=2, iterations=12, max_fs=0.0500438
+ -->	Fast_convergence     1.94638e-07
+ -->	time[s]=2.01, iterations=12, max_fs=0.0501519
+ -->	Fast_convergence     9.63829e-08
+ -->	time[s]=2.02, iterations=12, max_fs=0.0502519
+ -->	Fast_convergence     1.30591e-07
+ -->	time[s]=2.03, iterations=12, max_fs=0.0503431
+ -->	Fast_convergence     7.01212e-08
+ -->	time[s]=2.04, iterations=12, max_fs=0.0504593
+ -->	Fast_convergence     7.57975e-08
+ -->	time[s]=2.05, iterations=12, max_fs=0.0505996
+ -->	Fast_convergence     1.89573e-05
+ -->	time[s]=2.06, iterations=12, max_fs=0.0507287
+ -->	Fast_convergence     2.2692e-07
+ -->	time[s]=2.07, iterations=12, max_fs=0.0508457
+ -->	Fast_convergence     3.30606e-07
+ -->	time[s]=2.08, iterations=12, max_fs=0.0509496
+ -->	Fast_convergence     3.68707e-07
+ -->	time[s]=2.09, iterations=12, max_fs=0.0510398
+ -->	Fast_convergence     2.53271e-07
+ -->	time[s]=2.1, iterations=12, max_fs=0.0511154
+ -->	Fast_convergence     2.98745e-07
+ -->	time[s]=2.11, iterations=12, max_fs=0.051176
+ -->	Fast_convergence     1.79822e-07
+ -->	time[s]=2.12, iterations=12, max_fs=0.0512208
+ -->	Fast_convergence     2.46458e-07
+ -->	time[s]=2.13, iterations=12, max_fs=0.0512495
+ -->	Fast_convergence     1.73003e-07
+ -->	time[s]=2.14, iterations=12, max_fs=0.0512617
+ -->	Fast_convergence     2.59856e-07
+ -->	time[s]=2.15, iterations=12, max_fs=0.0512574
+ -->	Fast_convergence     2.30826e-07
+ -->	time[s]=2.16, iterations=12, max_fs=0.0512363
+ -->	Fast_convergence     3.09167e-07
+ -->	time[s]=2.17, iterations=12, max_fs=0.0511986
+ -->	Fast_convergence     2.20836e-07
+ -->	time[s]=2.18, iterations=12, max_fs=0.0511443
+ -->	Fast_convergence     2.96384e-07
+ -->	time[s]=2.19, iterations=12, max_fs=0.0510737
+ -->	Fast_convergence     2.64219e-07
+ -->	time[s]=2.2, iterations=12, max_fs=0.0509871
+ -->	Fast_convergence     2.65618e-07
+ -->	time[s]=2.21, iterations=12, max_fs=0.0508849
+ -->	Fast_convergence     1.92845e-07
+ -->	time[s]=2.22, iterations=12, max_fs=0.0507673
+ -->	Fast_convergence     1.71478e-07
+ -->	time[s]=2.23, iterations=12, max_fs=0.0506349
+ -->	Fast_convergence     1.72836e-07
+ -->	time[s]=2.24, iterations=12, max_fs=0.0504881
+ -->	Fast_convergence     2.56737e-07
+ -->	time[s]=2.25, iterations=12, max_fs=0.0503273
+ -->	Fast_convergence     2.61532e-07
+ -->	time[s]=2.26, iterations=12, max_fs=0.0501529
+ -->	Fast_convergence     2.47605e-07
+ -->	time[s]=2.27, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.90026e-07
+ -->	time[s]=2.28, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.5328e-07
+ -->	time[s]=2.29, iterations=12, max_fs=0.05
+ -->	Fast_convergence     8.59427e-08
+ -->	time[s]=2.3, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     7.35566e-08
+ -->	time[s]=2.31, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     3.32262e-08
+ -->	time[s]=2.32, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     5.87595e-06
+ -->	time[s]=2.33, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.62032e-05
+ -->	time[s]=2.34, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.61763e-07
+ -->	time[s]=2.35, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.64543e-07
+ -->	time[s]=2.36, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.96677e-07
+ -->	time[s]=2.37, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     1.73004e-07
+ -->	time[s]=2.38, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.73268e-07
+ -->	time[s]=2.39, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.26633e-07
+ -->	time[s]=2.4, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.50496e-07
+ -->	time[s]=2.41, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     7.09755e-08
+ -->	time[s]=2.42, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     1.26442e-07
+ -->	time[s]=2.43, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.57657e-08
+ -->	time[s]=2.44, iterations=12, max_fs=0.05
+ -->	Fast_convergence     6.34412e-08
+ -->	time[s]=2.45, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.98639e-05
+ -->	time[s]=2.46, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.73162e-07
+ -->	time[s]=2.47, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.23856e-07
+ -->	time[s]=2.48, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.71522e-07
+ -->	time[s]=2.49, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.65465e-07
+ -->	time[s]=2.5, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.11528e-07
+ -->	time[s]=2.51, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     6.43802e-08
+ -->	time[s]=2.52, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.09471e-07
+ -->	time[s]=2.53, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     2.61749e-08
+ -->	time[s]=2.54, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     1.59727e-07
+ -->	time[s]=2.55, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     5.73076e-08
+ -->	time[s]=2.56, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.09084e-07
+ -->	time[s]=2.57, iterations=12, max_fs=0.05
+ -->	Fast_convergence     5.74144e-08
+ -->	time[s]=2.58, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     5.61697e-08
+ -->	time[s]=2.59, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.10012e-05
+ -->	time[s]=2.6, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.37652e-07
+ -->	time[s]=2.61, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.67064e-07
+ -->	time[s]=2.62, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     2.64196e-07
+ -->	time[s]=2.63, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.79598e-07
+ -->	time[s]=2.64, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.26511e-07
+ -->	time[s]=2.65, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     6.86922e-08
+ -->	time[s]=2.66, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.64297e-07
+ -->	time[s]=2.67, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     4.16977e-08
+ -->	time[s]=2.68, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.34366e-07
+ -->	time[s]=2.69, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     4.51809e-08
+ -->	time[s]=2.7, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     7.03286e-08
+ -->	time[s]=2.71, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.74049e-05
+ -->	time[s]=2.72, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.89241e-07
+ -->	time[s]=2.73, iterations=12, max_fs=0.05
+ -->	Fast_convergence     3.40848e-07
+ -->	time[s]=2.74, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     3.01551e-07
+ -->	time[s]=2.75, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     2.77867e-07
+ -->	time[s]=2.76, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     2.2473e-07
+ -->	time[s]=2.77, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.23588e-07
+ -->	time[s]=2.78, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.25887e-07
+ -->	time[s]=2.79, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.12842e-07
+ -->	time[s]=2.8, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.33508e-07
+ -->	time[s]=2.81, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.32723e-07
+ -->	time[s]=2.82, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.24587e-07
+ -->	time[s]=2.83, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.20398e-07
+ -->	time[s]=2.84, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.81557e-07
+ -->	time[s]=2.85, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.49885e-07
+ -->	time[s]=2.86, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.21795e-07
+ -->	time[s]=2.87, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     7.70244e-08
+ -->	time[s]=2.88, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     8.27302e-06
+ -->	time[s]=2.89, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.47163e-07
+ -->	time[s]=2.9, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.46534e-07
+ -->	time[s]=2.91, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     2.22056e-07
+ -->	time[s]=2.92, iterations=12, max_fs=0.0499996
+ -->	Fast_convergence     1.44191e-07
+ -->	time[s]=2.93, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     2.66127e-07
+ -->	time[s]=2.94, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.9412e-07
+ -->	time[s]=2.95, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.77533e-07
+ -->	time[s]=2.96, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     1.9631e-07
+ -->	time[s]=2.97, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.79123e-07
+ -->	time[s]=2.98, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     9.13892e-08
+ -->	time[s]=2.99, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     6.5954e-08
+ -->	time[s]=3, iterations=12, max_fs=0.05
+ -->	Fast finished
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\common\error.cpp" AT LINE NUMBER 570:
+ -->	Not all memory allocated has been deallocated.
+	(Verify that each "new" instruction has a "delete" instruction)
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/TdynMPH_1/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1306:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1281:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1360:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1379:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1397:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1484141 positions with 103655 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Random number generator initial seed: 1641913347236
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.01, iterations=8, max_fs=0.000309368
+ -->	Fast_convergence     0
+ -->	time[s]=0.02, iterations=12, max_fs=0.00124045
+ -->	Fast_convergence     0
+ -->	time[s]=0.03, iterations=12, max_fs=0.00418816
+ -->	Fast_convergence     0.141601
+ -->	time[s]=0.04, iterations=12, max_fs=0.00504174
+ -->	Fast_convergence     0.183673
+ -->	time[s]=0.05, iterations=12, max_fs=0.00822079
+ -->	Fast_convergence     0.272014
+ -->	time[s]=0.06, iterations=12, max_fs=0.0111001
+ -->	Fast_convergence     0.184484
+ -->	time[s]=0.07, iterations=12, max_fs=0.0144333
+ -->	Fast_convergence     0.152888
+ -->	time[s]=0.08, iterations=12, max_fs=0.0180532
+ -->	Fast_convergence     0.092221
+ -->	time[s]=0.09, iterations=12, max_fs=0.0218793
+ -->	Fast_convergence     0.0679669
+ -->	time[s]=0.1, iterations=12, max_fs=0.0257909
+ -->	Fast_convergence     0.0439506
+ -->	time[s]=0.11, iterations=12, max_fs=0.0297171
+ -->	Fast_convergence     0.0317602
+ -->	time[s]=0.12, iterations=12, max_fs=0.0335318
+ -->	Fast_convergence     0.0219631
+ -->	time[s]=0.13, iterations=12, max_fs=0.0371644
+ -->	Fast_convergence     0.0161754
+ -->	time[s]=0.14, iterations=12, max_fs=0.040506
+ -->	Fast_convergence     0.0117015
+ -->	time[s]=0.15, iterations=12, max_fs=0.0434899
+ -->	Fast_convergence     0.00889863
+ -->	time[s]=0.16, iterations=12, max_fs=0.0460298
+ -->	Fast_convergence     0.00664217
+ -->	time[s]=0.17, iterations=12, max_fs=0.0480737
+ -->	Fast_convergence     0.00522419
+ -->	time[s]=0.18, iterations=12, max_fs=0.0495629
+ -->	Fast_convergence     0.0040112
+ -->	time[s]=0.19, iterations=12, max_fs=0.0504677
+ -->	Fast_convergence     0.00323874
+ -->	time[s]=0.2, iterations=12, max_fs=0.0507604
+ -->	Fast_convergence     0.00257882
+ -->	time[s]=0.21, iterations=12, max_fs=0.0507459
+ -->	Fast_convergence     0.00364106
+ -->	time[s]=0.22, iterations=12, max_fs=0.0507277
+ -->	Fast_convergence     0.00168176
+ -->	time[s]=0.23, iterations=12, max_fs=0.0507108
+ -->	Fast_convergence     0.0010879
+ -->	time[s]=0.24, iterations=12, max_fs=0.0506926
+ -->	Fast_convergence     0.00102283
+ -->	time[s]=0.25, iterations=12, max_fs=0.0506757
+ -->	Fast_convergence     0.000586738
+ -->	time[s]=0.26, iterations=12, max_fs=0.0506591
+ -->	Fast_convergence     0.000768924
+ -->	time[s]=0.27, iterations=12, max_fs=0.050644
+ -->	Fast_convergence     0.000313809
+ -->	time[s]=0.28, iterations=12, max_fs=0.0506348
+ -->	Fast_convergence     0.000580649
+ -->	time[s]=0.29, iterations=12, max_fs=0.0506282
+ -->	Fast_convergence     0.000164423
+ -->	time[s]=0.3, iterations=12, max_fs=0.0506222
+ -->	Fast_convergence     0.00041492
+ -->	time[s]=0.31, iterations=12, max_fs=0.0506168
+ -->	Fast_convergence     0.000106872
+ -->	time[s]=0.32, iterations=12, max_fs=0.0506115
+ -->	Fast_convergence     0.00025687
+ -->	time[s]=0.33, iterations=12, max_fs=0.0506061
+ -->	Fast_convergence     0.000112418
+ -->	time[s]=0.34, iterations=12, max_fs=0.0505999
+ -->	Fast_convergence     0.000108663
+ -->	time[s]=0.35, iterations=12, max_fs=0.0505927
+ -->	Fast_convergence     0.000151222
+ -->	time[s]=0.36, iterations=12, max_fs=0.0505839
+ -->	Fast_convergence     2.34273e-05
+ -->	time[s]=0.37, iterations=12, max_fs=0.0505734
+ -->	Fast_convergence     0.000476044
+ -->	time[s]=0.38, iterations=12, max_fs=0.0505608
+ -->	Fast_convergence     0.000372646
+ -->	time[s]=0.39, iterations=12, max_fs=0.0505467
+ -->	Fast_convergence     0.000721821
+ -->	time[s]=0.4, iterations=12, max_fs=0.0505387
+ -->	Fast_convergence     0.000268386
+ -->	time[s]=0.41, iterations=12, max_fs=0.0505301
+ -->	Fast_convergence     0.000563061
+ -->	time[s]=0.42, iterations=12, max_fs=0.0505209
+ -->	Fast_convergence     0.000122145
+ -->	time[s]=0.43, iterations=12, max_fs=0.0505115
+ -->	Fast_convergence     0.00040779
+ -->	time[s]=0.44, iterations=12, max_fs=0.0505048
+ -->	Fast_convergence     0.000102495
+ -->	time[s]=0.45, iterations=12, max_fs=0.0504996
+ -->	Fast_convergence     0.000307408
+ -->	time[s]=0.46, iterations=12, max_fs=0.0504954
+ -->	Fast_convergence     0.000110127
+ -->	time[s]=0.47, iterations=12, max_fs=0.0504927
+ -->	Fast_convergence     0.000171999
+ -->	time[s]=0.48, iterations=12, max_fs=0.0504918
+ -->	Fast_convergence     0.000136534
+ -->	time[s]=0.49, iterations=12, max_fs=0.0504944
+ -->	Fast_convergence     7.95001e-05
+ -->	time[s]=0.5, iterations=12, max_fs=0.0505102
+ -->	Fast_convergence     0.000371147
+ -->	time[s]=0.51, iterations=12, max_fs=0.0505291
+ -->	Fast_convergence     0.000349156
+ -->	time[s]=0.52, iterations=12, max_fs=0.0505512
+ -->	Fast_convergence     0.000598014
+ -->	time[s]=0.53, iterations=12, max_fs=0.0505763
+ -->	Fast_convergence     0.000267258
+ -->	time[s]=0.54, iterations=12, max_fs=0.0506046
+ -->	Fast_convergence     0.000506049
+ -->	time[s]=0.55, iterations=12, max_fs=0.0506358
+ -->	Fast_convergence     0.000146399
+ -->	time[s]=0.56, iterations=12, max_fs=0.0506696
+ -->	Fast_convergence     0.000402078
+ -->	time[s]=0.57, iterations=12, max_fs=0.0507058
+ -->	Fast_convergence     8.76924e-05
+ -->	time[s]=0.58, iterations=12, max_fs=0.050744
+ -->	Fast_convergence     0.000335915
+ -->	time[s]=0.59, iterations=12, max_fs=0.0507838
+ -->	Fast_convergence     0.000287516
+ -->	time[s]=0.6, iterations=12, max_fs=0.0508249
+ -->	Fast_convergence     0.000328199
+ -->	time[s]=0.61, iterations=12, max_fs=0.0508667
+ -->	Fast_convergence     0.000263375
+ -->	time[s]=0.62, iterations=12, max_fs=0.050909
+ -->	Fast_convergence     0.000192048
+ -->	time[s]=0.63, iterations=12, max_fs=0.0509662
+ -->	Fast_convergence     0.000232632
+ -->	time[s]=0.64, iterations=12, max_fs=0.0510546
+ -->	Fast_convergence     0.000149929
+ -->	time[s]=0.65, iterations=12, max_fs=0.0511461
+ -->	Fast_convergence     0.000255996
+ -->	time[s]=0.66, iterations=12, max_fs=0.0512403
+ -->	Fast_convergence     0.000189386
+ -->	time[s]=0.67, iterations=12, max_fs=0.0513369
+ -->	Fast_convergence     0.000271601
+ -->	time[s]=0.68, iterations=12, max_fs=0.0514358
+ -->	Fast_convergence     0.000206137
+ -->	time[s]=0.69, iterations=12, max_fs=0.0515369
+ -->	Fast_convergence     0.000242838
+ -->	time[s]=0.7, iterations=12, max_fs=0.0516404
+ -->	Fast_convergence     0.00016477
+ -->	time[s]=0.71, iterations=12, max_fs=0.0517463
+ -->	Fast_convergence     0.000156128
+ -->	time[s]=0.72, iterations=12, max_fs=0.0518549
+ -->	Fast_convergence     9.73117e-05
+ -->	time[s]=0.73, iterations=12, max_fs=0.0519666
+ -->	Fast_convergence     0.00027077
+ -->	time[s]=0.74, iterations=12, max_fs=0.0520814
+ -->	Fast_convergence     0.00040871
+ -->	time[s]=0.75, iterations=12, max_fs=0.0521995
+ -->	Fast_convergence     0.000768079
+ -->	time[s]=0.76, iterations=12, max_fs=0.0523213
+ -->	Fast_convergence     0.000238969
+ -->	time[s]=0.77, iterations=12, max_fs=0.0524464
+ -->	Fast_convergence     0.000901191
+ -->	time[s]=0.78, iterations=12, max_fs=0.052575
+ -->	Fast_convergence     0.000198108
+ -->	time[s]=0.79, iterations=12, max_fs=0.0527066
+ -->	Fast_convergence     0.00103654
+ -->	time[s]=0.8, iterations=12, max_fs=0.0528409
+ -->	Fast_convergence     0.000454691
+ -->	time[s]=0.81, iterations=12, max_fs=0.0529772
+ -->	Fast_convergence     0.00109425
+ -->	time[s]=0.82, iterations=12, max_fs=0.0531147
+ -->	Fast_convergence     0.000576564
+ -->	time[s]=0.83, iterations=12, max_fs=0.0532525
+ -->	Fast_convergence     0.0009474
+ -->	time[s]=0.84, iterations=12, max_fs=0.0533895
+ -->	Fast_convergence     0.000465124
+ -->	time[s]=0.85, iterations=12, max_fs=0.0535245
+ -->	Fast_convergence     0.000593208
+ -->	time[s]=0.86, iterations=12, max_fs=0.0536563
+ -->	Fast_convergence     0.000192712
+ -->	time[s]=0.87, iterations=12, max_fs=0.0537836
+ -->	Fast_convergence     0.000178432
+ -->	time[s]=0.88, iterations=12, max_fs=0.0539052
+ -->	Fast_convergence     0.000200105
+ -->	time[s]=0.89, iterations=12, max_fs=0.0540198
+ -->	Fast_convergence     0.000230399
+ -->	time[s]=0.9, iterations=12, max_fs=0.0541264
+ -->	Fast_convergence     0.000463653
+ -->	time[s]=0.91, iterations=12, max_fs=0.054224
+ -->	Fast_convergence     0.000497387
+ -->	time[s]=0.92, iterations=12, max_fs=0.0543118
+ -->	Fast_convergence     0.000640125
+ -->	time[s]=0.93, iterations=12, max_fs=0.0543891
+ -->	Fast_convergence     0.00063822
+ -->	time[s]=0.94, iterations=12, max_fs=0.0544556
+ -->	Fast_convergence     0.000689978
+ -->	time[s]=0.95, iterations=12, max_fs=0.054511
+ -->	Fast_convergence     0.000636944
+ -->	time[s]=0.96, iterations=12, max_fs=0.0546007
+ -->	Fast_convergence     0.000607432
+ -->	time[s]=0.97, iterations=12, max_fs=0.0547087
+ -->	Fast_convergence     0.000505979
+ -->	time[s]=0.98, iterations=12, max_fs=0.0548085
+ -->	Fast_convergence     0.000418277
+ -->	time[s]=0.99, iterations=12, max_fs=0.0549001
+ -->	Fast_convergence     0.000289366
+ -->	time[s]=1, iterations=12, max_fs=0.054984
+ -->	Fast_convergence     0.000178024
+ -->	time[s]=1.01, iterations=12, max_fs=0.0550605
+ -->	Fast_convergence     0.000102924
+ -->	time[s]=1.02, iterations=12, max_fs=0.05513
+ -->	Fast_convergence     9.02905e-05
+ -->	time[s]=1.03, iterations=12, max_fs=0.055193
+ -->	Fast_convergence     9.86135e-05
+ -->	time[s]=1.04, iterations=12, max_fs=0.0552498
+ -->	Fast_convergence     0.000406823
+ -->	time[s]=1.05, iterations=12, max_fs=0.0553007
+ -->	Fast_convergence     0.000483914
+ -->	time[s]=1.06, iterations=12, max_fs=0.0553461
+ -->	Fast_convergence     0.000486501
+ -->	time[s]=1.07, iterations=12, max_fs=0.0553861
+ -->	Fast_convergence     0.000468664
+ -->	time[s]=1.08, iterations=12, max_fs=0.0554207
+ -->	Fast_convergence     0.000385199
+ -->	time[s]=1.09, iterations=12, max_fs=0.05545
+ -->	Fast_convergence     0.000351135
+ -->	time[s]=1.1, iterations=12, max_fs=0.0554791
+ -->	Fast_convergence     0.000275421
+ -->	time[s]=1.11, iterations=12, max_fs=0.0555377
+ -->	Fast_convergence     0.000222956
+ -->	time[s]=1.12, iterations=12, max_fs=0.0555918
+ -->	Fast_convergence     0.000144584
+ -->	time[s]=1.13, iterations=12, max_fs=0.055641
+ -->	Fast_convergence     8.77185e-05
+ -->	time[s]=1.14, iterations=12, max_fs=0.0556849
+ -->	Fast_convergence     0.000148818
+ -->	time[s]=1.15, iterations=12, max_fs=0.0557233
+ -->	Fast_convergence     0.000206403
+ -->	time[s]=1.16, iterations=12, max_fs=0.0557556
+ -->	Fast_convergence     0.000351526
+ -->	time[s]=1.17, iterations=12, max_fs=0.0557816
+ -->	Fast_convergence     0.000175494
+ -->	time[s]=1.18, iterations=12, max_fs=0.0558012
+ -->	Fast_convergence     0.000373878
+ -->	time[s]=1.19, iterations=12, max_fs=0.0558141
+ -->	Fast_convergence     0.000213905
+ -->	time[s]=1.2, iterations=12, max_fs=0.0558203
+ -->	Fast_convergence     0.000372888
+ -->	time[s]=1.21, iterations=12, max_fs=0.0558199
+ -->	Fast_convergence     0.000239574
+ -->	time[s]=1.22, iterations=12, max_fs=0.0558131
+ -->	Fast_convergence     0.000323591
+ -->	time[s]=1.23, iterations=12, max_fs=0.0558
+ -->	Fast_convergence     0.000196769
+ -->	time[s]=1.24, iterations=12, max_fs=0.055781
+ -->	Fast_convergence     0.000216939
+ -->	time[s]=1.25, iterations=12, max_fs=0.0557565
+ -->	Fast_convergence     8.89678e-05
+ -->	time[s]=1.26, iterations=12, max_fs=0.0557268
+ -->	Fast_convergence     0.000111317
+ -->	time[s]=1.27, iterations=12, max_fs=0.0556925
+ -->	Fast_convergence     0.000194661
+ -->	time[s]=1.28, iterations=12, max_fs=0.0556538
+ -->	Fast_convergence     0.000381475
+ -->	time[s]=1.29, iterations=12, max_fs=0.0556112
+ -->	Fast_convergence     0.000112027
+ -->	time[s]=1.3, iterations=12, max_fs=0.0555651
+ -->	Fast_convergence     0.000469837
+ -->	time[s]=1.31, iterations=12, max_fs=0.0555156
+ -->	Fast_convergence     0.000131983
+ -->	time[s]=1.32, iterations=12, max_fs=0.055463
+ -->	Fast_convergence     0.000481746
+ -->	time[s]=1.33, iterations=12, max_fs=0.0554074
+ -->	Fast_convergence     0.000235437
+ -->	time[s]=1.34, iterations=12, max_fs=0.0553486
+ -->	Fast_convergence     0.000441414
+ -->	time[s]=1.35, iterations=12, max_fs=0.0552866
+ -->	Fast_convergence     0.000252801
+ -->	time[s]=1.36, iterations=12, max_fs=0.0552211
+ -->	Fast_convergence     0.000353427
+ -->	time[s]=1.37, iterations=12, max_fs=0.0551519
+ -->	Fast_convergence     0.000196738
+ -->	time[s]=1.38, iterations=12, max_fs=0.0550785
+ -->	Fast_convergence     0.000226122
+ -->	time[s]=1.39, iterations=12, max_fs=0.0550004
+ -->	Fast_convergence     9.419e-05
+ -->	time[s]=1.4, iterations=12, max_fs=0.0549172
+ -->	Fast_convergence     7.0558e-05
+ -->	time[s]=1.41, iterations=12, max_fs=0.0548285
+ -->	Fast_convergence     0.000407961
+ -->	time[s]=1.42, iterations=12, max_fs=0.0547337
+ -->	Fast_convergence     0.000659445
+ -->	time[s]=1.43, iterations=12, max_fs=0.0546323
+ -->	Fast_convergence     0.000461565
+ -->	time[s]=1.44, iterations=12, max_fs=0.0545432
+ -->	Fast_convergence     0.000708397
+ -->	time[s]=1.45, iterations=12, max_fs=0.0544564
+ -->	Fast_convergence     0.000250874
+ -->	time[s]=1.46, iterations=12, max_fs=0.0543616
+ -->	Fast_convergence     0.000670023
+ -->	time[s]=1.47, iterations=12, max_fs=0.0542589
+ -->	Fast_convergence     0.000206836
+ -->	time[s]=1.48, iterations=12, max_fs=0.0541485
+ -->	Fast_convergence     0.000609848
+ -->	time[s]=1.49, iterations=12, max_fs=0.0540305
+ -->	Fast_convergence     0.000217408
+ -->	time[s]=1.5, iterations=12, max_fs=0.0539052
+ -->	Fast_convergence     0.000489798
+ -->	time[s]=1.51, iterations=12, max_fs=0.0537728
+ -->	Fast_convergence     0.000157854
+ -->	time[s]=1.52, iterations=12, max_fs=0.0536338
+ -->	Fast_convergence     0.000295608
+ -->	time[s]=1.53, iterations=12, max_fs=0.0534883
+ -->	Fast_convergence     0.000118942
+ -->	time[s]=1.54, iterations=12, max_fs=0.0533368
+ -->	Fast_convergence     0.000120969
+ -->	time[s]=1.55, iterations=12, max_fs=0.0532138
+ -->	Fast_convergence     0.000304077
+ -->	time[s]=1.56, iterations=12, max_fs=0.0531655
+ -->	Fast_convergence     0.00016659
+ -->	time[s]=1.57, iterations=12, max_fs=0.0531434
+ -->	Fast_convergence     0.000471187
+ -->	time[s]=1.58, iterations=12, max_fs=0.0531168
+ -->	Fast_convergence     0.000377702
+ -->	time[s]=1.59, iterations=12, max_fs=0.0530855
+ -->	Fast_convergence     0.000586249
+ -->	time[s]=1.6, iterations=12, max_fs=0.0530493
+ -->	Fast_convergence     0.000501477
+ -->	time[s]=1.61, iterations=12, max_fs=0.0530083
+ -->	Fast_convergence     0.000610318
+ -->	time[s]=1.62, iterations=12, max_fs=0.052962
+ -->	Fast_convergence     0.000503017
+ -->	time[s]=1.63, iterations=12, max_fs=0.0529104
+ -->	Fast_convergence     0.000517694
+ -->	time[s]=1.64, iterations=12, max_fs=0.0528533
+ -->	Fast_convergence     0.000369812
+ -->	time[s]=1.65, iterations=12, max_fs=0.0527903
+ -->	Fast_convergence     0.000296915
+ -->	time[s]=1.66, iterations=12, max_fs=0.0527213
+ -->	Fast_convergence     0.000117462
+ -->	time[s]=1.67, iterations=12, max_fs=0.0526461
+ -->	Fast_convergence     0.000119248
+ -->	time[s]=1.68, iterations=12, max_fs=0.0525643
+ -->	Fast_convergence     0.00022518
+ -->	time[s]=1.69, iterations=12, max_fs=0.0524759
+ -->	Fast_convergence     0.000425535
+ -->	time[s]=1.7, iterations=12, max_fs=0.0523806
+ -->	Fast_convergence     0.000500369
+ -->	time[s]=1.71, iterations=12, max_fs=0.0522782
+ -->	Fast_convergence     0.000595604
+ -->	time[s]=1.72, iterations=12, max_fs=0.0521687
+ -->	Fast_convergence     0.000593207
+ -->	time[s]=1.73, iterations=12, max_fs=0.0520519
+ -->	Fast_convergence     0.000589869
+ -->	time[s]=1.74, iterations=12, max_fs=0.0519279
+ -->	Fast_convergence     0.000534097
+ -->	time[s]=1.75, iterations=12, max_fs=0.0517965
+ -->	Fast_convergence     0.00048046
+ -->	time[s]=1.76, iterations=12, max_fs=0.0516579
+ -->	Fast_convergence     0.000403773
+ -->	time[s]=1.77, iterations=12, max_fs=0.0515121
+ -->	Fast_convergence     0.000333112
+ -->	time[s]=1.78, iterations=12, max_fs=0.0513593
+ -->	Fast_convergence     0.000254544
+ -->	time[s]=1.79, iterations=12, max_fs=0.0511995
+ -->	Fast_convergence     0.000184465
+ -->	time[s]=1.8, iterations=12, max_fs=0.051033
+ -->	Fast_convergence     0.000114864
+ -->	time[s]=1.81, iterations=12, max_fs=0.0508599
+ -->	Fast_convergence     9.39831e-05
+ -->	time[s]=1.82, iterations=12, max_fs=0.0506805
+ -->	Fast_convergence     0.000231766
+ -->	time[s]=1.83, iterations=12, max_fs=0.0504949
+ -->	Fast_convergence     0.000365524
+ -->	time[s]=1.84, iterations=12, max_fs=0.0503034
+ -->	Fast_convergence     0.000471211
+ -->	time[s]=1.85, iterations=12, max_fs=0.0501062
+ -->	Fast_convergence     0.000244624
+ -->	time[s]=1.86, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000368623
+ -->	time[s]=1.87, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000112156
+ -->	time[s]=1.88, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000268596
+ -->	time[s]=1.89, iterations=12, max_fs=0.05
+ -->	Fast_convergence     9.65146e-05
+ -->	time[s]=1.9, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     0.000371792
+ -->	time[s]=1.91, iterations=48, max_fs=0.0499999
+ -->	Fast_convergence     0.000240285
+ -->	time[s]=1.92, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000131389
+ -->	time[s]=1.93, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.74089e-05
+ -->	time[s]=1.94, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     6.66207e-05
+ -->	time[s]=1.95, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0.0001069
+ -->	time[s]=1.96, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     8.72152e-05
+ -->	time[s]=1.97, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     0.000128201
+ -->	time[s]=1.98, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.59667e-05
+ -->	time[s]=1.99, iterations=12, max_fs=0.05
+ -->	Fast_convergence     0.000136186
+ -->	time[s]=2, iterations=12, max_fs=0.0500438
+ -->	Fast_convergence     1.94638e-07
+ -->	time[s]=2.01, iterations=12, max_fs=0.0501519
+ -->	Fast_convergence     9.63829e-08
+ -->	time[s]=2.02, iterations=12, max_fs=0.0502519
+ -->	Fast_convergence     1.30591e-07
+ -->	time[s]=2.03, iterations=12, max_fs=0.0503431
+ -->	Fast_convergence     7.01212e-08
+ -->	time[s]=2.04, iterations=12, max_fs=0.0504593
+ -->	Fast_convergence     7.57975e-08
+ -->	time[s]=2.05, iterations=12, max_fs=0.0505996
+ -->	Fast_convergence     1.89573e-05
+ -->	time[s]=2.06, iterations=12, max_fs=0.0507287
+ -->	Fast_convergence     2.2692e-07
+ -->	time[s]=2.07, iterations=12, max_fs=0.0508457
+ -->	Fast_convergence     3.30606e-07
+ -->	time[s]=2.08, iterations=12, max_fs=0.0509496
+ -->	Fast_convergence     3.68707e-07
+ -->	time[s]=2.09, iterations=12, max_fs=0.0510398
+ -->	Fast_convergence     2.53271e-07
+ -->	time[s]=2.1, iterations=12, max_fs=0.0511154
+ -->	Fast_convergence     2.98745e-07
+ -->	time[s]=2.11, iterations=12, max_fs=0.051176
+ -->	Fast_convergence     1.79822e-07
+ -->	time[s]=2.12, iterations=12, max_fs=0.0512208
+ -->	Fast_convergence     2.46458e-07
+ -->	time[s]=2.13, iterations=12, max_fs=0.0512495
+ -->	Fast_convergence     1.73003e-07
+ -->	time[s]=2.14, iterations=12, max_fs=0.0512617
+ -->	Fast_convergence     2.59856e-07
+ -->	time[s]=2.15, iterations=12, max_fs=0.0512574
+ -->	Fast_convergence     2.30826e-07
+ -->	time[s]=2.16, iterations=12, max_fs=0.0512363
+ -->	Fast_convergence     3.09167e-07
+ -->	time[s]=2.17, iterations=12, max_fs=0.0511986
+ -->	Fast_convergence     2.20836e-07
+ -->	time[s]=2.18, iterations=12, max_fs=0.0511443
+ -->	Fast_convergence     2.96384e-07
+ -->	time[s]=2.19, iterations=12, max_fs=0.0510737
+ -->	Fast_convergence     2.64219e-07
+ -->	time[s]=2.2, iterations=12, max_fs=0.0509871
+ -->	Fast_convergence     2.65618e-07
+ -->	time[s]=2.21, iterations=12, max_fs=0.0508849
+ -->	Fast_convergence     1.92845e-07
+ -->	time[s]=2.22, iterations=12, max_fs=0.0507673
+ -->	Fast_convergence     1.71478e-07
+ -->	time[s]=2.23, iterations=12, max_fs=0.0506349
+ -->	Fast_convergence     1.72836e-07
+ -->	time[s]=2.24, iterations=12, max_fs=0.0504881
+ -->	Fast_convergence     2.56737e-07
+ -->	time[s]=2.25, iterations=12, max_fs=0.0503273
+ -->	Fast_convergence     2.61532e-07
+ -->	time[s]=2.26, iterations=12, max_fs=0.0501529
+ -->	Fast_convergence     2.47605e-07
+ -->	time[s]=2.27, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.90026e-07
+ -->	time[s]=2.28, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.5328e-07
+ -->	time[s]=2.29, iterations=12, max_fs=0.05
+ -->	Fast_convergence     8.59427e-08
+ -->	time[s]=2.3, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     7.35566e-08
+ -->	time[s]=2.31, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     3.32262e-08
+ -->	time[s]=2.32, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     5.87595e-06
+ -->	time[s]=2.33, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.62032e-05
+ -->	time[s]=2.34, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.61763e-07
+ -->	time[s]=2.35, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.64543e-07
+ -->	time[s]=2.36, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.96677e-07
+ -->	time[s]=2.37, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     1.73004e-07
+ -->	time[s]=2.38, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.73268e-07
+ -->	time[s]=2.39, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.26633e-07
+ -->	time[s]=2.4, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.50496e-07
+ -->	time[s]=2.41, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     7.09755e-08
+ -->	time[s]=2.42, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     1.26442e-07
+ -->	time[s]=2.43, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.57657e-08
+ -->	time[s]=2.44, iterations=12, max_fs=0.05
+ -->	Fast_convergence     6.34412e-08
+ -->	time[s]=2.45, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.98639e-05
+ -->	time[s]=2.46, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.73162e-07
+ -->	time[s]=2.47, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.23856e-07
+ -->	time[s]=2.48, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.71522e-07
+ -->	time[s]=2.49, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.65465e-07
+ -->	time[s]=2.5, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.11528e-07
+ -->	time[s]=2.51, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     6.43802e-08
+ -->	time[s]=2.52, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.09471e-07
+ -->	time[s]=2.53, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     2.61749e-08
+ -->	time[s]=2.54, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     1.59727e-07
+ -->	time[s]=2.55, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     5.73076e-08
+ -->	time[s]=2.56, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.09084e-07
+ -->	time[s]=2.57, iterations=12, max_fs=0.05
+ -->	Fast_convergence     5.74144e-08
+ -->	time[s]=2.58, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     5.61697e-08
+ -->	time[s]=2.59, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.10012e-05
+ -->	time[s]=2.6, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.37652e-07
+ -->	time[s]=2.61, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.67064e-07
+ -->	time[s]=2.62, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     2.64196e-07
+ -->	time[s]=2.63, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.79598e-07
+ -->	time[s]=2.64, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.26511e-07
+ -->	time[s]=2.65, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     6.86922e-08
+ -->	time[s]=2.66, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.64297e-07
+ -->	time[s]=2.67, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     4.16977e-08
+ -->	time[s]=2.68, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.34366e-07
+ -->	time[s]=2.69, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     4.51809e-08
+ -->	time[s]=2.7, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     7.03286e-08
+ -->	time[s]=2.71, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.74049e-05
+ -->	time[s]=2.72, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.89241e-07
+ -->	time[s]=2.73, iterations=12, max_fs=0.05
+ -->	Fast_convergence     3.40848e-07
+ -->	time[s]=2.74, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     3.01551e-07
+ -->	time[s]=2.75, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     2.77867e-07
+ -->	time[s]=2.76, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     2.2473e-07
+ -->	time[s]=2.77, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.23588e-07
+ -->	time[s]=2.78, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.25887e-07
+ -->	time[s]=2.79, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.12842e-07
+ -->	time[s]=2.8, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.33508e-07
+ -->	time[s]=2.81, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.32723e-07
+ -->	time[s]=2.82, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.24587e-07
+ -->	time[s]=2.83, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     2.20398e-07
+ -->	time[s]=2.84, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.81557e-07
+ -->	time[s]=2.85, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.49885e-07
+ -->	time[s]=2.86, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.21795e-07
+ -->	time[s]=2.87, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     7.70244e-08
+ -->	time[s]=2.88, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     8.27302e-06
+ -->	time[s]=2.89, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.47163e-07
+ -->	time[s]=2.9, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.46534e-07
+ -->	time[s]=2.91, iterations=12, max_fs=0.0499998
+ -->	Fast_convergence     2.22056e-07
+ -->	time[s]=2.92, iterations=12, max_fs=0.0499996
+ -->	Fast_convergence     1.44191e-07
+ -->	time[s]=2.93, iterations=12, max_fs=0.0499999
+ -->	Fast_convergence     2.66127e-07
+ -->	time[s]=2.94, iterations=12, max_fs=0.05
+ -->	Fast_convergence     1.9412e-07
+ -->	time[s]=2.95, iterations=12, max_fs=0.05
+ -->	Fast_convergence     2.77533e-07
+ -->	time[s]=2.96, iterations=12, max_fs=-0.0499999
+ -->	Fast_convergence     1.9631e-07
+ -->	time[s]=2.97, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     1.79123e-07
+ -->	time[s]=2.98, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     9.13892e-08
+ -->	time[s]=2.99, iterations=12, max_fs=-0.05
+ -->	Fast_convergence     6.5954e-08
+ -->	time[s]=3, iterations=12, max_fs=0.05
+ -->	Fast finished
+	WARNING FROM SOURCE FILE "\repositories\tdynmph_1\common\error.cpp" AT LINE NUMBER 570:
+ -->	Not all memory allocated has been deallocated.
+	(Verify that each "new" instruction has a "delete" instruction)

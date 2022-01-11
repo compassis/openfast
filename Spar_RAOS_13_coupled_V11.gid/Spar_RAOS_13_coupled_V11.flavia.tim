@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?><!-- -*- coding: utf-8; mode: SGML -*- -->
-<clock_report version='1.0'  date='2022-01-11 10:19:19'>
+<clock_report version='1.0'  date='2022-01-11 16:05:13'>
   <!-- Time Table: cputime[s] (percent[%amp;]) Uses -->
-  <time n='Total time'                          cpu='212.42600' percent='100.000' uses='1'>
-    <time n='Read inputs'                         cpu='21.99700' percent='10.355' uses='1'>
-      <time n='Read mesh'                           cpu='14.92000' percent='67.827' uses='1'/>
-      <time n='Other operations'                    cpu='7.07700' percent='32.173' uses='0'/>
+  <time n='Total time'                          cpu='213.64600' percent='100.000' uses='1'>
+    <time n='Read inputs'                         cpu='16.49000' percent=' 7.718' uses='1'>
+      <time n='Read mesh'                           cpu='15.12300' percent='91.710' uses='1'/>
+      <time n='Other operations'                    cpu='1.36700' percent=' 8.290' uses='0'/>
     </time>
-    <time n='Setting Seakeeping Problem'          cpu='7.27100' percent=' 3.423' uses='1'/>
+    <time n='Setting Seakeeping Problem'          cpu='7.22900' percent=' 3.384' uses='1'/>
     <time n='Initialization seakeeping'           cpu='0.13800' percent=' 0.065' uses='1'/>
-    <time n='Building problem'                    cpu='0.01200' percent=' 0.006' uses='1'/>
-    <time n='Solve seakeeping problem'            cpu='182.75400' percent='86.032' uses='1'>
-      <time n='Seakeeping time loop'                cpu='2.75000' percent=' 1.505' uses='302'>
-        <time n='Solve first order seakeeping'        cpu='1.22400' percent='44.509' uses='600'/>
-        <time n='Write 1st order results'             cpu='0.00900' percent=' 0.327' uses='251'/>
-        <time n='Write 1st order results (dt)'        cpu='0.10600' percent=' 3.855' uses='251'/>
-        <time n='Other operations'                    cpu='1.41100' percent='51.309' uses='0'/>
+    <time n='Building problem'                    cpu='0.01400' percent=' 0.007' uses='1'/>
+    <time n='Solve seakeeping problem'            cpu='189.50600' percent='88.701' uses='1'>
+      <time n='Seakeeping time loop'                cpu='2.67800' percent=' 1.413' uses='302'>
+        <time n='Solve first order seakeeping'        cpu='1.16600' percent='43.540' uses='600'/>
+        <time n='Write 1st order results'             cpu='0.01000' percent=' 0.373' uses='251'/>
+        <time n='Write 1st order results (dt)'        cpu='0.11200' percent=' 4.182' uses='251'/>
+        <time n='Other operations'                    cpu='1.39000' percent='51.904' uses='0'/>
       </time>
-      <time n='Solve first order seakeeping'        cpu='108.44300' percent='59.338' uses='3644'>
-        <time n='Iterative solver seakeeping'         cpu='108.44200' percent='99.999' uses='3644'>
-          <time n='Finish iteration bodies'             cpu='0.00300' percent=' 0.003' uses='3644'/>
-          <time n='Solver'                              cpu='80.67700' percent='74.396' uses='1340'>
-            <time n='Preconditioning'                     cpu='0.00000' percent=' 0.000' uses='1340'/>
-            <time n='Solving'                             cpu='80.67000' percent='99.991' uses='1340'/>
+      <time n='Solve first order seakeeping'        cpu='110.55000' percent='58.336' uses='3644'>
+        <time n='Iterative solver seakeeping'         cpu='110.54500' percent='99.995' uses='3644'>
+          <time n='Finish iteration bodies'             cpu='0.00400' percent=' 0.004' uses='3644'/>
+          <time n='Solver'                              cpu='82.44400' percent='74.580' uses='1340'>
+            <time n='Preconditioning'                     cpu='0.00200' percent=' 0.002' uses='1340'/>
+            <time n='Solving'                             cpu='82.44000' percent='99.995' uses='1340'/>
           </time>
-          <time n='Other operations'                    cpu='27.76200' percent='25.601' uses='0'/>
+          <time n='Other operations'                    cpu='28.09700' percent='25.417' uses='0'/>
         </time>
       </time>
-      <time n='Other operations'                    cpu='71.56100' percent='39.157' uses='0'/>
+      <time n='Other operations'                    cpu='76.27800' percent='40.251' uses='0'/>
     </time>
-    <time n='Other operations'                    cpu='0.25400' percent=' 0.120' uses='0'/>
+    <time n='Other operations'                    cpu='0.26900' percent=' 0.126' uses='0'/>
   </time>
 </clock_report>
