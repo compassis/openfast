@@ -1,4 +1,4 @@
-OpenFAST 3.1
+Coupling SeaFEM - OpenFAST 3.1
 ========
 
 |actions| |nbsp| |rtfd|
