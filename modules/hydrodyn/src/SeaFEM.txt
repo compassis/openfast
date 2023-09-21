@@ -1,0 +1,41 @@
+###################################################################################################################################
+# Registry for ModuleName in the FAST Modularization Framework
+# This Registry file is used to create MODULE ModuleName_Types, which contains all of the user-defined types needed in ModuleName.
+# It also contains copy, destroy, pack, and unpack routines associated with each defined data types.
+#
+# Entries are of the form
+# keyword <ModuleName/ModName> <TypeName>    <FieldType>    <FieldName>  <Dims>  <IO> <DNAME> <DESCRIP> <UNITS>
+#
+# Use ^ as a shortcut for the value from the previous line.
+# See NWTC Programmer's Handbook for further information on the format/contents of this file.
+###################################################################################################################################
+
+# ...... Include files (definitions from NWTC Library) ............................................................................
+# make sure that the file name does not have any trailing white spaces!
+# include Registry_NWTC_Library.txt
+
+# ..... Initialization data .......................................................................................................
+# Define inputs that the initialization routine may need here: (name of the input file, the file root name, etc.)
+typedef SeaFEM            InitInputType     CHARACTER(1024)      InputFile   - - -   "Name of the input file; remove if there is no file" -
+
+# ..... States ....................................................................................................................
+# Define any data that are not considered actual states here:
+typedef  ^                OtherStateType    DbKi      T - - - "Current time of the simulation, serves to see if time has changed and update SeaFEM" seconds
+typedef  ^                OtherStateType    INTEGER   Out_flag - - - "Flag that informs if SeaFEM output has been closed or not"    -
+typedef  ^                OtherStateType    LOGICAL   CalcJacobian - - - "Flag that informs if the jacobian is being computed"    -
+typedef  ^                OtherStateType    INTEGER   flag_SeaFEM - - - "Flag that informs to seaFEM if we are in the predictor, the perturbations or the corrector"    -
+
+# ..... Parameters ................................................................................................................
+# Define parameters here:
+# Time step for integration of continuous states (if a fixed-step integrator is used) and update of discrete states:
+typedef  ^               ParameterType      DbKi      DT - - - "Current timestep of the simulation" seconds
+typedef  ^               ParameterType      DbKi      TMax - - - "Supplied by Driver:  The total simulation time"    seconds
+typedef  ^               ParameterType      INTEGER   Iterations - - - "Total Number of iterations (corrections) that fast runs"    -
+
+# ..... Inputs ....................................................................................................................
+# Define inputs that are contained on the mesh here:
+typedef  ^               InputType          MeshType  PRPMesh - - -     "Displacements at the SeaFEM Reference Point in the inertial frame" -
+
+# ..... Outputs ...................................................................................................................
+# Define outputs that are not on this mesh here:       
+typedef  ^               OutputType         MeshType  PRPMesh  - - -   "Loads at the SeaFEM Reference Point" -
