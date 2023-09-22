@@ -24,6 +24,7 @@ usefrom   WAMIT.txt
 usefrom   WAMIT2.txt
 usefrom   Morison.txt
 usefrom   SeaState.txt
+usefrom   SeaFEM.txt
 #usefrom   FIT.txt
 
 param     HydroDyn/HydroDyn            unused                        INTEGER                  MaxHDOutputs                    -          510        -         "The maximum number of output channels supported by this module"    -
@@ -41,6 +42,7 @@ typedef   ^                            ^                             ReKi       
 #typedef   ^                            ^                             Waves_InitInputType      Waves                           -          -          -         "Initialization data for Waves module"    -
 #typedef   ^                            ^                             Waves2_InitInputType     Waves2                          -          -          -         "Initialization data for Waves module"    -
 typedef   ^                            ^                             SeaSt_InitInputType   SeaState                         -          -          -         "Initialization data for SeaState module"    -
+typedef   ^                            ^                             SeaFEM_InitInputType     SeaFEM                          -          -          -         "Initialization data for WAMIT module"    -
 typedef   ^                            ^                             CHARACTER(1024)          PotFile                         {:}        -          -         "The name of the root potential flow file (without extension for WAMIT, complete name for FIT)"    -
 typedef   ^                            ^                             INTEGER                  nWAMITObj                       -          -          -         "number of WAMIT input files.  If NBodyMod = 1 then nPotFiles will be 1 even if NBody > 1" -
 typedef   ^                            ^                             INTEGER                  vecMultiplier                   -          -          -         "multiplier for the WAMIT vectors and matrices.  If NBodyMod=1 then this = NBody, else 1" -
@@ -48,6 +50,7 @@ typedef   ^                            ^                             INTEGER    
 typedef   ^                            ^                             INTEGER                  NBodyMod                        -          -          -         "Body coupling model {1: include coupling terms between each body and NBody in HydroDyn equals NBODY in WAMIT, 2: neglect coupling terms between each body and NBODY=1 with XBODY=0 in WAMIT, 3: Neglect coupling terms between each body and NBODY=1 with XBODY=/0 in WAMIT} (switch) [only used when PotMod=1]" -
 typedef   ^                            ^                             ReKi                     PtfmVol0                        {:}        -          -         ""    -
 typedef   ^                            ^                             LOGICAL                  HasWAMIT                        -          -          -         ".TRUE. if using WAMIT model, .FALSE. otherwise"    -
+typedef   ^                            ^                             LOGICAL                  HasSeaFEM                       -          -          -         ".TRUE. if using SeaFEM model, .FALSE. otherwise"    -
 typedef   ^                            ^                             ReKi                     WAMITULEN                       {:}        -          -         ""    -
 typedef   ^                            ^                             ReKi                     PtfmRefxt                       {:}        -          -         "The xt offset of the body reference point(s) from (0,0,0)  [1 to NBody; only used when PotMod=1; must be 0.0 if NBodyMod=2 ]"  (m)
 typedef   ^                            ^                             ReKi                     PtfmRefyt                       {:}        -          -         "The yt offset of the body reference point(s) from (0,0,0)  [1 to NBody; only used when PotMod=1; must be 0.0 if NBodyMod=2 ]"  (m)
@@ -59,7 +62,6 @@ typedef   ^                            ^                             WAMIT_InitI
 typedef   ^                            ^                             WAMIT2_InitInputType     WAMIT2                          -          -          -         "Initialization data for WAMIT2 module"    -
 typedef   ^                            ^                             Morison_InitInputType    Morison                         -          -          -         "Initialization data for Morison module"    -
 typedef   ^                            ^                             LOGICAL                  Echo                            -          -          -         "Echo the input files to a file with the same name as the input but with a .echo extension [T/F]"    -
-typedef   ^                            ^                             LOGICAL                  HasSeaFEM                       -          -          -         ".TRUE. if using SeaFEM model, .FALSE. otherwise"    -
 typedef   ^                            ^                             INTEGER                  PotMod                          -          -          -         "1 if using WAMIT model, 0 if no potential flow model, or 2 if FIT model"    -
 typedef   ^                            ^                             INTEGER                  NUserOutputs                    -          -          -         "Number of Hydrodyn-level requested output channels" -
 typedef   ^                            ^                             CHARACTER(ChanLen)       UserOutputs                     {:}        -          -         "This should really be dimensioned with MaxOutPts"    -
@@ -168,6 +170,7 @@ typedef   ^                            ConstraintStateType           Morison_Con
 typedef   ^                            OtherStateType                WAMIT_OtherStateType     WAMIT                           {:}        -          -         "OtherState information from the WAMIT module"   -
 #typedef   ^                            OtherStateType                FIT_OtherStateType       FIT                             -          -          -         "OtherState information from the FIT module"   -
 typedef   ^                            ^                             Morison_OtherStateType   Morison                         -          -          -         "OtherState information from the Morison module"   -
+typedef   ^                            ^                             SeaFEM_OtherStateType    SeaFEM                          -          -          -         "OtherState information from the SeaFEM module"   -
 
 # ..... Misc/Optimization variables.................................................................................................
 # Define any data that are used only for efficiency purposes (these variables are not associated with time):
@@ -195,6 +198,7 @@ typedef   ^                            ^                             WAMIT2_Para
 typedef   ^                            ^                             LOGICAL                  WAMIT2used                      -          .FALSE.    -         "Indicates when WAMIT2 is used.  Shortcuts some calculations" -
 #typedef   ^                            ^                             FIT_ParameterType        FIT                             -          -          -         "Parameter data for the FIT module"        -
 typedef   ^                            ^                             Morison_ParameterType    Morison                         -          -          -         "Parameter data for the Morison module"        -
+typedef   ^                            ^                             SeaFEM_ParameterType     SeaFEM                          -          -          -         "Parameter data for the SeaFEM module"        -
 typedef   ^                            ^                             INTEGER                  PotMod                          -          -          -         "1 if using WAMIT model, 0 if no potential flow model, or 2 if FIT model"    -
 typedef   ^                            ^                             INTEGER                  NBody                           -          -          -         "[>=1; only used when PotMod=1. If NBodyMod=1, the WAMIT data contains a vector of size 6*NBody x 1 and matrices of size 6*NBody x 6*NBody; if NBodyMod>1, there are NBody sets of WAMIT data each with a vector of size 6 x 1 and matrices of size 6 x 6]" -
 typedef   ^                            ^                             INTEGER                  NBodyMod                        -          -          -         "Body coupling model {1: include coupling terms between each body and NBody in HydroDyn equals NBODY in WAMIT, 2: neglect coupling terms between each body and NBODY=1 with XBODY=0 in WAMIT, 3: Neglect coupling terms between each body and NBODY=1 with XBODY=/0 in WAMIT} (switch) [only used when PotMod=1]" -
@@ -231,12 +235,14 @@ typedef	 ^	                           ParameterType                 LOGICAL	    
 typedef   ^                            InputType                     Morison_InputType        Morison                         -          -          -         "Morison module inputs" -
 typedef   ^                            InputType                     MeshType                 WAMITMesh                       -          -          -         "Motions at the WAMIT reference point(s) in the inertial frame" -
 typedef   ^                            InputType                     MeshType                 PRPMesh                         -          -          -         "Motions at the Platform reference point in the inertial frame" -
+typedef   ^                            InputType                     SeaFEM_InputType         SeaFEM                          -          -          -         "SeaFEM module inputs" -
 #
 #
 # ..... Outputs ...................................................................................................................
 # Define outputs that are contained on the mesh here:
 typedef   ^                            OutputType                   WAMIT_OutputType          WAMIT                           {:}        -          -         "WAMIT module outputs"  -
 typedef   ^                            OutputType                   WAMIT2_OutputType         WAMIT2                          {:}        -          -         "WAMIT2 module outputs"  -
+typedef   ^                            ^                            SeaFEM_OutputType         SeaFEM                          -          -          -         "SeaFEM module outputs"  -
 typedef   ^                            ^                            Morison_OutputType        Morison                         -          -          -         "Morison module outputs"  -
 typedef   ^                            OutputType                   MeshType                  WAMITMesh                       -        -          -           "Point Loads at the WAMIT reference point(s) in the inertial frame" -
 typedef   ^                            ^                            ReKi                      WriteOutput                    {:}         -          -         "Outputs to be written to the output file(s)"  -

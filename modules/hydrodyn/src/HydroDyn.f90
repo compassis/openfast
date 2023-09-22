@@ -23,6 +23,8 @@
 ! limitations under the License.
 !    
 !**********************************************************************************************************************************
+#define SeaFEM_active
+    
 MODULE HydroDyn
 
    USE HydroDyn_Types   
@@ -33,6 +35,9 @@ MODULE HydroDyn
    use SeaState
    USE HydroDyn_Input
    USE HydroDyn_Output
+#ifdef SeaFEM_active
+   USE SeaFEM
+#endif
 
 #ifdef USE_FIT
    USE FIT_MODULES
@@ -106,7 +111,7 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
       
          ! Local variables
          
-      CHARACTER(1024)                        :: SummaryName                         ! name of the HydroDyn summary file   
+      CHARACTER(1024)                        :: SummaryName                         ! name of the HydroDyn summary file      
       TYPE(HydroDyn_InputFile)               :: InputFileData                       !< Data from input file
       TYPE(FileInfoType)                     :: InFileInfo                          !< The derived type for holding the full input file for parsing -- we may pass this in the future
 !      LOGICAL                                :: hasWAMITOuts                        ! Are there any WAMIT-related outputs
@@ -187,6 +192,11 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
             CALL CleanUp()
             RETURN
          END IF
+         
+#ifdef SeaFEM_active      
+      IF (InputFileData%HasSeaFEM .eqv. .FALSE.) THEN
+          ! SeaFEM Is not used and therefore Hydrodyn works as it should normally do.
+#endif
       
       InputFileData%Morison%WtrDens = InitInp%WtrDens
       InputFileData%Morison%WtrDpth = InitInp%WtrDpth
@@ -704,6 +714,10 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
          END IF
          
       END IF
+      
+#ifdef SeaFEM_active
+      END IF
+#endif
 
 !==========================================
       
@@ -716,6 +730,13 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
                RETURN
             END IF
       END IF
+      
+#ifdef SeaFEM_active
+      IF (InputFileData%HasSeaFEM .eqv. .TRUE.) THEN
+         CALL SeaFEM_Init(InputFileData%SeaFEM, u%SeaFEM, p%SeaFEM, OtherState%SeaFEM, y%SeaFEM, Interval ) ! Initializes SeaFEM module
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
+      END IF
+#endif      
       
    ! Create the input mesh associated with kinematics of the platform reference point       
       CALL MeshCreate( BlankMesh        = u%PRPMesh         &
