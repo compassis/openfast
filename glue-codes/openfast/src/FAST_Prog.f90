@@ -118,12 +118,12 @@ INTEGER(IntKi)                        :: Restart_step                           
 
          DO i=1,inlen
                 finfile(i:i)=inputfile(i)
-         END DO  
-
-#endif         
+         END DO           
           
-         CALL FAST_InitializeAll_T( t_initial, i_turb, Turbine(i_turb), ErrStat, ErrMsg )     ! bjj: we need to get the input files for each turbine (not necessarily the same one)
+         CALL FAST_InitializeAll_T( t_initial, i_turb, Turbine(i_turb), ErrStat, ErrMsg, finfile )     ! bjj: we need to get the input files for each turbine (not necessarily the same one)
          CALL CheckError( ErrStat, ErrMsg, 'during module initialization' )
+         
+#endif
                         
       !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       ! loose coupling

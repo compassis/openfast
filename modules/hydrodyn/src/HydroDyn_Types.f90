@@ -65,6 +65,7 @@ IMPLICIT NONE
     TYPE(WAMIT2_InitInputType)  :: WAMIT2      !< Initialization data for WAMIT2 module [-]
     TYPE(Morison_InitInputType)  :: Morison      !< Initialization data for Morison module [-]
     LOGICAL  :: Echo      !< Echo the input files to a file with the same name as the input but with a .echo extension [T/F] [-]
+    LOGICAL  :: HasSeaFEM      !< .TRUE. if using SeaFEM model, .FALSE. otherwise [-]
     INTEGER(IntKi)  :: PotMod      !< 1 if using WAMIT model, 0 if no potential flow model, or 2 if FIT model [-]
     INTEGER(IntKi)  :: NUserOutputs      !< Number of Hydrodyn-level requested output channels [-]
     CHARACTER(ChanLen) , DIMENSION(:), ALLOCATABLE  :: UserOutputs      !< This should really be dimensioned with MaxOutPts [-]
@@ -452,6 +453,7 @@ ENDIF
          CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg,RoutineName)
          IF (ErrStat>=AbortErrLev) RETURN
     DstInputFileData%Echo = SrcInputFileData%Echo
+    DstInputFileData%HasSeaFEM = SrcInputFileData%HasSeaFEM
     DstInputFileData%PotMod = SrcInputFileData%PotMod
     DstInputFileData%NUserOutputs = SrcInputFileData%NUserOutputs
 IF (ALLOCATED(SrcInputFileData%UserOutputs)) THEN
@@ -739,6 +741,7 @@ ENDIF
          DEALLOCATE(Int_Buf)
       END IF
       Int_BufSz  = Int_BufSz  + 1  ! Echo
+      Int_BufSz  = Int_BufSz  + 1  ! HasSeaFEM
       Int_BufSz  = Int_BufSz  + 1  ! PotMod
       Int_BufSz  = Int_BufSz  + 1  ! NUserOutputs
   Int_BufSz   = Int_BufSz   + 1     ! UserOutputs allocated yes/no
@@ -1142,6 +1145,8 @@ ENDIF
         IntKiBuf( Int_Xferred ) = 0; Int_Xferred = Int_Xferred + 1
       ENDIF
     IntKiBuf(Int_Xferred) = TRANSFER(InData%Echo, IntKiBuf(1))
+    Int_Xferred = Int_Xferred + 1
+    IntKiBuf(Int_Xferred) = TRANSFER(InData%HasSeaFEM, IntKiBuf(1))
     Int_Xferred = Int_Xferred + 1
     IntKiBuf(Int_Xferred) = InData%PotMod
     Int_Xferred = Int_Xferred + 1
@@ -1676,6 +1681,8 @@ ENDIF
       IF(ALLOCATED(Db_Buf )) DEALLOCATE(Db_Buf )
       IF(ALLOCATED(Int_Buf)) DEALLOCATE(Int_Buf)
     OutData%Echo = TRANSFER(IntKiBuf(Int_Xferred), OutData%Echo)
+    Int_Xferred = Int_Xferred + 1
+    OutData%HasSeaFEM = TRANSFER(IntKiBuf(Int_Xferred), OutData%HasSeaFEM)
     Int_Xferred = Int_Xferred + 1
     OutData%PotMod = IntKiBuf(Int_Xferred)
     Int_Xferred = Int_Xferred + 1

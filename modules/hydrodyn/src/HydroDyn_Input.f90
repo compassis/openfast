@@ -17,6 +17,9 @@
 ! limitations under the License.
 !    
 !**********************************************************************************************************************************
+
+#define SeaFEM_active
+    
 MODULE HydroDyn_Input
 
       ! This MODULE stores variables used for input.
@@ -129,6 +132,14 @@ SUBROUTINE HydroDyn_ParseInput( InputFileName, OutRootName, FileInfo_In, InputFi
       ! PotMod - State indicating potential flow model used in the simulation. 0=none, 1=WAMIT, 2=FIT
    call ParseVar( FileInfo_In, CurLine, 'PotMod', InputFileData%PotMod, ErrStat2, ErrMsg2, UnEc )
       if (Failed())  return;
+
+#ifdef SeaFEM_active      
+      
+      ! HasSeaFEM - Flag for SeaFEM coupling 
+   call ParseVar( FileInfo_In, CurLine, 'HasSeaFEM', InputFileData%HasSeaFEM, ErrStat2, ErrMsg2, UnEc )
+      if (Failed())  return;
+      
+#endif      
 
       ! ExctnMod  - Wave Excitation model {0: None, 1: DFT, 2: state-space} (switch)
       ! [STATE-SPACE REQUIRES *.ssexctn INPUT FILE]
