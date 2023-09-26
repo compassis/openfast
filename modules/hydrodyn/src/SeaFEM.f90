@@ -126,10 +126,22 @@ MODULE SeaFEM
         INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
         CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
         
+        ! Local variables
+        REAL(ReKi)                           :: q(6), qdot(6), qdotdot(6)    ! Platform motions
+        REAL(ReKi)                           :: rotdisp(3)                   ! Small angle rotational displacements
+        
         ! Load exported procedures from SeaFEM
         module_handle=LoadLibrary(C_NULL_CHAR)
         proc=GetProcAddress(module_handle,"Running_Fast_Update"C)
         CALL C_F_PROCPOINTER(proc,UPDATE_SEAFEM)
+        
+        ! Determine the rotational angles from the direction-cosine matrix
+        rotdisp = GetSmllRotAngs( u%PRPMesh%Orientation(:,:,1), ErrStat, ErrMsg )              
+              
+        ! Displacements, velocities and accelerations are obteined from the input mesh (12 iterations for time step increment)
+        q       = reshape((/real(u%PRPMesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
+        qdot    = reshape((/u%PRPMesh%TranslationVel(:,1),u%PRPMesh%RotationVel(:,1)/),(/6/))
+        qdotdot = reshape((/u%PRPMesh%TranslationAcc(:,1),u%PRPMesh%RotationAcc(:,1)/),(/6/))  
         
         ! Updates SeaFEMs time step
         IF(OtherState%T==t)THEN
