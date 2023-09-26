@@ -1428,6 +1428,16 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )                  
       END IF
       
+#ifdef SeaFEM_active
+
+      IF ( u%SeaFEM%PRPMesh%Committed ) THEN                 
+         ! Calls SeaFEM exchange subroutine
+         CALL SeaFEM_CalcOutput( Time, u%SeaFEM, p%SeaFEM, OtherState%SeaFEM, y%SeaFEM, ErrStat, ErrMsg )
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'SeaFEM_CalcOutput' )       
+      ELSE
+          
+#endif       
+      
          ! Integrate all the mesh loads onto the platfrom reference Point (PRP) at (0,0,0)
       m%F_Hydro = CalcLoadsAtWRP( y, u, m%AllHdroOrigin, m%HD_MeshMap, ErrStat2, ErrMsg2 )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'HydroDyn_CalcOutput' )                  
@@ -1449,6 +1459,10 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
       END IF
       
       m%LastOutTime   = Time
+      
+#ifdef SeaFEM_active
+    END IF
+#endif
       
 END SUBROUTINE HydroDyn_CalcOutput
 
