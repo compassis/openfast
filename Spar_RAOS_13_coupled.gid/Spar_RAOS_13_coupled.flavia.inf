@@ -82660,3 +82660,1090 @@ This probably means that Tcl wasn't installed properly.
  -->	Fast_convergence     0
  -->	time[s]=1.96058, iterations=2, max_fs=-4.35475e+33
  -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=2, max_fs=-1.00853e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.20006, iterations=2, max_fs=-1.57644e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.240072, iterations=2, max_fs=-2.271e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.280084, iterations=2, max_fs=-3.0923e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.320095, iterations=2, max_fs=-6.11353e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.360107, iterations=2, max_fs=2.28013e-05
+ -->	Fast_convergence     0
+ -->	time[s]=0.400119, iterations=2, max_fs=-0.000255974
+ -->	Fast_convergence     0
+ -->	time[s]=0.440131, iterations=2, max_fs=0.00234914
+ -->	Fast_convergence     0
+ -->	time[s]=0.480143, iterations=2, max_fs=-0.0222325
+ -->	Fast_convergence     0
+ -->	time[s]=0.520155, iterations=2, max_fs=0.210591
+ -->	Fast_convergence     0
+ -->	time[s]=0.560167, iterations=2, max_fs=280.867
+ -->	Fast_convergence     0.199513
+ -->	time[s]=0.600179, iterations=2, max_fs=48.8764
+ -->	Fast_convergence     0.997749
+ -->	time[s]=0.640191, iterations=2, max_fs=166.466
+ -->	Fast_convergence     0.833383
+ -->	time[s]=0.680203, iterations=2, max_fs=144.143
+ -->	Fast_convergence     0.893481
+ -->	time[s]=0.720215, iterations=2, max_fs=136.232
+ -->	Fast_convergence     0.999956
+ -->	time[s]=0.760227, iterations=2, max_fs=131.099
+ -->	Fast_convergence     0.999976
+ -->	time[s]=0.800239, iterations=2, max_fs=124.792
+ -->	Fast_convergence     0.999988
+ -->	time[s]=0.840251, iterations=2, max_fs=118.477
+ -->	Fast_convergence     2.71906
+ -->	time[s]=0.880263, iterations=2, max_fs=110.07
+ -->	Fast_convergence     2.97792
+ -->	time[s]=0.920275, iterations=2, max_fs=103.425
+ -->	Fast_convergence     2.80818
+ -->	time[s]=0.960286, iterations=2, max_fs=94.3537
+ -->	Fast_convergence     2.94354
+ -->	time[s]=1.0003, iterations=2, max_fs=89.3427
+ -->	Fast_convergence     2.86595
+ -->	time[s]=1.04031, iterations=2, max_fs=77.5839
+ -->	Fast_convergence     2.52124
+ -->	time[s]=1.08032, iterations=2, max_fs=81.8638
+ -->	Fast_convergence     2.99989
+ -->	time[s]=1.12033, iterations=2, max_fs=58.4836
+ -->	Fast_convergence     2.77762
+ -->	time[s]=1.16035, iterations=2, max_fs=80.0315
+ -->	Fast_convergence     2.94988
+ -->	time[s]=1.20036, iterations=2, max_fs=45.8639
+ -->	Fast_convergence     2.86622
+ -->	time[s]=1.24037, iterations=2, max_fs=101.924
+ -->	Fast_convergence     2.92094
+ -->	time[s]=1.28038, iterations=2, max_fs=55.6662
+ -->	Fast_convergence     2.50426
+ -->	time[s]=1.32039, iterations=2, max_fs=-467.585
+ -->	Fast_convergence     2.97246
+ -->	time[s]=1.36041, iterations=2, max_fs=250.7
+ -->	Fast_convergence     2.7588
+ -->	time[s]=1.40042, iterations=2, max_fs=-945.022
+ -->	Fast_convergence     2.96628
+ -->	time[s]=1.44043, iterations=2, max_fs=608.985
+ -->	Fast_convergence     2.88925
+ -->	time[s]=1.48044, iterations=2, max_fs=-1427.24
+ -->	Fast_convergence     2.92039
+ -->	time[s]=1.52045, iterations=2, max_fs=-1987.93
+ -->	Fast_convergence     1.80945
+ -->	time[s]=1.56047, iterations=2, max_fs=-7607.64
+ -->	Fast_convergence     2.40136
+ -->	time[s]=1.60048, iterations=2, max_fs=-1.99657e+06
+ -->	Fast_convergence     2.29958
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=2, max_fs=-1.00853e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.20006, iterations=2, max_fs=-1.57644e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.240072, iterations=2, max_fs=-2.271e-06
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=2, max_fs=-1.00853e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.20006, iterations=2, max_fs=-1.57644e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.240072, iterations=2, max_fs=-2.271e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.280084, iterations=2, max_fs=-3.0923e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.320095, iterations=2, max_fs=-6.11353e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.360107, iterations=2, max_fs=2.28013e-05
+ -->	Fast_convergence     0
+ -->	time[s]=0.400119, iterations=2, max_fs=-0.000255974
+ -->	Fast_convergence     0
+ -->	time[s]=0.440131, iterations=2, max_fs=0.00234914
+ -->	Fast_convergence     0
+ -->	time[s]=0.480143, iterations=2, max_fs=-0.0222325
+ -->	Fast_convergence     0
+ -->	time[s]=0.520155, iterations=2, max_fs=0.210591
+ -->	Fast_convergence     0
+ -->	time[s]=0.560167, iterations=2, max_fs=280.867
+ -->	Fast_convergence     0.199513
+ -->	time[s]=0.600179, iterations=2, max_fs=48.8764
+ -->	Fast_convergence     0.997749
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=2, max_fs=-1.00853e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.20006, iterations=2, max_fs=-1.57644e-06
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=2, max_fs=-1.00853e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.20006, iterations=2, max_fs=-1.57644e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.240072, iterations=2, max_fs=-2.271e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.280084, iterations=2, max_fs=-3.0923e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.320095, iterations=2, max_fs=-6.11353e-06
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=2, max_fs=-1.00853e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.20006, iterations=2, max_fs=-1.57644e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.240072, iterations=2, max_fs=-2.271e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.280084, iterations=2, max_fs=-3.0923e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.320095, iterations=2, max_fs=-6.11353e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.360107, iterations=2, max_fs=2.28013e-05
+ -->	Fast_convergence     0
+ -->	time[s]=0.400119, iterations=2, max_fs=-0.000255974
+ -->	Fast_convergence     0
+ -->	time[s]=0.440131, iterations=2, max_fs=0.00234914
+ -->	Fast_convergence     0
+ -->	time[s]=0.480143, iterations=2, max_fs=-0.0222325
+ -->	Fast_convergence     0
+ -->	time[s]=0.520155, iterations=2, max_fs=0.210591
+ -->	Fast_convergence     0
+ -->	time[s]=0.560167, iterations=2, max_fs=280.867
+ -->	Fast_convergence     0.199513
+ -->	time[s]=0.600179, iterations=2, max_fs=48.8764
+ -->	Fast_convergence     0.997749
+ -->	time[s]=0.640191, iterations=2, max_fs=166.466
+ -->	Fast_convergence     0.833383
+ -->	time[s]=0.680203, iterations=2, max_fs=144.143
+ -->	Fast_convergence     0.893481
+ -->	time[s]=0.720215, iterations=2, max_fs=136.232
+ -->	Fast_convergence     0.999956
+ -->	time[s]=0.760227, iterations=2, max_fs=131.099
+ -->	Fast_convergence     0.999976
+ -->	time[s]=0.800239, iterations=2, max_fs=124.792
+ -->	Fast_convergence     0.999988
+ -->	time[s]=0.840251, iterations=2, max_fs=118.477
+ -->	Fast_convergence     2.71906
+ -->	time[s]=0.880263, iterations=2, max_fs=110.07
+ -->	Fast_convergence     2.97792
+ -->	time[s]=0.920275, iterations=2, max_fs=103.425
+ -->	Fast_convergence     2.80818
+ -->	time[s]=0.960286, iterations=2, max_fs=94.3537
+ -->	Fast_convergence     2.94354
+ -->	time[s]=1.0003, iterations=2, max_fs=89.3427
+ -->	Fast_convergence     2.86595
+ -->	time[s]=1.04031, iterations=2, max_fs=77.5839
+ -->	Fast_convergence     2.52124
+ -->	time[s]=1.08032, iterations=2, max_fs=81.8638
+ -->	Fast_convergence     2.99989
+ -->	time[s]=1.12033, iterations=2, max_fs=58.4836
+ -->	Fast_convergence     2.77762
+ -->	time[s]=1.16035, iterations=2, max_fs=80.0315
+ -->	Fast_convergence     2.94988
+ -->	time[s]=1.20036, iterations=2, max_fs=45.8639
+ -->	Fast_convergence     2.86622
+ -->	time[s]=1.24037, iterations=2, max_fs=101.924
+ -->	Fast_convergence     2.92094
+ -->	time[s]=1.28038, iterations=2, max_fs=55.6662
+ -->	Fast_convergence     2.50426
+ -->	time[s]=1.32039, iterations=2, max_fs=-467.585
+ -->	Fast_convergence     2.97246
+ -->	time[s]=1.36041, iterations=2, max_fs=250.7
+ -->	Fast_convergence     2.7588
+ -->	time[s]=1.40042, iterations=2, max_fs=-945.022
+ -->	Fast_convergence     2.96628
+ -->	time[s]=1.44043, iterations=2, max_fs=608.985
+ -->	Fast_convergence     2.88925
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=2, max_fs=-1.00853e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.20006, iterations=2, max_fs=-1.57644e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.240072, iterations=2, max_fs=-2.271e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.280084, iterations=2, max_fs=-3.0923e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.320095, iterations=2, max_fs=-6.11353e-06
+ -->	Fast_convergence     0
+ -->	time[s]=0.360107, iterations=2, max_fs=2.28013e-05
+ -->	Fast_convergence     0
+ -->	time[s]=0.400119, iterations=2, max_fs=-0.000255974
+ -->	Fast_convergence     0
+ -->	time[s]=0.440131, iterations=2, max_fs=0.00234914
+ -->	Fast_convergence     0
+ -->	time[s]=0.480143, iterations=2, max_fs=-0.0222325
+ -->	Fast_convergence     0
+ -->	time[s]=0.520155, iterations=2, max_fs=0.210591
+ -->	Fast_convergence     0
+ -->	time[s]=0.560167, iterations=2, max_fs=280.867
+ -->	Fast_convergence     0.199513
+ -->	time[s]=0.600179, iterations=2, max_fs=48.8764
+ -->	Fast_convergence     0.997749
+ -->	time[s]=0.640191, iterations=2, max_fs=166.466
+ -->	Fast_convergence     0.833383
+ -->	time[s]=0.680203, iterations=2, max_fs=144.143
+ -->	Fast_convergence     0.893481
+ -->	time[s]=0.720215, iterations=2, max_fs=136.232
+ -->	Fast_convergence     0.999956
+ -->	time[s]=0.760227, iterations=2, max_fs=131.099
+ -->	Fast_convergence     0.999976
+ -->	time[s]=0.800239, iterations=2, max_fs=124.792
+ -->	Fast_convergence     0.999988
+ -->	time[s]=0.840251, iterations=2, max_fs=118.477
+ -->	Fast_convergence     2.71906
+ -->	time[s]=0.880263, iterations=2, max_fs=110.07
+ -->	Fast_convergence     2.97792
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=2, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=2, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=2, max_fs=-1.00853e-06
+ -->	Fast_convergence     0
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66
+ -->	time[s]=0.0400119, iterations=8, max_fs=-6.29573e-08
+ -->	Fast_convergence     0
+ -->	time[s]=0.0800239, iterations=12, max_fs=-2.51929e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.120036, iterations=12, max_fs=-5.67065e-07
+ -->	Fast_convergence     0
+ -->	time[s]=0.160048, iterations=12, max_fs=1.77684e-05
+ -->	Fast_convergence     0
+ -->	time[s]=0.20006, iterations=12, max_fs=-1.73736e-05
+ -->	Fast_convergence     0
+ -->	time[s]=0.240072, iterations=12, max_fs=-0.000784564
+ -->	Fast_convergence     0.0208921
+ -->	time[s]=0.280084, iterations=12, max_fs=-5.18408e-05
+ -->	Fast_convergence     0.0024001
+ -->	time[s]=0.320095, iterations=12, max_fs=0.000280908
+ -->	Fast_convergence     0.00323722
+ -->	time[s]=0.360107, iterations=12, max_fs=-0.000165941
+ -->	Fast_convergence     0.00159507
+ -->	time[s]=0.400119, iterations=12, max_fs=-0.000133121
+ -->	Fast_convergence     0.000810586
+ -->	time[s]=0.440131, iterations=12, max_fs=0.000212069
+ -->	Fast_convergence     0.000421903
+ -->	time[s]=0.480143, iterations=12, max_fs=0.000348697
+ -->	Fast_convergence     0.000221603
+ -->	time[s]=0.520155, iterations=12, max_fs=0.000476909
+ -->	Fast_convergence     0.000117587
+ -->	time[s]=0.560167, iterations=12, max_fs=0.000595256
+ -->	Fast_convergence     6.29224e-05
+ -->	time[s]=0.600179, iterations=12, max_fs=0.000699365
+ -->	Fast_convergence     3.5659e-05
+ -->	time[s]=0.640191, iterations=12, max_fs=-0.000794098
+ -->	Fast_convergence     8.20454e-06
+ -->	time[s]=0.680203, iterations=12, max_fs=-0.000893223
+ -->	Fast_convergence     4.19823e-06
+ -->	time[s]=0.720215, iterations=12, max_fs=-0.000980432
+ -->	Fast_convergence     1.57384e-05
+ -->	time[s]=0.760227, iterations=12, max_fs=-0.00106966
+ -->	Fast_convergence     1.5463e-05
+ -->	time[s]=0.800239, iterations=12, max_fs=-0.00114745
+ -->	Fast_convergence     3.01648e-06
+ -->	time[s]=0.840251, iterations=12, max_fs=0.00123153
+ -->	Fast_convergence     2.61058e-05
+ -->	time[s]=0.880263, iterations=12, max_fs=0.00131134
+ -->	Fast_convergence     1.97581e-05
+ -->	time[s]=0.920275, iterations=12, max_fs=0.00138129
+ -->	Fast_convergence     4.49907e-06
+ -->	time[s]=0.960286, iterations=12, max_fs=0.00144148
+ -->	Fast_convergence     1.96153e-05
+ -->	time[s]=1.0003, iterations=12, max_fs=-0.00150323
+ -->	Fast_convergence     1.22812e-05
+ -->	time[s]=1.04031, iterations=12, max_fs=-0.00155832
+ -->	Fast_convergence     2.02685e-05
+ -->	time[s]=1.08032, iterations=12, max_fs=-0.00160244
+ -->	Fast_convergence     0
+ -->	time[s]=1.12033, iterations=12, max_fs=-0.00163563
+ -->	Fast_convergence     3.54502e-06
+ -->	time[s]=1.16035, iterations=12, max_fs=-0.00165797
+ -->	Fast_convergence     3.58112e-06
+ -->	time[s]=1.20036, iterations=12, max_fs=-0.0016702
+ -->	Fast_convergence     2.16687e-05
+ -->	time[s]=1.24037, iterations=12, max_fs=-0.00167302
+ -->	Fast_convergence     1.82183e-05
+ -->	time[s]=1.28038, iterations=12, max_fs=-0.00166721
+ -->	Fast_convergence     4.02043e-06
+ -->	time[s]=1.32039, iterations=12, max_fs=-0.00165423
+ -->	Fast_convergence     1.73207e-05
+ -->	time[s]=1.36041, iterations=12, max_fs=0.00164206
+ -->	Fast_convergence     1.09543e-05
+ -->	time[s]=1.40042, iterations=12, max_fs=0.00168824
+ -->	Fast_convergence     1.84008e-05
+ -->	time[s]=1.44043, iterations=12, max_fs=0.0017208
+ -->	Fast_convergence     5.06192e-08
+ -->	time[s]=1.48044, iterations=12, max_fs=0.0017377
+ -->	Fast_convergence     3.35429e-06
+ -->	time[s]=1.52045, iterations=12, max_fs=0.00173731
+ -->	Fast_convergence     3.31881e-06
+ -->	time[s]=1.56047, iterations=12, max_fs=0.00171979
+ -->	Fast_convergence     2.0751e-05
+ -->	time[s]=1.60048, iterations=12, max_fs=-0.00170495
+ -->	Fast_convergence     1.76057e-05
+ -->	time[s]=1.64049, iterations=12, max_fs=-0.0017037
+ -->	Fast_convergence     3.89751e-06
+ -->	time[s]=1.6805, iterations=12, max_fs=-0.00169503
+ -->	Fast_convergence     1.69996e-05
+ -->	time[s]=1.72051, iterations=12, max_fs=-0.00167837
+ -->	Fast_convergence     1.09309e-05
+ -->	time[s]=1.76053, iterations=12, max_fs=-0.00165402
+ -->	Fast_convergence     1.85067e-05
+ -->	time[s]=1.80054, iterations=12, max_fs=-0.00162268
+ -->	Fast_convergence     0
+ -->	time[s]=1.84055, iterations=12, max_fs=-0.00158545
+ -->	Fast_convergence     3.42532e-06
+ -->	time[s]=1.88056, iterations=12, max_fs=-0.00154324
+ -->	Fast_convergence     3.47681e-06
+ -->	time[s]=1.92057, iterations=12, max_fs=-0.00149809
+ -->	Fast_convergence     2.16313e-05
+ -->	time[s]=1.96058, iterations=48, max_fs=-0.0014516
+ -->	Fast_convergence     1.01193e-05
+ -->	time[s]=2.0006, iterations=12, max_fs=-0.0014052
+ -->	Fast_convergence     0
+ -->	time[s]=2.04061, iterations=12, max_fs=-0.00140096
+ -->	Fast_convergence     0
+ -->	time[s]=2.08062, iterations=12, max_fs=-0.00139141
+ -->	Fast_convergence     0
+ -->	time[s]=2.12063, iterations=12, max_fs=-0.00137621
+ -->	Fast_convergence     0
+ -->	time[s]=2.16064, iterations=12, max_fs=-0.00135558
+ -->	Fast_convergence     2.5104e-06
+ -->	time[s]=2.20066, iterations=12, max_fs=-0.00134783
+ -->	Fast_convergence     0
+ -->	time[s]=2.24067, iterations=12, max_fs=-0.00133704
+ -->	Fast_convergence     0
+ -->	time[s]=2.28068, iterations=12, max_fs=-0.00132342
+ -->	Fast_convergence     0
+ -->	time[s]=2.32069, iterations=12, max_fs=-0.00130674
+ -->	Fast_convergence     0
+ -->	time[s]=2.3607, iterations=12, max_fs=-0.00128738
+ -->	Fast_convergence     2.57932e-06
+ -->	time[s]=2.40072, iterations=12, max_fs=-0.00126556
+ -->	Fast_convergence     0
+ -->	time[s]=2.44073, iterations=12, max_fs=-0.00124205
+ -->	Fast_convergence     0
+ -->	time[s]=2.48074, iterations=12, max_fs=-0.00123109
+ -->	Fast_convergence     0
+ -->	time[s]=2.52075, iterations=12, max_fs=-0.00123751
+ -->	Fast_convergence     0
+ -->	time[s]=2.56076, iterations=12, max_fs=-0.00124078
+ -->	Fast_convergence     2.58468e-06
+ -->	time[s]=2.60078, iterations=12, max_fs=-0.00123979
+ -->	Fast_convergence     0
+ -->	time[s]=2.64079, iterations=12, max_fs=-0.00123308
+ -->	Fast_convergence     0
+ -->	time[s]=2.6808, iterations=12, max_fs=-0.00122056
+ -->	Fast_convergence     0
+ -->	time[s]=2.72081, iterations=12, max_fs=-0.00120156
+ -->	Fast_convergence     5.70806e-08
+ -->	time[s]=2.76082, iterations=12, max_fs=-0.00117661
+ -->	Fast_convergence     2.70615e-06
+ -->	time[s]=2.80084, iterations=12, max_fs=-0.00114614
+ -->	Fast_convergence     0
+ -->	time[s]=2.84085, iterations=12, max_fs=-0.00111172
+ -->	Fast_convergence     0
+ -->	time[s]=2.88086, iterations=12, max_fs=-0.0010925
+ -->	Fast_convergence     0
+ -->	time[s]=2.92087, iterations=12, max_fs=-0.00108279
+ -->	Fast_convergence     0
+ -->	time[s]=2.96088, iterations=12, max_fs=-0.00107265
+ -->	Fast_convergence     2.76649e-06
+ -->	time[s]=3.0009, iterations=12, max_fs=-0.00106502
+ -->	Fast_convergence     0
+ -->	time[s]=3.04091, iterations=12, max_fs=-0.00105514
+ -->	Fast_convergence     0
+ -->	time[s]=3.08092, iterations=12, max_fs=-0.00104891
+ -->	Fast_convergence     0
+ -->	time[s]=3.12093, iterations=12, max_fs=-0.00104253
+ -->	Fast_convergence     0
+ -->	time[s]=3.16094, iterations=12, max_fs=-0.00103417
+ -->	Fast_convergence     2.87501e-06
+ -->	time[s]=3.20095, iterations=12, max_fs=-0.00102382
+ -->	Fast_convergence     0
+ -->	time[s]=3.24097, iterations=12, max_fs=-0.00101787
+ -->	Fast_convergence     0
+ -->	time[s]=3.28098, iterations=12, max_fs=-0.00101112
+ -->	Fast_convergence     0
+ -->	time[s]=3.32099, iterations=12, max_fs=-0.00100631
+ -->	Fast_convergence     0
+ -->	time[s]=3.361, iterations=12, max_fs=-0.00100357
+ -->	Fast_convergence     3.02764e-06
+ -->	time[s]=3.40101, iterations=12, max_fs=-0.000999518
+ -->	Fast_convergence     0
+ -->	time[s]=3.44103, iterations=12, max_fs=-0.000994132
+ -->	Fast_convergence     0
+ -->	time[s]=3.48104, iterations=12, max_fs=-0.000991387
+ -->	Fast_convergence     0
+ -->	time[s]=3.52105, iterations=12, max_fs=-0.00101221
+ -->	Fast_convergence     4.63598e-08
+ -->	time[s]=3.56106, iterations=12, max_fs=-0.00103292
+ -->	Fast_convergence     3.17121e-06
+ -->	time[s]=3.60107, iterations=12, max_fs=-0.00104911
+ -->	Fast_convergence     0
+ -->	time[s]=3.64109, iterations=12, max_fs=-0.00106066
+ -->	Fast_convergence     0
+ -->	time[s]=3.6811, iterations=12, max_fs=-0.00106624
+ -->	Fast_convergence     0
+ -->	time[s]=3.72111, iterations=12, max_fs=-0.00106659
+ -->	Fast_convergence     0
+ -->	time[s]=3.76112, iterations=12, max_fs=-0.00106167
+ -->	Fast_convergence     3.31055e-06
+ -->	time[s]=3.80113, iterations=12, max_fs=-0.00105267
+ -->	Fast_convergence     0
+ -->	time[s]=3.84115, iterations=12, max_fs=-0.00103991
+ -->	Fast_convergence     0
+ -->	time[s]=3.88116, iterations=48, max_fs=-0.00102996
+ -->	Fast_convergence     0
+ -->	time[s]=3.92117, iterations=12, max_fs=-0.0010358
+ -->	Fast_convergence     0
+ -->	time[s]=3.96118, iterations=12, max_fs=-0.00105266
+ -->	Fast_convergence     3.52944e-06
+ -->	time[s]=4.00119, iterations=12, max_fs=-0.00106844
+ -->	Fast_convergence     0
+ -->	time[s]=4.04121, iterations=12, max_fs=-0.00108338
+ -->	Fast_convergence     0
+ -->	time[s]=4.08122, iterations=12, max_fs=-0.00109631
+ -->	Fast_convergence     0
+ -->	time[s]=4.12123, iterations=12, max_fs=-0.00110771
+ -->	Fast_convergence     0
+ -->	time[s]=4.16124, iterations=12, max_fs=-0.00111705
+ -->	Fast_convergence     3.74207e-06
+ -->	time[s]=4.20125, iterations=12, max_fs=-0.0011247
+ -->	Fast_convergence     0
+ -->	time[s]=4.24127, iterations=12, max_fs=-0.0011301
+ -->	Fast_convergence     0
+ -->	time[s]=4.28128, iterations=12, max_fs=-0.00113441
+ -->	Fast_convergence     0
+ -->	time[s]=4.32129, iterations=12, max_fs=-0.00113722
+ -->	Fast_convergence     0
+ -->	time[s]=4.3613, iterations=12, max_fs=-0.0011394
+ -->	Fast_convergence     3.98686e-06
+ -->	time[s]=4.40131, iterations=12, max_fs=-0.0011589
+ -->	Fast_convergence     0
+ -->	time[s]=4.44132, iterations=12, max_fs=-0.00119507
+ -->	Fast_convergence     0
+ -->	time[s]=4.48134, iterations=12, max_fs=-0.00122907
+ -->	Fast_convergence     0
+ -->	time[s]=4.52135, iterations=12, max_fs=-0.00126063
+ -->	Fast_convergence     0
+ -->	time[s]=4.56136, iterations=12, max_fs=-0.00128794
+ -->	Fast_convergence     0
+ -->	time[s]=4.60137, iterations=12, max_fs=-0.00131048
+ -->	Fast_convergence     2.39189e-06
+ -->	time[s]=4.64138, iterations=12, max_fs=-0.00132737
+ -->	Fast_convergence     0
+ -->	time[s]=4.6814, iterations=12, max_fs=-0.00133906
+ -->	Fast_convergence     0
+ -->	time[s]=4.72141, iterations=12, max_fs=-0.0013449
+ -->	Fast_convergence     0
+ -->	time[s]=4.76142, iterations=12, max_fs=-0.00134607
+ -->	Fast_convergence     0
+ -->	time[s]=4.80143, iterations=12, max_fs=-0.00134295
+ -->	Fast_convergence     2.5229e-06
+ -->	time[s]=4.84144, iterations=12, max_fs=-0.00134128
+ -->	Fast_convergence     0
+ -->	time[s]=4.88146, iterations=12, max_fs=-0.00134922
+ -->	Fast_convergence     0
+ -->	time[s]=4.92147, iterations=12, max_fs=-0.0013548
+ -->	Fast_convergence     0
+ -->	time[s]=4.96148, iterations=12, max_fs=-0.00135768
+ -->	Fast_convergence     0
+ -->	time[s]=5.00149, iterations=12, max_fs=-0.00135884
+ -->	Fast_convergence     2.72599e-06
+ -->	time[s]=5.0415, iterations=12, max_fs=-0.00137455
+ -->	Fast_convergence     0
+ -->	time[s]=5.08152, iterations=12, max_fs=-0.00139628
+ -->	Fast_convergence     0
+ -->	time[s]=5.12153, iterations=12, max_fs=-0.00141609
+ -->	Fast_convergence     0
+ -->	time[s]=5.16154, iterations=12, max_fs=-0.00143431
+ -->	Fast_convergence     0
+ -->	time[s]=5.20155, iterations=12, max_fs=-0.00145034
+ -->	Fast_convergence     2.92759e-06
+ -->	time[s]=5.24156, iterations=12, max_fs=-0.0014644
+ -->	Fast_convergence     0
+ -->	time[s]=5.28158, iterations=12, max_fs=-0.00147582
+ -->	********* VER.  16, 0, 0, 0 *********
+
+ -->	TclLibPath: D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/tcl
+ -->	Tcl_Init error: Can't find a usable init.tcl in the following directories: 
+    D:/Repositories/NREL_Stay/OpenFAST35/TdynMPH/build_vc2017//tdynMPH/x64/Debug/../scripts
+
+
+
+This probably means that Tcl wasn't installed properly.
+
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1450:
+ -->	Body CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1425:
+ -->	FreeSurface CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1504:
+ -->	Outlet CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1523:
+ -->	Bottom CheckBoundaryOrientation not done in DEBUG mode
+	WARNING FROM SOURCE FILE "\repositories\nrel_stay\openfast35\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 1541:
+ -->	Wall CheckBoundaryOrientation not done in DEBUG mode
+ -->	H_fs boundary condition has not been assigned on any surface
+ -->	Airgap boundary condition has not been assigned on any surface
+ -->	SparseMatrixStruct has 1488122 positions with 103924 rows.
+
+ -->	SparseMatrixStruct has 43513 positions with 6267 rows.
+
+ -->	SparseMatrixStruct has 27926 positions with 3996 rows.
+
+ -->	SparseMatrixStruct has 10414 positions with 1578 rows.
+
+ -->	SparseMatrixStruct has 21259 positions with 3083 rows.
+
+ -->	Time step has been switched to dt = 0.0400119 s to fulfill FFT analysis requirement
+ -->	Simulation time has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	Output step has been modified to 1611.11 s to fulfill FFT analysis requirement
+ -->	TdynTcl notice: TdynTcl_DefineBodyData finished!!!
+ -->	Memory required for RAOs analysis = 32Mbytes
+ -->	Maximum error inverting LS matrix = 5.68434e-14
+ -->	Fast_convergence     -6.27744e+66

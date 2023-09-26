@@ -1989,6 +1989,15 @@ CONTAINS
          MeshMapData%SubstructureLoads_Tmp%Moment = MeshMapData%SubstructureLoads_Tmp%Moment + MeshMapData%SubstructureLoads_Tmp2%Moment
       end if
       
+#ifdef SeaFEM_active  
+      if ( y_HD2%SeaFEM%PRPMesh%Committed ) then
+
+         MeshMapData%SubstructureLoads_Tmp%Force  = y_HD2%SeaFEM%PRPMesh%Force
+         MeshMapData%SubstructureLoads_Tmp%Moment = y_HD2%SeaFEM%PRPMesh%Moment
+		 
+      end if    
+#endif
+      
       U_Resid( 1: 3) = u_in( 1: 3) - MeshMapData%SubstructureLoads_Tmp%Force(:,1) / p_FAST%UJacSclFact
       U_Resid( 4: 6) = u_in( 4: 6) - MeshMapData%SubstructureLoads_Tmp%Moment(:,1) / p_FAST%UJacSclFact
       
@@ -2678,7 +2687,10 @@ END IF
          
          u = u + u_delta                  
          CALL Add_FullOpt1_u_delta( p_FAST, MeshMapData%Jac_u_indx, u_delta, u_ED, u_SD, u_HD, u_BD, u_Orca, u_ExtPtfm )
-                           
+#ifdef SeaFEM_active         
+         u_ED%PLATFORMPTMESH%FORCE =  y_HD%PRPMESH%FORCE      
+         u_ED%PLATFORMPTMESH%MOMENT =  y_HD%PRPMESH%MOMENT  
+#endif                           
          K = K + 1
          
       END DO ! K
@@ -5669,9 +5681,12 @@ SUBROUTINE FAST_AdvanceStates( t_initial, n_t_global, p_FAST, m_FAST, ED, BD, Sr
       CALL HydroDyn_CopyDiscState   (HD%xd(STATE_CURR), HD%xd(STATE_PRED), MESH_UPDATECOPY, Errstat2, ErrMsg2)  
          CALL SetErrStat( Errstat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
       CALL HydroDyn_CopyConstrState (HD%z( STATE_CURR), HD%z( STATE_PRED), MESH_UPDATECOPY, Errstat2, ErrMsg2)
-         CALL SetErrStat( Errstat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )            
-      CALL HydroDyn_CopyOtherState( HD%OtherSt(STATE_CURR), HD%OtherSt(STATE_PRED), MESH_UPDATECOPY, Errstat2, ErrMsg2)
-         CALL SetErrStat( Errstat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+         CALL SetErrStat( Errstat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )     
+         
+#ifdef SeaFEM_active         
+!      CALL HydroDyn_CopyOtherState( HD%OtherSt(STATE_CURR), HD%OtherSt(STATE_PRED), MESH_UPDATECOPY, Errstat2, ErrMsg2)
+!         CALL SetErrStat( Errstat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+#endif
          
       DO j_ss = 1, p_FAST%n_substeps( Module_HD )
          n_t_module = n_t_global*p_FAST%n_substeps( Module_HD ) + j_ss - 1
