@@ -10,6 +10,7 @@ MODULE SeaFEM
    TYPE(C_FUNPTR) :: proc
    INTEGER(C_INTPTR_T) :: module_handle
    PROCEDURE(RUNNING_FAST_UPDATE), pointer :: UPDATE_SEAFEM
+   PROCEDURE(END_FAST_COUPLING), pointer :: END_TIMELOOP
    
    PRIVATE
 
@@ -27,6 +28,13 @@ MODULE SeaFEM
         IMPLICIT NONE
         END SUBROUTINE RUNNING_FAST_UPDATE
    END INTERFACE
+   
+   ABSTRACT INTERFACE
+        SUBROUTINE END_FAST_COUPLING() BIND(C)
+        USE ISO_C_BINDING
+        IMPLICIT NONE
+        END SUBROUTINE END_FAST_COUPLING
+    END INTERFACE   
    
     INTERFACE 
         FUNCTION LoadLibrary(lpFileName) BIND(C,NAME='LoadLibraryA')
@@ -134,6 +142,8 @@ MODULE SeaFEM
         module_handle=LoadLibrary(C_NULL_CHAR)
         proc=GetProcAddress(module_handle,"Running_Fast_Update"C)
         CALL C_F_PROCPOINTER(proc,UPDATE_SEAFEM)
+         proc=GetProcAddress(module_handle,"End_Fast_Coupling"C)
+        CALL C_F_PROCPOINTER(proc,END_TIMELOOP)
         
         ! Determine the rotational angles from the direction-cosine matrix
         rotdisp = GetSmllRotAngs( u%PRPMesh%Orientation(:,:,1), ErrStat, ErrMsg )              
@@ -150,6 +160,15 @@ MODULE SeaFEM
             CALL UPDATE_SEAFEM() 
             ! WRITE(*,*) "Simulation time = ",t
             OtherState%T=t
+        END IF
+        
+        ! Ends SeaFEM computation
+        IF (t>=p%TMax) THEN
+            IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
+                CALL END_TIMELOOP() 
+            ELSE
+                OtherState%Out_flag=OtherState%Out_Flag+1
+            END IF
         END IF
               
    END SUBROUTINE SeaFEM_CalcOutput   

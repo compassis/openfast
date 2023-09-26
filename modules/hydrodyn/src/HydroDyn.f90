@@ -733,6 +733,7 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
       
 #ifdef SeaFEM_active
       IF (InputFileData%HasSeaFEM .eqv. .TRUE.) THEN
+         p%SeaFEM%TMax=InitInp%TMax ! Sends Simulation time to SeaFEM module
          CALL SeaFEM_Init(InputFileData%SeaFEM, u%SeaFEM, p%SeaFEM, OtherState%SeaFEM, y%SeaFEM, Interval ) ! Initializes SeaFEM module
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
       END IF
