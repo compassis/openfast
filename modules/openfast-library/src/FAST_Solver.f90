@@ -20,6 +20,9 @@
 ! limitations under the License.
 !**********************************************************************************************************************************
 !> This module contains the routines used by FAST to solve input-output equations and to advance states.
+
+#define SeaFEM_active
+    
 MODULE FAST_Solver
 
    USE NWTC_Library
@@ -1579,6 +1582,17 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
     
    ErrStat = ErrID_None
    ErrMsg  = ""
+   
+#ifdef SeaFEM_active  
+   
+   !Variable used for SeaFEM to point that the Jacobian is being computed. Used to update the velocities and positions.
+   !BORJA: Se informa a SeaFEM si el Jacobiano se usa o no
+   IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+        OtherSt_HD%SeaFEM%calcJacobian=calcJacobian
+        OtherSt_HD%SeaFEM%flag_SeaFEM=0
+   END IF
+   
+#endif
 
    ! note this routine should be called only
    ! IF ( p_FAST%CompHydro == Module_HD .AND. p_FAST%CompSub == Module_None .and. p_FAST%CompElast /= Module_BD ) 
@@ -1658,6 +1672,12 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
             END IF         
          
          IF ( calcJacobian ) THEN
+             
+#ifdef SeaFEM_active             
+             IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+                OtherSt_HD%SeaFEM%flag_SeaFEM=1
+             END IF
+#endif
             
             !...............................
             ! Get ElastoDyn's contribution:
@@ -1770,7 +1790,16 @@ SUBROUTINE ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                   CALL CleanUp()
                   RETURN 
                END IF               
-         END IF         
+         END IF   
+         
+#ifdef SeaFEM_active
+         
+  !Inform SeaFEM that now the correct step will come!!
+   IF ( u_HD%SeaFEM%PRPMesh%Committed ) THEN
+        OtherSt_HD%SeaFEM%flag_SeaFEM=0
+   END IF   
+   
+#endif  
             
          !-------------------------------------------------------------------------------------------------
          ! Solve for delta u: Jac*u_delta = - Fn_U_Resid

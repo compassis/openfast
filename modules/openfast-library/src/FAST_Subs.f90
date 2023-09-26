@@ -19,6 +19,9 @@
 ! See the License for the specific language governing permissions and
 ! limitations under the License.
 !**********************************************************************************************************************************
+
+#define SeaFEM_active    
+    
 MODULE FAST_Subs
 
    USE FAST_Solver
@@ -890,6 +893,13 @@ SUBROUTINE FAST_InitializeAll( t_initial, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, 
       Init%InData_HD%OutRootName   = TRIM(p_FAST%OutFileRoot)//'.'//TRIM(y_FAST%Module_Abrev(Module_HD))
       Init%InData_HD%TMax          = p_FAST%TMax
       Init%InData_HD%Linearize     = p_FAST%Linearize
+      
+#ifdef SeaFEM_active
+      
+      ! SeaFEM: Insert the number of iterations to perform so as to get a clue when to close the files.
+      Init%InData_HD%Iterations=p_FAST%NumCrctn
+      
+#endif
 
       CALL HydroDyn_Init( Init%InData_HD, HD%Input(1), HD%p,  HD%x(STATE_CURR), HD%xd(STATE_CURR), HD%z(STATE_CURR), &
                           HD%OtherSt(STATE_CURR), HD%y, HD%m, p_FAST%dt_module( MODULE_HD ), Init%OutData_HD, ErrStat2, ErrMsg2 )

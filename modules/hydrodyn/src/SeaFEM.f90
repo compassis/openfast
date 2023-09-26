@@ -9,6 +9,7 @@ MODULE SeaFEM
    !DEC$ ATTRIBUTES C, EXTERN, DLLIMPORT :: Fast_waves_global
    TYPE(C_FUNPTR) :: proc
    INTEGER(C_INTPTR_T) :: module_handle
+   PROCEDURE(EXCHANGE_FAST_DATA), pointer :: EXCHANGE_DATA
    PROCEDURE(RUNNING_FAST_UPDATE), pointer :: UPDATE_SEAFEM
    PROCEDURE(END_FAST_COUPLING), pointer :: END_TIMELOOP
    
@@ -21,6 +22,16 @@ MODULE SeaFEM
    PUBLIC :: SeaFEM_Init                           ! Initialization routine
    
    PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs   
+   
+   ABSTRACT INTERFACE
+        SUBROUTINE EXCHANGE_FAST_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,flag) BIND(C)
+        USE ISO_C_BINDING
+        IMPLICIT NONE
+        REAL(C_FLOAT), INTENT(OUT), DIMENSION(*) :: q,qdot,qdotdot
+        REAL(C_FLOAT), INTENT(IN), DIMENSION(*)  :: SeaFEM_Return_Forces
+        INTEGER(C_INT), INTENT(OUT)              :: flag
+        END SUBROUTINE EXCHANGE_FAST_DATA
+    END INTERFACE
    
    ABSTRACT INTERFACE
         SUBROUTINE RUNNING_FAST_UPDATE() BIND(C)
@@ -137,9 +148,13 @@ MODULE SeaFEM
         ! Local variables
         REAL(ReKi)                           :: q(6), qdot(6), qdotdot(6)    ! Platform motions
         REAL(ReKi)                           :: rotdisp(3)                   ! Small angle rotational displacements
+        REAL(ReKi)                           :: SeaFEM_Return_Forces(6)      ! SeaFEM loads
+        INTEGER(IntKi)                       :: I  
         
         ! Load exported procedures from SeaFEM
         module_handle=LoadLibrary(C_NULL_CHAR)
+        proc=GetProcAddress(module_handle,"Exchange_Fast_Data"C)
+        CALL C_F_PROCPOINTER(proc,EXCHANGE_DATA)
         proc=GetProcAddress(module_handle,"Running_Fast_Update"C)
         CALL C_F_PROCPOINTER(proc,UPDATE_SEAFEM)
          proc=GetProcAddress(module_handle,"End_Fast_Coupling"C)
@@ -162,6 +177,9 @@ MODULE SeaFEM
             OtherState%T=t
         END IF
         
+        ! Data exchange between SeaFEM and OpenFAST (motions sent and loads received) 
+        CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,OtherState%flag_SeaFEM)
+        
         ! Ends SeaFEM computation
         IF (t>=p%TMax) THEN
             IF(OtherState%Out_flag==(2+2*p%Iterations))THEN
@@ -170,6 +188,16 @@ MODULE SeaFEM
                 OtherState%Out_flag=OtherState%Out_Flag+1
             END IF
         END IF
+        
+        ! SeaFEM loads are stored in the output mesh
+        DO I=1,3
+            y%PRPMesh%Force(I,1)=SeaFEM_Return_Forces(I)
+            ! WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
+        END DO
+        DO I=1,3
+            y%PRPMesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
+            ! WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
+        END DO
               
    END SUBROUTINE SeaFEM_CalcOutput   
 

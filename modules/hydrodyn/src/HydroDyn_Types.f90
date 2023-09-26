@@ -84,6 +84,7 @@ IMPLICIT NONE
 ! =========  HydroDyn_InitInputType  =======
   TYPE, PUBLIC :: HydroDyn_InitInputType
     CHARACTER(1024)  :: InputFile      !< Supplied by Driver:  full path and filename for the HydroDyn module [-]
+    INTEGER(IntKi)  :: Iterations      !< Number of iterations (corrections) that fast performs [-]
     LOGICAL  :: UseInputFile = .TRUE.      !< Supplied by Driver:  .TRUE. if using a input file, .FALSE. if all inputs are being passed in by the caller [-]
     TYPE(FileInfoType)  :: PassedFileData      !< If we don't use the input file, pass everything through this [-]
     CHARACTER(1024)  :: OutRootName      !< Supplied by Driver:  The name of the root file (without extension) including the full path [-]
@@ -248,6 +249,7 @@ IMPLICIT NONE
     TYPE(Morison_OutputType)  :: Morison      !< Morison module outputs [-]
     TYPE(MeshType)  :: WAMITMesh      !< Point Loads at the WAMIT reference point(s) in the inertial frame [-]
     REAL(ReKi) , DIMENSION(:), ALLOCATABLE  :: WriteOutput      !< Outputs to be written to the output file(s) [-]
+    TYPE(MeshType)  :: PRPMesh      !< Point Loads at the WAMIT reference point(s) in the inertial frame [-]
   END TYPE HydroDyn_OutputType
 ! =======================
 CONTAINS
@@ -1864,6 +1866,7 @@ ENDIF
    ErrStat = ErrID_None
    ErrMsg  = ""
     DstInitInputData%InputFile = SrcInitInputData%InputFile
+    DstInitInputData%Iterations = SrcInitInputData%Iterations
     DstInitInputData%UseInputFile = SrcInitInputData%UseInputFile
       CALL NWTC_Library_Copyfileinfotype( SrcInitInputData%PassedFileData, DstInitInputData%PassedFileData, CtrlCode, ErrStat2, ErrMsg2 )
          CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg,RoutineName)
@@ -2281,6 +2284,7 @@ ENDIF
   Db_BufSz  = 0
   Int_BufSz  = 0
       Int_BufSz  = Int_BufSz  + 1*LEN(InData%InputFile)  ! InputFile
+      Int_BufSz  = Int_BufSz  + 1  ! Iterations
       Int_BufSz  = Int_BufSz  + 1  ! UseInputFile
    ! Allocate buffers for subtypes, if any (we'll get sizes from these) 
       Int_BufSz   = Int_BufSz + 3  ! PassedFileData: size of buffers for each call to pack subtype
@@ -2451,6 +2455,8 @@ ENDIF
       IntKiBuf(Int_Xferred) = ICHAR(InData%InputFile(I:I), IntKi)
       Int_Xferred = Int_Xferred + 1
     END DO ! I
+    IntKiBuf(Int_Xferred) = InData%Iterations
+    Int_Xferred = Int_Xferred + 1
     IntKiBuf(Int_Xferred) = TRANSFER(InData%UseInputFile, IntKiBuf(1))
     Int_Xferred = Int_Xferred + 1
       CALL NWTC_Library_Packfileinfotype( Re_Buf, Db_Buf, Int_Buf, InData%PassedFileData, ErrStat2, ErrMsg2, OnlySize ) ! PassedFileData 
@@ -2994,6 +3000,8 @@ ENDIF
       OutData%InputFile(I:I) = CHAR(IntKiBuf(Int_Xferred))
       Int_Xferred = Int_Xferred + 1
     END DO ! I
+    OutData%Iterations = IntKiBuf(Int_Xferred)
+    Int_Xferred = Int_Xferred + 1
     OutData%UseInputFile = TRANSFER(IntKiBuf(Int_Xferred), OutData%UseInputFile)
     Int_Xferred = Int_Xferred + 1
       Buf_size=IntKiBuf( Int_Xferred )
@@ -9123,6 +9131,9 @@ IF (ALLOCATED(SrcOutputData%WriteOutput)) THEN
   END IF
     DstOutputData%WriteOutput = SrcOutputData%WriteOutput
 ENDIF
+      CALL MeshCopy( SrcOutputData%PRPMesh, DstOutputData%PRPMesh, CtrlCode, ErrStat2, ErrMsg2 )
+         CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
+         IF (ErrStat>=AbortErrLev) RETURN
  END SUBROUTINE HydroDyn_CopyOutput
 
  SUBROUTINE HydroDyn_DestroyOutput( OutputData, ErrStat, ErrMsg, DEALLOCATEpointers )
@@ -9169,6 +9180,8 @@ ENDIF
 IF (ALLOCATED(OutputData%WriteOutput)) THEN
   DEALLOCATE(OutputData%WriteOutput)
 ENDIF
+  CALL MeshDestroy( OutputData%PRPMesh, ErrStat2, ErrMsg2 )
+     CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
  END SUBROUTINE HydroDyn_DestroyOutput
 
  SUBROUTINE HydroDyn_PackOutput( ReKiBuf, DbKiBuf, IntKiBuf, Indata, ErrStat, ErrMsg, SizeOnly )
@@ -9309,6 +9322,23 @@ ENDIF
     Int_BufSz   = Int_BufSz   + 2*1  ! WriteOutput upper/lower bounds for each dimension
       Re_BufSz   = Re_BufSz   + SIZE(InData%WriteOutput)  ! WriteOutput
   END IF
+      Int_BufSz   = Int_BufSz + 3  ! PRPMesh: size of buffers for each call to pack subtype
+      CALL MeshPack( InData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, .TRUE. ) ! PRPMesh 
+        CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
+        IF (ErrStat >= AbortErrLev) RETURN
+
+      IF(ALLOCATED(Re_Buf)) THEN ! PRPMesh
+         Re_BufSz  = Re_BufSz  + SIZE( Re_Buf  )
+         DEALLOCATE(Re_Buf)
+      END IF
+      IF(ALLOCATED(Db_Buf)) THEN ! PRPMesh
+         Db_BufSz  = Db_BufSz  + SIZE( Db_Buf  )
+         DEALLOCATE(Db_Buf)
+      END IF
+      IF(ALLOCATED(Int_Buf)) THEN ! PRPMesh
+         Int_BufSz = Int_BufSz + SIZE( Int_Buf )
+         DEALLOCATE(Int_Buf)
+      END IF
   IF ( Re_BufSz  .GT. 0 ) THEN 
      ALLOCATE( ReKiBuf(  Re_BufSz  ), STAT=ErrStat2 )
      IF (ErrStat2 /= 0) THEN 
@@ -9517,6 +9547,34 @@ ENDIF
         Re_Xferred = Re_Xferred + 1
       END DO
   END IF
+      CALL MeshPack( InData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2, OnlySize ) ! PRPMesh 
+        CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
+        IF (ErrStat >= AbortErrLev) RETURN
+
+      IF(ALLOCATED(Re_Buf)) THEN
+        IntKiBuf( Int_Xferred ) = SIZE(Re_Buf); Int_Xferred = Int_Xferred + 1
+        IF (SIZE(Re_Buf) > 0) ReKiBuf( Re_Xferred:Re_Xferred+SIZE(Re_Buf)-1 ) = Re_Buf
+        Re_Xferred = Re_Xferred + SIZE(Re_Buf)
+        DEALLOCATE(Re_Buf)
+      ELSE
+        IntKiBuf( Int_Xferred ) = 0; Int_Xferred = Int_Xferred + 1
+      ENDIF
+      IF(ALLOCATED(Db_Buf)) THEN
+        IntKiBuf( Int_Xferred ) = SIZE(Db_Buf); Int_Xferred = Int_Xferred + 1
+        IF (SIZE(Db_Buf) > 0) DbKiBuf( Db_Xferred:Db_Xferred+SIZE(Db_Buf)-1 ) = Db_Buf
+        Db_Xferred = Db_Xferred + SIZE(Db_Buf)
+        DEALLOCATE(Db_Buf)
+      ELSE
+        IntKiBuf( Int_Xferred ) = 0; Int_Xferred = Int_Xferred + 1
+      ENDIF
+      IF(ALLOCATED(Int_Buf)) THEN
+        IntKiBuf( Int_Xferred ) = SIZE(Int_Buf); Int_Xferred = Int_Xferred + 1
+        IF (SIZE(Int_Buf) > 0) IntKiBuf( Int_Xferred:Int_Xferred+SIZE(Int_Buf)-1 ) = Int_Buf
+        Int_Xferred = Int_Xferred + SIZE(Int_Buf)
+        DEALLOCATE(Int_Buf)
+      ELSE
+        IntKiBuf( Int_Xferred ) = 0; Int_Xferred = Int_Xferred + 1
+      ENDIF
  END SUBROUTINE HydroDyn_PackOutput
 
  SUBROUTINE HydroDyn_UnPackOutput( ReKiBuf, DbKiBuf, IntKiBuf, Outdata, ErrStat, ErrMsg )
@@ -9796,6 +9854,46 @@ ENDIF
         Re_Xferred = Re_Xferred + 1
       END DO
   END IF
+      Buf_size=IntKiBuf( Int_Xferred )
+      Int_Xferred = Int_Xferred + 1
+      IF(Buf_size > 0) THEN
+        ALLOCATE(Re_Buf(Buf_size),STAT=ErrStat2)
+        IF (ErrStat2 /= 0) THEN 
+           CALL SetErrStat(ErrID_Fatal, 'Error allocating Re_Buf.', ErrStat, ErrMsg,RoutineName)
+           RETURN
+        END IF
+        Re_Buf = ReKiBuf( Re_Xferred:Re_Xferred+Buf_size-1 )
+        Re_Xferred = Re_Xferred + Buf_size
+      END IF
+      Buf_size=IntKiBuf( Int_Xferred )
+      Int_Xferred = Int_Xferred + 1
+      IF(Buf_size > 0) THEN
+        ALLOCATE(Db_Buf(Buf_size),STAT=ErrStat2)
+        IF (ErrStat2 /= 0) THEN 
+           CALL SetErrStat(ErrID_Fatal, 'Error allocating Db_Buf.', ErrStat, ErrMsg,RoutineName)
+           RETURN
+        END IF
+        Db_Buf = DbKiBuf( Db_Xferred:Db_Xferred+Buf_size-1 )
+        Db_Xferred = Db_Xferred + Buf_size
+      END IF
+      Buf_size=IntKiBuf( Int_Xferred )
+      Int_Xferred = Int_Xferred + 1
+      IF(Buf_size > 0) THEN
+        ALLOCATE(Int_Buf(Buf_size),STAT=ErrStat2)
+        IF (ErrStat2 /= 0) THEN 
+           CALL SetErrStat(ErrID_Fatal, 'Error allocating Int_Buf.', ErrStat, ErrMsg,RoutineName)
+           RETURN
+        END IF
+        Int_Buf = IntKiBuf( Int_Xferred:Int_Xferred+Buf_size-1 )
+        Int_Xferred = Int_Xferred + Buf_size
+      END IF
+      CALL MeshUnpack( OutData%PRPMesh, Re_Buf, Db_Buf, Int_Buf, ErrStat2, ErrMsg2 ) ! PRPMesh 
+        CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
+        IF (ErrStat >= AbortErrLev) RETURN
+
+      IF(ALLOCATED(Re_Buf )) DEALLOCATE(Re_Buf )
+      IF(ALLOCATED(Db_Buf )) DEALLOCATE(Db_Buf )
+      IF(ALLOCATED(Int_Buf)) DEALLOCATE(Int_Buf)
  END SUBROUTINE HydroDyn_UnPackOutput
 
 
@@ -10083,6 +10181,8 @@ IF (ALLOCATED(y_out%WriteOutput) .AND. ALLOCATED(y1%WriteOutput)) THEN
     y_out%WriteOutput(i1) = y1%WriteOutput(i1) + b * ScaleFactor
   END DO
 END IF ! check if allocated
+      CALL MeshExtrapInterp1(y1%PRPMesh, y2%PRPMesh, tin, y_out%PRPMesh, tin_out, ErrStat2, ErrMsg2 )
+        CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg,RoutineName)
  END SUBROUTINE HydroDyn_Output_ExtrapInterp1
 
 
@@ -10165,6 +10265,8 @@ IF (ALLOCATED(y_out%WriteOutput) .AND. ALLOCATED(y1%WriteOutput)) THEN
     y_out%WriteOutput(i1) = y1%WriteOutput(i1) + b  + c * t_out
   END DO
 END IF ! check if allocated
+      CALL MeshExtrapInterp2(y1%PRPMesh, y2%PRPMesh, y3%PRPMesh, tin, y_out%PRPMesh, tin_out, ErrStat2, ErrMsg2 )
+        CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg,RoutineName)
  END SUBROUTINE HydroDyn_Output_ExtrapInterp2
 
 END MODULE HydroDyn_Types

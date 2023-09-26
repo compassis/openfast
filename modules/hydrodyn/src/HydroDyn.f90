@@ -734,6 +734,7 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
 #ifdef SeaFEM_active
       IF (InputFileData%HasSeaFEM .eqv. .TRUE.) THEN
          p%SeaFEM%TMax=InitInp%TMax ! Sends Simulation time to SeaFEM module
+         p%SeaFEM%Iterations=InitInp%Iterations ! Sends number of iterations to SeaFEM module
          CALL SeaFEM_Init(InputFileData%SeaFEM, u%SeaFEM, p%SeaFEM, OtherState%SeaFEM, y%SeaFEM, Interval ) ! Initializes SeaFEM module
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'SeaFEM_Init')
       END IF
@@ -778,6 +779,24 @@ SUBROUTINE HydroDyn_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, I
       END IF
       
       u%PRPMesh%RemapFlag  = .TRUE.
+      
+#ifdef SeaFEM_active
+      
+      ! Output mesh for loads platform reference point
+      CALL MeshCopy ( SrcMesh      = u%PRPMesh              &
+                     ,DestMesh     = y%PRPMesh              &
+                     ,CtrlCode     = MESH_SIBLING           &
+                     ,IOS          = COMPONENT_OUTPUT       &
+                     ,ErrStat      = ErrStat2               &
+                     ,ErrMess      = ErrMsg2                &
+                     ,Force        = .TRUE.                 &
+                     ,Moment       = .TRUE.                 )
+     
+      CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,'HydroDyn_Init:y%PRPMesh')  
+         
+      y%PRPMesh%RemapFlag  = .TRUE.
+      
+#endif
 
 
       ! Create the input mesh associated with kinematics of the various WAMIT bodies
@@ -1433,10 +1452,15 @@ SUBROUTINE HydroDyn_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat,
       
 #ifdef SeaFEM_active
 
-      IF ( u%SeaFEM%PRPMesh%Committed ) THEN                 
+      IF ( u%SeaFEM%PRPMesh%Committed ) THEN  
+         ! Copy the inputs from the HD mesh into the SeaFEM mesh
+         CALL MeshCopy( u%PRPMesh, u%SeaFEM%PRPMesh, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )   
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'SeaFEM_CalcOutput' )  
          ! Calls SeaFEM exchange subroutine
          CALL SeaFEM_CalcOutput( Time, u%SeaFEM, p%SeaFEM, OtherState%SeaFEM, y%SeaFEM, ErrStat, ErrMsg )
-            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'SeaFEM_CalcOutput' )       
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'SeaFEM_CalcOutput' )     
+         y%PRPMesh%Force (:,1) = y%SeaFEM%PRPMesh%Force (:,1)
+         y%PRPMesh%Moment(:,1) = y%SeaFEM%PRPMesh%Moment(:,1)
       ELSE
           
 #endif       
