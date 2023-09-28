@@ -19,6 +19,7 @@ usefrom	AeroDyn_Registry.txt
 usefrom	SubDyn_Registry.txt
 usefrom	SeaState.txt
 usefrom	HydroDyn.txt
+usefrom	SeaFEM.txt
 usefrom	IceFloe_FASTRegistry.inp
 usefrom	InflowWind.txt
 usefrom	ExternalInflow_Registry.txt

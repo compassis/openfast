@@ -38,6 +38,7 @@ MODULE FAST_Solver
    USE OrcaFlexInterface
    USE SeaState
    USE HydroDyn
+   USE SeaFEM
    USE IceDyn
    USE IceFloe
    USE ServoDyn

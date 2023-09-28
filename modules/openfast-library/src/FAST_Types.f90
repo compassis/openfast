@@ -39,6 +39,7 @@ USE AeroDyn14_Types
 USE AeroDyn_Types
 USE SubDyn_Types
 USE HydroDyn_Types
+USE SeaFEM_Types
 USE IceFloe_Types
 USE ExternalInflow_Types
 USE SCDataEx_Types
