@@ -11,9 +11,47 @@
 ###################################################################################################################################
 
 # ...... Include files (definitions from NWTC Library) ............................................................................
-include  Registry_NWTC_Library.txt
+# make sure that the file name does not have any trailing white spaces!
+# include Registry_NWTC_Library.txt
 
 # ..... Initialization data .......................................................................................................
-# Define inputs that the initialization routine may need here: (name of the input file, the file root name, etc.)
-typedef SeaFEM/SeaFEM            SeaFEM_InputFile     CHARACTER(1024)      InputFile   - - -   "Name of the input file; remove if there is no file" -
-
+typedef   SeaFEM/SeaFEM     SeaFEM_InputFile       LOGICAL                  EchoFlag          -       -      -  "Echo the input file"   
+#
+typedef   SeaFEM/SeaFEM     InitInputType          INTEGER                  DummyInput                       -          -          -         "Supplied by Driver:  full path and filename for the SeaState module"    -
+#
+# Define outputs from the initialization routine here:
+#                            
+typedef   ^                 InitOutputType         INTEGER                  DummyInput    -     -      -  "The is the list of all HD-related output channel header strings (includes all sub-module channels)"    -
+#                            
+# ..... States ....................................................................................................................
+# Define continuous (differentiable) states here:
+typedef   ^                  ContinuousStateType           R8Ki           UnusedStates              -          -          -         "placeholder for states"        -
+#   
+# Define discrete (nondifferentiable) states here:                                  
+typedef   ^                  DiscreteStateType             R8Ki           UnusedStates              -          -          -         "placeholder for states"        -
+#
+# Define constraint states here:                                                    
+typedef   ^                  ConstraintStateType           R8Ki           UnusedStates               -          -          -                      "placeholder for states"        -
+#
+# Define any other states, including integer or logical states here:                
+typedef   ^                  OtherStateType         INTEGER                  DummyInput        -       -      -         "placeholder for states"   -
+#
+# ..... Misc/Optimization variables.................................................................................................
+# Define any data that are used only for efficiency purposes (these variables are not associated with time):
+#   e.g. indices for searching in an array, large arrays that are local variables in any routine called multiple times, etc.
+typedef   ^                  MiscVarType            INTEGER                  DummyInput        -       -      -  "The output decimation counter" -
+#
+# ..... Parameters ................................................................................................................
+# Define parameters here:
+# Time step for integration of continuous states (if a fixed-step integrator is used) and update of discrete states:
+#
+typedef   ^                  ParameterType          INTEGER                  DummyInput        -       -      -  "Parameter data for the Waves2 module"  -
+#
+# ..... Inputs ....................................................................................................................
+# Define inputs that are contained on the mesh here:
+#
+typedef   ^                  InputType              SiKi                     DummyInput        -       -      -  "Remove this variable if you have inputs" -
+#
+# ..... Outputs ...................................................................................................................
+# Define outputs that are contained on the mesh here:
+typedef   ^                  OutputType             ReKi                     WriteOutput       {:}     -      -  "Outputs to be written to the output file(s)"  -
