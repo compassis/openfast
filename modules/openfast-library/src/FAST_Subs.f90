@@ -19,6 +19,9 @@
 ! See the License for the specific language governing permissions and
 ! limitations under the License.
 !**********************************************************************************************************************************
+
+#define SeaFEM_active    
+    
 MODULE FAST_Subs
 
    USE FAST_Solver
@@ -2957,6 +2960,16 @@ SUBROUTINE FAST_ReadPrimaryFile( InputFile, p, m_FAST, OverrideAbortErrLev, ErrS
          call cleanup()
          RETURN        
       end if
+
+#ifdef SeaFEM_active
+          ! CompSeaFEM - Compute hydrodynamic loads and mooring system (switch) {0=None; 1=SeaFEM}:
+   CALL ReadVar( UnIn, InputFile, p%CompSeaFEM, "CompSeaFEM", "Compute hydrodynamic loads and mooring system (switch) {0=None; 1=SeaFEM}", ErrStat2, ErrMsg2, UnEc)
+      CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
+      if ( ErrStat >= AbortErrLev ) then
+         call cleanup()
+         RETURN
+      end if
+#endif
 
    !---------------------- ENVIRONMENTAL CONDITIONS --------------------------------
    CALL ReadCom( UnIn, InputFile, 'Section Header: Environmental Conditions', ErrStat2, ErrMsg2, UnEc )

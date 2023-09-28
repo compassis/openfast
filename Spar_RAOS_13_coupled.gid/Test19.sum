@@ -1,18 +1,15 @@
 
 FAST Summary File
 
-Predictions were generated on 27-Sep-2023 at 03:56:55 using OpenFAST, compiled on Sep 21 2023 at 18:42:15 as a 64-bit application using single precision at commit v3.0.0-2336-g48b0ae64-dirty
+Predictions were generated on 28-Sep-2023 at 03:10:35 using OpenFAST, compiled on Sep 27 2023 at 20:09:35 as a 64-bit application using single precision at commit v3.0.0-2338-gb3e7263c-dirty
   run with
     NWTC Subroutine Library
     ElastoDyn
-    SeaState
-    HydroDyn
 Description from the FAST input file: 
   FAST Certification Test #24: NREL 5.0 MW Baseline Wind Turbine with OC3 Hywind Configuration, for use in offshore analysis
 
 Interpolation order for input/output time histories: 1 (linear)
 Number of correction iterations:  5
-Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     12
 
 
    Requested Time Steps  
@@ -21,8 +18,6 @@ Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     1
   -----------------  ---------------  -------------
   FAST (glue code)     4.0011900E-02
   ElastoDyn            4.0011900E-02         1
-  SeaState             4.0011900E-02         1
-  HydroDyn             4.0011900E-02         1
   FAST output files    4.0011900E-01        10^-1
 
 
@@ -113,4 +108,3 @@ Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     1
       81  TwHt1MLxt             (kN-m)                ElastoDyn
       82  TwHt1MLyt             (kN-m)                ElastoDyn
       83  TwHt1MLzt             (kN-m)                ElastoDyn
-      84  Wave1Elev             (m)                   SeaState

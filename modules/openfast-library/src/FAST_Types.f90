@@ -152,6 +152,7 @@ IMPLICIT NONE
     INTEGER(IntKi)  :: CompMooring      !< Compute mooring system (switch) {Module_None; Module_MAP; Module_FEAM; Module_MD; Module_Orca} [-]
     INTEGER(IntKi)  :: CompIce      !< Compute ice loading (switch) {Module_None; Module_IceF, Module_IceD} [-]
     INTEGER(IntKi)  :: MHK      !< MHK turbine type (switch) {0=Not an MHK turbine; 1=Fixed MHK turbine; 2=Floating MHK turbine} [-]
+    INTEGER(IntKi)  :: CompSeaFEM      !< Compute hydrodynamic loads and mooring system (switch) {Module_None; Module_SF} [-]
     LOGICAL  :: UseDWM      !< Use the DWM module in AeroDyn [-]
     LOGICAL  :: Linearize      !< Linearization analysis (flag) [-]
     INTEGER(IntKi)  :: WaveFieldMod      !< Wave field handling (-) (switch) 0: use individual HydroDyn inputs without adjustment, 1: adjust wave phases based on turbine offsets from farm origin [-]
@@ -2358,6 +2359,7 @@ ENDIF
     DstParamData%CompMooring = SrcParamData%CompMooring
     DstParamData%CompIce = SrcParamData%CompIce
     DstParamData%MHK = SrcParamData%MHK
+    DstParamData%CompSeaFEM = SrcParamData%CompSeaFEM
     DstParamData%UseDWM = SrcParamData%UseDWM
     DstParamData%Linearize = SrcParamData%Linearize
     DstParamData%WaveFieldMod = SrcParamData%WaveFieldMod
@@ -2572,6 +2574,7 @@ ENDIF
       Int_BufSz  = Int_BufSz  + 1  ! CompMooring
       Int_BufSz  = Int_BufSz  + 1  ! CompIce
       Int_BufSz  = Int_BufSz  + 1  ! MHK
+      Int_BufSz  = Int_BufSz  + 1  ! CompSeaFEM
       Int_BufSz  = Int_BufSz  + 1  ! UseDWM
       Int_BufSz  = Int_BufSz  + 1  ! Linearize
       Int_BufSz  = Int_BufSz  + 1  ! WaveFieldMod
@@ -2781,6 +2784,8 @@ ENDIF
     IntKiBuf(Int_Xferred) = InData%CompIce
     Int_Xferred = Int_Xferred + 1
     IntKiBuf(Int_Xferred) = InData%MHK
+    Int_Xferred = Int_Xferred + 1
+    IntKiBuf(Int_Xferred) = InData%CompSeaFEM
     Int_Xferred = Int_Xferred + 1
     IntKiBuf(Int_Xferred) = TRANSFER(InData%UseDWM, IntKiBuf(1))
     Int_Xferred = Int_Xferred + 1
@@ -3165,6 +3170,8 @@ ENDIF
     OutData%CompIce = IntKiBuf(Int_Xferred)
     Int_Xferred = Int_Xferred + 1
     OutData%MHK = IntKiBuf(Int_Xferred)
+    Int_Xferred = Int_Xferred + 1
+    OutData%CompSeaFEM = IntKiBuf(Int_Xferred)
     Int_Xferred = Int_Xferred + 1
     OutData%UseDWM = TRANSFER(IntKiBuf(Int_Xferred), OutData%UseDWM)
     Int_Xferred = Int_Xferred + 1
