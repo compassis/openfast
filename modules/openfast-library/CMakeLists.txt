@@ -51,6 +51,7 @@ target_link_libraries(openfast_prelib
   feamlib
   extinflowtypeslib
   hydrodynlib
+  seafemlib
   icedynlib
   icefloelib
   ifwlib

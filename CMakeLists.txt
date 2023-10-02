@@ -191,6 +191,7 @@ set(OPENFAST_MODULES
   subdyn
   seastate
   hydrodyn
+  seafem
   orcaflex-interface
   extptfm
   feamooring
