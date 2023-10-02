@@ -1996,6 +1996,73 @@ CONTAINS
    END SUBROUTINE CleanUp
    !...............................................................................................................................
 END SUBROUTINE ED_HD_InputOutputSolve
+
+#ifdef SeaFEM_active
+!----------------------------------------------------------------------------------------------------------------------------------
+!> This routine performs the Input-Output solve for ED and SF.
+!! Note that this has been customized for the physics in the problems and is not a general solution.
+!! This is only called if there is no substructure model (RIGID substructure)
+SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
+                                  , u_ED, p_ED, x_ED, xd_ED, z_ED, OtherSt_ED, y_ED, m_ED &
+                                  , u_SF, p_SF, x_SF, xd_SF, z_SF, OtherSt_SF, y_SF, m_SF & 
+                                  , u_MAP, y_MAP, u_FEAM, y_FEAM, u_MD, y_MD, u_SrvD, y_SrvD & 
+                                  , MeshMapData , ErrStat, ErrMsg, WriteThisStep )
+!..................................................................................................................................
+
+   USE ElastoDyn
+   USE SeaFEM
+
+      ! Passed variables
+
+   REAL(DbKi)                        , INTENT(IN   ) :: this_time                 !< The current simulation time (actual or time of prediction)
+   TYPE(FAST_ParameterType)          , INTENT(IN   ) :: p_FAST                    !< Glue-code simulation parameters
+   LOGICAL                           , INTENT(IN   ) :: calcJacobian              !< Should we calculate Jacobians this time? (should be TRUE on initialization, then can be false [significantly reducing computational time])
+   
+      !ElastoDyn:                    
+   TYPE(ED_ContinuousStateType)      , INTENT(IN   ) :: x_ED                      !< Continuous states
+   TYPE(ED_DiscreteStateType)        , INTENT(IN   ) :: xd_ED                     !< Discrete states
+   TYPE(ED_ConstraintStateType)      , INTENT(IN   ) :: z_ED                      !< Constraint states
+   TYPE(ED_OtherStateType)           , INTENT(INOUT) :: OtherSt_ED                !< Other states
+   TYPE(ED_ParameterType)            , INTENT(IN   ) :: p_ED                      !< Parameters
+   TYPE(ED_InputType)                , INTENT(INOUT) :: u_ED                      !< System inputs
+   TYPE(ED_OutputType)               , INTENT(INOUT) :: y_ED                      !< System outputs
+   TYPE(ED_MiscVarType)              , INTENT(INOUT) :: m_ED                      !< misc/optimization variables
+   
+      !HydroDyn: 
+   TYPE(HydroDyn_ContinuousStateType), INTENT(IN   ) :: x_SF                      !< Continuous states
+   TYPE(HydroDyn_DiscreteStateType)  , INTENT(IN   ) :: xd_SF                     !< Discrete states
+   TYPE(HydroDyn_ConstraintStateType), INTENT(IN   ) :: z_SF                      !< Constraint states
+   TYPE(HydroDyn_OtherStateType)     , INTENT(INOUT) :: OtherSt_SF                !< Other states
+   TYPE(HydroDyn_ParameterType)      , INTENT(IN   ) :: p_SF                      !< Parameters
+   TYPE(HydroDyn_InputType)          , INTENT(INOUT) :: u_SF                      !< System inputs
+   TYPE(HydroDyn_OutputType)         , INTENT(INOUT) :: y_SF                      !< System outputs
+   TYPE(HydroDyn_MiscVarType)        , INTENT(INOUT) :: m_SF                      !< misc/optimization variables
+
+      ! MAP/FEAM/MoorDyn:
+   TYPE(MAP_OutputType),              INTENT(IN   )  :: y_MAP                     !< MAP outputs
+   TYPE(MAP_InputType),               INTENT(INOUT)  :: u_MAP                     !< MAP inputs (INOUT just because I don't want to use another tempoarary mesh and we'll overwrite this later)
+   TYPE(FEAM_OutputType),             INTENT(IN   )  :: y_FEAM                    !< FEAM outputs
+   TYPE(FEAM_InputType),              INTENT(INOUT)  :: u_FEAM                    !< FEAM inputs (INOUT just because I don't want to use another tempoarary mesh and we'll overwrite this later)
+   TYPE(MD_OutputType),               INTENT(IN   )  :: y_MD                      !< MoorDyn outputs
+   TYPE(MD_InputType),                INTENT(INOUT)  :: u_MD                      !< MoorDyn inputs (INOUT just because I don't want to use another tempoarary mesh and we'll overwrite this later)
+
+      ! SrvD for TMD at platform
+   TYPE(SrvD_OutputType),             INTENT(IN   )  :: y_SrvD                    !< SrvD outputs
+   TYPE(SrvD_InputType),              INTENT(INOUT)  :: u_SrvD                    !< SrvD inputs (INOUT just because I don't want to use another tempoarary mesh and we'll overwrite this later)
+      
+   TYPE(FAST_ModuleMapType)          , INTENT(INOUT) :: MeshMapData               !< data for mapping meshes between modules
+   INTEGER(IntKi)                    , INTENT(  OUT) :: ErrStat                   !< Error status of the operation
+   CHARACTER(*)                      , INTENT(  OUT) :: ErrMsg                    !< Error message if ErrStat /= ErrID_None
+   LOGICAL                           , INTENT(IN   ) :: WriteThisStep             !< Will we print the WriteOutput values this step?
+   
+   CHARACTER(*), PARAMETER                           :: RoutineName = 'ED_SF_InputOutputSolve'
+
+
+END SUBROUTINE ED_SF_InputOutputSolve
+                                  
+#endif
+
+
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine performs the Input-Output solve for ED, SD, HD, BD, and/or the OrcaFlex Interface.
 !! Note that this has been customized for the physics in the problems and is not a general solution.
@@ -5065,6 +5132,15 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
                                     , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
                                     , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+         
+#ifdef SeaFEM_active
+      CALL ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
+                                    , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
+                                    , SF%Input(1), SF%p, SF%x(this_state), SF%xd(this_state), SF%z(this_state), SF%OtherSt(this_state), SF%y,  SF%m & 
+                                    , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
+                                    , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+#endif
                                                                   
    END IF ! HD, BD, and/or SD coupled to ElastoDyn
                          

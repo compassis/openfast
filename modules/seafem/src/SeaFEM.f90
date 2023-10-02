@@ -76,6 +76,4 @@ MODULE SeaFEM
       
    END SUBROUTINE SeaFEM_Init
 
- 
-   
 END MODULE SeaFEM
