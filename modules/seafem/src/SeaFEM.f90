@@ -5,6 +5,13 @@ MODULE SeaFEM
    USE NWTC_Library
    
    IMPLICIT NONE
+   
+   !DEC$ ATTRIBUTES C, EXTERN, DLLIMPORT :: Fast_waves_global
+   TYPE(C_FUNPTR) :: proc
+   INTEGER(C_INTPTR_T) :: module_handle
+   PROCEDURE(EXCHANGE_FAST_DATA), pointer :: EXCHANGE_DATA
+   PROCEDURE(RUNNING_FAST_UPDATE), pointer :: UPDATE_SEAFEM
+   PROCEDURE(END_FAST_COUPLING), pointer :: END_TIMELOOP
 
    PRIVATE
 
@@ -15,6 +22,52 @@ MODULE SeaFEM
    PUBLIC :: SeaFEM_Init                           ! Initialization routine
    
    PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs 
+   
+   ABSTRACT INTERFACE
+        SUBROUTINE EXCHANGE_FAST_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,flag) BIND(C)
+        USE ISO_C_BINDING
+        IMPLICIT NONE
+        REAL(C_FLOAT), INTENT(OUT), DIMENSION(*) :: q,qdot,qdotdot
+        REAL(C_FLOAT), INTENT(IN), DIMENSION(*)  :: SeaFEM_Return_Forces
+        INTEGER(C_INT), INTENT(OUT)              :: flag
+        END SUBROUTINE EXCHANGE_FAST_DATA
+    END INTERFACE
+   
+   ABSTRACT INTERFACE
+        SUBROUTINE RUNNING_FAST_UPDATE() BIND(C)
+        USE ISO_C_BINDING
+        IMPLICIT NONE
+        END SUBROUTINE RUNNING_FAST_UPDATE
+   END INTERFACE
+   
+   ABSTRACT INTERFACE
+        SUBROUTINE END_FAST_COUPLING() BIND(C)
+        USE ISO_C_BINDING
+        IMPLICIT NONE
+        END SUBROUTINE END_FAST_COUPLING
+    END INTERFACE   
+   
+    INTERFACE 
+        FUNCTION LoadLibrary(lpFileName) BIND(C,NAME='LoadLibraryA')
+            USE, INTRINSIC :: ISO_C_BINDING, ONLY: C_INTPTR_T, C_CHAR
+            IMPLICIT NONE 
+            CHARACTER(KIND=C_CHAR) :: lpFileName(*) 
+            !GCC$ ATTRIBUTES STDCALL :: LoadLibrary 
+            !DEC$ ATTRIBUTES STDCALL :: LoadLibrary
+            INTEGER(C_INTPTR_T) :: LoadLibrary 
+        END FUNCTION LoadLibrary 
+    
+        FUNCTION GetProcAddress(hModule, lpProcName) BIND(C, NAME='GetProcAddress')
+            USE, INTRINSIC :: ISO_C_BINDING, ONLY:  & 
+                C_FUNPTR, C_INTPTR_T, C_CHAR
+            IMPLICIT NONE
+            !GCC$ ATTRIBUTES STDCALL :: GetProcAddress
+            !DEC$ ATTRIBUTES STDCALL :: GetProcAddress
+            TYPE(C_FUNPTR) :: GetProcAddress
+            INTEGER(C_INTPTR_T), VALUE :: hModule
+            CHARACTER(KIND=C_CHAR) :: lpProcName(*)
+        END FUNCTION GetProcAddress  
+   END INTERFACE
    
    CONTAINS
    
@@ -94,6 +147,15 @@ MODULE SeaFEM
         REAL(ReKi)                           :: q(6), qdot(6), qdotdot(6)    ! Platform motions
         REAL(ReKi)                           :: rotdisp(3)                   ! Small angle rotational displacements
  
+        ! Load exported procedures from SeaFEM
+        module_handle=LoadLibrary(C_NULL_CHAR)
+        proc=GetProcAddress(module_handle,"Exchange_Fast_Data"C)
+        CALL C_F_PROCPOINTER(proc,EXCHANGE_DATA)
+        proc=GetProcAddress(module_handle,"Running_Fast_Update"C)
+        CALL C_F_PROCPOINTER(proc,UPDATE_SEAFEM)
+         proc=GetProcAddress(module_handle,"End_Fast_Coupling"C)
+        CALL C_F_PROCPOINTER(proc,END_TIMELOOP)
+        
         ! Determine the rotational angles from the direction-cosine matrix
         rotdisp = GetSmllRotAngs( u%SeaFEMMesh%Orientation(:,:,1), ErrStat, ErrMsg )              
               
