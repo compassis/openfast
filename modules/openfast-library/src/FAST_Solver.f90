@@ -2056,8 +2056,13 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
    LOGICAL                           , INTENT(IN   ) :: WriteThisStep             !< Will we print the WriteOutput values this step?
    
    CHARACTER(*), PARAMETER                           :: RoutineName = 'ED_SF_InputOutputSolve'
+   
+   
 
-
+   CALL SeaFEM_CalcOutput( this_time, u_SF, p_SF, OtherSt_SF, y_SF, ErrStat2, ErrMsg2 )
+          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
+   
+   
 END SUBROUTINE ED_SF_InputOutputSolve
                                   
 #endif

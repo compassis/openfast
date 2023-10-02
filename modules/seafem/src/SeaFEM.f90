@@ -14,6 +14,8 @@ MODULE SeaFEM
 
    PUBLIC :: SeaFEM_Init                           ! Initialization routine
    
+   PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs 
+   
    CONTAINS
    
    SUBROUTINE SeaFEM_Init( InitInp, u, p, OtherState, y )
@@ -76,4 +78,18 @@ MODULE SeaFEM
       
    END SUBROUTINE SeaFEM_Init
 
+   SUBROUTINE SeaFEM_CalcOutput( t, u, p, OtherState, y, ErrStat, ErrMsg )
+        ! Routine for computing outputs, used in both loose and tight coupling.
+        !..................................................................................................................................
+   
+        REAL(DbKi),                       INTENT(IN   )  :: t           ! Current simulation time in seconds
+        TYPE(SeaFEM_InputType),           INTENT(IN   )  :: u           ! Inputs at t
+        TYPE(SeaFEM_ParameterType),       INTENT(IN   )  :: p           ! Parameters
+        TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
+        TYPE(SeaFEM_OutputType),          INTENT(INOUT)  :: y           ! Outputs computed at t (Input only so that mesh con-
+        INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
+        CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
+                    
+   END SUBROUTINE SeaFEM_CalcOutput   
+   
 END MODULE SeaFEM
