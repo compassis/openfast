@@ -35,8 +35,8 @@ FUNCTION QueryGitVersion()
 #endif
 
 #ifdef GIT_VERSION_INFO
-   QueryGitVersion = GIT_VERSION_INFO
-#else
+!   QueryGitVersion = GIT_VERSION_INFO
+!#else
    QueryGitVersion = 'unversioned'
 #endif
 

@@ -37,6 +37,42 @@ MODULE SeaFEM
         
         ! Display the module information
         CALL DispNVD( SeaFEM_Ver )     
+        
+        ! Define initial system states here:
+        OtherState%T               = 0.0
+        OtherState%Out_Flag        = 1
+      
+        ! Create the input mesh to store platform motions
+        CALL MeshCreate( BlankMesh         = u%SeaFEMMesh      &
+                        ,IOS               = COMPONENT_INPUT   &
+                        ,Nnodes            = 1                 &
+                        ,ErrStat           = ErrStat2          &
+                        ,ErrMess           = ErrMsg2           &
+                        ,TranslationDisp   = .TRUE.            &
+                        ,Orientation       = .TRUE.            &
+                        ,TranslationVel    = .TRUE.            &
+                        ,RotationVel       = .TRUE.            &
+                        ,TranslationAcc    = .TRUE.            &
+                        ,RotationAcc       = .TRUE.            )
+         
+        ! Create the node on the mesh
+        CALL MeshPositionNode (u%SeaFEMMesh, 1, (/0.0_ReKi, 0.0_ReKi, 0.0_ReKi/), ErrStat2, ErrMsg2)
+     
+        ! Create the mesh element
+        CALL MeshConstructElement (u%SeaFEMMesh, ELEMENT_POINT, ErrStat2, ErrMsg2, 1)
+
+        ! Commits the mesh
+        CALL MeshCommit (u%SeaFEMMesh, ErrStat2, ErrMsg2) 
+
+        ! Creates an output mesh to store SeaFEM loads
+        CALL MeshCopy ( SrcMesh   = u%SeaFEMMesh        &
+                       ,DestMesh  = y%SeaFEMMesh        &
+                       ,CtrlCode  = MESH_SIBLING        &
+                       ,IOS       = COMPONENT_OUTPUT    &
+                       ,ErrStat   = ErrStat2            &
+                       ,ErrMess   = ErrMsg2             &
+                       ,Force     = .TRUE.              &
+                       ,Moment    = .TRUE.              )       
       
    END SUBROUTINE SeaFEM_Init
 

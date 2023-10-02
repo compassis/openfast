@@ -33218,7 +33218,7 @@ ENDIF
  END SUBROUTINE FAST_UnPackHydroDyn_Data
 
  SUBROUTINE FAST_CopySeaFEM_Data( SrcSeaFEM_DataData, DstSeaFEM_DataData, CtrlCode, ErrStat, ErrMsg )
-   TYPE(SeaFEM_Data), INTENT(IN) :: SrcSeaFEM_DataData
+   TYPE(SeaFEM_Data), INTENT(INOUT) :: SrcSeaFEM_DataData
    TYPE(SeaFEM_Data), INTENT(INOUT) :: DstSeaFEM_DataData
    INTEGER(IntKi),  INTENT(IN   ) :: CtrlCode
    INTEGER(IntKi),  INTENT(  OUT) :: ErrStat

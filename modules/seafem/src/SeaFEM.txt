@@ -31,10 +31,11 @@ typedef   ^                  ContinuousStateType           R8Ki           Unused
 typedef   ^                  DiscreteStateType             R8Ki           UnusedStates              -          -          -         "placeholder for states"        -
 #
 # Define constraint states here:                                                    
-typedef   ^                  ConstraintStateType           R8Ki           UnusedStates               -          -          -                      "placeholder for states"        -
+typedef   ^                  ConstraintStateType           R8Ki           UnusedStates               -          -          -        "placeholder for states"        -
 #
 # Define any other states, including integer or logical states here:                
-typedef   ^                  OtherStateType         INTEGER                  DummyInput        -       -      -         "placeholder for states"   -
+typedef   ^                  OtherStateType                DbKi           T                         -           -          -        "Current time of the simulation, serves to see if time has changed and update SeaFEM" seconds
+typedef   ^                  OtherStateType                INTEGER        Out_flag                  -           -          -        "Flag that informs if SeaFEM output has been closed or not"    -
 #
 # ..... Misc/Optimization variables.................................................................................................
 # Define any data that are used only for efficiency purposes (these variables are not associated with time):
@@ -50,8 +51,8 @@ typedef   ^                  ParameterType          INTEGER                  Dum
 # ..... Inputs ....................................................................................................................
 # Define inputs that are contained on the mesh here:
 #
-typedef   ^                  InputType              SiKi                     DummyInput        -       -      -  "Remove this variable if you have inputs" -
+typedef   ^                  InputType              MeshType                 SeaFEMMesh           -       -      -     "Displacements at the SeaFEM Reference Point in the inertial frame" -#
 #
 # ..... Outputs ...................................................................................................................
 # Define outputs that are contained on the mesh here:
-typedef   ^                  OutputType             ReKi                     WriteOutput       {:}     -      -  "Outputs to be written to the output file(s)"  -
+typedef   ^                  OutputType             MeshType                 SeaFEMMesh        -       -      -   "Loads at the SeaFEM Reference Point" -
