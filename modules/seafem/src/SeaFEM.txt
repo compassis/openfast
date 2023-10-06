@@ -47,6 +47,8 @@ typedef   ^                  MiscVarType            INTEGER                  Dum
 # Time step for integration of continuous states (if a fixed-step integrator is used) and update of discrete states:
 #
 typedef   ^                  ParameterType          INTEGER                  DummyInput        -       -      -  "Parameter data for the Waves2 module"  -
+typedef  ^                   ParameterType          DbKi                     TMax              -       -      - "Supplied by Driver:  The total simulation time"    seconds
+typedef  ^                   ParameterType          INTEGER                  Iterations        -       -      - "Total Number of iterations (corrections) that fast runs"    -
 #
 # ..... Inputs ....................................................................................................................
 # Define inputs that are contained on the mesh here:

@@ -77,6 +77,8 @@ IMPLICIT NONE
 ! =========  SeaFEM_ParameterType  =======
   TYPE, PUBLIC :: SeaFEM_ParameterType
     INTEGER(IntKi)  :: DummyInput      !< Parameter data for the Waves2 module [-]
+    REAL(DbKi)  :: TMax      !< Supplied by Driver:  The total simulation time [seconds]
+    INTEGER(IntKi)  :: Iterations      !< Total Number of iterations (corrections) that fast runs [-]
   END TYPE SeaFEM_ParameterType
 ! =======================
 ! =========  SeaFEM_InputType  =======
@@ -1207,6 +1209,8 @@ CONTAINS
    ErrStat = ErrID_None
    ErrMsg  = ""
     DstParamData%DummyInput = SrcParamData%DummyInput
+    DstParamData%TMax = SrcParamData%TMax
+    DstParamData%Iterations = SrcParamData%Iterations
  END SUBROUTINE SeaFEM_CopyParam
 
  SUBROUTINE SeaFEM_DestroyParam( ParamData, ErrStat, ErrMsg, DEALLOCATEpointers )
@@ -1268,6 +1272,8 @@ CONTAINS
   Db_BufSz  = 0
   Int_BufSz  = 0
       Int_BufSz  = Int_BufSz  + 1  ! DummyInput
+      Db_BufSz   = Db_BufSz   + 1  ! TMax
+      Int_BufSz  = Int_BufSz  + 1  ! Iterations
   IF ( Re_BufSz  .GT. 0 ) THEN 
      ALLOCATE( ReKiBuf(  Re_BufSz  ), STAT=ErrStat2 )
      IF (ErrStat2 /= 0) THEN 
@@ -1296,6 +1302,10 @@ CONTAINS
   Int_Xferred = 1
 
     IntKiBuf(Int_Xferred) = InData%DummyInput
+    Int_Xferred = Int_Xferred + 1
+    DbKiBuf(Db_Xferred) = InData%TMax
+    Db_Xferred = Db_Xferred + 1
+    IntKiBuf(Int_Xferred) = InData%Iterations
     Int_Xferred = Int_Xferred + 1
  END SUBROUTINE SeaFEM_PackParam
 
@@ -1326,6 +1336,10 @@ CONTAINS
   Db_Xferred  = 1
   Int_Xferred  = 1
     OutData%DummyInput = IntKiBuf(Int_Xferred)
+    Int_Xferred = Int_Xferred + 1
+    OutData%TMax = DbKiBuf(Db_Xferred)
+    Db_Xferred = Db_Xferred + 1
+    OutData%Iterations = IntKiBuf(Int_Xferred)
     Int_Xferred = Int_Xferred + 1
  END SUBROUTINE SeaFEM_UnPackParam
 

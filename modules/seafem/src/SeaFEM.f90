@@ -162,7 +162,16 @@ MODULE SeaFEM
         ! Displacements, velocities and accelerations are obteined from the input mesh (12 iterations for time step increment)
         q       = reshape((/real(u%SeaFEMMesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
         qdot    = reshape((/u%SeaFEMMesh%TranslationVel(:,1),u%SeaFEMMesh%RotationVel(:,1)/),(/6/))
-        qdotdot = reshape((/u%SeaFEMMesh%TranslationAcc(:,1),u%SeaFEMMesh%RotationAcc(:,1)/),(/6/))        
+        qdotdot = reshape((/u%SeaFEMMesh%TranslationAcc(:,1),u%SeaFEMMesh%RotationAcc(:,1)/),(/6/))   
+        
+        ! Ends SeaFEM computation
+        IF (t>=p%TMax) THEN
+            IF(OtherState%Out_flag==(1+2*p%Iterations))THEN
+                CALL END_TIMELOOP() 
+            ELSE
+                OtherState%Out_flag=OtherState%Out_Flag+1
+            END IF
+        END IF        
                 
    END SUBROUTINE SeaFEM_CalcOutput   
    
