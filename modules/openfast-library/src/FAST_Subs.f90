@@ -4649,13 +4649,14 @@ SUBROUTINE FAST_Solution0_T(Turbine, ErrStat, ErrMsg)
 
    CALL FAST_Solution0(Turbine%p_FAST, Turbine%y_FAST, Turbine%m_FAST, &
                      Turbine%ED, Turbine%BD, Turbine%SrvD, Turbine%AD14, Turbine%AD, Turbine%IfW, Turbine%ExtInfw, Turbine%SC_DX,&
-                     Turbine%SeaSt, Turbine%HD, Turbine%SD, Turbine%ExtPtfm, Turbine%MAP, Turbine%FEAM, Turbine%MD, Turbine%Orca, &
+                     Turbine%SeaSt, Turbine%HD, Turbine%SF, Turbine%SD, Turbine%ExtPtfm, Turbine%MAP, Turbine%FEAM, Turbine%MD, Turbine%Orca, &
                      Turbine%IceF, Turbine%IceD, Turbine%MeshMapData, ErrStat, ErrMsg )
 
 END SUBROUTINE FAST_Solution0_T
+#ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> Routine that calls CalcOutput for the first time of the simulation (at t=0). After the initial solve, data arrays are initialized.
-SUBROUTINE FAST_Solution0(p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, SC_DX, SeaSt, HD, SD, ExtPtfm, &
+SUBROUTINE FAST_Solution0(p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, SC_DX, SeaSt, HD, SF, SD, ExtPtfm, &
                           MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat, ErrMsg )
 
    TYPE(FAST_ParameterType), INTENT(IN   ) :: p_FAST              !< Parameters for the glue code
@@ -4672,6 +4673,7 @@ SUBROUTINE FAST_Solution0(p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, E
    TYPE(SCDataEx_Data),      INTENT(INOUT) :: SC_DX               !< Supercontroller exchange data
    TYPE(SeaState_Data),      INTENT(INOUT) :: SeaSt               !< SeaState data
    TYPE(HydroDyn_Data),      INTENT(INOUT) :: HD                  !< HydroDyn data
+   TYPE(SeaFEM_Data),        INTENT(INOUT) :: SF                  !< SeaFEM data
    TYPE(SubDyn_Data),        INTENT(INOUT) :: SD                  !< SubDyn data
    TYPE(ExtPtfm_Data),       INTENT(INOUT) :: ExtPtfm             !< ExtPtfm_MCKF data
    TYPE(MAP_Data),           INTENT(INOUT) :: MAPp                !< MAP data
@@ -4708,7 +4710,6 @@ SUBROUTINE FAST_Solution0(p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, E
       CALL SimStatus_FirstTime( m_FAST%TiLstPrn, m_FAST%PrevClockTime, m_FAST%SimStrtTime, m_FAST%UsrTime2, t_initial, p_FAST%TMax, p_FAST%TDesc )
    END IF
 
-
    ! Solve input-output relations; this section of code corresponds to Eq. (35) in Gasmi et al. (2013)
    ! This code will be specific to the underlying modules
 
@@ -4722,7 +4723,7 @@ SUBROUTINE FAST_Solution0(p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, E
    end if
    
    CALL CalcOutputs_And_SolveForInputs(  n_t_global, t_initial,  STATE_CURR, m_FAST%calcJacobian, m_FAST%NextJacCalcTime, &
-                        p_FAST, m_FAST, y_FAST%WriteThisStep, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, HD, SD, ExtPtfm, &
+                        p_FAST, m_FAST, y_FAST%WriteThisStep, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, HD, SF, SD, ExtPtfm, &
                         MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat2, ErrMsg2 )
       CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
 
@@ -4746,7 +4747,6 @@ SUBROUTINE FAST_Solution0(p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, E
 
    end if
 
-
    !...............
    ! Copy values of these initial guesses for interpolation/extrapolation and
    ! initialize predicted states for j_pc loop (use MESH_NEWCOPY here so we can use MESH_UPDATE copy later)
@@ -4760,6 +4760,7 @@ SUBROUTINE FAST_Solution0(p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, E
 
 
 END SUBROUTINE FAST_Solution0
+#endif                          
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine initializes the input and output arrays stored for extrapolation. They are initialized after the first input-output solve so that the first
 !! extrapolations are used with values from the solution, not just initial guesses. It also creates new copies of the state variables, which need to
@@ -5229,13 +5230,14 @@ SUBROUTINE FAST_Solution_T(t_initial, n_t_global, Turbine, ErrStat, ErrMsg )
 
    CALL FAST_Solution(t_initial, n_t_global, Turbine%p_FAST, Turbine%y_FAST, Turbine%m_FAST, &
                   Turbine%ED, Turbine%BD, Turbine%SrvD, Turbine%AD14, Turbine%AD, Turbine%IfW, Turbine%ExtInfw, Turbine%SC_DX, &
-                  Turbine%SeaSt, Turbine%HD, Turbine%SD, Turbine%ExtPtfm, Turbine%MAP, Turbine%FEAM, Turbine%MD, Turbine%Orca, &
+                  Turbine%SeaSt, Turbine%HD, Turbine%SF, Turbine%SD, Turbine%ExtPtfm, Turbine%MAP, Turbine%FEAM, Turbine%MD, Turbine%Orca, &
                   Turbine%IceF, Turbine%IceD, Turbine%MeshMapData, ErrStat, ErrMsg )
 
 END SUBROUTINE FAST_Solution_T
+#ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine takes data from n_t_global and gets values at n_t_global + 1
-SUBROUTINE FAST_Solution(t_initial, n_t_global, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, SC_DX, SeaSt, HD, SD, ExtPtfm, &
+SUBROUTINE FAST_Solution(t_initial, n_t_global, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, SC_DX, SeaSt, HD, SF, SD, ExtPtfm, &
                          MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat, ErrMsg )
 
    REAL(DbKi),               INTENT(IN   ) :: t_initial           !< initial time
@@ -5255,6 +5257,7 @@ SUBROUTINE FAST_Solution(t_initial, n_t_global, p_FAST, y_FAST, m_FAST, ED, BD, 
    TYPE(SCDataEx_Data),      INTENT(INOUT) :: SC_DX               !< Supercontroller Exchange data
    TYPE(SeaState_Data),      INTENT(INOUT) :: SeaSt               !< SeaState data
    TYPE(HydroDyn_Data),      INTENT(INOUT) :: HD                  !< HydroDyn data
+   TYPE(SeaFEM_Data),        INTENT(INOUT) :: SF                  !< SeaFEM data
    TYPE(SubDyn_Data),        INTENT(INOUT) :: SD                  !< SubDyn data
    TYPE(ExtPtfm_Data),       INTENT(INOUT) :: ExtPtfm             !< ExtPtfm_MCKF data
    TYPE(MAP_Data),           INTENT(INOUT) :: MAPp                !< MAP data
@@ -5364,7 +5367,7 @@ SUBROUTINE FAST_Solution(t_initial, n_t_global, p_FAST, y_FAST, m_FAST, ED, BD, 
       !END IF
 
       CALL CalcOutputs_And_SolveForInputs( n_t_global, t_global_next,  STATE_PRED, m_FAST%calcJacobian, m_FAST%NextJacCalcTime, &
-         p_FAST, m_FAST, WriteThisStep, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, HD, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat2, ErrMsg2 )
+         p_FAST, m_FAST, WriteThisStep, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, HD, SF, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat2, ErrMsg2 )
          CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
          IF (ErrStat >= AbortErrLev) RETURN
 
@@ -5610,6 +5613,7 @@ SUBROUTINE FAST_Solution(t_initial, n_t_global, p_FAST, y_FAST, m_FAST, ED, BD, 
    ENDIF
 
 END SUBROUTINE FAST_Solution
+#endif
 !----------------------------------------------------------------------------------------------------------------------------------
 ! ROUTINES TO OUTPUT WRITE DATA TO FILE AT EACH REQUSTED TIME STEP
 !----------------------------------------------------------------------------------------------------------------------------------
@@ -6872,7 +6876,7 @@ SUBROUTINE FAST_Linearize_T(t_initial, n_t_global, Turbine, ErrStat, ErrMsg)
 
             CALL CalcOutputs_And_SolveForInputs( -1,  t_global,  STATE_CURR, Turbine%m_FAST%calcJacobian, Turbine%m_FAST%NextJacCalcTime, &
                Turbine%p_FAST, Turbine%m_FAST, .false., Turbine%ED, Turbine%BD, Turbine%SrvD, Turbine%AD14, Turbine%AD, Turbine%IfW, Turbine%ExtInfw, &
-               Turbine%HD, Turbine%SD, Turbine%ExtPtfm, Turbine%MAP, Turbine%FEAM, Turbine%MD, Turbine%Orca, Turbine%IceF, Turbine%IceD, Turbine%MeshMapData, ErrStat2, ErrMsg2 )
+               Turbine%HD, Turbine%SF, Turbine%SD, Turbine%ExtPtfm, Turbine%MAP, Turbine%FEAM, Turbine%MD, Turbine%Orca, Turbine%IceF, Turbine%IceD, Turbine%MeshMapData, ErrStat2, ErrMsg2 )
                CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
                IF (ErrStat >= AbortErrLev) RETURN
 
@@ -7863,17 +7867,17 @@ SUBROUTINE FAST_RestoreForVTKModeShape_Tary(t_initial, Turbine, InputFileName, E
 
       CALL FAST_RestoreForVTKModeShape_T(t_initial, Turbine(i_turb)%p_FAST, Turbine(i_turb)%y_FAST, Turbine(i_turb)%m_FAST, &
                   Turbine(i_turb)%ED, Turbine(i_turb)%BD, Turbine(i_turb)%SrvD, Turbine(i_turb)%AD14, Turbine(i_turb)%AD, Turbine(i_turb)%IfW, Turbine(i_turb)%ExtInfw, &
-                  Turbine(i_turb)%SeaSt, Turbine(i_turb)%HD, Turbine(i_turb)%SD, Turbine(i_turb)%ExtPtfm, Turbine(i_turb)%MAP, Turbine(i_turb)%FEAM, Turbine(i_turb)%MD, Turbine(i_turb)%Orca, &
+                  Turbine(i_turb)%SeaSt, Turbine(i_turb)%HD, Turbine(i_turb)%SF, Turbine(i_turb)%SD, Turbine(i_turb)%ExtPtfm, Turbine(i_turb)%MAP, Turbine(i_turb)%FEAM, Turbine(i_turb)%MD, Turbine(i_turb)%Orca, &
                   Turbine(i_turb)%IceF, Turbine(i_turb)%IceD, Turbine(i_turb)%MeshMapData, trim(InputFileName), ErrStat2, ErrMsg2 )
       CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
    END DO
 
 
 END SUBROUTINE FAST_RestoreForVTKModeShape_Tary
-
+#ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine calculates the motions generated by mode shapes and outputs VTK data for it
-SUBROUTINE FAST_RestoreForVTKModeShape_T(t_initial, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, SeaSt, HD, SD, ExtPtfm, &
+SUBROUTINE FAST_RestoreForVTKModeShape_T(t_initial, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD14, AD, IfW, ExtInfw, SeaSt, HD, SF, SD, ExtPtfm, &
                          MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, InputFileName, ErrStat, ErrMsg )
 
    REAL(DbKi),               INTENT(IN   ) :: t_initial           !< initial time
@@ -7891,6 +7895,7 @@ SUBROUTINE FAST_RestoreForVTKModeShape_T(t_initial, p_FAST, y_FAST, m_FAST, ED, 
    TYPE(ExternalInflow_Data),INTENT(INOUT) :: ExtInfw             !< ExternalInflow data
    TYPE(SeaState_Data),      INTENT(INOUT) :: SeaSt               !< SeaState data
    TYPE(HydroDyn_Data),      INTENT(INOUT) :: HD                  !< HydroDyn data
+   TYPE(SeaFEM_Data),        INTENT(INOUT) :: SF                  !< SeaFEM data
    TYPE(SubDyn_Data),        INTENT(INOUT) :: SD                  !< SubDyn data
    TYPE(ExtPtfm_Data),       INTENT(INOUT) :: ExtPtfm             !< ExtPtfm_MCKF data
    TYPE(MAP_Data),           INTENT(INOUT) :: MAPp                !< MAP data
@@ -7991,7 +7996,7 @@ SUBROUTINE FAST_RestoreForVTKModeShape_T(t_initial, p_FAST, y_FAST, m_FAST, ED, 
                IF (ErrStat >= AbortErrLev) RETURN
 
             CALL CalcOutputs_And_SolveForInputs( -1,  m_FAST%Lin%LinTimes(iLinTime),  STATE_CURR, m_FAST%calcJacobian, m_FAST%NextJacCalcTime, &
-               p_FAST, m_FAST, .true., ED, BD, SrvD, AD14, AD, IfW, ExtInfw, HD, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat2, ErrMsg2 )
+               p_FAST, m_FAST, .true., ED, BD, SrvD, AD14, AD, IfW, ExtInfw, HD, SF, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat2, ErrMsg2 )
                CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
                IF (ErrStat >= AbortErrLev) RETURN
 
@@ -8023,7 +8028,7 @@ SUBROUTINE FAST_RestoreForVTKModeShape_T(t_initial, p_FAST, y_FAST, m_FAST, ED, 
                   IF (ErrStat >= AbortErrLev) RETURN
 
                CALL CalcOutputs_And_SolveForInputs( -1, m_FAST%Lin%LinTimes(iLinTime),  STATE_CURR, m_FAST%calcJacobian, m_FAST%NextJacCalcTime, &
-                  p_FAST, m_FAST, .true., ED, BD, SrvD, AD14, AD, IfW, ExtInfw, HD, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat2, ErrMsg2 )
+                  p_FAST, m_FAST, .true., ED, BD, SrvD, AD14, AD, IfW, ExtInfw, HD, SF, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat2, ErrMsg2 )
                   CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
                   IF (ErrStat >= AbortErrLev) RETURN
 
@@ -8035,11 +8040,9 @@ SUBROUTINE FAST_RestoreForVTKModeShape_T(t_initial, p_FAST, y_FAST, m_FAST, ED, 
       end select ! VTKLinTim=1 or 2
 
    end do ! iMode
-
-
-
-
+   
 END SUBROUTINE FAST_RestoreForVTKModeShape_T
+#endif
 !----------------------------------------------------------------------------------------------------------------------------------
 SUBROUTINE GetTimeConstants(DampedFreq_Hz, VTK_fps, VTKLinTim, nt, dt, VTK_tWidth)
    REAL(R8Ki),     INTENT(IN   ) :: DampedFreq_Hz

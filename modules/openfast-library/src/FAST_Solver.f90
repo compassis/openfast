@@ -19,6 +19,7 @@
 ! See the License for the specific language governing permissions and
 ! limitations under the License.
 !**********************************************************************************************************************************
+#define SeaFEM_active
 !> This module contains the routines used by FAST to solve input-output equations and to advance states.
 MODULE FAST_Solver
 
@@ -1229,8 +1230,8 @@ SUBROUTINE Transfer_PlatformMotion_to_SF( PlatformMotion, u_SF, MeshMapData, Err
    ! This is for case of rigid substructure
    
    ! Transfer the ED outputs of the platform motions to the HD input of which represents the same data
-   CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
-         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg,RoutineName//' (u_SF%SeaFEMMesh)' )
+ !  CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
+    !     CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg,RoutineName//' (u_SF%SeaFEMMesh)' )
    
 END SUBROUTINE Transfer_PlatformMotion_to_SF
 #endif
@@ -1261,16 +1262,18 @@ SUBROUTINE Transfer_SrvD_to_SD_MD( p_FAST, y_SrvD, u_SD, u_MD )
       endif
    ENDIF
 END SUBROUTINE Transfer_SrvD_to_SD_MD
+#ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine transfers the ED outputs into inputs required for HD, SD, ExtPtfm, BD, MAP, and/or FEAM
 !> Note that this also calls SD_CalcOutput if SubDyn and HydroDyn are both used.
-SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED, u_HD, SD, u_ExtPtfm, u_MAP, u_FEAM, u_MD, u_Orca, u_BD, u_SrvD, MeshMapData, ErrStat, ErrMsg )
+SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED, u_HD, u_SF, SD, u_ExtPtfm, u_MAP, u_FEAM, u_MD, u_Orca, u_BD, u_SrvD, MeshMapData, ErrStat, ErrMsg )
 !..................................................................................................................................
    REAL(DbKi)                 , intent(in   ) :: this_time                    !< The current simulation time (actual or time of prediction)
    INTEGER(IntKi)             , intent(in   ) :: this_state                   !< Index into the state array (current or predicted states)
    TYPE(FAST_ParameterType),    INTENT(IN)    :: p_FAST                       !< Glue-code simulation parameters
    TYPE(ED_OutputType),TARGET,  INTENT(IN   ) :: y_ED                         !< The outputs of the structural dynamics module
    TYPE(HydroDyn_InputType),    INTENT(INOUT) :: u_HD                         !< HydroDyn input
+   TYPE(SeaFEM_InputType),      INTENT(INOUT) :: u_SF                         !< SeaFEM input
    TYPE(SubDyn_Data), TARGET,   INTENT(INOUT) :: SD                           !< SubDyn data (all data transferred so we can call SD_CalcOutput if necessary)
    TYPE(ExtPtfm_InputType),     INTENT(INOUT) :: u_ExtPtfm                    !< ExtPtfm_MCKF input
    TYPE(MAP_InputType),         INTENT(INOUT) :: u_MAP                        !< MAP input
@@ -1338,6 +1341,13 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
       !END IF ! don't transfer for SubDyn unless we have called SD_CalcOutput
             
    END IF
+   
+   IF ( p_FAST%CompSeaFEM == 1 ) THEN
+   
+!      CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg, RoutineName//' (u_SF%SeaFEMMesh)' )
+                     
+   END IF
 
    ! if we don't have a call to SD_CalcOutput, we need to check that p_FAST%CompSub /= Module_SD before this:
  ! IF (p_FAST%CompSub /= Module_SD) THEN
@@ -1370,8 +1380,7 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
       END IF
       
   !END IF ! don't transfer for SubDyn unless we have called SD_CalcOutput
-   
-
+  
    IF ( p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) THEN
       ! map ED root and hub motion outputs to BeamDyn:
       CALL Transfer_ED_to_BD(y_ED, u_BD, MeshMapData, ErrStat2, ErrMsg2 )
@@ -1379,9 +1388,8 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
          
    END IF
 
-
 END SUBROUTINE Transfer_Structure_to_Opt1Inputs
-
+#endif
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine sets the inputs required for IceFloe.
 SUBROUTINE IceFloe_InputSolve( u_IceF, SubstructureMotionMesh, MeshMapData, ErrStat, ErrMsg )
@@ -2124,10 +2132,6 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
    ErrStat = ErrID_None
    ErrMsg  = ""
    
-   !Variable used for SeaFEM to point that the Jacobian is being computed. Used to update the velocities and positions.
-    OtherSt_SF%calcJacobian=calcJacobian
-    OtherSt_SF%flag_SeaFEM=0
-
    ! note this routine should be called only
    ! IF ( p_FAST%CompHydro == Module_HD .AND. p_FAST%CompSub == Module_None .and. p_FAST%CompElast /= Module_BD ) 
                            
@@ -2213,7 +2217,7 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                CALL ED_CopyInput(  u_ED, u_ED_perturb, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )            
                u_perturb = u            
-               CALL Perturb_u( i, u_perturb, u_ED_perturb=u_ED_perturb, perturb=ThisPerturb ) ! perturb u and u_ED by ThisPerturb [routine sets ThisPerturb]
+           !    CALL Perturb_u( i, u_perturb, u_ED_perturb=u_ED_perturb, perturb=ThisPerturb ) ! perturb u and u_ED by ThisPerturb [routine sets ThisPerturb]
                   
                ! calculate outputs with perturbed inputs:
                CALL ED_CalcOutput( this_time, u_ED_perturb, p_ED, x_ED, xd_ED, z_ED, OtherSt_ED, y_ED_perturb, m_ED, ErrStat2, ErrMsg2 ) !calculate y_ED_perturb
@@ -2240,7 +2244,7 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                CALL ED_CopyOutput( y_ED_input, y_ED_perturb, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )         
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )                                   
                u_perturb = u            
-               CALL Perturb_u( i, u_perturb, y_ED_perturb=y_ED_perturb, perturb=ThisPerturb ) ! perturb u and y_ED by ThisPerturb [routine sets ThisPerturb]                                
+        !       CALL Perturb_u( i, u_perturb, y_ED_perturb=y_ED_perturb, perturb=ThisPerturb ) ! perturb u and y_ED by ThisPerturb [routine sets ThisPerturb]                                
                CALL Transfer_PlatformMotion_to_SF( y_ED_perturb%PlatformPtMesh, u_SF_perturb, MeshMapData, ErrStat2, ErrMsg2 ) ! get u_HD_perturb
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
                
@@ -2304,7 +2308,7 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
               
       CALL CleanUp()
       
-CONTAINS
+   CONTAINS
    !...............................................................................................................................
    SUBROUTINE U_ED_SF_Residual( y_ED2, y_SF2, u_IN, U_Resid)
    !...............................................................................................................................
@@ -5170,13 +5174,14 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, M
 
       
 END SUBROUTINE InitModuleMappings
+#ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This subroutine solves the input-output relations for all of the modules. It is a subroutine because it gets done twice--
 !! once at the start of the n_t_global loop and once in the j_pc loop, using different states.
 !! *** Note that modules that do not have direct feedthrough should be called first. ***
 SUBROUTINE CalcOutputs_And_SolveForInputs( n_t_global, this_time, this_state, calcJacobian, NextJacCalcTime, &
                p_FAST, m_FAST, WriteThisStep, ED, BD, &
-               SrvD, AD14, AD, IfW, ExtInfw, HD, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat, ErrMsg )
+               SrvD, AD14, AD, IfW, ExtInfw, HD, SF, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat, ErrMsg )
    REAL(DbKi)              , intent(in   ) :: this_time           !< The current simulation time (actual or time of prediction)
    INTEGER(IntKi)          , intent(in   ) :: this_state          !< Index into the state array (current or predicted states)
    INTEGER(IntKi)          , intent(in   ) :: n_t_global          !< current time step (used only for SrvD hack)
@@ -5195,6 +5200,7 @@ SUBROUTINE CalcOutputs_And_SolveForInputs( n_t_global, this_time, this_state, ca
    TYPE(InflowWind_Data),    INTENT(INOUT) :: IfW                 !< InflowWind data
    TYPE(ExternalInflow_Data),INTENT(INOUT) :: ExtInfw             !< ExternalInflow data
    TYPE(HydroDyn_Data),      INTENT(INOUT) :: HD                  !< HydroDyn data
+   TYPE(SeaFEM_Data),        INTENT(INOUT) :: SF                  !< SeaFEM data
    TYPE(SubDyn_Data),        INTENT(INOUT) :: SD                  !< SubDyn data
    TYPE(ExtPtfm_Data),       INTENT(INOUT) :: ExtPtfm             !< ExtPtfm data
    TYPE(MAP_Data),           INTENT(INOUT) :: MAPp                !< MAP data
@@ -5274,14 +5280,14 @@ SUBROUTINE CalcOutputs_And_SolveForInputs( n_t_global, this_time, this_state, ca
 
       !> transfer ED outputs to other modules used in option 1 (because we've already computed ED_CalcOutput in SolveOption2):
       !> Note that this also calls SD_CalcOutput if SubDyn and HydroDyn are both used.
-   CALL Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, ED%y, HD%Input(1), SD, ExtPtfm%Input(1), &
+   CALL Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, ED%y, HD%Input(1), SF%Input(1), SD, ExtPtfm%Input(1), &
                                          MAPp%Input(1), FEAM%Input(1), MD%Input(1), &
                                          Orca%Input(1), BD%Input(1,:), SrvD%Input(1), MeshMapData, ErrStat2, ErrMsg2 )         
       CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )                                     
       
    
       !> Solve option 1 (rigorous solve on loads/accelerations)
-   CALL SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, SrvD, AD, MeshMapData, ErrStat2, ErrMsg2, WriteThisStep)
+   CALL SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD, SF, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, SrvD, AD, MeshMapData, ErrStat2, ErrMsg2, WriteThisStep)
       CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
 
       
@@ -5341,10 +5347,12 @@ SUBROUTINE CalcOutputs_And_SolveForInputs( n_t_global, this_time, this_state, ca
          
                         
 END SUBROUTINE CalcOutputs_And_SolveForInputs
+#endif
+#ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine implements the "option 1" solve for all inputs with direct links to HD, SD, ExtPtfm, MAP, OrcaFlex interface, and the ED 
 !! platform reference point. Also in solve option 1 are the BD-ED blade root coupling.
-SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, SrvD, AD, MeshMapData, ErrStat, ErrMsg, WriteThisStep )
+SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD, SF, SD, ExtPtfm, MAPp, FEAM, MD, Orca, IceF, IceD, SrvD, AD, MeshMapData, ErrStat, ErrMsg, WriteThisStep )
 !...............................................................................................................................
    REAL(DbKi)              ,         intent(in   ) :: this_time           !< The current simulation time (actual or time of prediction)
    INTEGER(IntKi)          ,         intent(in   ) :: this_state          !< Index into the state array (current or predicted states)
@@ -5355,6 +5363,7 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
    TYPE(ServoDyn_Data),              INTENT(INOUT) :: SrvD                !< ServoDyn data
    TYPE(AeroDyn_Data),               INTENT(INOUT) :: AD                  !< AeroDyn data
    TYPE(HydroDyn_Data),              INTENT(INOUT) :: HD                  !< HydroDyn data
+   TYPE(SeaFEM_Data),                INTENT(INOUT) :: SF                  !< SeaFEM data
    TYPE(SubDyn_Data),    TARGET,     INTENT(INOUT) :: SD                  !< SubDyn data
    TYPE(ExtPtfm_Data),               INTENT(INOUT) :: ExtPtfm             !< ExtPtfm data
    TYPE(MAP_Data),                   INTENT(INOUT) :: MAPp                !< MAP data
@@ -5548,6 +5557,7 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
 #endif         
                   
 END SUBROUTINE SolveOption1
+#endif
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine implements the first part of the "option 2" solve for inputs that apply to BeamDyn and AeroDyn 
 SUBROUTINE SolveOption2a_Inp2BD(this_time, this_state, p_FAST, m_FAST, ED, BD, AD, SrvD, IfW, ExtInfw, MeshMapData, ErrStat, ErrMsg, WriteThisStep)
