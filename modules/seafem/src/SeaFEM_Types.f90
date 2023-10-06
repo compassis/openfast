@@ -67,6 +67,8 @@ IMPLICIT NONE
   TYPE, PUBLIC :: SeaFEM_OtherStateType
     REAL(DbKi)  :: T      !< Current time of the simulation, serves to see if time has changed and update SeaFEM [seconds]
     INTEGER(IntKi)  :: Out_flag      !< Flag that informs if SeaFEM output has been closed or not [-]
+    LOGICAL  :: CalcJacobian      !< Flag that informs if the jacobian is being computed [-]
+    INTEGER(IntKi)  :: flag_SeaFEM      !< Flag that informs to seaFEM if we are in the predictor, the perturbations or the corrector [-]
   END TYPE SeaFEM_OtherStateType
 ! =======================
 ! =========  SeaFEM_MiscVarType  =======
@@ -930,6 +932,8 @@ CONTAINS
    ErrMsg  = ""
     DstOtherStateData%T = SrcOtherStateData%T
     DstOtherStateData%Out_flag = SrcOtherStateData%Out_flag
+    DstOtherStateData%CalcJacobian = SrcOtherStateData%CalcJacobian
+    DstOtherStateData%flag_SeaFEM = SrcOtherStateData%flag_SeaFEM
  END SUBROUTINE SeaFEM_CopyOtherState
 
  SUBROUTINE SeaFEM_DestroyOtherState( OtherStateData, ErrStat, ErrMsg, DEALLOCATEpointers )
@@ -992,6 +996,8 @@ CONTAINS
   Int_BufSz  = 0
       Db_BufSz   = Db_BufSz   + 1  ! T
       Int_BufSz  = Int_BufSz  + 1  ! Out_flag
+      Int_BufSz  = Int_BufSz  + 1  ! CalcJacobian
+      Int_BufSz  = Int_BufSz  + 1  ! flag_SeaFEM
   IF ( Re_BufSz  .GT. 0 ) THEN 
      ALLOCATE( ReKiBuf(  Re_BufSz  ), STAT=ErrStat2 )
      IF (ErrStat2 /= 0) THEN 
@@ -1022,6 +1028,10 @@ CONTAINS
     DbKiBuf(Db_Xferred) = InData%T
     Db_Xferred = Db_Xferred + 1
     IntKiBuf(Int_Xferred) = InData%Out_flag
+    Int_Xferred = Int_Xferred + 1
+    IntKiBuf(Int_Xferred) = TRANSFER(InData%CalcJacobian, IntKiBuf(1))
+    Int_Xferred = Int_Xferred + 1
+    IntKiBuf(Int_Xferred) = InData%flag_SeaFEM
     Int_Xferred = Int_Xferred + 1
  END SUBROUTINE SeaFEM_PackOtherState
 
@@ -1054,6 +1064,10 @@ CONTAINS
     OutData%T = DbKiBuf(Db_Xferred)
     Db_Xferred = Db_Xferred + 1
     OutData%Out_flag = IntKiBuf(Int_Xferred)
+    Int_Xferred = Int_Xferred + 1
+    OutData%CalcJacobian = TRANSFER(IntKiBuf(Int_Xferred), OutData%CalcJacobian)
+    Int_Xferred = Int_Xferred + 1
+    OutData%flag_SeaFEM = IntKiBuf(Int_Xferred)
     Int_Xferred = Int_Xferred + 1
  END SUBROUTINE SeaFEM_UnPackOtherState
 

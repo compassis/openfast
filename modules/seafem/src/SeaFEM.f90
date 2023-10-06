@@ -146,7 +146,9 @@ MODULE SeaFEM
         ! Local variables
         REAL(ReKi)                           :: q(6), qdot(6), qdotdot(6)    ! Platform motions
         REAL(ReKi)                           :: rotdisp(3)                   ! Small angle rotational displacements
- 
+        REAL(ReKi)                           :: SeaFEM_Return_Forces(6)      ! SeaFEM loads
+        INTEGER(IntKi)                       :: I 
+        
         ! Load exported procedures from SeaFEM
         module_handle=LoadLibrary(C_NULL_CHAR)
         proc=GetProcAddress(module_handle,"Exchange_Fast_Data"C)
@@ -173,6 +175,9 @@ MODULE SeaFEM
             OtherState%T=t
         END IF
         
+        ! Data exchange between SeaFEM and OpenFAST (motions sent and loads received) 
+        CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,OtherState%flag_SeaFEM)
+        
         ! Ends SeaFEM computation
         IF (t>=p%TMax) THEN
             IF(OtherState%Out_flag==(1+2*p%Iterations))THEN
@@ -180,7 +185,17 @@ MODULE SeaFEM
             ELSE
                 OtherState%Out_flag=OtherState%Out_Flag+1
             END IF
-        END IF        
+        END IF       
+        
+        ! SeaFEM loads are stored in the output mesh
+        DO I=1,3
+            y%SeaFEMMesh%Force(I,1)=SeaFEM_Return_Forces(I)
+            ! WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I,"] = ",SeaFEM_Return_Forces(I)
+        END DO
+        DO I=1,3
+            y%SeaFEMMesh%Moment(I,1)=SeaFEM_Return_Forces(I+3)
+            ! WRITE(*,'(A,I1,A,E)') "Returned Forces Value SF[",I+3,"] = ",SeaFEM_Return_Forces(I+3)
+        END DO
                 
    END SUBROUTINE SeaFEM_CalcOutput   
    

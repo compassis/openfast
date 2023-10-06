@@ -36,6 +36,8 @@ typedef   ^                  ConstraintStateType           R8Ki           Unused
 # Define any other states, including integer or logical states here:                
 typedef   ^                  OtherStateType                DbKi           T                         -           -          -        "Current time of the simulation, serves to see if time has changed and update SeaFEM" seconds
 typedef   ^                  OtherStateType                INTEGER        Out_flag                  -           -          -        "Flag that informs if SeaFEM output has been closed or not"    -
+typedef   ^                  OtherStateType                LOGICAL        CalcJacobian              -           -          -        "Flag that informs if the jacobian is being computed"    -
+typedef   ^                  OtherStateType                INTEGER        flag_SeaFEM               -           -          -        "Flag that informs to seaFEM if we are in the predictor, the perturbations or the corrector"    -
 #
 # ..... Misc/Optimization variables.................................................................................................
 # Define any data that are used only for efficiency purposes (these variables are not associated with time):

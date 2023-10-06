@@ -2132,6 +2132,10 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
    ErrStat = ErrID_None
    ErrMsg  = ""
    
+    !Variable used for SeaFEM to point that the Jacobian is being computed. Used to update the velocities and positions.
+    OtherSt_SF%calcJacobian=calcJacobian
+    OtherSt_SF%flag_SeaFEM=0
+   
    ! note this routine should be called only
    ! IF ( p_FAST%CompHydro == Module_HD .AND. p_FAST%CompSub == Module_None .and. p_FAST%CompElast /= Module_BD ) 
                            
@@ -2207,6 +2211,10 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
             END IF   
          
          IF ( calcJacobian ) THEN
+             
+            IF ( u_SF%SeaFEMMesh%Committed ) THEN
+                OtherSt_SF%flag_SeaFEM=1
+            END IF
                         
             !...............................
             ! Get ElastoDyn's contribution:
@@ -2272,6 +2280,11 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                   RETURN 
                END IF               
          END IF      
+         
+        !Inform SeaFEM that now the correct step will come!!
+        IF ( u_SF%SeaFEMMesh%Committed ) THEN
+            OtherSt_SF%flag_SeaFEM=0
+        END IF 
             
          !-------------------------------------------------------------------------------------------------
          ! Solve for delta u: Jac*u_delta = - Fn_U_Resid
