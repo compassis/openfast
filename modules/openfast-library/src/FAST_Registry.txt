@@ -652,6 +652,8 @@ typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_BD_P_Hub	{:}	-	-	"ElastoDyn hub 
 # ED/SD <-> HD
 typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_HD_PRP_P	-	-	-	"Map ElastoDyn PlatformPtMesh to HydroDyn platform reference Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	SubStructure_2_HD_W_P	-	-	-	"Map ElastoDyn PlatformPtMesh or SubDyn y2Mesh to HydroDyn WAMIT Point"
+typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_SF_PRP_P	-	-	-	"Map ElastoDyn PlatformPtMesh to SeaFEM platform reference Point"
+typedef	^	FAST_ModuleMapType	MeshMapType	SubStructure_2_SF_W_P	-	-	-	"Map ElastoDyn PlatformPtMesh or SubDyn y2Mesh to SeaFEM Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	HD_W_P_2_SubStructure	-	-	-	"Map HydroDyn WAMIT Point from y%WAMITMesh to ElastoDyn PlatformPtMesh or SD LMesh"
 typedef	^	FAST_ModuleMapType	MeshMapType	SubStructure_2_HD_M_P	-	-	-	"Map ElastoDyn PlatformPtMesh or SubDyn y2Mesh to HydroDyn Morison Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	HD_M_P_2_SubStructure	-	-	-	"Map HydroDyn Morison Point to ElastoDyn PlatformPtMesh or SD LMesh"

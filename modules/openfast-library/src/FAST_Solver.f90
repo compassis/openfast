@@ -1230,8 +1230,8 @@ SUBROUTINE Transfer_PlatformMotion_to_SF( PlatformMotion, u_SF, MeshMapData, Err
    ! This is for case of rigid substructure
    
    ! Transfer the ED outputs of the platform motions to the HD input of which represents the same data
- !  CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
-    !     CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg,RoutineName//' (u_SF%SeaFEMMesh)' )
+   CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg,RoutineName//' (u_SF%SeaFEMMesh)' )
    
 END SUBROUTINE Transfer_PlatformMotion_to_SF
 #endif
@@ -1344,7 +1344,7 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
    
    IF ( p_FAST%CompSeaFEM == 1 ) THEN
    
-!      CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
+      CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg, RoutineName//' (u_SF%SeaFEMMesh)' )
                      
    END IF
@@ -2193,8 +2193,7 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
             RETURN
          END IF
       
-         IF ( K >= p_FAST%KMax ) EXIT
-         
+         IF ( K >= p_FAST%KMax ) EXIT 
                                                             
          !-------------------------------------------------------------------------------------------------
          ! Calculate Jacobian: partial U/partial u:
@@ -4514,9 +4513,10 @@ SUBROUTINE ResetRemapFlags(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, MAPp
    END IF
       
 END SUBROUTINE ResetRemapFlags  
+#ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine initializes all of the mapping data structures needed between the various modules.
-SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat, ErrMsg)
+SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, SrvD, MAPp, FEAM, MD, Orca, IceF, IceD, MeshMapData, ErrStat, ErrMsg)
 !...............................................................................................................................
    
    TYPE(FAST_ParameterType),   INTENT(INOUT) :: p_FAST              !< Parameters for the glue code
@@ -4527,6 +4527,7 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, M
    TYPE(AeroDyn_Data),         INTENT(INOUT) :: AD                  !< AeroDyn data
    TYPE(AeroDyn14_Data),       INTENT(INOUT) :: AD14                !< AeroDyn14 data
    TYPE(HydroDyn_Data),        INTENT(INOUT) :: HD                  !< HydroDyn data
+   TYPE(SeaFEM_Data),          INTENT(INOUT) :: SF                  !< SeaFEM data
    TYPE(SubDyn_Data),  TARGET, INTENT(INOUT) :: SD                  !< SubDyn data
    TYPE(ExtPtfm_Data),         INTENT(INOUT) :: ExtPtfm             !< ExtPtfm data
    TYPE(MAP_Data),             INTENT(INOUT) :: MAPp                !< MAP data
@@ -4965,6 +4966,16 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, M
     
    END IF !HydroDyn-{ElastoDyn or SubDyn}
 
+      IF ( p_FAST%CompSeaFEM == 1 ) THEN ! SeaFEM-{ElastoDyn or SubDyn}
+    
+      ! Regardless of the offshore configuration, ED platform motions will be mapped to the PRPMesh of HD
+      ! we're just going to assume PlatformLoads and PlatformMotion are committed
+      CALL MeshMapCreate( PlatformMotion, SF%Input(1)%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':ED_P_2_SF_PRP_P' )
+               
+      IF (ErrStat >= AbortErrLev ) RETURN
+    
+   END IF !SeaFEM-{ElastoDyn or SubDyn}
       
 !-------------------------
 !  ElastoDyn <-> SubDyn
@@ -5203,13 +5214,11 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SD, ExtPtfm, SrvD, M
       ENDIF
 
    END IF
-   
-   
+ 
+!............................................................................................................................
 
-   !............................................................................................................................
-
-      
 END SUBROUTINE InitModuleMappings
+#endif
 #ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This subroutine solves the input-output relations for all of the modules. It is a subroutine because it gets done twice--
