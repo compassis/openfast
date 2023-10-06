@@ -926,8 +926,18 @@ SUBROUTINE FAST_InitializeAll( t_initial, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, 
          RETURN
       END IF
    END IF   ! CompHydro
-
+ 
 #ifdef SeaFEM_active
+    ! ........................
+    ! initialize SeaFEM
+    ! ........................
+   ALLOCATE( SF%Input( p_FAST%InterpOrder+1 ), SF%InputTimes( p_FAST%InterpOrder+1 ), STAT = ErrStat2 )
+    IF (ErrStat2 /= 0) THEN
+        CALL SetErrStat(ErrID_Fatal,"Error allocating SF%Input and SF%InputTimes.",ErrStat,ErrMsg,RoutineName)
+        CALL Cleanup()
+        RETURN
+    END IF
+    
    IF ( p_FAST%CompSeaFEM == 1 ) THEN
       CALL SeaFEM_Init( Init%InData_SF, SF%Input(1), SF%p, SF%OtherSt(STATE_CURR), SF%y )
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName)
