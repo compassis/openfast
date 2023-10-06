@@ -2217,7 +2217,7 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                CALL ED_CopyInput(  u_ED, u_ED_perturb, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )            
                u_perturb = u            
-           !    CALL Perturb_u( i, u_perturb, u_ED_perturb=u_ED_perturb, perturb=ThisPerturb ) ! perturb u and u_ED by ThisPerturb [routine sets ThisPerturb]
+               CALL Perturb_u( i, u_perturb, u_ED_perturb=u_ED_perturb, perturb=ThisPerturb ) ! perturb u and u_ED by ThisPerturb [routine sets ThisPerturb]
                   
                ! calculate outputs with perturbed inputs:
                CALL ED_CalcOutput( this_time, u_ED_perturb, p_ED, x_ED, xd_ED, z_ED, OtherSt_ED, y_ED_perturb, m_ED, ErrStat2, ErrMsg2 ) !calculate y_ED_perturb
@@ -2244,7 +2244,7 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                CALL ED_CopyOutput( y_ED_input, y_ED_perturb, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )         
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )                                   
                u_perturb = u            
-        !       CALL Perturb_u( i, u_perturb, y_ED_perturb=y_ED_perturb, perturb=ThisPerturb ) ! perturb u and y_ED by ThisPerturb [routine sets ThisPerturb]                                
+               CALL Perturb_u( i, u_perturb, y_ED_perturb=y_ED_perturb, perturb=ThisPerturb ) ! perturb u and y_ED by ThisPerturb [routine sets ThisPerturb]                                
                CALL Transfer_PlatformMotion_to_SF( y_ED_perturb%PlatformPtMesh, u_SF_perturb, MeshMapData, ErrStat2, ErrMsg2 ) ! get u_HD_perturb
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
                
@@ -2308,7 +2308,43 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
               
       CALL CleanUp()
       
-   CONTAINS
+ CONTAINS
+   !...............................................................................................................................
+   SUBROUTINE Perturb_u( n, u_perturb, u_ED_perturb, y_ED_perturb, perturb )
+   ! This routine perturbs the nth element of the u array (and ED input/output it corresponds to)
+   !...............................................................................................................................
+!   REAL( ReKi ),                       INTENT(IN)    :: this_U(NumInputs)
+   INTEGER( IntKi )                  , INTENT(IN   ) :: n
+   REAL( ReKi )                      , INTENT(INOUT) :: u_perturb(numInputs)
+   TYPE(ED_InputType) , OPTIONAL     , INTENT(INOUT) :: u_ED_perturb           ! System inputs   (needed only when 1 <= n <=  6)
+   TYPE(ED_OutputType), OPTIONAL     , INTENT(INOUT) :: y_ED_perturb           ! System outputs  (needed only when 7 <= n <= 12)
+   REAL( ReKi )                      , INTENT(  OUT) :: perturb
+   
+   if ( n <= 6 ) then ! ED u
+   
+      if ( n <= 3 ) then         
+         perturb = GetPerturb( u_ED_perturb%PlatformPtMesh%Force(n   ,1) )         
+         u_ED_perturb%PlatformPtMesh%Force(n   ,1) = u_ED_perturb%PlatformPtMesh%Force(n   ,1) + perturb * p_FAST%UJacSclFact 
+      else
+         perturb = GetPerturb( u_ED_perturb%PlatformPtMesh%Moment(n-3,1) )         
+         u_ED_perturb%PlatformPtMesh%Moment(n-3,1) = u_ED_perturb%PlatformPtMesh%Moment(n-3,1) + perturb * p_FAST%UJacSclFact 
+      end if
+                  
+   else ! ED y = HD u
+      
+      if ( n <= 9 ) then         
+         perturb = GetPerturb( y_ED_perturb%PlatformPtMesh%TranslationAcc(n-6,1) )         
+         y_ED_perturb%PlatformPtMesh%TranslationAcc(n-6,1) = y_ED_perturb%PlatformPtMesh%TranslationAcc(n-6,1) + perturb
+      else
+         perturb = GetPerturb( y_ED_perturb%PlatformPtMesh%RotationAcc(n-9,1) )         
+         y_ED_perturb%PlatformPtMesh%RotationAcc(   n-9,1) = y_ED_perturb%PlatformPtMesh%RotationAcc(   n-9,1) + perturb
+      end if
+                  
+   end if
+           
+   u_perturb(n) = u_perturb(n) + perturb
+        
+   END SUBROUTINE Perturb_u
    !...............................................................................................................................
    SUBROUTINE U_ED_SF_Residual( y_ED2, y_SF2, u_IN, U_Resid)
    !...............................................................................................................................
