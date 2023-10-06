@@ -164,6 +164,15 @@ MODULE SeaFEM
         qdot    = reshape((/u%SeaFEMMesh%TranslationVel(:,1),u%SeaFEMMesh%RotationVel(:,1)/),(/6/))
         qdotdot = reshape((/u%SeaFEMMesh%TranslationAcc(:,1),u%SeaFEMMesh%RotationAcc(:,1)/),(/6/))   
         
+        ! Updates SeaFEMs time step
+        IF(OtherState%T==t)THEN
+        !     WRITE(*,*) "Simulation time = ",t
+        ELSE
+            CALL UPDATE_SEAFEM() 
+            ! WRITE(*,*) "Simulation time = ",t
+            OtherState%T=t
+        END IF
+        
         ! Ends SeaFEM computation
         IF (t>=p%TMax) THEN
             IF(OtherState%Out_flag==(1+2*p%Iterations))THEN
