@@ -95,7 +95,7 @@ MODULE SeaFEM
         
         ! Define initial system states here:
         OtherState%T               = 0.0
-        OtherState%Out_Flag        = 1
+        OtherState%Out_Flag        = 0
       
         ! Create the input mesh to store platform motions
         CALL MeshCreate( BlankMesh         = u%SeaFEMMesh      &

@@ -2028,15 +2028,15 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
    TYPE(ED_OutputType)               , INTENT(INOUT) :: y_ED                      !< System outputs
    TYPE(ED_MiscVarType)              , INTENT(INOUT) :: m_ED                      !< misc/optimization variables
    
-      !HydroDyn: 
-   TYPE(HydroDyn_ContinuousStateType), INTENT(IN   ) :: x_SF                      !< Continuous states
-   TYPE(HydroDyn_DiscreteStateType)  , INTENT(IN   ) :: xd_SF                     !< Discrete states
-   TYPE(HydroDyn_ConstraintStateType), INTENT(IN   ) :: z_SF                      !< Constraint states
-   TYPE(HydroDyn_OtherStateType)     , INTENT(INOUT) :: OtherSt_SF                !< Other states
-   TYPE(HydroDyn_ParameterType)      , INTENT(IN   ) :: p_SF                      !< Parameters
-   TYPE(HydroDyn_InputType)          , INTENT(INOUT) :: u_SF                      !< System inputs
-   TYPE(HydroDyn_OutputType)         , INTENT(INOUT) :: y_SF                      !< System outputs
-   TYPE(HydroDyn_MiscVarType)        , INTENT(INOUT) :: m_SF                      !< misc/optimization variables
+      !SeaFEM: 
+   TYPE(SeaFEM_ContinuousStateType), INTENT(IN   ) :: x_SF                      !< Continuous states
+   TYPE(SeaFEM_DiscreteStateType)  , INTENT(IN   ) :: xd_SF                     !< Discrete states
+   TYPE(SeaFEM_ConstraintStateType), INTENT(IN   ) :: z_SF                      !< Constraint states
+   TYPE(SeaFEM_OtherStateType)     , INTENT(INOUT) :: OtherSt_SF                !< Other states
+   TYPE(SeaFEM_ParameterType)      , INTENT(IN   ) :: p_SF                      !< Parameters
+   TYPE(SeaFEM_InputType)          , INTENT(INOUT) :: u_SF                      !< System inputs
+   TYPE(SeaFEM_OutputType)         , INTENT(INOUT) :: y_SF                      !< System outputs
+   TYPE(SeaFEM_MiscVarType)        , INTENT(INOUT) :: m_SF                      !< misc/optimization variables
 
       ! MAP/FEAM/MoorDyn:
    TYPE(MAP_OutputType),              INTENT(IN   )  :: y_MAP                     !< MAP outputs
@@ -2055,13 +2055,229 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
    CHARACTER(*)                      , INTENT(  OUT) :: ErrMsg                    !< Error message if ErrStat /= ErrID_None
    LOGICAL                           , INTENT(IN   ) :: WriteThisStep             !< Will we print the WriteOutput values this step?
    
+   ! Local variables:
+   INTEGER,                                PARAMETER :: NumInputs = SizeJac_ED_HD !12
+   REAL(ReKi),                             PARAMETER :: TOL_Squared = (1.0E-4)**2 !not currently used because KMax = 1
+   REAL(ReKi)                                        :: ThisPerturb               ! an arbitrary perturbation (these are linear, so it shouldn't matter)
+   
+   REAL(ReKi)                                        :: u(           NumInputs)   ! 6 loads, 6 accelerations
+   REAL(ReKi)                                        :: u_perturb(   NumInputs)   ! 6 loads, 6 accelerations
+   REAL(ReKi)                                        :: u_delta(     NumInputs)   !
+   REAL(ReKi)                                        :: Fn_U_perturb(NumInputs)   ! value of U with perturbations
+   REAL(ReKi)                                        :: Fn_U_Resid(  NumInputs)   ! Residual of U
+   
+                                                                                  
+   TYPE(ED_OutputType)                               :: y_ED_input                ! Copy of system outputs sent to this routine (routine input value)
+   TYPE(ED_InputType)                                :: u_ED_perturb              ! Perturbed system inputs
+   TYPE(ED_OutputType)                               :: y_ED_perturb              ! Perturbed system outputs
+   TYPE(SeaFEM_InputType)                            :: u_SF_perturb              ! Perturbed system inputs
+   TYPE(SeaFEM_OutputType)                           :: y_SF_perturb              ! Perturbed system outputs
+   
+   INTEGER(IntKi)                                    :: i                         ! loop counter (jacobian column number)
+   INTEGER(IntKi)                                    :: K                         ! Input-output-solve iteration counter   
+   INTEGER(IntKi)                                    :: ErrStat2                  ! temporary Error status of the operation
+   CHARACTER(ErrMsgLen)                              :: ErrMsg2                   ! temporary Error message if ErrStat /= ErrID_None
+   
    CHARACTER(*), PARAMETER                           :: RoutineName = 'ED_SF_InputOutputSolve'
-   
-   
+          
+#ifdef OUTPUT_ADDEDMASS   
+   REAL(ReKi)                                        :: AddedMassMatrix(6,6)
+   INTEGER                                           :: UnAM
+#endif
+#ifdef OUTPUT_JACOBIAN
+   INTEGER                                           :: UnJac
+#endif
 
-   CALL SeaFEM_CalcOutput( this_time, u_SF, p_SF, OtherSt_SF, y_SF, ErrStat2, ErrMsg2 )
-          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
+   ! Note: p_FAST%UJacSclFact is a scaling factor that gets us similar magnitudes between loads and accelerations...
+ 
+!bjj: note, that this routine may have a problem if there is remapping done
+    
+   ErrStat = ErrID_None
+   ErrMsg  = ""
    
+   !Variable used for SeaFEM to point that the Jacobian is being computed. Used to update the velocities and positions.
+    OtherSt_SF%calcJacobian=calcJacobian
+    OtherSt_SF%flag_SeaFEM=0
+
+   ! note this routine should be called only
+   ! IF ( p_FAST%CompHydro == Module_HD .AND. p_FAST%CompSub == Module_None .and. p_FAST%CompElast /= Module_BD ) 
+                           
+      !----------------------------------------------------------------------------------------------------
+      ! Some more record keeping stuff:
+      !---------------------------------------------------------------------------------------------------- 
+         
+         ! We need to know the outputs that were sent to this routine:
+      CALL ED_CopyOutput( y_ED, y_ED_input, MESH_NEWCOPY, ErrStat2, ErrMsg2)
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+         
+         ! Local copies for perturbing inputs and outputs (computing Jacobian):
+      IF ( calcJacobian ) THEN         
+         CALL ED_CopyInput(  u_ED, u_ED_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )       
+         CALL ED_CopyOutput( y_ED, y_ED_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+         CALL SeaFEM_CopyInput(  u_SF, u_SF_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+         CALL SeaFEM_CopyOutput( y_SF, y_SF_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+      END IF
+         
+      IF (ErrStat >= AbortErrLev) THEN
+         CALL CleanUp()
+         RETURN
+      END IF
+      
+      !----------------------------------------------------------------------------------------------------
+      ! set up u vector, using local initial guesses:
+      !----------------------------------------------------------------------------------------------------                      
+      
+         ! make hydrodyn inputs consistant with elastodyn outputs          
+      
+         u( 1: 3) = u_ED%PlatformPtMesh%Force(:,1) / p_FAST%UJacSclFact
+         u( 4: 6) = u_ED%PlatformPtMesh%Moment(:,1) / p_FAST%UJacSclFact  
+         u( 7: 9) = y_ED_input%PlatformPtMesh%TranslationAcc(:,1)
+         u(10:12) = y_ED_input%PlatformPtMesh%RotationAcc(:,1)
+            
+      K = 0
+      
+      DO
+         
+         !-------------------------------------------------------------------------------------------------
+         ! Calculate outputs at this_time, based on inputs at this_time
+         !-------------------------------------------------------------------------------------------------
+         
+         CALL ED_CalcOutput( this_time, u_ED, p_ED, x_ED, xd_ED, z_ED, OtherSt_ED, y_ED, m_ED, ErrStat2, ErrMsg2 )
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+                                 
+           CALL SeaFEM_CalcOutput( this_time, u_SF, p_SF, OtherSt_SF, y_SF, ErrStat2, ErrMsg2 )
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )       
+
+         IF (ErrStat >= AbortErrLev) THEN
+            CALL CleanUp()
+            RETURN
+         END IF
+      
+         IF ( K >= p_FAST%KMax ) EXIT
+         
+                                                            
+         !-------------------------------------------------------------------------------------------------
+         ! Calculate Jacobian: partial U/partial u:
+         ! (note that we don't want to change u_ED or u_HD here)
+         !-------------------------------------------------------------------------------------------------   
+         
+         IF ( calcJacobian ) THEN
+                        
+            !...............................
+            ! Get ElastoDyn's contribution:
+            !...............................
+            DO i=1,6 !call ED_CalcOutput
+                  
+               CALL ED_CopyInput(  u_ED, u_ED_perturb, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )            
+               u_perturb = u            
+               CALL Perturb_u( i, u_perturb, u_ED_perturb=u_ED_perturb, perturb=ThisPerturb ) ! perturb u and u_ED by ThisPerturb [routine sets ThisPerturb]
+                  
+               ! calculate outputs with perturbed inputs:
+               CALL ED_CalcOutput( this_time, u_ED_perturb, p_ED, x_ED, xd_ED, z_ED, OtherSt_ED, y_ED_perturb, m_ED, ErrStat2, ErrMsg2 ) !calculate y_ED_perturb
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )            
+                  
+               IF (ErrStat >= AbortErrLev) THEN
+                  CALL CleanUp()
+                  RETURN
+               END IF         
+                                   
+               MeshMapData%Jacobian_Opt1(:,i) = (Fn_U_perturb - Fn_U_Resid) / ThisPerturb
+                  
+            END DO ! ElastoDyn contribution ( columns 1-6 )
+               
+            !...............................
+            ! Get HydroDyn's contribution:
+            !...............................
+            DO i=7,12 !call HD_CalcOutput
+                  
+               ! we want to perturb u_HD, but we're going to perturb the input y_ED and transfer that to HD to get u_HD
+               CALL ED_CopyOutput( y_ED_input, y_ED_perturb, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )         
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )                                   
+               u_perturb = u            
+               CALL Perturb_u( i, u_perturb, y_ED_perturb=y_ED_perturb, perturb=ThisPerturb ) ! perturb u and y_ED by ThisPerturb [routine sets ThisPerturb]                                
+                  
+               ! calculate outputs with perturbed inputs:
+                CALL SeaFEM_CalcOutput( this_time, u_SF_perturb, p_SF, OtherSt_SF, y_SF_perturb, ErrStat2, ErrMsg2 )
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
+                  
+               MeshMapData%Jacobian_Opt1(:,i) = (Fn_U_perturb - Fn_U_Resid) / ThisPerturb
+                                                                  
+            END DO ! HydroDyn contribution ( columns 7-12 )
+                       
+               ! Get the LU decomposition of this matrix using a LAPACK routine: 
+               ! The result is of the form MeshMapDat%Jacobian_Opt1 = P * L * U 
+
+            CALL LAPACK_getrf( M=NumInputs, N=NumInputs, A=MeshMapData%Jacobian_Opt1, IPIV=MeshMapData%Jacobian_pivot, ErrStat=ErrStat2, ErrMsg=ErrMsg2 )
+               CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+            
+               IF ( ErrStat >= AbortErrLev ) THEN
+                  CALL CleanUp()
+                  RETURN 
+               END IF               
+         END IF      
+            
+         !-------------------------------------------------------------------------------------------------
+         ! Solve for delta u: Jac*u_delta = - Fn_U_Resid
+         !  using the LAPACK routine 
+         !-------------------------------------------------------------------------------------------------
+         
+         u_delta = -Fn_U_Resid
+         CALL LAPACK_getrs( TRANS='N', N=NumInputs, A=MeshMapData%Jacobian_Opt1, IPIV=MeshMapData%Jacobian_pivot, B=u_delta, &
+                            ErrStat=ErrStat2, ErrMsg=ErrMsg2 )
+               CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName ) 
+               IF ( ErrStat >= AbortErrLev ) THEN
+                  CALL CleanUp()
+                  RETURN 
+               END IF
+      
+         !-------------------------------------------------------------------------------------------------
+         ! check for error, update inputs (u_ED and u_HD), and iterate again
+         !-------------------------------------------------------------------------------------------------
+                  
+     ! !   IF ( DOT_PRODUCT(u_delta, u_delta) <= TOL_Squared ) EXIT
+         
+         u = u + u_delta
+                  
+         u_ED%PlatformPtMesh%Force( :,1)               = u_ED%PlatformPtMesh%Force( :,1)               + u_delta( 1: 3) * p_FAST%UJacSclFact 
+         u_ED%PlatformPtMesh%Moment(:,1)               = u_ED%PlatformPtMesh%Moment(:,1)               + u_delta( 4: 6) * p_FAST%UJacSclFact
+         y_ED_input%PlatformPtMesh%TranslationAcc(:,1) = y_ED_input%PlatformPtMesh%TranslationAcc(:,1) + u_delta( 7: 9)
+         y_ED_input%PlatformPtMesh%RotationAcc(   :,1) = y_ED_input%PlatformPtMesh%RotationAcc(   :,1) + u_delta(10:12)
+                  
+         
+         K = K + 1
+         
+      END DO ! K
+              
+      CALL CleanUp()
+      
+CONTAINS
+                                  
+   !...............................................................................................................................
+   SUBROUTINE CleanUp()
+      INTEGER(IntKi)             :: ErrStat3    ! The error identifier (ErrStat)
+      CHARACTER(ErrMsgLen)       :: ErrMsg3     ! The error message (ErrMsg)
+                  
+      CALL ED_DestroyOutput(y_ED_input, ErrStat3, ErrMsg3 )
+         IF (ErrStat3 /= ErrID_None) CALL WrScr(RoutineName//'/ED_DestroyOutput: '//TRIM(ErrMsg3) )
+         
+      IF ( calcJacobian ) THEN
+         CALL ED_DestroyInput( u_ED_perturb, ErrStat3, ErrMsg3 )
+            IF (ErrStat3 /= ErrID_None) CALL WrScr(RoutineName//'/ED_DestroyInput: '//TRIM(ErrMsg3) )
+         CALL ED_DestroyOutput(y_ED_perturb, ErrStat3, ErrMsg3 )
+            IF (ErrStat3 /= ErrID_None) CALL WrScr(RoutineName//'/ED_DestroyOutput: '//TRIM(ErrMsg3) )
+         
+         CALL SeaFEM_DestroyInput( u_SF_perturb, ErrStat3, ErrMsg3 )
+            IF (ErrStat3 /= ErrID_None) CALL WrScr(RoutineName//'/SeaFEM_DestroyInput: '//TRIM(ErrMsg3) )
+         CALL SeaFEM_DestroyOutput(y_SF_perturb, ErrStat3, ErrMsg3 )
+            IF (ErrStat3 /= ErrID_None) CALL WrScr(RoutineName//'/SeaFEM_DestroyOutput: '//TRIM(ErrMsg3) )
+      END IF
+      
+   END SUBROUTINE CleanUp
    
 END SUBROUTINE ED_SF_InputOutputSolve
                                   
@@ -5130,21 +5346,23 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
                         
                
    ELSEIF ( p_FAST%SolveOption == Solve_SimplifiedOpt1 ) THEN  ! No substructure model
-                                                    
+
+#ifdef SeaFEM_active       
+     IF (p_FAST%CompSeaFEM == 1) THEN
+       CALL ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
+                                    , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
+                                    , SF%Input(1), SF%p, SF%x(this_state), SF%xd(this_state), SF%z(this_state), SF%OtherSt(this_state), SF%y,  SF%m & 
+                                    , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
+                                    , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )        
+    ELSE  
       CALL ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                                     , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
                                     , HD%Input(1), HD%p, HD%x(this_state), HD%xd(this_state), HD%z(this_state), HD%OtherSt(this_state), HD%y,  HD%m & 
                                     , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
                                     , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
-         
-#ifdef SeaFEM_active
-      CALL ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
-                                    , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
-                                    , SF%Input(1), SF%p, SF%x(this_state), SF%xd(this_state), SF%z(this_state), SF%OtherSt(this_state), SF%y,  SF%m & 
-                                    , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
-                                    , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
-         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+   END IF      
 #endif
                                                                   
    END IF ! HD, BD, and/or SD coupled to ElastoDyn
