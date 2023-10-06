@@ -2165,6 +2165,12 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
          ! (note that we don't want to change u_ED or u_HD here)
          !-------------------------------------------------------------------------------------------------   
          
+        CALL U_ED_SF_Residual(y_ED, y_SF, u, Fn_U_Resid)   ! U_ED_HD_Residual checks for error
+            IF (ErrStat >= AbortErrLev) THEN
+                CALL CleanUp()
+                RETURN
+            END IF   
+         
          IF ( calcJacobian ) THEN
                         
             !...............................
@@ -2179,7 +2185,10 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                   
                ! calculate outputs with perturbed inputs:
                CALL ED_CalcOutput( this_time, u_ED_perturb, p_ED, x_ED, xd_ED, z_ED, OtherSt_ED, y_ED_perturb, m_ED, ErrStat2, ErrMsg2 ) !calculate y_ED_perturb
-                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )            
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName ) 
+                  
+               CALL U_ED_SF_Residual(y_ED_perturb, y_SF, u_perturb, Fn_U_perturb) ! get this perturbation, U_perturb
+                  IF ( ErrStat >= AbortErrLev ) RETURN ! U_ED_HD_Residual checks for error
                   
                IF (ErrStat >= AbortErrLev) THEN
                   CALL CleanUp()
@@ -2204,6 +2213,12 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                ! calculate outputs with perturbed inputs:
                 CALL SeaFEM_CalcOutput( this_time, u_SF_perturb, p_SF, OtherSt_SF, y_SF_perturb, ErrStat2, ErrMsg2 )
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
+                  
+                CALL U_ED_SF_Residual(y_ED, y_SF_perturb, u_perturb, Fn_U_perturb) ! get this perturbation  ! U_ED_HD_Residual checks for error                      
+                  IF ( ErrStat >= AbortErrLev ) THEN
+                     CALL CleanUp()
+                     RETURN 
+                  END IF
                   
                MeshMapData%Jacobian_Opt1(:,i) = (Fn_U_perturb - Fn_U_Resid) / ThisPerturb
                                                                   
@@ -2256,7 +2271,75 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
       CALL CleanUp()
       
 CONTAINS
+   !...............................................................................................................................
+   SUBROUTINE U_ED_SF_Residual( y_ED2, y_SF2, u_IN, U_Resid)
+   !...............................................................................................................................
                                   
+   TYPE(ED_OutputType), TARGET       , INTENT(IN   ) :: y_ED2                  ! System outputs
+   TYPE(SeaFEM_OutputType)           , INTENT(IN   ) :: y_SF2                  ! System outputs
+   REAL(ReKi)                        , INTENT(IN   ) :: u_in(NumInputs)
+   REAL(ReKi)                        , INTENT(  OUT) :: U_Resid(NumInputs)
+
+   integer(IntKi)                                    :: j                      ! Generic counter
+   TYPE(MeshType), POINTER                           :: SubstructureMotion
+   TYPE(MeshType), POINTER                           :: PlatformMotions
+   TYPE(MeshType), POINTER                           :: SubstructureMotion2HD
+   
+   ! SD cannot be used, so these all point to the same place. Using separate variables so they match with values in the full option 1 solve
+   PlatformMotions        => y_ED2%PlatformPtMesh 
+   SubstructureMotion     => y_ED2%PlatformPtMesh 
+   SubstructureMotion2HD  => y_ED2%PlatformPtMesh 
+
+   ! This is only called is there is no flexible substructure model (RIGID substructure)
+   
+      !   ! Transfer motions:
+
+      MeshMapData%SubstructureLoads_Tmp%Force  = 0.0_ReKi
+      MeshMapData%SubstructureLoads_Tmp%Moment = 0.0_ReKi
+        
+      ! add farm-level mooring loads if applicable  >>> note: these are fixed loads from the previous time step <<<
+      IF (p_FAST%FarmIntegration) THEN      
+         MeshMapData%SubstructureLoads_Tmp%Force  = MeshMapData%SubstructureLoads_Tmp%Force  + MeshMapData%SubstructureLoads_Tmp_Farm%Force
+         MeshMapData%SubstructureLoads_Tmp%Moment = MeshMapData%SubstructureLoads_Tmp%Moment + MeshMapData%SubstructureLoads_Tmp_Farm%Moment      
+      END IF
+
+      ! Map motions for ServodDyn Structural control (TMD) if used and forces from the TMD to the platform
+      IF ( p_FAST%CompServo == Module_SrvD .and. p_FAST%CompSub /= Module_SD ) THEN
+         call Transfer_Substructure_to_SStC( u_SrvD, SubstructureMotion, MeshMapData, ErrStat2, ErrMsg2 )
+            call SetErrStat(ErrStat2,ErrMsg2,ErrStat,ErrMsg,RoutineName//'u_SrvD%SStC%Mesh')
+            
+            ! we're mapping loads, so we also need the sibling meshes' displacements:
+          IF ( ALLOCATED(y_SrvD%SStCLoadMesh) ) THEN        ! Platform
+            do j=1,size(y_SrvD%SStCLoadMesh)
+               IF (y_SrvD%SStCLoadMesh(j)%Committed) THEN
+                  CALL Transfer_Point_to_Point( y_SrvD%SStCLoadMesh(j), MeshMapData%SubstructureLoads_Tmp2, MeshMapData%SStC_P_P_2_SubStructure(j), ErrStat2, ErrMsg2, u_SrvD%SStCMotionMesh(j), SubstructureMotion )
+                     CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg,RoutineName//':u_ED%PlatformPtMesh' )
+                  MeshMapData%SubstructureLoads_Tmp%Force  = MeshMapData%SubstructureLoads_Tmp%Force  + MeshMapData%SubstructureLoads_Tmp2%Force
+                  MeshMapData%SubstructureLoads_Tmp%Moment = MeshMapData%SubstructureLoads_Tmp%Moment + MeshMapData%SubstructureLoads_Tmp2%Moment
+               ENDIF
+            enddo
+         ENDIF
+      ENDIF
+
+      if ( y_SF2%SeaFEMMesh%Committed ) then
+
+         MeshMapData%SubstructureLoads_Tmp%Force  = y_SF2%SeaFEMMesh%Force
+         MeshMapData%SubstructureLoads_Tmp%Moment = y_SF2%SeaFEMMesh%Moment
+		 
+      end if  
+      
+   ! we use copies of the input meshes (we don't need to update values in the original data structures):            
+           
+      U_Resid( 1: 3) = u_in( 1: 3) - MeshMapData%SubstructureLoads_Tmp%Force(:,1) / p_FAST%UJacSclFact
+      U_Resid( 4: 6) = u_in( 4: 6) - MeshMapData%SubstructureLoads_Tmp%Moment(:,1) / p_FAST%UJacSclFact
+      
+      ! note that PlatformMotions is the same as SubstructureMotion and SubstructureMotion2HD in this simplified option 1 solve:
+      U_Resid( 7: 9) = u_in( 7: 9) - PlatformMotions%TranslationAcc(:,1)
+      U_Resid(10:12) = u_in(10:12) - PlatformMotions%RotationAcc(:,1)
+      
+      PlatformMotions => NULL()
+            
+   END SUBROUTINE U_ED_SF_Residual                                   
    !...............................................................................................................................
    SUBROUTINE CleanUp()
       INTEGER(IntKi)             :: ErrStat3    ! The error identifier (ErrStat)
