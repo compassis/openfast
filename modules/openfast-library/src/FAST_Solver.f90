@@ -1205,6 +1205,35 @@ SUBROUTINE Transfer_PlatformMotion_to_HD( PlatformMotion, u_HD, MeshMapData, Err
 
    
 END SUBROUTINE Transfer_PlatformMotion_to_HD
+#ifdef SeaFEM_active
+!----------------------------------------------------------------------------------------------------------------------------------
+!> This routine transfers the platform motion output of the structural module (ED) into inputs required for HD
+SUBROUTINE Transfer_PlatformMotion_to_SF( PlatformMotion, u_SF, MeshMapData, ErrStat, ErrMsg )
+!..................................................................................................................................
+   TYPE(MeshType),              INTENT(IN   ) :: PlatformMotion               !< The platform motion outputs of the structural dynamics module
+   TYPE(SeaFEM_InputType),      INTENT(INOUT) :: u_SF                         !< HydroDyn input
+   TYPE(FAST_ModuleMapType),    INTENT(INOUT) :: MeshMapData                  !< data for mapping meshes between modules
+
+   INTEGER(IntKi),              INTENT(OUT)   :: ErrStat                      !< Error status of the operation
+   CHARACTER(*),                INTENT(OUT)   :: ErrMsg                       !< Error message if ErrStat /= ErrID_None
+   
+      ! local variables
+   INTEGER(IntKi)                             :: ErrStat2                     ! temporary Error status of the operation
+   CHARACTER(ErrMsgLen)                       :: ErrMsg2                      ! temporary Error message if ErrStat /= ErrID_None
+   CHARACTER(*), PARAMETER                    :: RoutineName = 'Transfer_PlatformMotion_to_SF'
+      
+      
+   ErrStat = ErrID_None
+   ErrMsg = ""
+   
+   ! This is for case of rigid substructure
+   
+   ! Transfer the ED outputs of the platform motions to the HD input of which represents the same data
+   CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg,RoutineName//' (u_SF%SeaFEMMesh)' )
+   
+END SUBROUTINE Transfer_PlatformMotion_to_SF
+#endif
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine transfers the SrvD outputs into inputs required for SD MDM
 SUBROUTINE Transfer_SrvD_to_SD_MD( p_FAST, y_SrvD, u_SD, u_MD )
@@ -2131,7 +2160,10 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
       ! set up u vector, using local initial guesses:
       !----------------------------------------------------------------------------------------------------                      
       
-         ! make hydrodyn inputs consistant with elastodyn outputs          
+         ! make hydrodyn inputs consistant with elastodyn outputs  
+         ! (do this because we're using outputs in the u vector):
+         CALL Transfer_PlatformMotion_to_SF(y_ED_input%PlatformPtMesh,  u_SF, MeshMapData, ErrStat2, ErrMsg2 ) ! get u_HD from y_ED_input
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
       
          u( 1: 3) = u_ED%PlatformPtMesh%Force(:,1) / p_FAST%UJacSclFact
          u( 4: 6) = u_ED%PlatformPtMesh%Moment(:,1) / p_FAST%UJacSclFact  
@@ -2200,7 +2232,7 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
             END DO ! ElastoDyn contribution ( columns 1-6 )
                
             !...............................
-            ! Get HydroDyn's contribution:
+            ! Get SeaFEM's contribution:
             !...............................
             DO i=7,12 !call HD_CalcOutput
                   
@@ -2209,7 +2241,9 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )                                   
                u_perturb = u            
                CALL Perturb_u( i, u_perturb, y_ED_perturb=y_ED_perturb, perturb=ThisPerturb ) ! perturb u and y_ED by ThisPerturb [routine sets ThisPerturb]                                
-                  
+               CALL Transfer_PlatformMotion_to_SF( y_ED_perturb%PlatformPtMesh, u_SF_perturb, MeshMapData, ErrStat2, ErrMsg2 ) ! get u_HD_perturb
+                  CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
+               
                ! calculate outputs with perturbed inputs:
                 CALL SeaFEM_CalcOutput( this_time, u_SF_perturb, p_SF, OtherSt_SF, y_SF_perturb, ErrStat2, ErrMsg2 )
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )  
@@ -2222,7 +2256,7 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                   
                MeshMapData%Jacobian_Opt1(:,i) = (Fn_U_perturb - Fn_U_Resid) / ThisPerturb
                                                                   
-            END DO ! HydroDyn contribution ( columns 7-12 )
+            END DO ! SeaFEM contribution ( columns 7-12 )
                        
                ! Get the LU decomposition of this matrix using a LAPACK routine: 
                ! The result is of the form MeshMapDat%Jacobian_Opt1 = P * L * U 
@@ -2253,8 +2287,6 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
          !-------------------------------------------------------------------------------------------------
          ! check for error, update inputs (u_ED and u_HD), and iterate again
          !-------------------------------------------------------------------------------------------------
-                  
-     ! !   IF ( DOT_PRODUCT(u_delta, u_delta) <= TOL_Squared ) EXIT
          
          u = u + u_delta
                   
@@ -2262,8 +2294,10 @@ SUBROUTINE ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
          u_ED%PlatformPtMesh%Moment(:,1)               = u_ED%PlatformPtMesh%Moment(:,1)               + u_delta( 4: 6) * p_FAST%UJacSclFact
          y_ED_input%PlatformPtMesh%TranslationAcc(:,1) = y_ED_input%PlatformPtMesh%TranslationAcc(:,1) + u_delta( 7: 9)
          y_ED_input%PlatformPtMesh%RotationAcc(   :,1) = y_ED_input%PlatformPtMesh%RotationAcc(   :,1) + u_delta(10:12)
-                  
-         
+
+         CALL Transfer_PlatformMotion_to_SF( y_ED_input%PlatformPtMesh, u_SF, MeshMapData, ErrStat2, ErrMsg2 ) ! get u_HD with u_delta changes
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+            
          K = K + 1
          
       END DO ! K
