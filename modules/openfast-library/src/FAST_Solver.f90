@@ -4643,6 +4643,14 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
          p_FAST%SolveOption = Solve_FullOpt1
       END IF
       
+   ELSEIF ( p_FAST%CompSeaFEM == 1 ) THEN
+   
+      IF (p_FAST%CompElast == Module_ED) THEN
+         p_FAST%SolveOption = Solve_SimplifiedOpt1
+      ELSE
+         p_FAST%SolveOption = Solve_FullOpt1
+      END IF
+      
    ELSE
 
       p_FAST%SolveOption = Solve_FullOpt2
