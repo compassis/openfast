@@ -2452,7 +2452,7 @@ END SUBROUTINE ED_SF_InputOutputSolve
                                   
 #endif
 
-
+#ifdef SeaFEM_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine performs the Input-Output solve for ED, SD, HD, BD, and/or the OrcaFlex Interface.
 !! Note that this has been customized for the physics in the problems and is not a general solution.
@@ -2461,6 +2461,7 @@ SUBROUTINE FullOpt1_InputOutputSolve( this_time, p_FAST, calcJacobian &
                                      , u_SD,     p_SD,     x_SD,     xd_SD,     z_SD,     OtherSt_SD,     y_SD,     m_SD      & 
                                      , u_ExtPtfm,p_ExtPtfm,x_ExtPtfm,xd_ExtPtfm,z_ExtPtfm,OtherSt_ExtPtfm,y_ExtPtfm,m_ExtPtfm & 
                                      , u_HD,     p_HD,     x_HD,     xd_HD,     z_HD,     OtherSt_HD,     y_HD,     m_HD      & 
+                                     , u_SF,     p_SF,     x_SF,     xd_SF,     z_SF,     OtherSt_SF,     y_SF,     m_SF      &     
                                      , u_BD,     p_BD,     x_BD,     xd_BD,     z_BD,     OtherSt_BD,     y_BD,     m_BD      & 
                                      , u_Orca,   p_Orca,   x_Orca,   xd_Orca,   z_Orca,   OtherSt_Orca,   y_Orca,   m_Orca    & 
                                      , u_MAP,  y_MAP  &
@@ -2476,6 +2477,7 @@ SUBROUTINE FullOpt1_InputOutputSolve( this_time, p_FAST, calcJacobian &
    USE ElastoDyn
    USE SubDyn
    USE HydroDyn
+   USE SeaFEM
    USE BeamDyn
    USE OrcaFlexInterface
 
@@ -2535,6 +2537,16 @@ SUBROUTINE FullOpt1_InputOutputSolve( this_time, p_FAST, calcJacobian &
    TYPE(HydroDyn_OutputType)         , INTENT(INOUT) :: y_HD                      !< System outputs
    TYPE(HydroDyn_MiscVarType)        , INTENT(INOUT) :: m_HD                      !< misc/optimization variables
    
+      !SeaFEM: 
+   TYPE(SeaFEM_ContinuousStateType)  , INTENT(IN   ) :: x_SF                      !< Continuous states
+   TYPE(SeaFEM_DiscreteStateType)    , INTENT(IN   ) :: xd_SF                     !< Discrete states
+   TYPE(SeaFEM_ConstraintStateType)  , INTENT(IN   ) :: z_SF                      !< Constraint states
+   TYPE(SeaFEM_OtherStateType)       , INTENT(INOUT) :: OtherSt_SF                !< Other states
+   TYPE(SeaFEM_ParameterType)        , INTENT(IN   ) :: p_SF                      !< Parameters
+   TYPE(SeaFEM_InputType)            , INTENT(INOUT) :: u_SF                      !< System inputs
+   TYPE(SeaFEM_OutputType)           , INTENT(INOUT) :: y_SF                      !< System outputs
+   TYPE(SeaFEM_MiscVarType)          , INTENT(INOUT) :: m_SF                      !< misc/optimization variables
+   
       !OrcaFlex: 
    TYPE(Orca_ContinuousStateType),     INTENT(IN   ) :: x_Orca                    !< Continuous states
    TYPE(Orca_DiscreteStateType)  ,     INTENT(IN   ) :: xd_Orca                   !< Discrete states
@@ -2588,6 +2600,8 @@ SUBROUTINE FullOpt1_InputOutputSolve( this_time, p_FAST, calcJacobian &
    TYPE(SD_OutputType)                               :: y_SD_perturb              ! Perturbed system outputs
    TYPE(HydroDyn_InputType)                          :: u_HD_perturb              ! Perturbed system inputs
    TYPE(HydroDyn_OutputType)                         :: y_HD_perturb              ! Perturbed system outputs
+   TYPE(SeaFEM_InputType)                            :: u_SF_perturb              ! Perturbed system inputs
+   TYPE(SeaFEM_OutputType)                           :: y_SF_perturb              ! Perturbed system outputs
    TYPE(BD_InputType)                                :: u_BD_perturb              ! Perturbed system inputs
    TYPE(BD_OutputType), ALLOCATABLE                  :: y_BD_perturb(:)           ! Perturbed system outputs
    TYPE(Orca_InputType)                              :: u_Orca_perturb            ! Perturbed system inputs
@@ -2654,6 +2668,13 @@ SUBROUTINE FullOpt1_InputOutputSolve( this_time, p_FAST, calcJacobian &
                CALL SetErrStat( ErrStat2, 'u_HD_perturb:'//ErrMsg2, ErrStat, ErrMsg, RoutineName  )
             CALL HydroDyn_CopyOutput( y_HD, y_HD_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )  
                CALL SetErrStat( ErrStat2, 'y_HD_perturb:'//ErrMsg2, ErrStat, ErrMsg, RoutineName  )
+         END IF
+         
+         IF ( p_FAST%CompSeaFEM == 1 ) THEN            
+            CALL SeaFEM_CopyInput(  u_SF, u_SF_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )           
+               CALL SetErrStat( ErrStat2, 'u_SF_perturb:'//ErrMsg2, ErrStat, ErrMsg, RoutineName  )
+            CALL SeaFEM_CopyOutput( y_SF, y_SF_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )  
+               CALL SetErrStat( ErrStat2, 'y_SF_perturb:'//ErrMsg2, ErrStat, ErrMsg, RoutineName  )
          END IF
          
          IF ( p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) THEN    
@@ -3107,6 +3128,13 @@ END IF
          
          u = u + u_delta                  
          CALL Add_FullOpt1_u_delta( p_FAST, MeshMapData%Jac_u_indx, u_delta, u_ED, u_SD, u_HD, u_BD, u_Orca, u_ExtPtfm )
+         
+         IF ( p_FAST%CompSeaFEM == 1 ) THEN
+         
+             u_ED%PLATFORMPTMESH%FORCE =  y_SF%SEAFEMMESH%FORCE      
+             u_ED%PLATFORMPTMESH%MOMENT =  y_SF%SEAFEMMESH%MOMENT  
+         
+         END IF
                            
          K = K + 1
          
@@ -3633,6 +3661,7 @@ CONTAINS
    END SUBROUTINE CleanUp
    !...............................................................................................................................
 END SUBROUTINE FullOpt1_InputOutputSolve
+#endif
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine initializes the array that maps rows/columns of the Jacobian to specific mesh fields.
 !! Do not change the order of this packing without changing subroutine Create_FullOpt1_UVector()!
@@ -5516,6 +5545,7 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
           ,      SD%Input(1),     SD%p,     SD%x(  this_state),     SD%xd(  this_state),     SD%z(  this_state),     SD%OtherSt(  this_state),     SD%y    , SD%m & 
           , ExtPtfm%Input(1),ExtPtfm%p,ExtPtfm%x(  this_state),ExtPtfm%xd(  this_state),ExtPtfm%z(  this_state),ExtPtfm%OtherSt(  this_state),ExtPtfm%y,ExtPtfm%m & 
           ,      HD%Input(1),     HD%p,     HD%x(  this_state),     HD%xd(  this_state),     HD%z(  this_state),     HD%OtherSt(  this_state),     HD%y    , HD%m & 
+          ,      SF%Input(1),     SF%p,     SF%x(  this_state),     SF%xd(  this_state),     SF%z(  this_state),     SF%OtherSt(  this_state),     SF%y    , SF%m &           
           ,      BD%Input(1,:),   BD%p,     BD%x(:,this_state),     BD%xd(:,this_state),     BD%z(:,this_state),     BD%OtherSt(:,this_state),     BD%y    , BD%m & 
           ,    Orca%Input(1),   Orca%p,   Orca%x( this_state),    Orca%xd(  this_state),   Orca%z(  this_state),   Orca%OtherSt(  this_state),   Orca%y  , Orca%m & 
           ,    MAPp%Input(1),   MAPp%y &
