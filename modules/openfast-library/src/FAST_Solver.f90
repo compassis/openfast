@@ -5527,27 +5527,26 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
           ,      AD%Input(1),     AD%y &   
           , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )         
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
-                        
-               
-   ELSEIF ( p_FAST%SolveOption == Solve_SimplifiedOpt1 ) THEN  ! No substructure model
-
-#ifdef SeaFEM_active       
-     IF (p_FAST%CompSeaFEM == 1) THEN
+                           
+     ELSEIF (p_FAST%CompSeaFEM == 1) THEN
        CALL ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                                     , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
                                     , SF%Input(1), SF%p, SF%x(this_state), SF%xd(this_state), SF%z(this_state), SF%OtherSt(this_state), SF%y,  SF%m & 
                                     , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
                                     , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )        
-    ELSE  
-      CALL ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
-                                    , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
-                                    , HD%Input(1), HD%p, HD%x(this_state), HD%xd(this_state), HD%z(this_state), HD%OtherSt(this_state), HD%y,  HD%m & 
-                                    , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
-                                    , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
-         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
-   END IF      
-#endif
+     ELSE  
+         
+        IF ( p_FAST%SolveOption == Solve_SimplifiedOpt1 ) THEN  ! No substructure model
+
+          CALL ED_HD_InputOutputSolve(  this_time, p_FAST, calcJacobian &
+                                        , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
+                                        , HD%Input(1), HD%p, HD%x(this_state), HD%xd(this_state), HD%z(this_state), HD%OtherSt(this_state), HD%y,  HD%m & 
+                                        , MAPp%Input(1), MAPp%y, FEAM%Input(1), FEAM%y, MD%Input(1), MD%y, SrvD%Input(1), SrvD%y &          
+                                        , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )
+             CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
+         
+       END IF  
                                                                   
    END IF ! HD, BD, and/or SD coupled to ElastoDyn
                          

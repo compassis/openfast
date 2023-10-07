@@ -1,4 +1,4 @@
-        !COMPILER-GENERATED INTERFACE MODULE: Wed Sep 27 20:13:00 2023
+        !COMPILER-GENERATED INTERFACE MODULE: Sun Oct  1 20:05:59 2023
         ! This source file is for reference only and may not completely
         ! represent the generated interface used by the compiler.
         MODULE DISCON__genmod

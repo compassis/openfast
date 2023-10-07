@@ -2,59 +2,51 @@
 <VisualStudioProject ProjectType="typeDynamicLibrary" ProjectCreator="Intel Fortran" Keyword="Dll" Version="11.0" ProjectIdGuid="{A8025CAB-374D-4755-9713-D9D527FF303C}">
 	<Platforms>
 		<Platform Name="Win32"/>
-		<Platform Name="x64"/>
-	</Platforms>
+		<Platform Name="x64"/></Platforms>
 	<Configurations>
 		<Configuration Name="Debug|Win32" ConfigurationType="typeDynamicLibrary">
-			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
-			<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemWindows" LinkDLL="true"/>
-			<Tool Name="VFResourceCompilerTool"/>
-			<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
-			<Tool Name="VFCustomBuildTool"/>
-			<Tool Name="VFPreLinkEventTool"/>
-			<Tool Name="VFPreBuildEventTool"/>
-			<Tool Name="VFPostBuildEventTool"/>
-			<Tool Name="VFManifestTool" SuppressStartupBanner="true"/>
-		</Configuration>
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemWindows" LinkDLL="true"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
 		<Configuration Name="Debug|x64" ConfigurationType="typeDynamicLibrary">
-			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" Preprocess="preprocessYes" StandardWarnings="standardWarningsF03" DisableSpecificDiagnostics="5268,5199" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" UseMkl="mklSequential"/>
-			<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole" StackReserveSize="999999999" LargeAddressAware="addrAwareLarge" LinkDLL="true" AdditionalDependencies="C:\Users\IreneBerdugo\Desktop\couplingSFOF35_2\openfast\build\bin\MAP_x64.lib"/>
-			<Tool Name="VFResourceCompilerTool"/>
-			<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
-			<Tool Name="VFCustomBuildTool"/>
-			<Tool Name="VFPreLinkEventTool"/>
-			<Tool Name="VFPreBuildEventTool"/>
-			<Tool Name="VFPostBuildEventTool" CommandLine="copy &quot;$(OutDir)&quot;\FAST_DLL.dll &quot;D:\Repositories\NREL_Stay\OpenFAST35_2\TdynMPH\build_vc2017\tdynMPH\x64\Debug\FAST_DLL.dll&quot;"/>
-			<Tool Name="VFManifestTool" SuppressStartupBanner="true"/>
-		</Configuration>
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" Preprocess="preprocessYes" StandardWarnings="standardWarningsF03" DisableSpecificDiagnostics="5268,5199" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" UseMkl="mklSequential"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole" StackReserveSize="999999999" LargeAddressAware="addrAwareLarge" LinkDLL="true" AdditionalDependencies="D:\Repositories\NREL_Stay\Repo_Compassis\openfast\build\bin\MAP_x64.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy &quot;$(OutDir)&quot;\FAST_DLL.dll &quot;D:\Repositories\NREL_Stay\Repo_Compassis\TdynMPH\build_vc2017\tdynMPH\x64\Debug\FAST_DLL.dll&quot;"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
 		<Configuration Name="Release|Win32" ConfigurationType="typeDynamicLibrary">
-			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" RuntimeLibrary="rtMultiThreadedDLL"/>
-			<Tool Name="VFLinkerTool" SuppressStartupBanner="true" SubSystem="subSystemWindows" LinkDLL="true"/>
-			<Tool Name="VFResourceCompilerTool"/>
-			<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
-			<Tool Name="VFCustomBuildTool"/>
-			<Tool Name="VFPreLinkEventTool"/>
-			<Tool Name="VFPreBuildEventTool"/>
-			<Tool Name="VFPostBuildEventTool"/>
-			<Tool Name="VFManifestTool" SuppressStartupBanner="true"/>
-		</Configuration>
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" RuntimeLibrary="rtMultiThreadedDLL"/>
+				<Tool Name="VFLinkerTool" SuppressStartupBanner="true" SubSystem="subSystemWindows" LinkDLL="true"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
 		<Configuration Name="Release|x64" ConfigurationType="typeDynamicLibrary">
-			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" Preprocess="preprocessYes" StandardWarnings="standardWarningsF03" DisableSpecificDiagnostics="5268,5199" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" UseMkl="mklSequential"/>
-			<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole" StackReserveSize="999999999" LargeAddressAware="addrAwareLarge" LinkDLL="true" AdditionalDependencies="C:\Users\IreneBerdugo\Desktop\couplingSFOF35_2\openfast\build\bin\MAP_x64.lib"/>
-			<Tool Name="VFResourceCompilerTool"/>
-			<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
-			<Tool Name="VFCustomBuildTool"/>
-			<Tool Name="VFPreLinkEventTool"/>
-			<Tool Name="VFPreBuildEventTool"/>
-			<Tool Name="VFPostBuildEventTool" CommandLine="copy &quot;$(OutDir)&quot;\FAST_DLL.dll &quot;D:\Repositories\NREL_Stay\OpenFAST35_2\TdynMPH\build_vc2017\tdynMPH\x64\Release\FAST_DLL.dll&quot;"/>
-			<Tool Name="VFManifestTool" SuppressStartupBanner="true"/>
-		</Configuration>
-	</Configurations>
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" Preprocess="preprocessYes" StandardWarnings="standardWarningsF03" DisableSpecificDiagnostics="5268,5199" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" UseMkl="mklSequential"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole" StackReserveSize="999999999" LargeAddressAware="addrAwareLarge" LinkDLL="true" AdditionalDependencies="D:\Repositories\NREL_Stay\OpenFAST35\openfast\build\bin\MAP_x64.lib"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool" CommandLine="copy &quot;$(OutDir)&quot;\FAST_DLL.dll &quot;D:\Repositories\NREL_Stay\Repo_Compassis\TdynMPH\build_vc2017\tdynMPH\x64\Release\FAST_DLL.dll&quot;"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
 	<Files>
 		<Filter Name="Header Files" Filter="fi;fd;h;inc"/>
 		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
 		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
-		<File RelativePath="..\..\..\glue-codes\openfast\src\FAST_Prog.f90"/></Filter>
-	</Files>
-	<Globals/>
-</VisualStudioProject>
+		<File RelativePath="..\..\..\glue-codes\openfast\src\FAST_Prog.f90"/></Filter></Files>
+	<Globals/></VisualStudioProject>
