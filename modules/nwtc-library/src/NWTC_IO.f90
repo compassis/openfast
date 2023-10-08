@@ -16,7 +16,7 @@
 ! See the License for the specific language governing permissions and
 ! limitations under the License.
 !**********************************************************************************************************************************
-
+#define SeaFEM_active
 !> This module contains I/O-related variables and routines with non-system-specific logic.
 MODULE NWTC_IO
 
@@ -2397,8 +2397,9 @@ END SUBROUTINE CheckR8Var
       CALL WrScr   ( NewLine//' Program terminated normally.' )
    END IF
    CALL WrScr    ( '' )
-   CALL ProgExit ( 0 )
-
+#ifdef SeaFEM_active
+ !  CALL ProgExit ( 0 )
+#endif
 
    END SUBROUTINE NormStop
 !=======================================================================
