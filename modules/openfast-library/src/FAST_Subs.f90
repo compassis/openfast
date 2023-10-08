@@ -938,7 +938,7 @@ SUBROUTINE FAST_InitializeAll( t_initial, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, 
         RETURN
     END IF
     
-   IF ( p_FAST%CompSeaFEM == 1 ) THEN
+   IF ( p_FAST%CompSeaFEM == Module_SF ) THEN
       SF%p%TMax=p_FAST%TMax ! Sends Simulation time to SeaFEM module
       SF%p%Iterations=p_FAST%NumCrctn  ! Sends number of iterations to SeaFEM module
       CALL SeaFEM_Init( Init%InData_SF, SF%Input(1), SF%p, SF%OtherSt(STATE_CURR), SF%y )
@@ -2989,6 +2989,10 @@ SUBROUTINE FAST_ReadPrimaryFile( InputFile, p, m_FAST, OverrideAbortErrLev, ErrS
          call cleanup()
          RETURN
       end if
+      
+   IF ( p%CompSeaFEM == 1 ) THEN
+      p%CompSeaFEM = Module_SF
+   END IF
 #endif
 
    !---------------------- ENVIRONMENTAL CONDITIONS --------------------------------

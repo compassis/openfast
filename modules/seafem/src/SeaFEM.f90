@@ -168,10 +168,10 @@ MODULE SeaFEM
         
         ! Updates SeaFEMs time step
         IF(OtherState%T==t)THEN
-        !     WRITE(*,*) "Simulation time = ",t
+           !  WRITE(*,*) "Simulation time = ",t
         ELSE
             CALL UPDATE_SEAFEM() 
-            ! WRITE(*,*) "Simulation time = ",t
+           !  WRITE(*,*) "Simulation time = ",t
             OtherState%T=t
         END IF
         

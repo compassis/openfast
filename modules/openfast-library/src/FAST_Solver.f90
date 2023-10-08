@@ -1342,7 +1342,7 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
             
    END IF
    
-   IF ( p_FAST%CompSeaFEM == 1 ) THEN
+   IF ( p_FAST%CompSeaFEM == Module_SF ) THEN
    
       CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg, RoutineName//' (u_SF%SeaFEMMesh)' )
@@ -2670,7 +2670,7 @@ SUBROUTINE FullOpt1_InputOutputSolve( this_time, p_FAST, calcJacobian &
                CALL SetErrStat( ErrStat2, 'y_HD_perturb:'//ErrMsg2, ErrStat, ErrMsg, RoutineName  )
          END IF
          
-         IF ( p_FAST%CompSeaFEM == 1 ) THEN            
+         IF ( p_FAST%CompSeaFEM == Module_SF ) THEN            
             CALL SeaFEM_CopyInput(  u_SF, u_SF_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )           
                CALL SetErrStat( ErrStat2, 'u_SF_perturb:'//ErrMsg2, ErrStat, ErrMsg, RoutineName  )
             CALL SeaFEM_CopyOutput( y_SF, y_SF_perturb, MESH_NEWCOPY, ErrStat2, ErrMsg2 )  
@@ -3129,7 +3129,7 @@ END IF
          u = u + u_delta                  
          CALL Add_FullOpt1_u_delta( p_FAST, MeshMapData%Jac_u_indx, u_delta, u_ED, u_SD, u_HD, u_BD, u_Orca, u_ExtPtfm )
          
-         IF ( p_FAST%CompSeaFEM == 1 ) THEN
+         IF ( p_FAST%CompSeaFEM == Module_SF ) THEN
          
              u_ED%PLATFORMPTMESH%FORCE =  y_SF%SEAFEMMESH%FORCE      
              u_ED%PLATFORMPTMESH%MOMENT =  y_SF%SEAFEMMESH%MOMENT  
@@ -4643,7 +4643,7 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
          p_FAST%SolveOption = Solve_FullOpt1
       END IF
       
-   ELSEIF ( p_FAST%CompSeaFEM == 1 ) THEN
+   ELSEIF ( p_FAST%CompSeaFEM == Module_SF ) THEN
    
       IF (p_FAST%CompElast == Module_ED) THEN
          p_FAST%SolveOption = Solve_SimplifiedOpt1
@@ -5016,7 +5016,7 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
     
    END IF !HydroDyn-{ElastoDyn or SubDyn}
 
-      IF ( p_FAST%CompSeaFEM == 1 ) THEN ! SeaFEM-{ElastoDyn or SubDyn}
+      IF ( p_FAST%CompSeaFEM == Module_SF ) THEN ! SeaFEM-{ElastoDyn or SubDyn}
     
       ! Regardless of the offshore configuration, ED platform motions will be mapped to the PRPMesh of HD
       ! we're just going to assume PlatformLoads and PlatformMotion are committed
@@ -5566,7 +5566,7 @@ SUBROUTINE SolveOption1(this_time, this_state, calcJacobian, p_FAST, ED, BD, HD,
           , MeshMapData , ErrStat2, ErrMsg2, WriteThisStep )         
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
                            
-     ELSEIF (p_FAST%CompSeaFEM == 1) THEN
+     ELSEIF (p_FAST%CompSeaFEM == Module_SF) THEN
        CALL ED_SF_InputOutputSolve(  this_time, p_FAST, calcJacobian &
                                     , ED%Input(1), ED%p, ED%x(this_state), ED%xd(this_state), ED%z(this_state), ED%OtherSt(this_state), ED%y,  ED%m &
                                     , SF%Input(1), SF%p, SF%x(this_state), SF%xd(this_state), SF%z(this_state), SF%OtherSt(this_state), SF%y,  SF%m & 
