@@ -3,8 +3,8 @@ FAST Certification Test #24: NREL 5.0 MW Baseline Wind Turbine with OC3 Hywind C
 ---------------------- SIMULATION CONTROL --------------------------------------
 False         Echo            - Echo input data to <RootName>.ech (flag)
 "FATAL"       AbortLevel      - Error level when simulation should abort (string) {"WARNING", "SEVERE", "FATAL"}
-    1611.11   TMax            - Total run time (s)
-  0.0400119   DT              - Recommended module time step (s)
+    944.444   TMax            - Total run time (s)
+  0.0786675   DT              - Recommended module time step (s)
           1   InterpOrder     - Interpolation order for input/output time history (-) {1=linear, 2=quadratic}
           5   NumCrctn        - Number of correction iterations (-) {0=explicit calculation, i.e., no corrections}
         1.9   DT_UJac         - Time between calls to get Jacobians (s)
@@ -15,12 +15,11 @@ False         Echo            - Echo input data to <RootName>.ech (flag)
           0   CompAero        - Compute aerodynamic loads (switch) {0=None; 1=AeroDyn v14; 2=AeroDyn v15}
           0   CompServo       - Compute control and electrical-drive dynamics (switch) {0=None; 1=ServoDyn}
           0   CompSeaSt       - Compute sea state information (switch) {0=None; 1=SeaState}
-          0   CompHydro       - Compute hydrodynamic loads (switch) {0=None; 1=HydroDyn}
+          2   CompHydro       - Compute hydrodynamic loads (switch) {0=None; 1=HydroDyn; 2=SeaFEM}
           0   CompSub         - Compute sub-structural dynamics (switch) {0=None; 1=SubDyn; 2=External Platform MCKF}
           0   CompMooring     - Compute mooring system (switch) {0=None; 1=MAP++; 2=FEAMooring; 3=MoorDyn; 4=OrcaFlex}
           0   CompIce         - Compute ice loads (switch) {0=None; 1=IceFloe; 2=IceDyn}
           0   MHK             - MHK turbine type (switch) {0=Not an MHK turbine; 1=Fixed MHK turbine; 2=Floating MHK turbine}
-		  1   CompSeaFEM      - Compute hydrodynamic loads and mooring system (switch) {0=None; 1=SeaFEM}
 ---------------------- ENVIRONMENTAL CONDITIONS --------------------------------
     9.80665   Gravity         - Gravitational acceleration (m/s^2)
       1.225   AirDens         - Air density (kg/m^3)
@@ -46,9 +45,9 @@ False         Echo            - Echo input data to <RootName>.ech (flag)
 "unused"      IceFile         - Name of file containing ice input parameters (quoted string)
 ---------------------- OUTPUT --------------------------------------------------
 True          SumPrint        - Print summary data to "<RootName>.sum" (flag)
-   0.400119   SttsTime        - Amount of time between screen status messages (s)
+   0.786675   SttsTime        - Amount of time between screen status messages (s)
       99999   ChkptTime       - Amount of time between creating checkpoint files for potential restart (s)
-   0.400119   DT_Out          - Time step for tabular output (s) (or "default")
+   0.786675   DT_Out          - Time step for tabular output (s) (or "default")
           0   TStart          - Time to begin tabular output (s)
           1   OutFileFmt      - Format for tabular (time-marching) output file (switch) {1: text file [<RootName>.out], 2: binary file [<RootName>.outb], 3: both 1 and 2, 4: uncompressed binary [<RootName>.outb, 5: both 1 and 4}
 True          TabDelim        - Use tab delimiters in text tabular output file? (flag) {uses spaces if false}

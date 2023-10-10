@@ -938,7 +938,7 @@ SUBROUTINE FAST_InitializeAll( t_initial, p_FAST, y_FAST, m_FAST, ED, BD, SrvD, 
         RETURN
     END IF
     
-   IF ( p_FAST%CompSeaFEM == Module_SF ) THEN
+   IF ( p_FAST%CompHydro == Module_SF ) THEN
       SF%p%TMax=p_FAST%TMax ! Sends Simulation time to SeaFEM module
       SF%p%Iterations=p_FAST%NumCrctn  ! Sends number of iterations to SeaFEM module
       CALL SeaFEM_Init( Init%InData_SF, SF%Input(1), SF%p, SF%OtherSt(STATE_CURR), SF%y )
@@ -2903,14 +2903,18 @@ SUBROUTINE FAST_ReadPrimaryFile( InputFile, p, m_FAST, OverrideAbortErrLev, ErrS
          RETURN
       end if
 
+#ifdef SeaFEM_active      
           ! immediately convert to values used inside the code:
          IF ( p%CompHydro == 0 ) THEN
             p%CompHydro = Module_NONE
          ELSEIF ( p%CompHydro == 1 ) THEN
             p%CompHydro = Module_HD
+         ELSEIF ( p%CompHydro == 2 ) THEN
+            p%CompHydro = Module_SF
          ELSE
             p%CompHydro = Module_Unknown
-         END IF
+         END IF        
+#endif
 
       ! CompSub - Compute sub-structural dynamics (switch) {0=None; 1=SubDyn; 2=ExtPtfm_MCKF}:
    CALL ReadVar( UnIn, InputFile, p%CompSub, "CompSub", "Compute sub-structural dynamics (switch) {0=None; 1=SubDyn}", ErrStat2, ErrMsg2, UnEc)
@@ -2980,20 +2984,6 @@ SUBROUTINE FAST_ReadPrimaryFile( InputFile, p, m_FAST, OverrideAbortErrLev, ErrS
          call cleanup()
          RETURN        
       end if
-
-#ifdef SeaFEM_active
-      ! CompSeaFEM - Compute hydrodynamic loads and mooring system (switch) {0=None; 1=SeaFEM}:
-   CALL ReadVar( UnIn, InputFile, p%CompSeaFEM, "CompSeaFEM", "Compute hydrodynamic loads and mooring system (switch) {0=None; 1=SeaFEM}", ErrStat2, ErrMsg2, UnEc)
-      CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
-      if ( ErrStat >= AbortErrLev ) then
-         call cleanup()
-         RETURN
-      end if
-      
-   IF ( p%CompSeaFEM == 1 ) THEN
-      p%CompSeaFEM = Module_SF
-   END IF
-#endif
 
    !---------------------- ENVIRONMENTAL CONDITIONS --------------------------------
    CALL ReadCom( UnIn, InputFile, 'Section Header: Environmental Conditions', ErrStat2, ErrMsg2, UnEc )

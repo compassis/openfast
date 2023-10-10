@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?><!-- -*- coding: utf-8; mode: SGML -*- -->
+<clock_report version='1.0'  date='2023-10-11 00:59:47'>
+  <!-- Time Table: cputime[s] (percent[%amp;]) Uses -->
+  <time n='Total time'                                    cpu='3771.83814' percent='100.000' uses='1'>
+    <time n='Read inputs'                                   cpu='13.60941' percent=' 0.361' uses='1'>
+      <time n='Read mesh'                                     cpu='4.32319' percent='31.766' uses='1'/>
+      <time n='Other operations'                              cpu='9.28622' percent='68.234' uses='0'/>
+    </time>
+    <time n='Setting Seakeeping Problem'                    cpu='7.57781' percent=' 0.201' uses='1'>
+      <time n='split_METIS_mesh'                              cpu='0.00000' percent=' 0.000' uses='2'/>
+      <time n='Other operations'                              cpu='7.57781' percent='100.000' uses='0'/>
+    </time>
+    <time n='Initialization seakeeping'                     cpu='0.05949' percent=' 0.002' uses='1'>
+      <time n='Setting Hydroelastic loads from TCL'           cpu='0.00001' percent=' 0.013' uses='1'/>
+    </time>
+    <time n='Building problem'                              cpu='0.13011' percent=' 0.003' uses='1'/>
+    <time n='Solve seakeeping problem'                      cpu='3750.32492' percent='99.430' uses='1'>
+      <time n='Seakeeping time loop'                          cpu='599.44929' percent='15.984' uses='12008'>
+        <time n='Solve first order seakeeping'                  cpu='39.21613' percent=' 6.542' uses='24012'/>
+        <time n='Write 1st order results'                       cpu='0.11928' percent=' 0.020' uses='8193'/>
+        <time n='Write 1st order results (dt)'                  cpu='1.28213' percent=' 0.214' uses='8193'/>
+        <time n='Other operations'                              cpu='558.83175' percent='93.224' uses='0'/>
+      </time>
+      <time n='Setting up hydroelastic TCL loads'             cpu='0.00001' percent=' 0.000' uses='6'/>
+      <time n='Solve first order seakeeping'                  cpu='3027.32298' percent='80.722' uses='161360'>
+        <time n='Iterative solver seakeeping'                   cpu='3027.22228' percent='99.997' uses='161360'>
+          <time n='TdynTcl_StartNewIteration'                     cpu='1.44210' percent=' 0.048' uses='161360'/>
+          <time n='Calculate_Radiated_Velocity'                   cpu='22.33965' percent=' 0.738' uses='161360'/>
+          <time n='BC_Seakeeping'                                 cpu='329.06420' percent='10.870' uses='161360'/>
+          <time n='PHI1_projection_Seakeeping'                    cpu='16.13816' percent=' 0.533' uses='161360'/>
+          <time n='Calculate grad fs'                             cpu='270.83031' percent=' 8.946' uses='161360'/>
+          <time n='Calculate_phi1z_fs_Seakeeping'                 cpu='55.43345' percent=' 1.831' uses='161360'/>
+          <time n='Kinematic_BC_Seakeeping'                       cpu='28.39861' percent=' 0.938' uses='161360'/>
+          <time n='Calculate_Pressure_Force_and_Moments_On_Bodies_Se' cpu='428.46159' percent='14.154' uses='161360'/>
+          <time n='Finish iteration bodies'                       cpu='0.07185' percent=' 0.002' uses='161360'/>
+          <time n='Setting up hydroelastic TCL loads'             cpu='0.16897' percent=' 0.006' uses='968160'/>
+          <time n='Solver'                                        cpu='1801.48278' percent='59.509' uses='24589'>
+            <time n='Preconditioning'                               cpu='0.00507' percent=' 0.000' uses='24589'/>
+            <time n='Solving'                                       cpu='1801.43222' percent='99.997' uses='24589'/>
+          </time>
+          <time n='Other operations'                              cpu='73.39061' percent=' 2.424' uses='0'/>
+        </time>
+      </time>
+      <time n='Other operations'                              cpu='123.55263' percent=' 3.294' uses='0'/>
+    </time>
+  </time>
+</clock_report>

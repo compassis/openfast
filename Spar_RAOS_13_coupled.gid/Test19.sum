@@ -1,7 +1,7 @@
 
 FAST Summary File
 
-Predictions were generated on 28-Sep-2023 at 03:10:35 using OpenFAST, compiled on Sep 27 2023 at 20:09:35 as a 64-bit application using single precision at commit v3.0.0-2338-gb3e7263c-dirty
+Predictions were generated on 10-Oct-2023 at 23:57:16 using OpenFAST, compiled on Oct 09 2023 at 01:45:08 as a 64-bit application using single precision at commit unversioned
   run with
     NWTC Subroutine Library
     ElastoDyn
@@ -10,15 +10,16 @@ Description from the FAST input file:
 
 Interpolation order for input/output time histories: 1 (linear)
 Number of correction iterations:  5
+Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     12
 
 
    Requested Time Steps  
   -------------------------------------------------
   Component          Time Step (s)    Subcycles (-)
   -----------------  ---------------  -------------
-  FAST (glue code)     4.0011900E-02
-  ElastoDyn            4.0011900E-02         1
-  FAST output files    4.0011900E-01        10^-1
+  FAST (glue code)     7.8667500E-02
+  ElastoDyn            7.8667500E-02         1
+  FAST output files    7.8667500E-01        10^-1
 
 
    Requested Channels in FAST Output File(s)  
