@@ -1,4 +1,4 @@
-﻿Coupling SeaFEM - OpenFAST3.5 (SeaFEM outside HydroDyn, interacts directly with the glue code)
+﻿Coupling SeaFEM - OpenFAST3.5 (SeaFEM exchanges information with SubDyn)
 ========
 
 |actions| |nbsp| |rtfd|
