@@ -23,6 +23,8 @@ MODULE SeaFEM
    
    PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs 
    
+   PUBLIC :: SeaFEM_CalcOutput2                    ! Routine for coupling with SubDyn
+   
    ABSTRACT INTERFACE
         SUBROUTINE EXCHANGE_FAST_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,flag) BIND(C)
         USE ISO_C_BINDING
@@ -199,4 +201,24 @@ MODULE SeaFEM
                 
    END SUBROUTINE SeaFEM_CalcOutput   
    
+   SUBROUTINE SeaFEM_CalcOutput2( t, u, p, OtherState, y, ErrStat, ErrMsg )
+        ! Routine for computing outputs, used in both loose and tight coupling.
+        !..................................................................................................................................
+   
+        REAL(DbKi),                       INTENT(IN   )  :: t           ! Current simulation time in seconds
+        TYPE(SeaFEM_InputType),           INTENT(IN   )  :: u           ! Inputs at t
+        TYPE(SeaFEM_ParameterType),       INTENT(IN   )  :: p           ! Parameters
+        TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
+        TYPE(SeaFEM_OutputType),          INTENT(INOUT)  :: y           ! Outputs computed at t (Input only so that mesh con-
+        INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
+        CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
+            
+        !! --- Full elastic displacements for others (moordyn)
+        !call SmllRotTrans( 'Nodal rotation', m%U_full_NS(DOFList(4)), m%U_full_NS(DOFList(5)), m%U_full_NS(DOFList(6)), DCM, '', ErrStat2, ErrMsg2)
+        !call SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, 'SD_CalcOutput')
+        !y%Y3mesh%Orientation     (:,:,iSDNode)   = DCM
+        !y%Y3mesh%TranslationDisp (:,iSDNode)     = m%U_full_NS     (DOFList(1:3)) ! Y3: Guyan+CB (but no SIM) displacements
+        
+   END SUBROUTINE SeaFEM_CalcOutput2   
+  
 END MODULE SeaFEM

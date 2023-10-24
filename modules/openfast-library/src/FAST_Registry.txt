@@ -652,11 +652,13 @@ typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_BD_P_Hub	{:}	-	-	"ElastoDyn hub 
 # ED/SD <-> HD
 typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_HD_PRP_P	-	-	-	"Map ElastoDyn PlatformPtMesh to HydroDyn platform reference Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	SubStructure_2_HD_W_P	-	-	-	"Map ElastoDyn PlatformPtMesh or SubDyn y2Mesh to HydroDyn WAMIT Point"
-typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_SF_PRP_P	-	-	-	"Map ElastoDyn PlatformPtMesh to SeaFEM platform reference Point"
-typedef	^	FAST_ModuleMapType	MeshMapType	SubStructure_2_SF_W_P	-	-	-	"Map ElastoDyn PlatformPtMesh or SubDyn y2Mesh to SeaFEM Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	HD_W_P_2_SubStructure	-	-	-	"Map HydroDyn WAMIT Point from y%WAMITMesh to ElastoDyn PlatformPtMesh or SD LMesh"
 typedef	^	FAST_ModuleMapType	MeshMapType	SubStructure_2_HD_M_P	-	-	-	"Map ElastoDyn PlatformPtMesh or SubDyn y2Mesh to HydroDyn Morison Point"
 typedef	^	FAST_ModuleMapType	MeshMapType	HD_M_P_2_SubStructure	-	-	-	"Map HydroDyn Morison Point to ElastoDyn PlatformPtMesh or SD LMesh"
+# ED/SD <-> SF
+typedef	^	FAST_ModuleMapType	MeshMapType	ED_P_2_SF_PRP_P	-	-	-	"Map ElastoDyn PlatformPtMesh to SeaFEM platform reference Point"
+typedef	^	FAST_ModuleMapType	MeshMapType	SubStructure_2_SF_P	-	-	-	"Map ElastoDyn PlatformPtMesh or SubDyn y2Mesh to SeaFEM Point"
+typedef	^	FAST_ModuleMapType	MeshMapType	SF_P_2_SubStructure	-	-	-	"Map SeaFEM Point from y%SeaFEMMesh to ElastoDyn PlatformPtMesh or SD LMesh"
 # Structure (ED, SD, ExtPtfm) <-> Mooring (MAP, FEAM, MoorDyn, OrcaFlex)
 typedef	^	FAST_ModuleMapType	MeshMapType	Structure_2_Mooring	-	-	-	"Map structural SD (y3Mesh)/ED to MAP/FEAM/MoorDyn/OrcaFlex point mesh" "Motions"
 typedef	^	FAST_ModuleMapType	MeshMapType	Mooring_2_Structure	-	-	-	"Map FEAM/MAP/MoorDyn/OrcaFlex mesh to SD (LMesh)/ED (PlatformPtMesh)/ExtPtfm mesh" "Loads"
@@ -715,6 +717,7 @@ typedef	^	FAST_ModuleMapType	MeshType	u_SD_TPMesh	-	-	-	"copy of SD input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_HD_M_Mesh	-	-	-	"copy of HD morison input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_HD_W_Mesh	-	-	-	"copy of HD wamit input mesh"
 #typedef	^	FAST_ModuleMapType	MeshType	u_HD_PRP_Mesh	-	-	-	"copy of HD PRP input mesh"
+typedef	^	FAST_ModuleMapType	MeshType	u_SF_Mesh	-	-	-	"copy of SF input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_ED_HubPtLoad	-	-	-	"copy of  ED input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_ED_HubPtLoad_2	-	-	-	"copy of  ED input mesh"
 typedef	^	FAST_ModuleMapType	MeshType	u_BD_RootMotion	{:}	-	-	"copy of  BD input meshes"
