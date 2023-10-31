@@ -20,6 +20,8 @@
 ! See the License for the specific language governing permissions and
 ! limitations under the License.
 !**********************************************************************************************************************************
+#define SubDyn_active
+
 MODULE FAST_Linear
 
    USE FAST_Solver  ! I mostly just want the modules that are inherited from this module, not the routines in it
@@ -1751,8 +1753,7 @@ SUBROUTINE Glue_Jacobians( p_FAST, y_FAST, m_FAST, ED, BD, SrvD, AD, IfW, ExtInf
    end if
 
 END SUBROUTINE Glue_Jacobians
-
-
+                         
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine forms the dU^{IfW}/du^{AD} block of dUdu. (i.e., how do changes in the AD inputs affect IfW inputs?)
 SUBROUTINE Linear_IfW_InputSolve_du_AD( p_FAST, y_FAST, u_AD, dUdu )

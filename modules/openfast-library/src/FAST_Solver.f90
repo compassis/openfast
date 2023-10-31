@@ -1197,10 +1197,10 @@ SUBROUTINE Transfer_SubStructureMotion_to_SF( SubStructureMotionMesh2SF, u_SF_Me
    ErrMsg = ""
    
    IF ( u_SF_Mesh%Committed ) THEN 
-
+       
       ! These are the motions for the lumped point loads associated viscous drag on the SeaFEM body and/or filled/flooded lumped forces of the WAMIT body
-    !  CALL Transfer_Point_to_Point( SubStructureMotionMesh2SF, u_SF_Mesh, MeshMapData%SubStructure_2_SF_P, ErrStat2, ErrMsg2 )
-     !    CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg,'Transfer_SubStructureMotion_to_SF (u_SF%SeaFEMMesh)' )      
+      CALL Transfer_Point_to_Point( SubStructureMotionMesh2SF, u_SF_Mesh, MeshMapData%SubStructure_2_SF_P, ErrStat2, ErrMsg2 )
+         CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg,'Transfer_SubStructureMotion_to_SF (u_SF%SeaFEMMesh)' )      
          
    END IF    
    
@@ -1294,7 +1294,7 @@ SUBROUTINE Transfer_SrvD_to_SD_MD( p_FAST, y_SrvD, u_SD, u_MD )
       endif
    ENDIF
 END SUBROUTINE Transfer_SrvD_to_SD_MD
-#ifdef SeaFEM_active
+#ifdef SubDyn_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine transfers the ED outputs into inputs required for HD, SD, ExtPtfm, BD, MAP, and/or FEAM
 !> Note that this also calls SD_CalcOutput if SubDyn and HydroDyn are both used.
@@ -1326,6 +1326,7 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
    TYPE(MeshType), POINTER                    :: PlatformMotion
    TYPE(MeshType), POINTER                    :: SubstructureMotion
    TYPE(MeshType), POINTER                    :: SubstructureMotion2HD
+   TYPE(MeshType), POINTER                    :: SubstructureMotion2SF
       
    ErrStat = ErrID_None
    ErrMsg = ""
@@ -1335,9 +1336,11 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
    IF (p_FAST%CompSub == Module_SD) THEN
       SubstructureMotion => SD%y%y3Mesh
       SubstructureMotion2HD => SD%y%y2Mesh
+      SubstructureMotion2SF => SD%y%y2Mesh
    ELSE
       SubstructureMotion => PlatformMotion
       SubstructureMotion2HD => PlatformMotion
+      SubstructureMotion2SF => PlatformMotion
    ENDIF
    
       ! transfer ED outputs to other modules used in option 1:
@@ -1378,6 +1381,9 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
    
       CALL Transfer_Point_to_Point( PlatformMotion, u_SF%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
          CALL SetErrStat(ErrStat2,ErrMsg2,ErrStat, ErrMsg, RoutineName//' (u_SF%SeaFEMMesh)' )
+         
+      CALL Transfer_SubStructureMotion_to_SF( SubstructureMotion2SF, u_SF%SeaFEMMesh, MeshMapData, ErrStat2, ErrMsg2 )
+        CALL SetErrStat(ErrStat2,ErrMsg2, ErrStat, ErrMsg, RoutineName)
                      
    END IF
 
@@ -3981,7 +3987,7 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
          END IF
             
          IF ( p_FAST%CompHydro == Module_SF ) THEN 
-            CALL SeaFEM_CalcOutput2( this_time, u_SF, p_SF, OtherSt_SF, y_SF, ErrStat2, ErrMsg2 )
+            CALL SeaFEM_CalcOutput2( this_time, u_SF, p_SF, OtherSt_SF, y_SF, m_SF, ErrStat2, ErrMsg2 )
                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
          END IF
          
@@ -4085,7 +4091,7 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
                CALL Perturb_u_FullOpt1_SF( p_FAST, MeshMapData%Jac_u_indx, i, u_perturb, u_SF_perturb=u_SF_perturb, perturb=ThisPerturb ) ! perturb u and u_SF by ThisPerturb [routine sets ThisPerturb]
                   
                ! calculate outputs with perturbed inputs:
-               CALL SeaFEM_CalcOutput2( this_time, u_SF_perturb, p_SF, OtherSt_SF, y_SF_perturb, ErrStat2, ErrMsg2 )
+               CALL SeaFEM_CalcOutput2( this_time, u_SF_perturb, p_SF, OtherSt_SF, y_SF_perturb, m_SF, ErrStat2, ErrMsg2 )
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
                   
                CALL U_FullOpt1_Residual(y_ED, y_SD, y_SF_perturb, y_BD, y_Orca, y_ExtPtfm, u_perturb, Fn_U_perturb) ! get this perturbation  
@@ -4591,8 +4597,8 @@ CONTAINS
          ! Loads (outputs) from  meshes transfered to SD LMesh (zero them out first because they get summed in Transfer_HD_to_SD)
          IF ( y_SF2%SeaFEMMesh%Committed ) THEN      
             ! we're mapping loads, so we also need the sibling meshes' displacements:
-           ! CALL Transfer_Point_to_Point( y_SF2%SeaFEMMesh, MeshMapData%SubstructureLoads_Tmp2, MeshMapData%SF_P_2_SubStructure, ErrStat2, ErrMsg2, MeshMapData%u_SF_Mesh, SubStructureMotion2SF )   
-              ! CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
+            !CALL Transfer_Point_to_Point( y_SF2%SeaFEMMesh, MeshMapData%SubstructureLoads_Tmp2, MeshMapData%SF_P_2_SubStructure, ErrStat2, ErrMsg2, MeshMapData%u_SF_Mesh, SubStructureMotion2SF )   
+               !CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
                IF (ErrStat >= AbortErrLev) RETURN
          
             MeshMapData%SubstructureLoads_Tmp%Force  = MeshMapData%SubstructureLoads_Tmp%Force  + MeshMapData%SubstructureLoads_Tmp2%Force
@@ -5126,284 +5132,7 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
    end do !i
    
 END SUBROUTINE Init_FullOpt1_Jacobian
-#ifdef SubDyn_active
-SUBROUTINE Init_FullOpt1_Jacobian_SF( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh, u_SF_Mesh, ED_HubPtLoad, u_BD, Orca_PtfmMesh, ExtPtfm_PtfmMesh, ErrStat, ErrMsg)
-
-   TYPE(FAST_ParameterType)          , INTENT(INOUT) :: p_FAST                !< FAST parameters               
-   TYPE(FAST_ModuleMapType)          , INTENT(INOUT) :: MeshMapData           !< data that maps meshes together
    
-      ! input meshes for each of the 4 modules:
-   TYPE(MeshType)                    , INTENT(IN   ) :: ED_PlatformPtMesh     !< ElastoDyn's PlatformPtMesh
-   TYPE(MeshType)                    , INTENT(IN   ) :: ED_HubPtLoad          !< ElastoDyn's HubPtLoad mesh
-   TYPE(MeshType)                    , INTENT(IN   ) :: SD_TPMesh             !< SubDyn's TP (transition piece) mesh
-   TYPE(MeshType)                    , INTENT(IN   ) :: SD_LMesh              !< SubDyn's LMesh
-   TYPE(MeshType)                    , INTENT(IN   ) :: u_SF_Mesh             !< SeaFEM Lumped Mesh
-   TYPE(BD_InputType)                , INTENT(IN   ) :: u_BD(:)               !< inputs for each instance of the BeamDyn module (for the RootMotion meshes)
-   TYPE(MeshType)                    , INTENT(IN   ) :: Orca_PtfmMesh         !< OrcaFlex interface PtfmMesh
-   TYPE(MeshType)                    , INTENT(IN   ) :: ExtPtfm_PtfmMesh      !< ExtPtfm_MCKF interface PtfmMesh
-   
-   INTEGER(IntKi)                    , INTENT(  OUT) :: ErrStat               !< Error status of the operation
-   CHARACTER(*)                      , INTENT(  OUT) :: ErrMsg                !< Error message if ErrStat /= ErrID_None
-   
-   CHARACTER(*), PARAMETER                           :: RoutineName = 'Init_FullOpt1_Jacobian'
-   
-      ! local variables:
-   INTEGER(IntKi)                :: i, j, k, index
-   
-   ErrStat = ErrID_None
-   ErrMsg  = ""
-   
-      ! determine how many inputs there are between the 6 modules (ED, SD, HD, BD, Orca, ExtPtfm)
-   p_FAST%SizeJac_Opt1 = 0 ! initialize whole array
-   
-   if (p_FAST%CompHydro == Module_SF .or. p_FAST%CompSub /= Module_None .or. p_FAST%CompMooring == Module_Orca) then
-      p_FAST%SizeJac_Opt1(2) = ED_PlatformPtMesh%NNodes*6        ! ED inputs: 3 forces and 3 moments per node (only 1 node)
-   else
-      p_FAST%SizeJac_Opt1(2) = 0
-   end if
-   
-                  
-   p_FAST%SizeJac_Opt1(3) = SD_TPMesh%NNodes*6                    ! SD inputs: 6 accelerations per node (size of SD input from ED) 
-   IF ( p_FAST%CompHydro == Module_SF ) THEN   
-      p_FAST%SizeJac_Opt1(3) = p_FAST%SizeJac_Opt1(3) &   
-                                    + SD_LMesh%NNodes *6          ! SD inputs: 6 loads per node (size of SD input from HD)       
-   END IF
-               
-   p_FAST%SizeJac_Opt1(4) = u_SF_Mesh%NNodes *6                   ! SF inputs: 6 accelerations per node (on each SeaFEM mesh)    
-   
-   IF ( p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) THEN   
-      p_FAST%SizeJac_Opt1(2) = p_FAST%SizeJac_Opt1(2) &   
-                                     + ED_HubPtLoad%NNodes *6     ! ED inputs: 6 loads per node (size of ED input from BD)
-      
-      p_FAST%SizeJac_Opt1(5:7) = 0 ! assumes a max of 3 blades
-      do k=1,size(u_BD)
-         p_FAST%SizeJac_Opt1(4+k) = u_BD(k)%RootMotion%NNodes *6   ! BD inputs: 6 accelerations per node (size of BD input from ED)         
-      end do
-            
-   END IF
-        
-   if ( p_FAST%CompMooring == Module_Orca ) then   
-      p_FAST%SizeJac_Opt1(8) = Orca_PtfmMesh%NNodes*6
-   else
-      p_FAST%SizeJac_Opt1(8) = 0
-   end if
-   
-   if ( p_FAST%CompSub == Module_ExtPtfm ) then   
-      p_FAST%SizeJac_Opt1(9) = ExtPtfm_PtfmMesh%NNodes*6
-   else
-      p_FAST%SizeJac_Opt1(9) = 0
-   end if
-                       
-   p_FAST%SizeJac_Opt1(1) = sum( p_FAST%SizeJac_Opt1 )   ! all the inputs from these modules
-                  
-      ! allocate matrix to store jacobian 
-   CALL AllocAry( MeshMapData%Jacobian_Opt1, p_FAST%SizeJac_Opt1(1), p_FAST%SizeJac_Opt1(1), "Jacobian for full option 1", ErrStat, ErrMsg )
-      IF ( ErrStat /= ErrID_None ) RETURN
-         
-      ! allocate matrix to store index to help us figure out what the ith value of the u vector really means
-   ALLOCATE ( MeshMapData%Jac_u_indx( p_FAST%SizeJac_Opt1(1), 3 ), STAT = ErrStat )
-      IF ( ErrStat /= 0 ) THEN
-         ErrStat = ErrID_Fatal
-         ErrMsg = 'Cannot allocate Jac_u_indx.'
-         RETURN
-      END IF
-
-   !...............
-   ! ED inputs:   
-   !...............
-   
-   index = 1
-   if (p_FAST%CompHydro == Module_SF .or. p_FAST%CompSub /= Module_None .or. p_FAST%CompMooring == Module_Orca) then
-   
-      do i=1,ED_PlatformPtMesh%NNodes
-         do j=1,3
-            MeshMapData%Jac_u_indx(index,1) =  1 !Module/Mesh/Field: u_ED%PlatformPtMesh%Force = 1
-            MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-            MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-            index = index + 1
-         end do !j      
-      end do !i
-   
-      do i=1,ED_PlatformPtMesh%NNodes
-         do j=1,3
-            MeshMapData%Jac_u_indx(index,1) =  2 !Module/Mesh/Field: u_ED%PlatformPtMesh%Moment = 2
-            MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-            MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-            index = index + 1
-         end do !j      
-      end do !i
-      
-   end if
-   
-   if (p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) then
-      
-      do i=1,ED_HubPtLoad%NNodes
-         do j=1,3
-            MeshMapData%Jac_u_indx(index,1) =  3 !Module/Mesh/Field: u_ED%HubPtMesh%Force = 3
-            MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-            MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-            index = index + 1
-         end do !j      
-      end do !i
-      
-      do i=1,ED_HubPtLoad%NNodes
-         do j=1,3
-            MeshMapData%Jac_u_indx(index,1) =  4 !Module/Mesh/Field: u_ED%HubPtMesh%Moment = 4
-            MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-            MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-            index = index + 1
-         end do !j      
-      end do !i
-
-   end if
-      
-   !...............
-   ! SD inputs:   
-   !...............
-      
-   ! SD_TPMesh                        
-   do i=1,SD_TPMesh%NNodes
-      do j=1,3
-         MeshMapData%Jac_u_indx(index,1) =  5 !Module/Mesh/Field: u_SD%TPMesh%TranslationAcc = 5
-         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-         index = index + 1                  
-      end do !j                             
-   end do !i                                
-                                            
-   do i=1,SD_TPMesh%NNodes                  
-      do j=1,3                              
-         MeshMapData%Jac_u_indx(index,1) =  6 !Module/Mesh/Field:  u_SD%TPMesh%RotationAcc = 6
-         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-         index = index + 1
-      end do !j      
-   end do !i   
-   
-   IF ( p_FAST%CompHydro == Module_SF ) THEN   ! this SD mesh linked only when HD is enabled
-   
-      ! SD_LMesh
-      do i=1,SD_LMesh%NNodes
-         do j=1,3
-            MeshMapData%Jac_u_indx(index,1) =  7 !Module/Mesh/Field: u_SD%LMesh%Force = 7
-            MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-            MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-            index = index + 1                  
-         end do !j                             
-      end do !i                                
-                                            
-      do i=1,SD_LMesh%NNodes                   
-         do j=1,3                              
-            MeshMapData%Jac_u_indx(index,1) =  8 !Module/Mesh/Field: u_SD%LMesh%Moment = 8
-            MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-            MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-            index = index + 1
-         end do !j      
-      end do !i 
-      
-   END IF
-   
-   !...............
-   ! SeaFEM inputs:
-   !...............
-         
-   do i=1,u_SF_Mesh%NNodes
-      do j=1,3
-         MeshMapData%Jac_u_indx(index,1) =  9 !Module/Mesh/Field: u_HD%Morison%Mesh%TranslationAcc = 9
-         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-         index = index + 1
-      end do !j      
-   end do !i
-   
-   do i=1,u_SF_Mesh%NNodes
-      do j=1,3
-         MeshMapData%Jac_u_indx(index,1) = 10 !Module/Mesh/Field:  u_HD%Morison%Mesh%RotationAcc = 10
-         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-         index = index + 1
-      end do !j      
-   end do !i           
-   
-   !...............
-   ! BD inputs:
-   !...............
-   
-   if (p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) then
-                 
-      do k=1,size(u_BD)
-         
-         do i=1,u_BD(k)%RootMotion%NNodes
-            do j=1,3
-               MeshMapData%Jac_u_indx(index,1) =  11 + 2*k !Module/Mesh/Field: u_BD(k)%RootMotion%TranslationAcc = 13 (k=1), 15 (k=2), 17 (k=3)
-               MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-               MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-               index = index + 1
-            end do !j      
-         end do !i
-      
-         do i=1,u_BD(k)%RootMotion%NNodes
-            do j=1,3
-               MeshMapData%Jac_u_indx(index,1) =  12 + 2*k !Module/Mesh/Field: u_BD(k)%RootMotion%RotationAcc = 14 (k=1), 16 (k=2), 18 (k=3)
-               MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-               MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-               index = index + 1
-            end do !j      
-         end do !i
-                  
-      end do !k
-                  
-   end if
-   
-   !...............
-   ! Orca inputs:   
-   !...............
-      
-   ! Orca_PtfmMesh
-   do i=1,Orca_PtfmMesh%NNodes
-      do j=1,3
-         MeshMapData%Jac_u_indx(index,1) =  19 !Module/Mesh/Field: u_Orca%PtfmMesh%TranslationAcc = 19
-         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-         index = index + 1                  
-      end do !j                             
-   end do !i                                
-                                            
-   do i=1,Orca_PtfmMesh%NNodes                  
-      do j=1,3                              
-         MeshMapData%Jac_u_indx(index,1) =  20 !Module/Mesh/Field:  u_Orca%PtfmMesh%RotationAcc = 20
-         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-         index = index + 1
-      end do !j      
-   end do !i      
-   
-   !...............
-   ! ExtPtfm inputs:   
-   !...............
-      
-   ! ExtPtfm_PtfmMesh
-   do i=1,ExtPtfm_PtfmMesh%NNodes
-      do j=1,3
-         MeshMapData%Jac_u_indx(index,1) =  21 !Module/Mesh/Field: u_ExtPtfm%PtfmMesh%TranslationAcc = 21
-         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-         index = index + 1                  
-      end do !j                             
-   end do !i                                
-                                            
-   do i=1,ExtPtfm_PtfmMesh%NNodes                  
-      do j=1,3                              
-         MeshMapData%Jac_u_indx(index,1) =  22 !Module/Mesh/Field:  u_ExtPtfm%PtfmMesh%RotationAcc = 22
-         MeshMapData%Jac_u_indx(index,2) =  j !index:  j
-         MeshMapData%Jac_u_indx(index,3) =  i !Node:   i
-         index = index + 1
-      end do !j      
-   end do !i
-     
-END SUBROUTINE Init_FullOpt1_Jacobian_SF
-#endif                                  
-
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine basically packs the relevant parts of the modules' input meshes for use in this InputOutput solve.
 !! Do not change the order of this packing without changing subroutine Init_FullOpt1_Jacobian()!
@@ -6357,6 +6086,7 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
    TYPE(MeshType), POINTER                   :: PlatformLoads
 
    TYPE(MeshType), POINTER                   :: SubstructureMotion2HD
+   TYPE(MeshType), POINTER                   :: SubstructureMotion2SF
    TYPE(MeshType), POINTER                   :: SubstructureMotion
    TYPE(MeshType), POINTER                   :: SubstructureLoads
    !............................................................................................................................
@@ -6371,17 +6101,20 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
       END IF
       PlatformMotion => ED%y%PlatformPtMesh
       PlatformLoads  => ED%Input(1)%PlatformPtMesh
-      
+
+#ifdef SubDyn_active      
    IF (p_FAST%CompSub == MODULE_SD) THEN 
       SubstructureMotion2HD => SD%y%y2Mesh
+      SubstructureMotion2SF => SD%y%y2Mesh
       SubstructureMotion    => SD%y%y3Mesh
       SubstructureLoads     => SD%Input(1)%LMesh
    ELSE ! all of these get mapped to ElastoDyn ! (offshore floating with rigid substructure)
       SubstructureMotion2HD => ED%y%PlatformPtMesh
+      SubstructureMotion2SF => ED%y%PlatformPtMesh
       SubstructureMotion    => ED%y%PlatformPtMesh
       SubstructureLoads     => ED%Input(1)%PlatformPtMesh
    END IF
-
+#endif
 
    !............................................................................................................................
    ! Determine solver options:
@@ -6770,23 +6503,27 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
             CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':HD_M_P_2_SubStructure' )
          CALL MeshMapCreate( SubstructureMotion2HD,  HD%Input(1)%Morison%Mesh, MeshMapData%SubStructure_2_HD_M_P, ErrStat2, ErrMsg2 )
             CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':SubStructure_2_HD_M_P' )                  
-      END IF
+      END IF  
       
       IF (ErrStat >= AbortErrLev ) RETURN
     
    END IF !HydroDyn-{ElastoDyn or SubDyn}
-
+#ifdef SubDyn_active
       IF ( p_FAST%CompHydro == Module_SF ) THEN ! SeaFEM-{ElastoDyn or SubDyn}
     
       ! Regardless of the offshore configuration, ED platform motions will be mapped to the PRPMesh of HD
       ! we're just going to assume PlatformLoads and PlatformMotion are committed
       CALL MeshMapCreate( PlatformMotion, SF%Input(1)%SeaFEMMesh, MeshMapData%ED_P_2_SF_PRP_P, ErrStat2, ErrMsg2 )
-         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':ED_P_2_SF_PRP_P' )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':ED_P_2_SF_PRP_P' )      
+      CALL MeshMapCreate( SF%y%SeaFEMMesh, SubstructureLoads, MeshMapData%SF_P_2_SubStructure, ErrStat2, ErrMsg2 )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':SF_P_2_SubStructure' )
+      CALL MeshMapCreate( SubstructureMotion2SF,  SF%Input(1)%SeaFEMMesh, MeshMapData%SubStructure_2_SF_P, ErrStat2, ErrMsg2 )
+         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':SubStructure_2_SF_P' )    
                
       IF (ErrStat >= AbortErrLev ) RETURN
     
    END IF !SeaFEM-{ElastoDyn or SubDyn}
-      
+#endif       
 !-------------------------
 !  ElastoDyn <-> SubDyn
 !-------------------------
@@ -6908,16 +6645,10 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
    !............................................................................................................................
    IF (.not. p_FAST%CompAeroMaps) THEN
       IF ( p_FAST%SolveOption == Solve_FullOpt1 ) THEN
-          IF ( p_FAST%CompHydro == Module_SD ) THEN
-                CALL Init_FullOpt1_Jacobian_SF( p_FAST, MeshMapData, ED%Input(1)%PlatformPtMesh, SD%Input(1)%TPMesh, SD%Input(1)%LMesh, &
-                                SF%Input(1)%SeaFEMMesh, ED%Input(1)%HubPtLoad, BD%Input(1,:), Orca%Input(1)%PtfmMesh, ExtPtfm%Input(1)%PtfmMesh, ErrStat2, ErrMsg2)
-                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName ) 
-          ELSE
-                CALL Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED%Input(1)%PlatformPtMesh, SD%Input(1)%TPMesh, SD%Input(1)%LMesh, &
-                                       HD%Input(1)%Morison%Mesh, HD%Input(1)%WAMITMesh, &
-                                       ED%Input(1)%HubPtLoad, BD%Input(1,:), Orca%Input(1)%PtfmMesh, ExtPtfm%Input(1)%PtfmMesh, ErrStat2, ErrMsg2)
-                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )       
-         END IF
+        CALL Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED%Input(1)%PlatformPtMesh, SD%Input(1)%TPMesh, SD%Input(1)%LMesh, &
+                                HD%Input(1)%Morison%Mesh, HD%Input(1)%WAMITMesh, &
+                                ED%Input(1)%HubPtLoad, BD%Input(1,:), Orca%Input(1)%PtfmMesh, ExtPtfm%Input(1)%PtfmMesh, ErrStat2, ErrMsg2)
+        CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )       
       ELSEIF ( p_FAST%SolveOption == Solve_SimplifiedOpt1 ) THEN
          CALL AllocAry( MeshMapData%Jacobian_Opt1, SizeJac_ED_HD, SizeJac_ED_HD, 'Jacobian for Ptfm-HD coupling', ErrStat2, ErrMsg2 )
          CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )
