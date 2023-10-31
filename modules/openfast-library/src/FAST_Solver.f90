@@ -4818,11 +4818,12 @@ CONTAINS
    !...............................................................................................................................
 END SUBROUTINE SD_SF_InputOutputSolve
 #endif
+#ifdef SubDyn_active
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine initializes the array that maps rows/columns of the Jacobian to specific mesh fields.
 !! Do not change the order of this packing without changing subroutine Create_FullOpt1_UVector()!
 SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh, HD_M_Mesh,  &
-                                   HD_WAMIT_Mesh, ED_HubPtLoad, u_BD, Orca_PtfmMesh, ExtPtfm_PtfmMesh, ErrStat, ErrMsg)
+                                   HD_WAMIT_Mesh, SF_Mesh, ED_HubPtLoad, u_BD, Orca_PtfmMesh, ExtPtfm_PtfmMesh, ErrStat, ErrMsg)
 
    TYPE(FAST_ParameterType)          , INTENT(INOUT) :: p_FAST                !< FAST parameters               
    TYPE(FAST_ModuleMapType)          , INTENT(INOUT) :: MeshMapData           !< data that maps meshes together
@@ -4834,6 +4835,7 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
    TYPE(MeshType)                    , INTENT(IN   ) :: SD_LMesh              !< SubDyn's LMesh
    TYPE(MeshType)                    , INTENT(IN   ) :: HD_M_Mesh             !< HydroDyn's Morison Lumped Mesh
    TYPE(MeshType)                    , INTENT(IN   ) :: HD_WAMIT_Mesh         !< HydroDyn's WAMIT mesh
+   TYPE(MeshType)                    , INTENT(IN   ) :: SF_Mesh               !< SeaFEM's LMesh
    TYPE(BD_InputType)                , INTENT(IN   ) :: u_BD(:)               !< inputs for each instance of the BeamDyn module (for the RootMotion meshes)
    TYPE(MeshType)                    , INTENT(IN   ) :: Orca_PtfmMesh         !< OrcaFlex interface PtfmMesh
    TYPE(MeshType)                    , INTENT(IN   ) :: ExtPtfm_PtfmMesh      !< ExtPtfm_MCKF interface PtfmMesh
@@ -4852,15 +4854,15 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
       ! determine how many inputs there are between the 6 modules (ED, SD, HD, BD, Orca, ExtPtfm)
    p_FAST%SizeJac_Opt1 = 0 ! initialize whole array
    
-   if (p_FAST%CompHydro == Module_HD .or. p_FAST%CompSub /= Module_None .or. p_FAST%CompMooring == Module_Orca) then
+   if (p_FAST%CompHydro == Module_HD .or. p_FAST%CompHydro == Module_SF .or. p_FAST%CompSub /= Module_None .or. p_FAST%CompMooring == Module_Orca) then
       p_FAST%SizeJac_Opt1(2) = ED_PlatformPtMesh%NNodes*6        ! ED inputs: 3 forces and 3 moments per node (only 1 node)
    else
       p_FAST%SizeJac_Opt1(2) = 0
    end if
-   
                   
    p_FAST%SizeJac_Opt1(3) = SD_TPMesh%NNodes*6                    ! SD inputs: 6 accelerations per node (size of SD input from ED) 
-   IF ( p_FAST%CompHydro == Module_HD ) THEN   
+
+   IF ( p_FAST%CompHydro == Module_HD .or. p_FAST%CompHydro == Module_SF ) THEN   
       p_FAST%SizeJac_Opt1(3) = p_FAST%SizeJac_Opt1(3) &   
                                     + SD_LMesh%NNodes *6          ! SD inputs: 6 loads per node (size of SD input from HD)       
    END IF
@@ -5132,7 +5134,7 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
    end do !i
    
 END SUBROUTINE Init_FullOpt1_Jacobian
-   
+#endif  
 !----------------------------------------------------------------------------------------------------------------------------------
 !> This routine basically packs the relevant parts of the modules' input meshes for use in this InputOutput solve.
 !! Do not change the order of this packing without changing subroutine Init_FullOpt1_Jacobian()!
@@ -6646,7 +6648,7 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
    IF (.not. p_FAST%CompAeroMaps) THEN
       IF ( p_FAST%SolveOption == Solve_FullOpt1 ) THEN
         CALL Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED%Input(1)%PlatformPtMesh, SD%Input(1)%TPMesh, SD%Input(1)%LMesh, &
-                                HD%Input(1)%Morison%Mesh, HD%Input(1)%WAMITMesh, &
+                                HD%Input(1)%Morison%Mesh, HD%Input(1)%WAMITMesh, SF%Input(1)%SeaFEMMesh, &
                                 ED%Input(1)%HubPtLoad, BD%Input(1,:), Orca%Input(1)%PtfmMesh, ExtPtfm%Input(1)%PtfmMesh, ErrStat2, ErrMsg2)
         CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName )       
       ELSEIF ( p_FAST%SolveOption == Solve_SimplifiedOpt1 ) THEN
