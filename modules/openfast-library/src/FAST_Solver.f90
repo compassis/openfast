@@ -3987,7 +3987,7 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
          END IF
             
          IF ( p_FAST%CompHydro == Module_SF ) THEN 
-            CALL SeaFEM_CalcOutput2( this_time, u_SF, p_SF, OtherSt_SF, y_SF, m_SF, ErrStat2, ErrMsg2 )
+            CALL SeaFEM_CalcOutput( this_time, u_SF, p_SF, OtherSt_SF, y_SF, ErrStat2, ErrMsg2 )
                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
          END IF
          
@@ -4091,7 +4091,7 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
                CALL Perturb_u_FullOpt1_SF( p_FAST, MeshMapData%Jac_u_indx, i, u_perturb, u_SF_perturb=u_SF_perturb, perturb=ThisPerturb ) ! perturb u and u_SF by ThisPerturb [routine sets ThisPerturb]
                   
                ! calculate outputs with perturbed inputs:
-               CALL SeaFEM_CalcOutput2( this_time, u_SF_perturb, p_SF, OtherSt_SF, y_SF_perturb, m_SF, ErrStat2, ErrMsg2 )
+               CALL SeaFEM_CalcOutput( this_time, u_SF_perturb, p_SF, OtherSt_SF, y_SF_perturb, ErrStat2, ErrMsg2 )
                   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
                   
                CALL U_FullOpt1_Residual(y_ED, y_SD, y_SF_perturb, y_BD, y_Orca, y_ExtPtfm, u_perturb, Fn_U_perturb) ! get this perturbation  

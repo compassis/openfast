@@ -23,8 +23,6 @@ MODULE SeaFEM
    
    PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs 
    
-   PUBLIC :: SeaFEM_CalcOutput2                    ! Routine for coupling with SubDyn
-   
    ABSTRACT INTERFACE
         SUBROUTINE EXCHANGE_FAST_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,flag) BIND(C)
         USE ISO_C_BINDING
@@ -202,34 +200,5 @@ MODULE SeaFEM
         END DO
                 
    END SUBROUTINE SeaFEM_CalcOutput   
-   
-   SUBROUTINE SeaFEM_CalcOutput2( t, u, p, OtherState, y, m, ErrStat, ErrMsg )
-        ! Routine for computing outputs, used in both loose and tight coupling.
-        !..................................................................................................................................
-   
-        REAL(DbKi),                       INTENT(IN   )  :: t           ! Current simulation time in seconds
-        TYPE(SeaFEM_InputType),           INTENT(IN   )  :: u           ! Inputs at t
-        TYPE(SeaFEM_ParameterType),       INTENT(IN   )  :: p           ! Parameters
-        TYPE(SeaFEM_OtherStateType),      INTENT(INOUT)  :: OtherState  ! Other/optimization states
-        TYPE(SeaFEM_OutputType),          INTENT(INOUT)  :: y           ! Outputs computed at t (Input only so that mesh con-
-        TYPE(SeaFEM_MiscVarType),         INTENT(INOUT)  :: m           !< Misc/optimization variables
-        INTEGER(IntKi),                   INTENT(  OUT)  :: ErrStat     ! Error status of the operation
-        CHARACTER(*),                     INTENT(  OUT)  :: ErrMsg      ! Error message if ErrStat /= ErrID_None
-        
-        ! Local variables
-        REAL(ReKi)                           :: q(6), qdot(6), qdotdot(6)    ! Platform motions
-        REAL(ReKi)                           :: rotdisp(3)                   ! Small angle rotational displacements
-        
-        ! Determine the rotational angles from the direction-cosine matrix
-        rotdisp = GetSmllRotAngs( u%SeaFEMMesh%Orientation(:,:,1), ErrStat, ErrMsg )              
-              
-        ! Displacements, velocities and accelerations are obteined from the input mesh (12 iterations for time step increment)
-        q       = reshape((/real(u%SeaFEMMesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
-        qdot    = reshape((/u%SeaFEMMesh%TranslationVel(:,1),u%SeaFEMMesh%RotationVel(:,1)/),(/6/))
-        qdotdot = reshape((/u%SeaFEMMesh%TranslationAcc(:,1),u%SeaFEMMesh%RotationAcc(:,1)/),(/6/))   
-        
-
-        
-   END SUBROUTINE SeaFEM_CalcOutput2   
   
 END MODULE SeaFEM
