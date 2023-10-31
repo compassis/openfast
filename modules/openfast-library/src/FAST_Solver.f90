@@ -4866,10 +4866,14 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
       p_FAST%SizeJac_Opt1(3) = p_FAST%SizeJac_Opt1(3) &   
                                     + SD_LMesh%NNodes *6          ! SD inputs: 6 loads per node (size of SD input from HD)       
    END IF
-               
-   p_FAST%SizeJac_Opt1(4) = HD_M_Mesh%NNodes *6 &                 ! HD inputs: 6 accelerations per node (on each Morison mesh) 
-                                 + HD_WAMIT_Mesh%NNodes*6         ! HD inputs: 6 accelerations per node (on the WAMIT mesh)      
-   
+ 
+   IF ( p_FAST%CompHydro == Module_SF ) THEN 
+        p_FAST%SizeJac_Opt1(4) = SF_Mesh%NNodes *6                    ! SF inputs: 6 accelerations per node (on each SeaFEM mesh)          
+   ELSE
+       p_FAST%SizeJac_Opt1(4) = HD_M_Mesh%NNodes *6 &                 ! HD inputs: 6 accelerations per node (on each Morison mesh) 
+                                     + HD_WAMIT_Mesh%NNodes*6         ! HD inputs: 6 accelerations per node (on the WAMIT mesh)      
+   END IF
+       
    IF ( p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) THEN   
       p_FAST%SizeJac_Opt1(2) = p_FAST%SizeJac_Opt1(2) &   
                                      + ED_HubPtLoad%NNodes *6     ! ED inputs: 6 loads per node (size of ED input from BD)
@@ -4892,12 +4896,9 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
    else
       p_FAST%SizeJac_Opt1(9) = 0
    end if
-   
-                       
-                              
+                        
    p_FAST%SizeJac_Opt1(1) = sum( p_FAST%SizeJac_Opt1 )   ! all the inputs from these modules
                   
-
       ! allocate matrix to store jacobian 
    CALL AllocAry( MeshMapData%Jacobian_Opt1, p_FAST%SizeJac_Opt1(1), p_FAST%SizeJac_Opt1(1), "Jacobian for full option 1", ErrStat, ErrMsg )
       IF ( ErrStat /= ErrID_None ) RETURN
@@ -4942,8 +4943,7 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
       end do !i
       
    end if
-   
-   
+    
    if (p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) then
       
       do i=1,ED_HubPtLoad%NNodes
@@ -4966,8 +4966,7 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
       end do !i
 
    end if
-   
-      
+     
    !...............
    ! SD inputs:   
    !...............
@@ -5036,7 +5035,6 @@ SUBROUTINE Init_FullOpt1_Jacobian( p_FAST, MeshMapData, ED_PlatformPtMesh, SD_TP
          index = index + 1
       end do !j      
    end do !i     
-   
    
    !(Mesh)
    do i=1,HD_WAMIT_Mesh%NNodes
