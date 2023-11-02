@@ -3834,7 +3834,7 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
    REAL(ReKi),                             PARAMETER :: TOL_Squared = (1.0E-4)**2 !not currently used because KMax = 1
    REAL(ReKi)                                        :: ThisPerturb               ! an arbitrary perturbation (these are linear, so it shouldn't matter)
    
-   CHARACTER(*),                           PARAMETER :: RoutineName = 'FullOpt1_InputOutputSolve'
+   CHARACTER(*),                           PARAMETER :: RoutineName = 'SD_SF_InputOutputSolve'
    
 !bjj: store these so that we don't reallocate every time?   
    REAL(ReKi)                                        :: u(           p_FAST%SizeJac_Opt1(1))   ! size of loads/accelerations passed between the 6 modules
@@ -4298,14 +4298,14 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
                ! Get the LU decomposition of this matrix using a LAPACK routine: 
                ! The result is of the form MeshMapDat%Jacobian_Opt1 = P * L * U 
 
-            CALL LAPACK_getrf( M=p_FAST%SizeJac_Opt1(1), N=p_FAST%SizeJac_Opt1(1), &
-                              A=MeshMapData%Jacobian_Opt1, IPIV=MeshMapData%Jacobian_pivot, &
-                              ErrStat=ErrStat2, ErrMsg=ErrMsg2 )
-               CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
-               IF ( ErrStat >= AbortErrLev ) THEN
-                  CALL CleanUp()
-                  RETURN 
-               END IF
+            !CALL LAPACK_getrf( M=p_FAST%SizeJac_Opt1(1), N=p_FAST%SizeJac_Opt1(1), &
+            !                  A=MeshMapData%Jacobian_Opt1, IPIV=MeshMapData%Jacobian_pivot, &
+            !                  ErrStat=ErrStat2, ErrMsg=ErrMsg2 )
+            !   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
+            !   IF ( ErrStat >= AbortErrLev ) THEN
+            !      CALL CleanUp()
+            !      RETURN 
+            !   END IF
             
          END IF         
             
@@ -4315,13 +4315,13 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
          !-------------------------------------------------------------------------------------------------
          
          u_delta = -Fn_U_Resid
-         CALL LAPACK_getrs( TRANS="N", N=p_FAST%SizeJac_Opt1(1), A=MeshMapData%Jacobian_Opt1, &
-                            IPIV=MeshMapData%Jacobian_pivot, B=u_delta, ErrStat=ErrStat2, ErrMsg=ErrMsg2 )
-               CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
-               IF ( ErrStat >= AbortErrLev ) THEN
-                  CALL CleanUp()
-                  RETURN 
-               END IF
+         !CALL LAPACK_getrs( TRANS="N", N=p_FAST%SizeJac_Opt1(1), A=MeshMapData%Jacobian_Opt1, &
+         !                   IPIV=MeshMapData%Jacobian_pivot, B=u_delta, ErrStat=ErrStat2, ErrMsg=ErrMsg2 )
+         !      CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
+         !      IF ( ErrStat >= AbortErrLev ) THEN
+         !         CALL CleanUp()
+         !         RETURN 
+         !      END IF
 
          !-------------------------------------------------------------------------------------------------
          ! check for error, update inputs (u_ED and u_HD), and iterate again
@@ -4331,13 +4331,6 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
          
          u = u + u_delta                  
          CALL Add_FullOpt1_u_delta_SF( p_FAST, MeshMapData%Jac_u_indx, u_delta, u_ED, u_SD, u_SF, u_BD, u_Orca, u_ExtPtfm )
-         
-         IF ( p_FAST%CompHydro == Module_SF ) THEN
-         
-             u_ED%PLATFORMPTMESH%FORCE =  y_SF%SEAFEMMESH%FORCE      
-             u_ED%PLATFORMPTMESH%MOMENT =  y_SF%SEAFEMMESH%MOMENT  
-         
-         END IF
                            
          K = K + 1
          
@@ -4356,8 +4349,7 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
          SubStructureMotionMesh_1 => y_ED%PlatformPtMesh
          SubStructureMotionMesh2SF_1 => y_ED%PlatformPtMesh
       end if
-      
-      
+          
       ! BD motion inputs: (from ED)
       IF (p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) THEN
          
@@ -4597,12 +4589,17 @@ CONTAINS
          ! Loads (outputs) from  meshes transfered to SD LMesh (zero them out first because they get summed in Transfer_HD_to_SD)
          IF ( y_SF2%SeaFEMMesh%Committed ) THEN      
             ! we're mapping loads, so we also need the sibling meshes' displacements:
-            !CALL Transfer_Point_to_Point( y_SF2%SeaFEMMesh, MeshMapData%SubstructureLoads_Tmp2, MeshMapData%SF_P_2_SubStructure, ErrStat2, ErrMsg2, MeshMapData%u_SF_Mesh, SubStructureMotion2SF )   
-               !CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
+            CALL Transfer_Point_to_Point( y_SF2%SeaFEMMesh, MeshMapData%SubstructureLoads_Tmp2, MeshMapData%SF_P_2_SubStructure, ErrStat2, ErrMsg2, MeshMapData%u_SF_Mesh, SubStructureMotion2SF )   
+               CALL SetErrStat(ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName)
                IF (ErrStat >= AbortErrLev) RETURN
          
             MeshMapData%SubstructureLoads_Tmp%Force  = MeshMapData%SubstructureLoads_Tmp%Force  + MeshMapData%SubstructureLoads_Tmp2%Force
-            MeshMapData%SubstructureLoads_Tmp%Moment = MeshMapData%SubstructureLoads_Tmp%Moment + MeshMapData%SubstructureLoads_Tmp2%Moment     
+            MeshMapData%SubstructureLoads_Tmp%Moment = MeshMapData%SubstructureLoads_Tmp%Moment + MeshMapData%SubstructureLoads_Tmp2%Moment   
+
+!            MeshMapData%SubstructureLoads_Tmp%Force  = y_SF2%SeaFEMMesh%Force
+!            MeshMapData%SubstructureLoads_Tmp%Moment = y_SF2%SeaFEMMesh%Moment
+            
+            WRITE(*,*) "Force = ", MeshMapData%SubstructureLoads_Tmp%Force
          
          END IF   
        
@@ -5357,13 +5354,13 @@ SUBROUTINE Create_FullOpt1_UVector_SF(u, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh,
    ! SD inputs (SD_TPMesh):      
    !...............
    do i=1,SD_TPMesh%NNodes 
-      indx_last  = indx_first + 2
+      indx_last  = indx_first - 1
       u(indx_first:indx_last) = SD_TPMesh%TranslationAcc(:,i) 
       indx_first = indx_last + 1
    end do
 
    do i=1,SD_TPMesh%NNodes 
-      indx_last  = indx_first + 2
+      indx_last  = indx_first - 1
       u(indx_first:indx_last) = SD_TPMesh%RotationAcc(:,i) 
       indx_first = indx_last + 1
    end do
@@ -5371,29 +5368,29 @@ SUBROUTINE Create_FullOpt1_UVector_SF(u, ED_PlatformPtMesh, SD_TPMesh, SD_LMesh,
    if ( p_FAST%CompHydro == Module_SF ) then   ! this SD mesh linked only when HD is enabled
       ! SD inputs (SD_LMesh):        
       do i=1,SD_LMesh%NNodes
-         indx_last  = indx_first - 2
+         indx_last  = indx_first - 1
          u(indx_first:indx_last) = SD_LMesh%Force(:,i) / p_FAST%UJacSclFact
          indx_first = indx_last + 1
       end do
      
       do i=1,SD_LMesh%NNodes
-         indx_last  = indx_first -2 
+         indx_last  = indx_first - 1 
          u(indx_first:indx_last) = SD_LMesh%Moment(:,i) / p_FAST%UJacSclFact
          indx_first = indx_last + 1
       end do
    end if
    
    !...............
-   ! HD inputs (Morison%Mesh):
+   ! SF inputs (SeaFEMMesh):
    !...............
    do i=1,SF_Mesh%NNodes
-      indx_last  = indx_first - 2 
+      indx_last  = indx_first + 2 
       u(indx_first:indx_last) = SF_Mesh%TranslationAcc(:,i)
       indx_first = indx_last + 1
    end do
       
    do i=1,SF_Mesh%NNodes
-      indx_last  = indx_first - 2 
+      indx_last  = indx_first + 2 
       u(indx_first:indx_last) = SF_Mesh%RotationAcc(:,i)
       indx_first = indx_last + 1
    end do
@@ -6744,7 +6741,18 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
             CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':u_HD_M_Mesh' )                         
                                     
       END IF
-          
+#ifdef SubDyn_active    
+      IF ( p_FAST%CompHydro == Module_SF ) THEN
+         
+         !TODO: GJH Is this needed, I created it as a place holder, 5/11/2020
+         !CALL MeshCopy ( HD%Input(1)%PRPMesh, MeshMapData%u_HD_PRP_Mesh, MESH_NEWCOPY, ErrStat2, ErrMsg2 )      
+         !   CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':u_HD_PRP_Mesh' )
+            
+         CALL MeshCopy ( SF%Input(1)%SeaFEMMesh, MeshMapData%u_SF_Mesh, MESH_NEWCOPY, ErrStat2, ErrMsg2 )      
+            CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName//':u_SF_Mesh' )                 
+                                                      
+      END IF
+#endif          
       IF ( p_FAST%CompMooring == Module_Orca ) THEN
          
          CALL MeshCopy ( Orca%Input(1)%PtfmMesh, MeshMapData%u_Orca_PtfmMesh, MESH_NEWCOPY, ErrStat2, ErrMsg2 )      
