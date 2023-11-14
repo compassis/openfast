@@ -1,18 +1,17 @@
 
 FAST Summary File
 
-Predictions were generated on 30-Oct-2023 at 16:33:56 using OpenFAST, compiled on Oct 23 2023 at 22:13:52 as a 64-bit application using single precision at commit unversioned
+Predictions were generated on 14-Nov-2023 at 14:36:53 using OpenFAST, compiled on Oct 31 2023 at 22:50:26 as a 64-bit application using single precision at commit unversioned
   run with
     NWTC Subroutine Library
     ElastoDyn
-    SeaState
-    HydroDyn
+    SubDyn
 Description from the FAST input file: 
   FAST Certification Test #24: NREL 5.0 MW Baseline Wind Turbine with OC3 Hywind Configuration, for use in offshore analysis
 
 Interpolation order for input/output time histories: 1 (linear)
 Number of correction iterations:  5
-Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     12
+Number of rows in Jacobian matrix used for coupling ElastoDyn, SubDyn, HydroDyn, OrcaFlex, ExtPtfm_MCKF, and/or BeamDyn:     30
 
 
    Requested Time Steps  
@@ -21,8 +20,7 @@ Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     1
   -----------------  ---------------  -------------
   FAST (glue code)     7.8667500E-02
   ElastoDyn            7.8667500E-02         1
-  SeaState             7.8667500E-02         1
-  HydroDyn             7.8667500E-02         1
+  SubDyn               7.8667500E-02         1
   FAST output files    7.8667500E-01        10^-1
 
 
@@ -113,46 +111,6 @@ Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     1
       81  TwHt1MLxt             (kN-m)                ElastoDyn
       82  TwHt1MLyt             (kN-m)                ElastoDyn
       83  TwHt1MLzt             (kN-m)                ElastoDyn
-      84  Wave1Elev             (m)                   SeaState
-      85  HydroFxi              (N)                   HydroDyn
-      86  HydroFyi              (N)                   HydroDyn
-      87  HydroFzi              (N)                   HydroDyn
-      88  HydroMxi              (N-m)                 HydroDyn
-      89  HydroMyi              (N-m)                 HydroDyn
-      90  HydroMzi              (N-m)                 HydroDyn
-      91  B1Surge               (m)                   HydroDyn
-      92  B1Sway                (m)                   HydroDyn
-      93  B1Heave               (m)                   HydroDyn
-      94  B1Roll                (rad)                 HydroDyn
-      95  B1Pitch               (rad)                 HydroDyn
-      96  B1Yaw                 (rad)                 HydroDyn
-      97  B1TVxi                (m/s)                 HydroDyn
-      98  B1TVyi                (m/s)                 HydroDyn
-      99  B1TVzi                (m/s)                 HydroDyn
-     100  B1RVxi                (rad/s)               HydroDyn
-     101  B1RVyi                (rad/s)               HydroDyn
-     102  B1RVzi                (rad/s)               HydroDyn
-     103  B1TAxi                (m/s^2)               HydroDyn
-     104  B1TAyi                (m/s^2)               HydroDyn
-     105  B1TAzi                (m/s^2)               HydroDyn
-     106  B1RAxi                (rad/s^2)             HydroDyn
-     107  B1RAyi                (rad/s^2)             HydroDyn
-     108  B1RAzi                (rad/s^2)             HydroDyn
-     109  B1WvsFxi              (N)                   HydroDyn
-     110  B1WvsFyi              (N)                   HydroDyn
-     111  B1WvsFzi              (N)                   HydroDyn
-     112  B1WvsMxi              (N-m)                 HydroDyn
-     113  B1WvsMyi              (N-m)                 HydroDyn
-     114  B1WvsMzi              (N-m)                 HydroDyn
-     115  B1HDSFxi              (N)                   HydroDyn
-     116  B1HDSFyi              (N)                   HydroDyn
-     117  B1HDSFzi              (N)                   HydroDyn
-     118  B1HDSMxi              (N-m)                 HydroDyn
-     119  B1HDSMyi              (N-m)                 HydroDyn
-     120  B1HDSMzi              (N-m)                 HydroDyn
-     121  B1RdtFxi              (N)                   HydroDyn
-     122  B1RdtFyi              (N)                   HydroDyn
-     123  B1RdtFzi              (N)                   HydroDyn
-     124  B1RdtMxi              (N-m)                 HydroDyn
-     125  B1RdtMyi              (N-m)                 HydroDyn
-     126  B1RdtMzi              (N-m)                 HydroDyn
+      84  M1N1TDXss             (m)                   SubDyn
+      85  M1N1TDYss             (m)                   SubDyn
+      86  M1N1TDZss             (m)                   SubDyn

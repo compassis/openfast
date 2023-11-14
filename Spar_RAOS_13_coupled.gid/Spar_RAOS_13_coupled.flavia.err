@@ -1,7 +1,6 @@
 
 
- ERROR DETECTED :
+ ERROR DETECTED IN SOURCE FILE "\repositories\nrel_stay\couplingsfof35_subdyn\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 519:
 
 
- -->	Cannot find input file "D:\Repositories\NREL_Stay\OpenFAST35\openfast\Spar_RAOS_13_coupled.gid\Spar_RAOS_13_coupled.flavia"
-"Programfailed"
+ -->	Start_time_recording must be larger than Initialization time for frequency analysis

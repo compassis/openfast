@@ -1,6 +1,0 @@
-
-
- ERROR DETECTED IN SOURCE FILE "\repositories\nrel_stay\couplingsfof35_subdyn\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 519:
-
-
- -->	Start_time_recording must be larger than Initialization time for frequency analysis

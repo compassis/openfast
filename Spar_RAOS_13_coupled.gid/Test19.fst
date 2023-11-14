@@ -14,9 +14,9 @@ False         Echo            - Echo input data to <RootName>.ech (flag)
           0   CompInflow      - Compute inflow wind velocities (switch) {0=still air; 1=InflowWind; 2=external from OpenFOAM}
           0   CompAero        - Compute aerodynamic loads (switch) {0=None; 1=AeroDyn v14; 2=AeroDyn v15}
           0   CompServo       - Compute control and electrical-drive dynamics (switch) {0=None; 1=ServoDyn}
-          1   CompSeaSt       - Compute sea state information (switch) {0=None; 1=SeaState}
-          1   CompHydro       - Compute hydrodynamic loads (switch) {0=None; 1=HydroDyn; 2=SeaFEM}
-          0   CompSub         - Compute sub-structural dynamics (switch) {0=None; 1=SubDyn; 2=External Platform MCKF}
+          0   CompSeaSt       - Compute sea state information (switch) {0=None; 1=SeaState}
+          2   CompHydro       - Compute hydrodynamic loads (switch) {0=None; 1=HydroDyn; 2=SeaFEM}
+          1   CompSub         - Compute sub-structural dynamics (switch) {0=None; 1=SubDyn; 2=External Platform MCKF}
           0   CompMooring     - Compute mooring system (switch) {0=None; 1=MAP++; 2=FEAMooring; 3=MoorDyn; 4=OrcaFlex}
           0   CompIce         - Compute ice loads (switch) {0=None; 1=IceFloe; 2=IceDyn}
           0   MHK             - MHK turbine type (switch) {0=Not an MHK turbine; 1=Fixed MHK turbine; 2=Floating MHK turbine}
@@ -40,7 +40,7 @@ False         Echo            - Echo input data to <RootName>.ech (flag)
 "NRELOffshrBsline5MW_OC3Hywind_ServoDyn.dat"    ServoFile       - Name of file containing control and electrical-drive input parameters (quoted string)
 "SeaState.dat"    SeaStFile       - Name of file containing sea state input parameters (quoted string)
 "NRELOffshrBsline5MW_OC3Hywind_HydroDyn.dat"    HydroFile       - Name of file containing hydrodynamic input parameters (quoted string)
-"unused"      SubFile         - Name of file containing sub-structural input parameters (quoted string)
+"NRELOffshrBsline5MW_OC3Hywind_SubDyn.dat"      SubFile         - Name of file containing sub-structural input parameters (quoted string)
 "NRELOffshrBsline5MW_OC3Hywind_MAP.dat"    MooringFile     - Name of file containing mooring system input parameters (quoted string)
 "unused"      IceFile         - Name of file containing ice input parameters (quoted string)
 ---------------------- OUTPUT --------------------------------------------------
