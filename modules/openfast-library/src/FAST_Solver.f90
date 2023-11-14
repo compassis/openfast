@@ -2821,6 +2821,7 @@ SUBROUTINE FullOpt1_InputOutputSolve( this_time, p_FAST, calcJacobian &
             END IF
          
          IF ( calcJacobian ) THEN
+             
             i = 0
             
             !...............................
@@ -3888,6 +3889,8 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
    ErrStat = ErrID_None
    ErrMsg  = ""
    
+   OtherSt_SF%flag_SeaFEM=0
+   
       !----------------------------------------------------------------------------------------------------
       ! Some record keeping stuff:
       !----------------------------------------------------------------------------------------------------      
@@ -3989,6 +3992,7 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
          IF ( p_FAST%CompHydro == Module_SF ) THEN 
             CALL SeaFEM_CalcOutput( this_time, u_SF, p_SF, OtherSt_SF, y_SF, ErrStat2, ErrMsg2 )
                CALL SetErrStat( ErrStat2, ErrMsg2, ErrStat, ErrMsg, RoutineName  )
+            !WRITE(*,*) "GlueCode ForceX = ", y_SF%SEAFEMMESH%FORCE
          END IF
          
          IF ( p_FAST%CompElast == Module_BD .and. BD_Solve_Option1) THEN
@@ -4023,6 +4027,10 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
          
          IF ( calcJacobian ) THEN
             i = 0
+            
+            IF ( u_SF%SeaFEMMesh%Committed ) THEN
+                OtherSt_SF%flag_SeaFEM=1
+            END IF 
             
             !...............................
             ! Get ElastoDyn's contribution:
@@ -4083,6 +4091,8 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
             !...............................             
             DO j=1,p_FAST%SizeJac_Opt1(4) !call SeaFEM_CalcOutput            
                i = i + 1 ! i = j + p_FAST%SizeJac_Opt1(2) + p_FAST%SizeJac_Opt1(3) 
+               
+               !WRITE(*,*) "GlueCode ForceX = ", y_SF%SEAFEMMESH%FORCE
 
                ! perturb u_SF:
                CALL SeaFEM_CopyInput(  u_SF, u_SF_perturb, MESH_UPDATECOPY, ErrStat2, ErrMsg2 )
@@ -4307,7 +4317,12 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
                   RETURN 
                END IF
             
-         END IF         
+         END IF   
+         
+        !Inform SeaFEM that now the correct step will come!!
+        IF ( u_SF%SeaFEMMesh%Committed ) THEN
+            OtherSt_SF%flag_SeaFEM=0
+        END IF 
             
          !-------------------------------------------------------------------------------------------------
          ! Solve for delta u: Jac*u_delta = - Fn_U_Resid
@@ -4596,7 +4611,11 @@ CONTAINS
             MeshMapData%SubstructureLoads_Tmp%Force  = MeshMapData%SubstructureLoads_Tmp%Force  + MeshMapData%SubstructureLoads_Tmp2%Force
             MeshMapData%SubstructureLoads_Tmp%Moment = MeshMapData%SubstructureLoads_Tmp%Moment + MeshMapData%SubstructureLoads_Tmp2%Moment   
             
-            !WRITE(*,*) "Force = ", MeshMapData%SubstructureLoads_Tmp%Force
+   !        MeshMapData%SubstructureLoads_Tmp%Force  = y_SF2%SeaFEMMesh%Force
+   !        MeshMapData%SubstructureLoads_Tmp%Moment = y_SF2%SeaFEMMesh%Moment
+
+            
+          !  WRITE(*,*) "Force = ", MeshMapData%SubstructureLoads_Tmp%Force
          
          END IF   
        

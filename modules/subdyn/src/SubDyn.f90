@@ -511,6 +511,9 @@ SUBROUTINE SD_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg )
       RRb2g(:,:) = 0.0_ReKi
       RRb2g(1:3,1:3) = Rb2g
       RRb2g(4:6,4:6) = Rb2g
+      
+      !WRITE(*,*) "SubDyn ForceX1 = ", u%TPMesh%Force
+      !WRITE(*,*) "SubDyn ForceX2 = ", u%LMesh%Force
      
       ! --------------------------------------------------------------------------------
       ! --- Output Meshes 2&3

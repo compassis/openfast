@@ -167,18 +167,20 @@ MODULE SeaFEM
         q       = reshape((/real(u%SeaFEMMesh%TranslationDisp(:,1),ReKi),rotdisp(:)/),(/6/))
         qdot    = reshape((/u%SeaFEMMesh%TranslationVel(:,1),u%SeaFEMMesh%RotationVel(:,1)/),(/6/))
         qdotdot = reshape((/u%SeaFEMMesh%TranslationAcc(:,1),u%SeaFEMMesh%RotationAcc(:,1)/),(/6/))   
-        
+    
         ! Updates SeaFEMs time step
         IF(OtherState%T==t)THEN
-             WRITE(*,*) "Simulation time = ",t
+            ! WRITE(*,*) "Simulation time = ",t
         ELSE
+            !WRITE(*,*) "displacements = ", q
             CALL UPDATE_SEAFEM() 
-             WRITE(*,*) "Simulation time = ",t
+            ! WRITE(*,*) "Simulation time = ",t
             OtherState%T=t
         END IF
         
         ! Data exchange between SeaFEM and OpenFAST (motions sent and loads received) 
         CALL EXCHANGE_DATA(q,qdot,qdotdot,SeaFEM_Return_Forces,OtherState%flag_SeaFEM)
+        !WRITE(*,*) "SeaFEM ForceX = ", SeaFEM_Return_Forces(1)
         
         ! Ends SeaFEM computation
         IF (t>=p%TMax) THEN
