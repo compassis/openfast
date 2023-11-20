@@ -1336,7 +1336,7 @@ SUBROUTINE Transfer_Structure_to_Opt1Inputs( this_time, this_state, p_FAST, y_ED
    IF (p_FAST%CompSub == Module_SD) THEN
       SubstructureMotion => SD%y%y3Mesh
       SubstructureMotion2HD => SD%y%y2Mesh
-      SubstructureMotion2SF => SD%y%y2Mesh
+      SubstructureMotion2SF => SD%y%y3Mesh
    ELSE
       SubstructureMotion => PlatformMotion
       SubstructureMotion2HD => PlatformMotion
@@ -4358,7 +4358,7 @@ SUBROUTINE SD_SF_InputOutputSolve( this_time, p_FAST, calcJacobian &
       PlatformMotionMesh_1 => y_ED%PlatformPtMesh
       if (p_FAST%CompSub == MODULE_SD) then
          SubStructureMotionMesh_1 => y_SD%y3Mesh
-         SubStructureMotionMesh2SF_1 => y_SD%y2Mesh
+         SubStructureMotionMesh2SF_1 => y_SD%y3Mesh
          
       else
          SubStructureMotionMesh_1 => y_ED%PlatformPtMesh
@@ -4492,7 +4492,7 @@ CONTAINS
    
       IF (p_FAST%CompSub == Module_SD) then
          SubstructureMotion => y_SD2%y3Mesh
-         SubstructureMotion2SF => y_SD2%y2Mesh
+         SubstructureMotion2SF => y_SD2%y3Mesh
          SD_LMesh => MeshMapData%SubstructureLoads_Tmp
       ELSE
          SubstructureMotion => y_ED2%PlatformPtMesh
@@ -6429,7 +6429,7 @@ SUBROUTINE InitModuleMappings(p_FAST, ED, BD, AD14, AD, HD, SF, SD, ExtPtfm, Srv
 #ifdef SubDyn_active      
    IF (p_FAST%CompSub == MODULE_SD) THEN 
       SubstructureMotion2HD => SD%y%y2Mesh
-      SubstructureMotion2SF => SD%y%y2Mesh
+      SubstructureMotion2SF => SD%y%y3Mesh
       SubstructureMotion    => SD%y%y3Mesh
       SubstructureLoads     => SD%Input(1)%LMesh
    ELSE ! all of these get mapped to ElastoDyn ! (offshore floating with rigid substructure)
