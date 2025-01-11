@@ -1,9 +1,9 @@
-﻿Multi-Turbine Coupling SeaFEM - OpenFAST3.5 
+2nd order Coupling SeaFEM - OpenFAST3.5 
 ========
 
 Dynamic link library of OpenFAST3.5 for the coupling with SeaFEM seakeeping solver.
-Enables simulations for multi-turbine platforms, this library controls the second turbine.
-Exchange is possible with ElastoDyn and SubDyn modules.
+Enables the solution including hydrodynamic second order effects. 
+This library accounts for the 2nd order correction.
 
 OpenFAST and FAST.Farm are maintained and developed by researchers and software
 engineers at the `National Renewable Energy Laboratory <http://www.nrel.gov/>`_
