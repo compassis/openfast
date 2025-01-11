@@ -1,6 +1,6 @@
 
 
- ERROR DETECTED IN SOURCE FILE "\repositories\nrel_stay\couplingsfof35_subdyn\tdynmph\seafem\wavesdomain_read.cpp" AT LINE NUMBER 519:
+ ERROR DETECTED IN SOURCE FILE "\repositories\repo_github_update\tdynmph\tdyncfd\input.cpp" AT LINE NUMBER 139:
 
 
- -->	Start_time_recording must be larger than Initialization time for frequency analysis
+ -->	Wrong "Global" card
