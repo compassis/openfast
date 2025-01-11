@@ -1,5 +1,5 @@
 SeaFEM Spectrum_file version 1.0
-NWaveComponents	31
+NWaveComponents	30
 TWaves	AWaves	GWaves	PWaves
 214.815	0.05	0	0.263894
 161.111	0.05	0	2.94053
@@ -31,4 +31,3 @@ TWaves	AWaves	GWaves	PWaves
 21.4815	0.05	0	4.50504
 20.7885	0.05	0	4.51761
 20.1389	0.05	0	5.62973
-19.5286	0.05	0	2.81487

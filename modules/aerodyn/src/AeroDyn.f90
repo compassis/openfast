@@ -19,6 +19,9 @@
 !
 !**********************************************************************************************************************************
 !> AeroDyn is a time-domain aerodynamics module for horizontal-axis wind turbines.
+
+#define SeaFEM_active   
+    
 module AeroDyn
     
    use NWTC_Library
@@ -31,6 +34,9 @@ module AeroDyn
    use UnsteadyAero
    use FVW
    use FVW_Subs, only: FVW_AeroOuts
+#ifdef SeaFEM_active
+   use SeaFEM
+#endif
    
    implicit none
 

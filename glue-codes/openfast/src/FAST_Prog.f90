@@ -27,7 +27,7 @@
 
 MODULE PROGRAMFAST
     CONTAINS
-    SUBROUTINE FAST(inputfile,inlen) BIND(C,name="FAST")
+    SUBROUTINE FAST(inputfile,inlen) BIND(C,name="FAST1")
     
 #endif
 
@@ -45,7 +45,7 @@ USE FAST_Subs   ! all of the ModuleName and ModuleName_types modules are inherit
 USE FAST_SS_Subs, ONLY : FAST_RunSteadyStateDriver
 
 IMPLICIT  NONE
-!DEC$ ATTRIBUTES DLLEXPORT :: FAST     
+!DEC$ ATTRIBUTES DLLEXPORT :: FAST1     
    ! Local parameters:
 REAL(DbKi),             PARAMETER     :: t_initial = 0.0_DbKi                    ! Initial time
 INTEGER(IntKi),         PARAMETER     :: NumTurbines = 1                         ! Note that CalcSteady linearization analysis and WrVTK_Modes should be performed with only 1 turbine

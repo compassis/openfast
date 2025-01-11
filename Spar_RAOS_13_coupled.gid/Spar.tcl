@@ -1,7 +1,25 @@
 
 proc TdynTcl_InitiateProblem { } {
 
-
+	set SingleTurbineFast 1	
+	
+	if { $SingleTurbineFast == 0 } {
+		TdynTcl_Message "No FAST Turbine" notice
+	} else {
+		TdynTcl_Message "Setting FAST Turbine" notice		
+		set OFast_Ref_x 0.0
+		set OFast_Ref_y 0.0
+		set OFast_Ref_z 0.0
+		set x_hub -5.0
+		set y_hub 0.0
+		set z_hub 90.0
+		set Platform_Ixy 0.0
+		set Platform_Ixz 0.0
+		set Platform_Iyz 0.0
+		TdynTcl_Set_OpenFast_Turbine $OFast_Ref_x $OFast_Ref_y $OFast_Ref_z $x_hub $y_hub $z_hub $Platform_Ixy $Platform_Ixz $Platform_Iyz
+		TdynTcl_Message "End Setting FAST Turbine" notice
+	}
+	
     configure_analysis Solve_Dif_Rad 1
     #  TdynTcl_Message "Solve_dif_rad set to 0!" notice
 	###### Mass matrix of spar buoy OC3 ######

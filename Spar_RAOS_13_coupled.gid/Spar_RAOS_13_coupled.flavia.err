@@ -1,6 +1,6 @@
 
 
- ERROR DETECTED IN SOURCE FILE "\repositories\repo_github_update\tdynmph\tdyncfd\input.cpp" AT LINE NUMBER 139:
+ ERROR DETECTED IN SOURCE FILE "\repositories\repo_github_update\tdynmph\common\reavec.h" AT LINE NUMBER 417:
 
 
- -->	Wrong "Global" card
+ -->	Index out of range in ReaVec[]. Length=0 index=0
