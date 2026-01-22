@@ -10,10 +10,9 @@ MODULE SeaFEM
    !DEC$ ATTRIBUTES C, EXTERN, DLLIMPORT :: Fast_waves_global
    TYPE(C_FUNPTR) :: proc
    INTEGER(C_INTPTR_T) :: module_handle
-   PROCEDURE(TURBINE_POSITION2), pointer :: T_POS2
-   PROCEDURE(ROTOR_FORCES2), pointer :: AD_LOADS2
-   PROCEDURE(EXCHANGE_FAST_DATA2), pointer :: EXCHANGE_DATA2
-   PROCEDURE(RUNNING_FAST_UPDATE2), pointer :: UPDATE_SEAFEM2
+   PROCEDURE(ROTOR_FORCES2_2nd), pointer :: AD_LOADS2_2nd
+   PROCEDURE(EXCHANGE_FAST_DATA2_2nd), pointer :: EXCHANGE_DATA2_2nd
+   PROCEDURE(RUNNING_FAST_UPDATE2_2nd), pointer :: UPDATE_SEAFEM2_2nd
 
    PRIVATE
 
@@ -25,39 +24,31 @@ MODULE SeaFEM
    
    PUBLIC :: AeroSeaFEM_CalcOutput
    
-   PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs 
- 
-    ABSTRACT INTERFACE
-        SUBROUTINE TURBINE_POSITION2(Position) BIND(C)
-        USE ISO_C_BINDING
-        IMPLICIT NONE
-        REAL(C_FLOAT), INTENT(OUT), DIMENSION(*) :: Position
-        END SUBROUTINE TURBINE_POSITION2
-    END INTERFACE     
+   PUBLIC :: SeaFEM_CalcOutput                     ! Routine for computing outputs     
     
    ABSTRACT INTERFACE
-        SUBROUTINE ROTOR_FORCES2(AeroLoads) BIND(C)
+        SUBROUTINE ROTOR_FORCES2_2nd(AeroLoads) BIND(C)
         USE ISO_C_BINDING
         IMPLICIT NONE
         REAL(C_FLOAT), INTENT(OUT), DIMENSION(*) :: AeroLoads
-        END SUBROUTINE ROTOR_FORCES2
+        END SUBROUTINE ROTOR_FORCES2_2nd
     END INTERFACE  
    
    ABSTRACT INTERFACE
-        SUBROUTINE EXCHANGE_FAST_DATA2(q,qdot,qdotdot,SeaFEM_Return_Forces,flag) BIND(C)
+        SUBROUTINE EXCHANGE_FAST_DATA2_2nd(q,qdot,qdotdot,SeaFEM_Return_Forces,flag) BIND(C)
         USE ISO_C_BINDING
         IMPLICIT NONE
         REAL(C_FLOAT), INTENT(OUT), DIMENSION(*) :: q,qdot,qdotdot
         REAL(C_FLOAT), INTENT(IN), DIMENSION(*)  :: SeaFEM_Return_Forces
         INTEGER(C_INT), INTENT(OUT)              :: flag
-        END SUBROUTINE EXCHANGE_FAST_DATA2
-    END INTERFACE
+        END SUBROUTINE EXCHANGE_FAST_DATA2_2nd
+   END INTERFACE 
     
     ABSTRACT INTERFACE
-        SUBROUTINE RUNNING_FAST_UPDATE2() BIND(C)
+        SUBROUTINE RUNNING_FAST_UPDATE2_2nd() BIND(C)
         USE ISO_C_BINDING
         IMPLICIT NONE
-        END SUBROUTINE RUNNING_FAST_UPDATE2
+        END SUBROUTINE RUNNING_FAST_UPDATE2_2nd
     END INTERFACE 
    
     INTERFACE 
@@ -110,19 +101,6 @@ MODULE SeaFEM
         ! Define initial system states here:
         OtherState%T               = 0.0
         OtherState%Out_Flag        = 0
-        
-        ! Obtain Turbine Coordinates
-        Position(1) = 0.0
-        Position(2) = 0.0
-        Position(3) = 0.0
-        
-        ! Load exported porcedure from SeaFEM
-        module_handle=LoadLibrary(C_NULL_CHAR)
-        proc=GetProcAddress(module_handle,"Turbine_Position2"C)
-        CALL C_F_PROCPOINTER(proc,T_POS2) 
-        
-        ! Sends turbine position to SeaFEM
-        CALL T_POS2(Position) 
       
         ! Create the input mesh to store platform motions
         CALL MeshCreate( BlankMesh         = u%SeaFEMMesh      &
@@ -170,8 +148,8 @@ MODULE SeaFEM
         
         ! Load exported porcedure for data reception in SeaFEM
         module_handle=LoadLibrary(C_NULL_CHAR)
-        proc=GetProcAddress(module_handle,"Rotor_Forces2"C)
-        CALL C_F_PROCPOINTER(proc,AD_LOADS2)        
+        proc=GetProcAddress(module_handle,"Rotor_Forces2_2nd"C)
+        CALL C_F_PROCPOINTER(proc,AD_LOADS2_2nd)     
         
         ! Computed loads from AeroDyn at the hub reference (no rotation) (6 iterations for time step increment)
         AeroLoads(1) = m%ROTORS(1)%ALLOUTS(1481)  
@@ -182,7 +160,7 @@ MODULE SeaFEM
         AeroLoads(6) = m%ROTORS(1)%ALLOUTS(1487)    
         
         ! Aerodynamic loads data sent to SeaFEM
-        CALL AD_LOADS2(AeroLoads)   
+        CALL AD_LOADS2_2nd(AeroLoads)  
    
    END SUBROUTINE AeroSeaFEM_CalcOutput
 
@@ -206,10 +184,10 @@ MODULE SeaFEM
         
         ! Load exported procedures from SeaFEM
         module_handle=LoadLibrary(C_NULL_CHAR)
-        proc=GetProcAddress(module_handle,"Exchange_Fast_Data2"C)
-        CALL C_F_PROCPOINTER(proc,EXCHANGE_DATA2)
-        proc=GetProcAddress(module_handle,"Running_Fast_Update2"C)
-        CALL C_F_PROCPOINTER(proc,UPDATE_SEAFEM2)
+        proc=GetProcAddress(module_handle,"Exchange_Fast_Data2_2nd"C)
+        CALL C_F_PROCPOINTER(proc,EXCHANGE_DATA2_2nd)
+        proc=GetProcAddress(module_handle,"Running_Fast_Update2_2nd"C)
+        CALL C_F_PROCPOINTER(proc,UPDATE_SEAFEM2_2nd)  
         
         ! Determine the rotational angles from the direction-cosine matrix
         rotdisp = GetSmllRotAngs( u%SeaFEMMesh%Orientation(:,:,1), ErrStat, ErrMsg )              
@@ -224,13 +202,13 @@ MODULE SeaFEM
             ! WRITE(*,*) "Simulation time = ",t
         ELSE
             !WRITE(*,*) "displacements = ", q
-            CALL UPDATE_SEAFEM2() 
+            CALL UPDATE_SEAFEM2_2nd() 
             ! WRITE(*,*) "Simulation time = ",t
             OtherState%T=t
         END IF
         
         ! Data exchange between SeaFEM and OpenFAST (motions sent and loads received) 
-        CALL EXCHANGE_DATA2(q,qdot,qdotdot,SeaFEM_Return_Forces,OtherState%flag_SeaFEM)
+        CALL EXCHANGE_DATA2_2nd(q,qdot,qdotdot,SeaFEM_Return_Forces,OtherState%flag_SeaFEM)
         !WRITE(*,*) "SeaFEM ForceX = ", SeaFEM_Return_Forces(1)     
         
         ! SeaFEM loads are stored in the output mesh
